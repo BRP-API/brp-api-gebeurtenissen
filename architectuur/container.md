@@ -1,30 +1,45 @@
 ```mermaid
-    flowchart TD
+graph LR
+  linkStyle default fill:#ffffff
 
-    MutApi -- muteert --> BRP[(BRP)]
-    CDC  -- afvangen van persoon mutaties --> BRP
+  subgraph diagram ["BRP Gebeurtenissen en Notificaties - Containers"]
+    style diagram fill:#ffffff,stroke:#ffffff
 
-    subgraph "BRP Gebeurtenissen en Notificaties Systeem"
-        direction LR
+    1("<div style='font-weight: bold'>BRP</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>")
+    style 1 fill:#dddddd,stroke:#0773af,color:#0773af
+    11("<div style='font-weight: bold'>BRP Afnemers</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>")
+    style 11 fill:#dddddd,stroke:#0773af,color:#0773af
 
-        MutApi[Mutatie API voor test/acceptatie doeleinden]
-        CDC[Change Data Capture Tool]
-        ES[(Event Store)]
-        NP[Notificatie Publisher]
-        MB[Message Broker]
-        GebApi[Gebeurtenissen API]
-        SubApi[Abonnementen API]
-        SubApi -- beheert abonnement in --> SubDb[(Abonnementen DB)]
+    subgraph 2 ["BRP Gebeurtenissen en Notificaties"]
+      style 2 fill:#ffffff,stroke:#0773af,color:#0773af
 
-        CDC -- vertaalt mutaties naar gebeurtenissen --> ES
-        NP -- haalt gebeurtenissen op in --> ES
-        NP -- haalt abonnementen op in --> SubApi
-        NP -- publiceert notificaties voor afnemers in --> MB
-
-        GebApi -- haalt gebeurtenis op uit --> ES
+      10[("<div style='font-weight: bold'>Abonnementen Database</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")]
+      style 10 fill:#dddddd,stroke:#0773af,color:#0773af
+      3("<div style='font-weight: bold'>Change Data Capture Tool</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
+      style 3 fill:#dddddd,stroke:#0773af,color:#0773af
+      4[("<div style='font-weight: bold'>Event Store</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")]
+      style 4 fill:#dddddd,stroke:#0773af,color:#0773af
+      5("<div style='font-weight: bold'>Notificaties Publisher</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
+      style 5 fill:#dddddd,stroke:#0773af,color:#0773af
+      6("<div style='font-weight: bold'>Message Broker</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
+      style 6 fill:#dddddd,stroke:#0773af,color:#0773af
+      7("<div style='font-weight: bold'>Mutatie API voor test/acceptatie doeleinden</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>Spring Boot & Kotlin</div>")
+      style 7 fill:#dddddd,stroke:#0773af,color:#0773af
+      8("<div style='font-weight: bold'>Gebeurtenissen API</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>Spring Boot & Kotlin Filter<br />velden op basis van<br />autorisatie en protocolleer</div>")
+      style 8 fill:#dddddd,stroke:#0773af,color:#0773af
+      9("<div style='font-weight: bold'>Abonnementen API</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
+      style 9 fill:#dddddd,stroke:#0773af,color:#0773af
     end
 
-    BRPAfn -- abonneert op gebeurtenissen met --> SubApi
-    BRPAfn[BRP Afnemers] -- haalt notificaties op uit --> MB
-    BRPAfn -- bevraagt gebeurtenis met --> GebApi
-```
+    11-. "<div>abonneert op gebeurtenissen<br />met</div><div style='font-size: 70%'></div>" .->9
+    9-. "<div>leest en schrijft<br />abonnementen in</div><div style='font-size: 70%'></div>" .->10
+    7-. "<div>muteert gegevens van personen</div><div style='font-size: 70%'></div>" .->1
+    1-. "<div>afvangen van persoon mutaties</div><div style='font-size: 70%'></div>" .->3
+    3-. "<div>vertaalt mutaties naar<br />gebeurtenissen en publiceer<br />in</div><div style='font-size: 70%'></div>" .->4
+    4-. "<div>haalt gebeurtenissen op bij</div><div style='font-size: 70%'></div>" .->5
+    5-. "<div>haalt abonnementen voor<br />gebeurtenis op bij</div><div style='font-size: 70%'></div>" .->9
+    5-. "<div>vertaalt gebeurtenis naar<br />notificatie en publiceer in</div><div style='font-size: 70%'></div>" .->6
+    11-. "<div>haalt notificaties op bij</div><div style='font-size: 70%'></div>" .->6
+    11-. "<div>bevraagt gebeurtenis bij</div><div style='font-size: 70%'></div>" .->8
+    8-. "<div>haalt gebeurtenis op bij</div><div style='font-size: 70%'></div>" .->4
+  end```
