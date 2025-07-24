@@ -33,7 +33,7 @@ graph LR
 
     11-. "<div>abonneert op gebeurtenissen<br />met</div><div style='font-size: 70%'></div>" .->9
     9-. "<div>leest en schrijft<br />abonnementen in</div><div style='font-size: 70%'></div>" .->10
-    7-. "<div>muteert gegevens van personen</div><div style='font-size: 70%'></div>" .->1
+    7-. "<div>muteert gegevens van personen<br />in test</div><div style='font-size: 70%'></div>" .->1
     1-. "<div>afvangen van persoon mutaties</div><div style='font-size: 70%'></div>" .->3
     3-. "<div>vertaalt mutaties naar<br />gebeurtenissen en publiceer<br />in</div><div style='font-size: 70%'></div>" .->4
     4-. "<div>haalt gebeurtenissen op bij</div><div style='font-size: 70%'></div>" .->5
@@ -42,4 +42,5 @@ graph LR
     11-. "<div>haalt notificaties op bij</div><div style='font-size: 70%'></div>" .->6
     11-. "<div>bevraagt gebeurtenis bij</div><div style='font-size: 70%'></div>" .->8
     8-. "<div>haalt gebeurtenis op bij</div><div style='font-size: 70%'></div>" .->4
-  end```
+  end
+```

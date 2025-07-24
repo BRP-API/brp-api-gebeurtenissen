@@ -1,10 +1,10 @@
-workspace "Name" "Description"
+workspace "BRP Gebeurtenissen en Notificaties" "Vertalen van data mutaties in de BRP naar gebeurtenissen en afnemers notificeren over deze gebeurtenissen" {
 
     !identifiers hierarchical
 
     model {
         BRP = softwareSystem "BRP"
-        BRPGN = softwareSystem "BRP Gebeurtenissen en Notificaties" {
+        BRPGN = softwareSystem "BRP Gebeurtenissen en Notificaties" "Vertalen van data mutaties in de BRP naar gebeurtenissen en afnemers notificeren over deze gebeurtenissen" {
             CDC = container "Change Data Capture Tool"
             ES = container "Event Store" {
                 tags "Database"
@@ -26,7 +26,7 @@ workspace "Name" "Description"
 
         BRPAfn -> BRPGN.SubApi "abonneert op gebeurtenissen met"
         BRPGN.SubApi -> BRPGN.SubDb "leest en schrijft abonnementen in"
-        BRPGN.MutApi -> BRP "muteert gegevens van personen"
+        BRPGN.MutApi -> BRP "muteert gegevens van personen in test"
         BRP -> BRPGN.CDC "afvangen van persoon mutaties"
         BRPGN.CDC -> BRPGN.ES "vertaalt mutaties naar gebeurtenissen en publiceer in"
         BRPGN.ES -> BRPGN.NP "haalt gebeurtenissen op bij"
