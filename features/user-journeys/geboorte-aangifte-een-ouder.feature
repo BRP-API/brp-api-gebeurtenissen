@@ -49,6 +49,12 @@ Functionaliteit: Geboorteaangifte
     Scenario: geboorteaangifte
       Dan is een 'GeboorteAangegeven' gebeurtenis voor 'Piet' gepubliceerd
 
+  Regel: Een 'GeboorteBijgeschreven' gebeurtenis is gepubliceerd voor de ouder
+    Een afnemer die genotificeerd wil over gezinswijzigingen bij een persoon moet zich abonneren op o.a. 'GeboorteBijgeschreven' gebeurtenissen van de betreffende persoon
+
+    Scenario: geboorteaangifte
+      Dan is een 'GeboorteBijgeschreven' gebeurtenis voor 'Saskia' gepubliceerd
+
   Regel: Abonnees van 'GeboorteAangegeven' gebeurtenissen zijn genotificeerd
 
     Scenario: geboorteaangifte
