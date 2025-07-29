@@ -1,0 +1,8 @@
+= Event Storming
+
+image::./png/events-1.png[]
+image::./png/events-2.png[]
+image::./png/events-3.png[]
+image::./png/events-4.png[]
+image::./png/events-5.png[]
+image::./png/events-6.png[]
