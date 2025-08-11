@@ -1,9 +1,9 @@
 # language: nl
-Functionaliteit: Adres mutaties
+Functionaliteit: Adres specificeren
 
-  Scenario: definiëren van standaard adres
+  Scenario: specificeren van een standaard adres
     Gegeven adres 'A1'
-    Dan is een rij met de volgende gegevenstoegevoegd in tabel 'lo3_adres'
+    Dan is een rij met de volgende gegevens toegevoegd in tabel 'lo3_adres'
       | naam                       | waarde           |
       | gemeente_code              |             0518 |
       | verblijf_plaats_ident_code | 0518010051001502 |
@@ -12,7 +12,7 @@ Functionaliteit: Adres mutaties
       | huis_nr                    |              321 |
       | straat_naam                | Hoofdstraat      |
 
-  Scenario: definiëren van adres met alle op te geven velden
+  Scenario: specificeren van een adres met behulp van alle velden die kan worden opgegeven
     Gegeven adres 'A2' heeft de volgende gegevens
       | naam                             | waarde           |
       | gemeentecode                     |             0599 |
@@ -26,7 +26,7 @@ Functionaliteit: Adres mutaties
       | huisnummertoevoeging             | III              |
       | aanduidingBijHuisnummer          | to               |
       | woonplaats                       | Den Haag         |
-    Dan is een rij met de volgende gegevenstoegevoegd in tabel 'lo3_adres'
+    Dan is een rij met de volgende gegevens toegevoegd in tabel 'lo3_adres'
       | naam                       | waarde           |
       | gemeente_code              |             0599 |
       | verblijf_plaats_ident_code | 0599010051001502 |
