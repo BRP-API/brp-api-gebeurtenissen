@@ -17,11 +17,11 @@ Functionaliteit: Inschrijven in gemeente
 
   De als-stap: 
   Als de afnemer de gebeurtenissen met type 'PersoonIngeschreven' over 'Jan' raadpleegt 
-  is een query naar de Gebeurtenis API
+  is een request naar de Gebeurtenis API
 
   De als-stap: 
   Als de afnemer de gebeurtenissen met type 'PersoonIngeschreven' in gemeente 's-Gravenhage' vanaf datum '2025-07-01' raadpleegt 
-  is een query naar de Gebeurtenis API
+  is een request naar de Gebeurtenis API
 
   Scenario: Inschrijving via de mutatie api levert gegevens op die in de BRP database worden opgeslagen
     Gegeven persoon 'Jan' heeft de volgende gegevens
@@ -56,14 +56,14 @@ Functionaliteit: Inschrijven in gemeente
       |  1 | PersoonIngeschreven | 20250701 |           000000012 | A1       |          0518 |                 20250701 |
     Als de afnemer de gebeurtenissen met type 'PersoonIngeschreven' over 'Jan' raadpleegt
     Dan bevat de response een gebeurtenis met de volgende gegevens
-      | id | type                | datum      | burgerservicenummer | gemeentecode | adres_id | adreshouding_start_datum |
-      |  1 | PersoonIngeschreven | 20250701 |           000000012 |         0518 | A1       |                 20250701 |
-      
+      | id | type                | datum    | burgerservicenummer | adres_id | gemeente_code | adreshouding_start_datum |
+      |  1 | PersoonIngeschreven | 20250701 |           000000012 | A1       |          0518 |                 20250701 |
+
   Scenario: Afnemer raadpleegt de Gebeurtenis API met type gebeurtenis per gemeente vanaf datum
     Gegeven de gebeurtenis opslag bevat de volgende gebeurtenis
       | id | type                | datum    | burgerservicenummer | adres_id | gemeente_code | adreshouding_start_datum |
       |  1 | PersoonIngeschreven | 20250701 |           000000012 | A1       |          0518 |                 20250701 |
     Als de afnemer de gebeurtenissen met type 'PersoonIngeschreven' in gemeente 's-Gravenhage' vanaf datum '2025-07-01' raadpleegt
     Dan bevat de response een gebeurtenis met de volgende gegevens
-      | id | type                | datum      | burgerservicenummer | gemeentecode | adres_id | adreshouding_start_datum |
-      |  1 | PersoonIngeschreven | 20250701 |           000000012 |         0518 | A1       |                 20250701 |
+      | id | type                | datum    | burgerservicenummer | adres_id | gemeente_code | adreshouding_start_datum |
+      |  1 | PersoonIngeschreven | 20250701 |           000000012 | A1       |          0518 |                 20250701 |
