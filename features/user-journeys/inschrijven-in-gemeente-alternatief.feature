@@ -1,14 +1,15 @@
 # language: nl
 Functionaliteit: Inschrijven in gemeente
-
   Deze feature beschrijft wat een afnemer ziet bij het publiceren van de gebeurtenis 'PersoonIngeschreven'.
+
+  Achtergrond:
+    Gegeven persoon 'Jan' heeft de volgende gegevens
+      | burgerservicenummer | geslachtsnaam | voornamen | geboortedatum | geslacht |
+      |           000000012 | Janssen       | Jan       |    1980-01-01 | M        |
 
   Regel: Inschrijving in de BRP leidt tot de gebeurtenis 'PersoonIngeschreven'
 
     Scenario: Inschrijving van een persoon
-      Gegeven persoon 'Jan' heeft de volgende gegevens
-        | burgerservicenummer | geslachtsnaam | voornamen | geboortedatum | geslacht |
-        |           000000012 | Janssen       | Jan       |    1980-01-01 | M        |
       Als 'Jan' wordt ingeschreven in de BRP
       Dan wordt de gebeurtenis 'PersoonIngeschreven' gepubliceerd
 
