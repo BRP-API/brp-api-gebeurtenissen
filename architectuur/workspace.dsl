@@ -5,7 +5,6 @@ workspace "BRP Gebeurtenissen en Notificaties" "Vertalen van data mutaties in de
     model {
         BRP = softwareSystem "BRP"
         BRPGN = softwareSystem "BRP Gebeurtenissen en Notificaties" "Vertalen van data mutaties in de BRP naar gebeurtenissen en afnemers notificeren over deze gebeurtenissen" {
-            CDC = container "Change Data Capture Tool"
             ES = container "Event Store" {
                 Description "Opslag van zowel interne als externe events"
                 tags "Database"
@@ -37,6 +36,18 @@ workspace "BRP Gebeurtenissen en Notificaties" "Vertalen van data mutaties in de
         }
         BRPAfn = softwareSystem "BRP Afnemers"
 
+        BRPAfn -> BRPGN.SubApi "abonneert op gebeurtenis types met"
+        BRPGN.SubApi -> BRPGN.SubDb "leest en schrijft abonnementen in"
+        BRPAfn -> BRPGN.MutApi "muteert persoon/adres in LAP/proefomgeving met"
+        BRPGN.MutApi -> BRPGN.ES "publiceert (interne) gebeurtenissen in LAP/proefomgeving in"
+        BRP -> BRPGN.ES "vertaalt mutaties naar (interne) gebeurtenissen en publiceer in"
+        BRPGN.ES -> BRPGN.NP "consumeert (interne) gebeurtenissen bij"
+        BRPGN.NP -> BRPGN.SubApi "haalt abonnementen voor gebeurtenis op bij"
+        BRPGN.NP -> BRPGN.MB "vertaalt gebeurtenis naar notificatie en publiceer in"
+        BRPAfn -> BRPGN.MB "haalt notificaties op bij"
+        BRPAfn -> BRPGN.EvtApi "bevraagt gebeurtenis bij"
+        BRPGN.EvtApi -> BRPGN.ES "haalt gebeurtenis op bij"
+
         BRP_B = softwareSystem "BRP Berichten API" "Uitwisselen van berichten tussen BRP-V en afnemers"
         BRPGN.ConApi -> BRP_B "pollt voor (nieuwe) berichten"
         BRPGN.ConApi -> BRPGN.ES "converteert bericht naar intern event"
@@ -44,18 +55,7 @@ workspace "BRP Gebeurtenissen en Notificaties" "Vertalen van data mutaties in de
         BRPGN.BewEvtApi -> BRPGN.ES "publiceert gebeurtenis \n (extern event)"
         BRPGN.ES -> BRPGN.BewEvtApi "luistert naar interne events"
 
-        BRPAfn -> BRPGN.SubApi "abonneert op gebeurtenissen met"
-        BRPGN.SubApi -> BRPGN.SubDb "leest en schrijft abonnementen in"
-        BRPGN.MutApi -> BRP "muteert gegevens van personen in test"
         BRPGN.ConApi -> BRPGN.MutApi "Pollt mock BRP Bericht test-case"
-        BRP -> BRPGN.CDC "afvangen van persoon mutaties"
-        BRPGN.CDC -> BRPGN.ES "vertaalt mutaties naar gebeurtenissen en publiceer in"
-        BRPGN.ES -> BRPGN.NP "haalt gebeurtenissen op bij"
-        BRPGN.NP -> BRPGN.SubApi "haalt abonnementen voor gebeurtenis op bij"
-        BRPGN.NP -> BRPGN.MB "vertaalt gebeurtenis naar notificatie en publiceer in"
-        BRPAfn -> BRPGN.MB "haalt notificaties op bij"
-        BRPAfn -> BRPGN.EvtApi "bevraagt gebeurtenis bij"
-        BRPGN.EvtApi -> BRPGN.ES "haalt gebeurtenis op bij"
 
         GN = softwareSystem "BRP Gebeurtenissen en notificaties naar afnemers" {
             gnApi = container "Gebeurtenissen API" {
@@ -107,7 +107,6 @@ workspace "BRP Gebeurtenissen en Notificaties" "Vertalen van data mutaties in de
         }
 
         container BRPGN "ContainerDiagram1" {
-            include BRPGN.CDC
             include BRPGN.ES
             include BRPGN.NP
             include BRPGN.MB
