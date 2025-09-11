@@ -29,7 +29,7 @@ Functionaliteit: Gebeurtenis "kindgegevens-toegevoegd"
         | geboorteland (03.30)        |      6030 |
         | geslachtsaanduiding (04.10) | M         |
         | aktenummer (81.20)          |   1XA1234 |
-      Als de 1e inschrijving BRP van 'Jan' is verwerkt
+      Als de 1e inschrijving BRP van 'Piet' is verwerkt
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
         | naam  | waarde                  |
         | type  | kindgegevens-toegevoegd |
