@@ -14,10 +14,10 @@ Functionaliteit: Gebeurtenis "kindgegevens-toegevoegd"
 # - Opnemen kindgegevens bij adoptie ongeboren vrucht
 
     Scenario: Kindgegevens opgenomen bij eerste inschrijving van een persoon die ouder is van één kind
-      Gegeven de persoon 'Piet' met PL id 1 heeft de volgende gegevens
+      Gegeven de 1e inschrijving BRP van 'Piet' 
+      * heeft de volgende gegevens
         | anummer (01.10) | burgerservicenummer (01.20) | voornamen (02.10) | geslachtsnaam (02.40) | geboortedatum (03.10) | geslachtsaanduiding (04.10) |
         |      0000000002 |                   000000024 | Piet              | Boer                  |            24-07-1996 | M                           |
-      En de 1e inschrijving BRP van 'Piet'
       * heeft de volgende 'kind' gegevens
         | naam                        | waarde    |
         | burgerservicenummer (01.20) | 000000036 |
@@ -28,7 +28,7 @@ Functionaliteit: Gebeurtenis "kindgegevens-toegevoegd"
         | geboorteland (03.30)        |      6030 |
         | geslachtsaanduiding (04.10) | M         |
         | aktenummer (81.20)          |   1XA1234 |
-      Als de 1e inschrijving BRP van 'Piet' is verwerkt
+      Als de 1e inschrijving BRP van 'Piet' is verwerkt met PL id 1
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
         | naam           | waarde                         |
         | specversion    |                            1.0 |
