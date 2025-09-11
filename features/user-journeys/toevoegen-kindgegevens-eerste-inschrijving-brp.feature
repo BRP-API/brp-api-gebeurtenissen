@@ -18,7 +18,7 @@ Functionaliteit: Gebeurtenis "kindgegevens-toegevoegd"
       Gegeven de persoon 'Piet' met PL id 1 heeft de volgende gegevens
         | anummer (01.10) | burgerservicenummer (01.20) | voornamen (02.10) | geslachtsnaam (02.40) | geboortedatum (03.10) | geslachtsaanduiding (04.10) |
         |      0000000002 |                   000000024 | Piet              | Boer                  |            24-07-1996 | M                           |
-      En de 1e inschrijving BRP van 'Jan'
+      En de 1e inschrijving BRP van 'Piet'
       * heeft de volgende 'kind' gegevens
         | naam                        | waarde    |
         | burgerservicenummer (01.20) | 000000036 |
