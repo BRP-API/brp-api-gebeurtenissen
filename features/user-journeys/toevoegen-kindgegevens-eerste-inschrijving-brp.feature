@@ -30,10 +30,13 @@ Functionaliteit: Gebeurtenis "kindgegevens-toegevoegd"
         | aktenummer (81.20)          |   1XA1234 |
       Als de 1e inschrijving BRP van 'Piet' is verwerkt
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam           | waarde                  |
-        | type           | kindgegevens-toegevoegd |
-        | pl_id          |                       1 |
-        | stapel_nr_kind |                       1 |
+        | naam           | waarde                         |
+        | specversion    |                            1.0 |
+        | type           | nl.brp.kindgegevens-toegevoegd |
+        | id             | guid                           |
+        | time           | timestamp-utc                  |
+        | pl_id          |                              1 |
+        | stapel_nr_kind |                              1 |
 
     Scenario: Kindgegevens zijn opgenomen bij een persoon
       Gegeven de persoon 'Piet' heeft de volgende gegevens
