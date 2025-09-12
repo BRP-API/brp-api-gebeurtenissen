@@ -1,8 +1,8 @@
 # language: nl
 Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
 
-  Regel: Een wijziging in de BRP is gebeurtenis "eerste-inschrijving" wanneer een persoon voor het eerst wordt ingeschreven in de BRP of RNI
-    Een wijziging is gebeurtenis "eerste-inschrijving" wanneer de verschillen analyse bevat geen was-situatie, of PL-versienummer=1
+  Regel: Een wijziging in de BRP is gebeurtenis "ingeschreven" wanneer een persoon voor het eerst wordt ingeschreven in de BRP of RNI
+    Een wijziging is gebeurtenis "ingeschreven" wanneer de verschillen analyse bevat geen was-situatie, of PL-versienummer=1
 
     Scenario: Kind is geboren in Nederland met twee ouders
       Gegeven de 1e inschrijving BRP van 'Jan'
@@ -38,12 +38,12 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
         | datum van opneming (86.10)                 | vandaag             |
       Als de 1e inschrijving BRP van 'Jan' is verwerkt met PL id 1
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam        | waarde                     |
-        | specversion |                        1.0 |
-        | type        | nl.brp.eerste-inschrijving |
-        | id          | guid                       |
-        | time        | timestamp-utc              |
-        | pl_id       |                          1 |
+        | naam        | waarde              |
+        | specversion |                 1.0 |
+        | type        | nl.brp.ingeschreven |
+        | id          | guid                |
+        | time        | timestamp-utc       |
+        | pl_id       |                   1 |
 
     Scenario: Persoon wordt ingeschreven als niet-ingezetene in het RNI
       Gegeven de 1e inschrijving BRP van 'Jan'
@@ -68,12 +68,12 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
         | regel 2 adres buitenland (13.40)       | 2000 Antwerpen |
       Als de 1e inschrijving BRP van 'Jan' is verwerkt met PL id 1
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam        | waarde                     |
-        | specversion |                        1.0 |
-        | type        | nl.brp.eerste-inschrijving |
-        | id          | guid                       |
-        | time        | timestamp-utc              |
-        | pl_id       |                          1 |
+        | naam        | waarde              |
+        | specversion |                 1.0 |
+        | type        | nl.brp.ingeschreven |
+        | id          | guid                |
+        | time        | timestamp-utc       |
+        | pl_id       |                   1 |
 
     Scenario: Persoon immigreert naar Nederland
       Gegeven de 1e inschrijving BRP van 'Jan'
@@ -110,18 +110,19 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
         | datum van opneming (86.10)                 | vandaag             |
       Als de 1e inschrijving BRP van 'Jan' is verwerkt met PL id 1
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam        | waarde                     |
-        | specversion |                        1.0 |
-        | type        | nl.brp.eerste-inschrijving |
-        | id          | guid                       |
-        | time        | timestamp-utc              |
-        | pl_id       |                          1 |
+        | naam        | waarde              |
+        | specversion |                 1.0 |
+        | type        | nl.brp.ingeschreven |
+        | id          | guid                |
+        | time        | timestamp-utc       |
+        | pl_id       |                   1 |
 
-  Regel: Bij gebeurtenis "eerste-inschrijving" worden de actuele gegevens van de persoon aan afnemers geleverd in dezelfde vorm als die in de BRP personen API zitten
+  Regel: Bij gebeurtenis "ingeschreven" worden de actuele gegevens van de persoon aan afnemers geleverd in dezelfde vorm als die in de BRP personen API zitten
 
     Scenario: Persoon immigreert naar Nederland
       Gegeven de persoon 'Jan' heeft de volgende gegevens
         | naam                        | waarde     |
+        | pl_id                       |          1 |
         | anummer (01.10)             | 0000000003 |
         | burgerservicenummer (01.20) |  000000036 |
         | voornamen (02.10)           | Jan        |
@@ -153,12 +154,12 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
         | ingangsdatum geldigheid (85.10)            |            20250907 |
         | datum van opneming (86.10)                 |            20250908 |
       En de volgende gebeurtenis is gepubliceerd
-        | id             | type                | time     | pl_id |
-        | 1234-ABCD-GUID | eerste-inschrijving | gisteren |     1 |
+        | id             | type         | time     | pl_id |
+        | 1234-ABCD-GUID | ingeschreven | gisteren |     1 |
       Als een gebeurtenis wordt gevraagd met identifier '1234-ABCD-GUID'
       Dan wordt de gebeurtenis met de volgende gegevens geleverd
-        | specversion | type                       | id             | time     |
-        |         1.0 | nl.brp.eerste-inschrijving | 1234-ABCD-GUID | gisteren |
+        | specversion | type                | id             | time     |
+        |         1.0 | nl.brp.ingeschreven | 1234-ABCD-GUID | gisteren |
       En heeft de gebeurtenis de volgende 'data' gegevens
         | naam                                    | waarde           |
         | aNummer                                 |       0000000003 |
