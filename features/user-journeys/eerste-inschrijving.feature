@@ -1,6 +1,7 @@
 # language: nl
 Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
-  Een persoon is voor het eerst ingeschreven als het versienummer (80.10) van de persoonslijst de waarde "0000" heeft.
+  Een wijziging in de BRP is gebeurtenis "ingeschreven" wanneer een  persoon voor het eerst is ingeschreven in de BRP of het RNI.
+  Een persoon is voor het eerst ingeschreven wanneer het versienummer (80.10) van de persoonslijst de waarde "0000" heeft.
 
   Vraag: versienummer (80.10) heeft bij eerste inschrijving standaardwaarde 0000, maar kan ook bij wijziging 10000 opnieuw de waarde 0000 krijgen (het is immers een 4-cijferige code).
   Komt dit voor? En moeten we dus een andere manier bedenken om te bepalen/toevoegen dat het een eerste inschrijving betreft? (bijvoorbeeld er is geen "was" situatie)
@@ -13,7 +14,7 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
     Scenario: Kind is geboren in Nederland
       Gegeven de 1e inschrijving BRP van 'Jan'
       * is gisteren geboren
-      * is ingeschreven in de BRP
+      * is ingeschreven met een verblijfplaats in gemeente Rotterdam
       Als de 1e inschrijving BRP van 'Jan' is verwerkt met PL id 1
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
@@ -47,6 +48,7 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
     Scenario: Persoon immigreert naar Nederland
       Gegeven de 1e inschrijving BRP van 'Jan'
       * is geboren in Duitsland
+      * is ingeschreven met een verblijfplaats in gemeente Rotterdam
       * is gisteren geïmmigreerd
       Als de 1e inschrijving BRP van 'Jan' is verwerkt met PL id 1
       Dan is een gebeurtenis gepubliceerd
