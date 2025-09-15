@@ -29,14 +29,14 @@ Functionaliteit: Gebeurtenis "inschrijving-op-adres"
         | datum van opneming (86.10)                 | vandaag             |
       Als de 1e inschrijving BRP van 'Piet' is verwerkt met PL id 1 en adres id 1
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam        | waarde                    |
-        | specversion |                       1.0 |
-        | type        | nl.brp.bewoning-gewijzigd |
-        | id          | guid                      |
-        | subject     | geboorteaangifte          |
-        | time        | timestamp-utc             |
-        | pl_id       |                         1 |
-        | adres_id    |                         1 |
+        | naam          | waarde                    |
+        | specversion   |                       1.0 |
+        | type          | nl.brp.bewoning-gewijzigd |
+        | id            | guid                      |
+        | subject       | geboorteaangifte          |
+        | time          | timestamp-utc             |
+        | data.pl_id    |                         1 |
+        | data.adres_id |                         1 |
 
     Scenario: Inschrijving op adres bij binnengemeentelijke verhuizing
       Gegeven persoon 'Piet' heeft de volgende gegevens
@@ -52,14 +52,14 @@ Functionaliteit: Gebeurtenis "inschrijving-op-adres"
       En 'Piet' verhuist 'vandaag' van adres 'A1' naar adres 'A2'
       Als de verhuizing van 'Piet' is verwerkt met adres id 2
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam        | waarde                         |
-        | specversion |                            1.0 |
-        | type        | nl.brp.bewoning-gewijzigd      |
-        | id          | guid                           |
-        | subject     | binnengemeentelijke verhuizing |
-        | time        | timestamp-utc                  |
-        | pl_id       |                              1 |
-        | adres_id    |                              2 |
+        | naam          | waarde                         |
+        | specversion   |                            1.0 |
+        | type          | nl.brp.bewoning-gewijzigd      |
+        | id            | guid                           |
+        | subject       | binnengemeentelijke verhuizing |
+        | time          | timestamp-utc                  |
+        | data.pl_id    |                              1 |
+        | data.adres_id |                              2 |
 
     Scenario: Inschrijving op adres bij intergemeentelijke verhuizing
       Gegeven persoon 'Piet' heeft de volgende gegevens
@@ -75,14 +75,14 @@ Functionaliteit: Gebeurtenis "inschrijving-op-adres"
       En 'Piet' verhuist 'vandaag' van adres 'A1' naar adres 'A2'
       Als de verhuizing van 'Piet' is verwerkt met adres id 2
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam        | waarde                        |
-        | specversion |                           1.0 |
-        | type        | nl.brp.bewoning-gewijzigd     |
-        | id          | guid                          |
-        | subject     | intergemeentelijke verhuizing |
-        | time        | timestamp-utc                 |
-        | pl_id       |                             1 |
-        | adres_id    |                             2 |
+        | naam          | waarde                        |
+        | specversion   |                           1.0 |
+        | type          | nl.brp.bewoning-gewijzigd     |
+        | id            | guid                          |
+        | subject       | intergemeentelijke verhuizing |
+        | time          | timestamp-utc                 |
+        | data.pl_id    |                             1 |
+        | data.adres_id |                             2 |
 
     Scenario: Inschrijving op adres bij immigratie (inschrijving BRP vanuit het buitenland)
       Gegeven de 1e inschrijving BRP vanuit het buitenland van 'Piet'
@@ -106,14 +106,14 @@ Functionaliteit: Gebeurtenis "inschrijving-op-adres"
         | datum van opneming (86.10)                 | vandaag             |
       Als de 1e inschrijving vanuit het buitenland van 'Piet' is verwerkt met PL id 1 en adres id 1
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam        | waarde                    |
-        | specversion |                       1.0 |
-        | type        | nl.brp.bewoning-gewijzigd |
-        | id          | guid                      |
-        | subject     | immigratie                |
-        | time        | timestamp-utc             |
-        | pl_id       |                         1 |
-        | adres_id    |                         1 |
+        | naam          | waarde                    |
+        | specversion   |                       1.0 |
+        | type          | nl.brp.bewoning-gewijzigd |
+        | id            | guid                      |
+        | subject       | immigratie                |
+        | time          | timestamp-utc             |
+        | data.pl_id    |                         1 |
+        | data.adres_id |                         1 |
 
     Scenario: Inschrijving op een adres
       Gegeven de persoon 'Piet' heeft de volgende gegevens
@@ -139,8 +139,8 @@ Functionaliteit: Gebeurtenis "inschrijving-op-adres"
         | datum van opneming (86.10)                 | vandaag             |
       En 'Piet' verblijft vanaf 'gisteren' op adres 'A1'
       En de volgende gebeurtenis is gepubliceerd
-        | id             | type                      | time                    | pl_id | adres_id |
-        | 1234-ABCD-GUID | nl.brp.bewoning-gewijzigd | vandaag 2 dagen geleden |     1 |        1 |
+        | id             | type                      | time                    | data.pl_id | data.adres_id |
+        | 1234-ABCD-GUID | nl.brp.bewoning-gewijzigd | vandaag 2 dagen geleden |          1 |             1 |
       Als een gebeurtenis wordt gevraagd met identifier '1234-ABCD-GUID'
       Dan wordt de gebeurtenis met de volgende gegevens geleverd
         | specversion | type                      | id             | time                    |

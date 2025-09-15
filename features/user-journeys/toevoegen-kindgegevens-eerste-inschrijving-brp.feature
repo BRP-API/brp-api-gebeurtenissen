@@ -14,7 +14,7 @@ Functionaliteit: Gebeurtenis "kindgegevens-toegevoegd"
 # - Opnemen kindgegevens bij adoptie ongeboren vrucht
 
     Scenario: Kindgegevens opgenomen bij eerste inschrijving van een persoon die ouder is van één kind
-      Gegeven de 1e inschrijving BRP van 'Piet' 
+      Gegeven de 1e inschrijving BRP van 'Piet'
       * heeft de volgende gegevens
         | anummer (01.10) | burgerservicenummer (01.20) | voornamen (02.10) | geslachtsnaam (02.40) | geboortedatum (03.10) | geslachtsaanduiding (04.10) |
         |      0000000002 |                   000000024 | Piet              | Boer                  |            24-07-1996 | M                           |
@@ -30,13 +30,13 @@ Functionaliteit: Gebeurtenis "kindgegevens-toegevoegd"
         | aktenummer (81.20)          |   1XA1234 |
       Als de 1e inschrijving BRP van 'Piet' is verwerkt met PL id 1
       Dan is de gebeurtenis gepubliceerd met de volgende gegevens
-        | naam           | waarde                         |
-        | specversion    |                            1.0 |
-        | type           | nl.brp.kindgegevens-toegevoegd |
-        | id             | guid                           |
-        | time           | timestamp-utc                  |
-        | pl_id          |                              1 |
-        | stapel_nr_kind |                              1 |
+        | naam                | waarde                         |
+        | specversion         |                            1.0 |
+        | type                | nl.brp.kindgegevens-toegevoegd |
+        | id                  | guid                           |
+        | time                | timestamp-utc                  |
+        | data.pl_id          |                              1 |
+        | data.stapel_nr_kind |                              1 |
 
     Scenario: Kindgegevens zijn opgenomen bij een persoon
       Gegeven de persoon 'Piet' heeft de volgende gegevens
@@ -45,8 +45,8 @@ Functionaliteit: Gebeurtenis "kindgegevens-toegevoegd"
         |     1 | K            |         0 |                   000000036 | Lisa              | Boer                  |              20120403 |
         |     1 | K            |         1 |                   000000048 | Jan               | Boer                  |              20200609 |
       En de volgende gebeurtenis is gepubliceerd
-        | id             | type                    | time                    | pl_id | stapel_nr_kind |
-        | 1234-ABCD-GUID | kindgegevens-toegevoegd | vandaag 2 dagen geleden |     1 |              1 |
+        | id             | type                    | time                    | data.pl_id | data.stapel_nr_kind |
+        | 1234-ABCD-GUID | kindgegevens-toegevoegd | vandaag 2 dagen geleden |          1 |                   1 |
       Als een gebeurtenis wordt gevraagd met identifier '1234-ABCD-GUID'
       Dan wordt de gebeurtenis met de volgende gegevens geleverd
         | specversion | type                           | id             | time                    |
