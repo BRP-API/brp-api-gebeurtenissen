@@ -1,0 +1,11 @@
+openapi: 3.1.0
+info:
+  title: Adres Id
+  description: |
+    Definitie voor Adres id, een unieke identifier van een adres
+  version: 1.0.0
+components:
+  schemas:
+    AdresId:
+      type: integer
+      example: 1
