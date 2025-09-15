@@ -1,0 +1,32 @@
+openapi: 3.1.0
+info: 
+  title: Persoon Verhuisd Event
+  version: 1.0.0
+components: 
+  schemas:
+    VerhuisdEvent:
+      allOf: 
+        - $ref: ../cloud-events/cloud-events-v1.0.2.json
+        - required:
+          - type
+          - subject
+          - data
+        - type: object
+          properties:
+            type:
+              enum: [nl.brp.verhuisd]
+            subject:
+              enum: [binnengemeentelijk, buitengemeentelijke, emigratie, immigratie, buitenlands]
+            data:
+              type: object
+              required:
+                - pl_id
+                - adres_id
+                - c08
+              properties:
+                  pl_id:
+                    $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+                  adres_id:
+                    $ref: ../ids/adres-id.yaml#/components/schemas/AdresId
+                  # c08:
+                    # $ref: ../persoonslijst/c08.json

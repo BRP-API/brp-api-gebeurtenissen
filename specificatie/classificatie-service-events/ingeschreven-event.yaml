@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info: 
+  title: Persoon Ingeschreven Event
+  version: 1.0.0
+components: 
+  schemas:
+    IngeschrevenEvent:
+      allOf: 
+        - $ref: ../cloud-events/cloud-events-v1.0.2.json
+        - required:
+          - type
+          - subject
+          - data
+        - type: object
+          properties:
+            type:
+              enum: [nl.brp.ingeschreven]
+            subject:
+              enum: [geboorte, niet-ingezeten, immigratie]
+            data:
+              type: object
+              required:
+                - pl_id
+              properties:
+                  pl_id:
+                    $ref: ../ids/pl-id.yaml#/components/schemas/PlId
