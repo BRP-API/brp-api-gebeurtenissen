@@ -1,8 +1,12 @@
 # language: nl
 Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
+  Een persoon is voor het eerst ingeschreven als het versienummer (80.10) van de persoonslijst de waarde "0000" heeft.
+
+  Vraag: versienummer (80.10) heeft bij eerste inschrijving standaardwaarde 0000, maar kan ook bij wijziging 10000 opnieuw de waarde 0000 krijgen (het is immers een 4-cijferige code).
+  Komt dit voor? En moeten we dus een andere manier bedenken om te bepalen/toevoegen dat het een eerste inschrijving betreft? (bijvoorbeeld er is geen "was" situatie)
 
   Regel: Een wijziging in de BRP is gebeurtenis "ingeschreven" met subject "geboorte" wanneer een  persoon voor het eerst is ingeschreven in Nederland en er is geen immigratie
-    - "persoon voor het eerst is ingeschreven": Een wijziging is gebeurtenis "ingeschreven" wanneer de verschillen analyse geen was-situatie bevat, ofwel PL-versienummer=1
+    Waarbij:
     - "ingeschreven in Nederland": gemeente van inschrijving (08.09.10) is ongelijk aan 1999 (RNI)
     - "er is geen immigratie": groep 14 (immigratie) ontbreekt of is leeg
 
@@ -20,7 +24,7 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
         |     1 |
 
   Regel: Een wijziging in de BRP is gebeurtenis "ingeschreven" met subject "niet-ingezeten" wanneer een  persoon voor het eerst is ingeschreven en de persoon staat ingeschreven in het RNI (Registratie van Niet-Ingezetenen)
-    - "persoon voor het eerst is ingeschreven": Een wijziging is gebeurtenis "ingeschreven" wanneer de verschillen analyse geen was-situatie bevat, ofwel PL-versienummer=1
+    Waarbij:
     - "staat ingeschreven in het RNI": gemeente van inschrijving (08.09.10) is gelijk aan 1999 (RNI)
 
     Scenario: Persoon wordt ingeschreven als niet-ingezetene in het RNI
@@ -36,7 +40,7 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
         |     1 |
 
   Regel: Een wijziging in de BRP is gebeurtenis "ingeschreven" met subject "immigratie" wanneer een  persoon voor het eerst is ingeschreven in Nederland en de persoon is geïmmigreerd
-    - "persoon voor het eerst is ingeschreven": Een wijziging is gebeurtenis "ingeschreven" wanneer de verschillen analyse geen was-situatie bevat, ofwel PL-versienummer=1
+    Waarbij:
     - "ingeschreven in Nederland": gemeente van inschrijving (08.09.10) is ongelijk aan 1999 (RNI)
     - "is geïmmigreerd": land vanwaar ingeschreven (14.10) bestaat en heeft een waarde en datum vestiging in Nederland (14.20) bestaat en heeft een waarde
 
