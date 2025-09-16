@@ -1,32 +1,97 @@
 openapi: 3.1.0
-info: 
+info:
   title: Persoon Verhuisd Event
   version: 1.0.0
-components: 
+components:
   schemas:
     VerhuisdEvent:
-      allOf: 
+        oneOf:
+          - $ref: '#/components/schemas/VerhuisdGemeentelijk'
+          - $ref: '#/components/schemas/VerhuisdEmigratie'
+          - $ref: '#/components/schemas/VerhuisdImmigratie'
+    VerhuisdGemeentelijk:
+      allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
-          - type
-          - subject
-          - data
+            - type
+            - subject
+            - data
         - type: object
           properties:
             type:
               enum: [nl.brp.verhuisd]
             subject:
-              enum: [binnengemeentelijk, buitengemeentelijke, emigratie, immigratie, buitenlands]
+              enum: [binnengemeentelijk, buitengemeentelijk]
             data:
-              type: object
-              required:
-                - pl_id
-                - adres_id
-                - c08
-              properties:
-                  pl_id:
-                    $ref: ../ids/pl-id.yaml#/components/schemas/PlId
-                  adres_id:
-                    $ref: ../ids/adres-id.yaml#/components/schemas/AdresId
-                  # c08:
-                    # $ref: ../persoonslijst/c08.json
+              $ref: "#/components/schemas/VerhuisdGemeentelijkData"
+    VerhuisdGemeentelijkData:
+      type: object
+      properties:
+        pl_id:
+          $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+        adres_id:
+          $ref: ../ids/adres-id.yaml#/components/schemas/AdresId
+        c08:
+          type: object
+          properties:
+            e1030:
+              description: "datum aanvang adreshouding (10.30)"
+              type: string
+    VerhuisdEmigratie:
+      allOf:
+        - $ref: ../cloud-events/cloud-events-v1.0.2.json
+        - required:
+            - type
+            - subject
+            - data
+        - type: object
+          properties:
+            type:
+              enum: [nl.brp.verhuisd]
+            subject:
+              enum: [emigratie]
+            data:
+              $ref: "#/components/schemas/VerhuisdEmigratieData"
+    VerhuisdEmigratieData:
+      type: object
+      properties:
+        pl_id:
+          $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+        c08:
+          type: object
+          properties:
+            e1310:
+              $ref: ../c08/e1310.yaml#/components/schemas/e1310
+            e1320:
+              $ref: ../c08/e1320.yaml#/components/schemas/e1320
+            e1330:
+              $ref: ../c08/e1330.yaml#/components/schemas/e1330
+            e1340:
+              $ref: ../c08/e1340.yaml#/components/schemas/e1340
+            e1350:
+              $ref: ../c08/e1350.yaml#/components/schemas/e1350
+    VerhuisdImmigratie:
+      allOf:
+        - $ref: ../cloud-events/cloud-events-v1.0.2.json
+        - required:
+            - type
+            - subject
+            - data
+        - type: object
+          properties:
+            type:
+              enum: [nl.brp.verhuisd]
+            subject:
+              enum: [immigratie]
+            data:
+              $ref: "#/components/schemas/VerhuisdImmigratieData"
+    VerhuisdImmigratieData:
+      type: object
+      properties:
+        pl_id:
+          $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+        c08:
+          type: object
+          properties:
+            e1310:
+              $ref: ../c08/e1310.yaml#/components/schemas/e1310

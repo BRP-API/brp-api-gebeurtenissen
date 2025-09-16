@@ -1,0 +1,11 @@
+openapi: 3.1.0
+info:
+  title: Element 10.30
+  description: |
+    Datum aanvang adreshouding (10.30)
+  version: 1.0.0
+components:
+  schemas:
+    e1030:
+      type: string
+      example: 20250901
