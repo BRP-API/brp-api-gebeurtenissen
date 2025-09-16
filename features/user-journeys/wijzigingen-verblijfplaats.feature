@@ -15,14 +15,14 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
 
   Achtergrond:
     Gegeven adres 'Prinses_Beatrixlaan_116_Den_Haag' heeft de volgende gegevens
-      | adres_id | gemeente van inschrijving (09.10) | straatnaam (11.10)  | naam openbare ruimte (11.15) | huisnummer (11.20) | postcode (11.60) | woonplaats (11.70) | identificatiecode verblijfplaats (11.80) | identificatiecode nummeraanduiding (11.90) |
-      |       10 |                              0518 | Prinses Beatrixlaan | Prinses Beatrixlaan          |                116 |           2595AL | 's-Gravenhage      |                         0518010000584404 |                           0518200000584403 |
+      | gemeente van inschrijving (09.10) | straatnaam (11.10)  | naam openbare ruimte (11.15) | huisnummer (11.20) | postcode (11.60) | woonplaats (11.70) | identificatiecode verblijfplaats (11.80) | identificatiecode nummeraanduiding (11.90) |
+      |                              0518 | Prinses Beatrixlaan | Prinses Beatrixlaan          |                116 |           2595AL | 's-Gravenhage      |                         0518010000584404 |                           0518200000584403 |
     En adres 'Wilhelmina_van_Pruisenweg_52_Den_Haag' heeft de volgende gegevens
-      | adres_id | gemeente van inschrijving (09.10) | straatnaam (11.10)       | naam openbare ruimte (11.15) | huisnummer (11.20) | postcode (11.60) | woonplaats (11.70) | identificatiecode verblijfplaats (11.80) | identificatiecode nummeraanduiding (11.90) |
-      |       11 |                              0518 | Wilhelmina van Pruisenwg | Wilhelmina van Pruisenweg    |                 52 |           2595AN | 's-Gravenhage      |                         0518010000713450 |                           0518200000713449 |
+      | gemeente van inschrijving (09.10) | straatnaam (11.10)       | naam openbare ruimte (11.15) | huisnummer (11.20) | postcode (11.60) | woonplaats (11.70) | identificatiecode verblijfplaats (11.80) | identificatiecode nummeraanduiding (11.90) |
+      |                              0518 | Wilhelmina van Pruisenwg | Wilhelmina van Pruisenweg    |                 52 |           2595AN | 's-Gravenhage      |                         0518010000713450 |                           0518200000713449 |
     En adres 'Stadsplateau_1_Utrecht' heeft de volgende gegevens
-      | adres_id | gemeente van inschrijving (09.10) | straatnaam (11.10) | naam openbare ruimte (11.15) | huisnummer (11.20) | postcode (11.60) | woonplaats (11.70) | identificatiecode verblijfplaats (11.80) | identificatiecode nummeraanduiding (11.90) |
-      |       12 |                              0344 | Stadsplateau       | Stadsplateau                 |                  1 |           3521AZ | Utrecht            |                         0344010000163715 |                           0344200000166576 |
+      | gemeente van inschrijving (09.10) | straatnaam (11.10) | naam openbare ruimte (11.15) | huisnummer (11.20) | postcode (11.60) | woonplaats (11.70) | identificatiecode verblijfplaats (11.80) | identificatiecode nummeraanduiding (11.90) |
+      |                              0344 | Stadsplateau       | Stadsplateau                 |                  1 |           3521AZ | Utrecht            |                         0344010000163715 |                           0344200000166576 |
 
   Regel: Een wijziging in de BRP is gebeurtenis "verhuisd" met subject "binnengemeentelijk" wanneer de persoon is verhuisd naar een ander adres binnen dezelfde gemeente
     Waarbij "verhuisd naar een ander adres binnen dezelfde gemeente" betekent dat:
@@ -30,19 +30,16 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
     - land adres buitenland (13.10) bestaat niet of is leeg zowel in de nieuwe verblijfplaats als in de vorige verblijfplaats
 
     Scenario: Persoon is verhuisd binnen dezelfde gemeente
-      Gegeven de persoon 'Jan'
-      * met de volgende gegevens
-        | pl_id |
-        |     1 |
-      * is ingeschreven op adres 'Prinses_Beatrixlaan_116_Den_Haag'
+      Gegeven de 1e inschrijving van persoon 'Jan'
+      * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
       Als de verhuizing van de persoon 'Jan' naar adres 'Wilhelmina_van_Pruisenweg_52_Den_Haag' op 1-9-2025 is verwerkt
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
         | specversion | type            | subject            | id   | time          |
         |         1.0 | nl.brp.verhuisd | binnengemeentelijk | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
-        | pl_id | adres_id |
-        |     1 |       11 |
+        | pl_id | adres_id                         |
+        | Jan   | Prinses_Beatrixlaan_116_Den_Haag |
       * heeft 'data' de volgende 'c08' gegevens
         | e1030    |
         | 20250901 |
@@ -53,19 +50,16 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
     - land adres buitenland (13.10) bestaat niet of is leeg zowel in de nieuwe verblijfplaats als in de vorige verblijfplaats
 
     Scenario: Persoon is verhuisd binnen dezelfde gemeente
-      Gegeven de persoon 'Jan'
-      * met de volgende gegevens
-        | pl_id |
-        |     1 |
-      * is ingeschreven op adres 'Prinses_Beatrixlaan_116_Den_Haag'
+      Gegeven de 1e inschrijving van persoon 'Jan'
+      * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
       Als de verhuizing van de persoon 'Jan' naar adres 'Stadsplateau_1_Utrecht' op 1-9-2025 is verwerkt
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
         | specversion | type            | subject            | id   | time          |
         |         1.0 | nl.brp.verhuisd | buitengemeentelijk | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
-        | pl_id | adres_id |
-        |     1 |       12 |
+        | pl_id | adres_id               |
+        | Jan   | Stadsplateau_1_Utrecht |
       * heeft 'data' de volgende 'c08' gegevens
         | e1030    |
         | 20250901 |
@@ -76,21 +70,16 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
     - land adres buitenland (13.10) bestaat en heeft een waarde in de nieuwe verblijfplaats
 
     Scenario: Persoon is geëmigreerd
-      Gegeven de persoon 'Jan'
-      * met de volgende gegevens
-        | pl_id |
-        |     1 |
-      * is ingeschreven op adres 'Prinses_Beatrixlaan_116_Den_Haag'
-      Als de emigratie van de persoon 'Jan' op 1-9-2025 is verwerkt met de volgende gegevens
-        | land (13.10) | regel 1 adres buitenland (13.30) | regel 2 adres buitenland (13.40) | regel 3 adres buitenland (13.50) |
-        |         5010 | Grote Markt 1                    | kamer 3-24                       |                   2000 Antwerpen |
+      Gegeven de 1e inschrijving van persoon 'Jan'
+      * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
+      Als de emigratie van de persoon 'Jan' op 1-9-2025 is verwerkt naar België op 'Grote Markt 1', 'kamer 3-24', '2000 Antwerpen'
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
         | specversion | type            | subject   | id   | time          |
         |         1.0 | nl.brp.verhuisd | emigratie | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id |
-        |     1 |
+        | Jan   |
       * heeft 'data' de volgende 'c08' gegevens
         | e1310 | e1320    | e1330         | e1340      | e1350          |
         |  5010 | 20250901 | Grote Markt 1 | kamer 3-24 | 2000 Antwerpen |
@@ -106,21 +95,17 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
     De herinschrijving leidt dan tot het publiceren van meedere gebeurtenissen, waaronder "verhuisd".
 
     Scenario: Persoon is geimmigreerd
-      Gegeven de persoon 'Jan'
-      * met de volgende gegevens
-        | pl_id |
-        |     1 |
-      * is ingeschreven op adres 'Prinses_Beatrixlaan_116_Den_Haag'
-      * is 15-3-2021 geëmigreerd naar België
-      * geeft door dat hij op 1-9-2025 is verhuisd naar adres 'Stadsplateau_1_Utrecht'
-      Als de wijziging van de persoon 'Jan' is verwerkt
+      Gegeven de 1e inschrijving van persoon 'Jan'
+      * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
+      En de emigratie van 'Jan' op 15-3-2021 naar België
+      Als de verhuizing van 'Jan' naar adres 'Stadsplateau_1_Utrecht' op 1-9-2025 is verwerkt
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
         | specversion | type            | subject    | id   | time          |
         |         1.0 | nl.brp.verhuisd | immigratie | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
-        | pl_id | adres_id |
-        |     1 |       12 |
+        | pl_id | adres_id               |
+        | Jan   | Stadsplateau_1_Utrecht |
       * heeft 'data' de volgende 'c08' gegevens
         | e1030    |
         | 20250901 |
@@ -130,22 +115,17 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
     - land adres buitenland (13.10) bestaat en heeft een waarde in de nieuwe verblijfplaats en in de vorige verblijfplaats
 
     Scenario: Persoon is verhuisd in het buitenland
-      Gegeven de persoon 'Jan'
-      * met de volgende gegevens
-        | pl_id |
-        |     1 |
-      * is ingeschreven op adres 'Prinses_Beatrixlaan_116_Den_Haag'
-      * is 15-3-2021 geëmigreerd naar België
-      Als de verhuizing van de persoon 'Jan' op 1-9-2025 is verwerkt met de volgende gegevens
-        | land (13.10) | regel 1 adres buitenland (13.30) | regel 2 adres buitenland (13.40) | regel 3 adres buitenland (13.50) |
-        |         5010 | Grote Markt 1                    | kamer 3-24                       |                   2000 Antwerpen |
+      Gegeven de 1e inschrijving van persoon 'Jan'
+      * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
+      En de emigratie van 'Jan' op 15-3-2021 naar 'Hallenstraat 4', '1000 Brussel' in 'België'
+      Als de verhuizing van 'Jan' op 1-9-2025 naar 'Grote Markt 1', 'kamer 3-24', '2000 Antwerpen' in 'België' is verwerkt
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
         | specversion | type            | subject     | id   | time          |
         |         1.0 | nl.brp.verhuisd | buitenlands | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id |
-        |     1 |
+        | Jan   |
       * heeft 'data' de volgende 'c08' gegevens
         | e1310 | e1320    | e1330         | e1340      | e1350          |
         |  5010 | 20250901 | Grote Markt 1 | kamer 3-24 | 2000 Antwerpen |
