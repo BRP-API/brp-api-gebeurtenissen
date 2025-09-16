@@ -32,7 +32,7 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
     Scenario: Persoon is verhuisd binnen dezelfde gemeente
       Gegeven de 1e inschrijving van persoon 'Jan'
       * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
-      Als de verhuizing van de persoon 'Jan' naar adres 'Wilhelmina_van_Pruisenweg_52_Den_Haag' op 1-9-2025 is verwerkt
+      Als de verhuizing van 'Jan' naar adres 'Wilhelmina_van_Pruisenweg_52_Den_Haag' op 1-9-2025 is verwerkt
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
         | specversion | type            | subject            | id   | time          |
@@ -52,7 +52,7 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
     Scenario: Persoon is verhuisd binnen dezelfde gemeente
       Gegeven de 1e inschrijving van persoon 'Jan'
       * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
-      Als de verhuizing van de persoon 'Jan' naar adres 'Stadsplateau_1_Utrecht' op 1-9-2025 is verwerkt
+      Als de verhuizing van 'Jan' naar adres 'Stadsplateau_1_Utrecht' op 1-9-2025 is verwerkt
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
         | specversion | type            | subject            | id   | time          |
@@ -72,7 +72,7 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
     Scenario: Persoon is geëmigreerd
       Gegeven de 1e inschrijving van persoon 'Jan'
       * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
-      Als de emigratie van de persoon 'Jan' op 1-9-2025 is verwerkt naar België op 'Grote Markt 1', 'kamer 3-24', '2000 Antwerpen'
+      Als de verhuizing van 'Jan' op 1-9-2025 naar 'Grote Markt 1', 'kamer 3-24', '2000 Antwerpen' in 'België' is verwerkt
       Dan is een gebeurtenis gepubliceerd
       * met de volgende gegevens
         | specversion | type            | subject   | id   | time          |
