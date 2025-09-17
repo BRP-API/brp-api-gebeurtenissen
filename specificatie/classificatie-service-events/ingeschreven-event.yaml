@@ -5,6 +5,11 @@ info:
 components: 
   schemas:
     IngeschrevenEvent:
+        oneOf:
+          - $ref: '#/components/schemas/IngeschrevenGeboorte'
+          - $ref: '#/components/schemas/IngeschrevenNietIngezeten'
+          - $ref: '#/components/schemas/IngeschrevenImmigratie'
+    IngeschrevenGeboorte:
       allOf: 
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
@@ -16,7 +21,47 @@ components:
             type:
               enum: [nl.brp.ingeschreven]
             subject:
-              enum: [geboorte, niet-ingezeten, immigratie]
+                enum: [geboorte]
+            data:
+              type: object
+              required:
+                - pl_id
+              properties:
+                  pl_id:
+                    $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+    IngeschrevenNietIngezeten:
+      allOf: 
+        - $ref: ../cloud-events/cloud-events-v1.0.2.json
+        - required:
+          - type
+          - subject
+          - data
+        - type: object
+          properties:
+            type:
+              enum: [nl.brp.ingeschreven]
+            subject:
+                enum: [niet-ingezeten]
+            data:
+              type: object
+              required:
+                - pl_id
+              properties:
+                  pl_id:
+                    $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+    IngeschrevenImmigratie:
+      allOf: 
+        - $ref: ../cloud-events/cloud-events-v1.0.2.json
+        - required:
+          - type
+          - subject
+          - data
+        - type: object
+          properties:
+            type:
+              enum: [nl.brp.ingeschreven]
+            subject:
+                enum: [immigratie]
             data:
               type: object
               required:

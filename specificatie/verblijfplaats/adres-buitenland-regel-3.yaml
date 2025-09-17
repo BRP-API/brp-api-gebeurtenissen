@@ -1,11 +1,11 @@
 openapi: 3.1.0
 info:
-  title: Element 10.30
+  title: Element 13.50
   description: |
-    Datum aanvang adreshouding (10.30)
+    Regel 3 adres buitenland
   version: 1.0.0
 components:
   schemas:
-    e1030:
+    e1350:
       type: string
-      example: 20250901
+      example: postcode 1000

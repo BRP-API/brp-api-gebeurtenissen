@@ -1,0 +1,11 @@
+openapi: 3.1.0
+info:
+  title: Element 13.20
+  description: |
+    Datum aanvang adres buitenland (13.20)
+  version: 1.0.0
+components:
+  schemas:
+    e1320:
+      type: string
+      example: "20250901"

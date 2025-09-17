@@ -6,10 +6,11 @@ components:
   schemas:
     VerhuisdEvent:
         oneOf:
-          - $ref: '#/components/schemas/VerhuisdGemeentelijk'
+          - $ref: '#/components/schemas/VerhuisdBinnenGemeentelijk'
+          - $ref: '#/components/schemas/VerhuisdBuitenGemeentelijk'
           - $ref: '#/components/schemas/VerhuisdEmigratie'
           - $ref: '#/components/schemas/VerhuisdImmigratie'
-    VerhuisdGemeentelijk:
+    VerhuisdBinnenGemeentelijk:
       allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
@@ -21,7 +22,22 @@ components:
             type:
               enum: [nl.brp.verhuisd]
             subject:
-              enum: [binnengemeentelijk, buitengemeentelijk]
+              enum: [binnengemeentelijk]
+            data:
+              $ref: "#/components/schemas/VerhuisdGemeentelijkData"
+    VerhuisdBuitenGemeentelijk:
+      allOf:
+        - $ref: ../cloud-events/cloud-events-v1.0.2.json
+        - required:
+            - type
+            - subject
+            - data
+        - type: object
+          properties:
+            type:
+              enum: [nl.brp.verhuisd]
+            subject:
+              enum: [buitengemeentelijk]
             data:
               $ref: "#/components/schemas/VerhuisdGemeentelijkData"
     VerhuisdGemeentelijkData:
@@ -35,8 +51,7 @@ components:
           type: object
           properties:
             e1030:
-              description: "datum aanvang adreshouding (10.30)"
-              type: string
+              $ref: ../verblijfplaats/datum-aanvang-adreshouding.yaml#/components/schemas/e1030
     VerhuisdEmigratie:
       allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
@@ -61,15 +76,15 @@ components:
           type: object
           properties:
             e1310:
-              $ref: ../c08/e1310.yaml#/components/schemas/e1310
+              $ref: ../verblijfplaats/landcode.yaml#/components/schemas/e1310
             e1320:
-              $ref: ../c08/e1320.yaml#/components/schemas/e1320
+              $ref: ../verblijfplaats/datum-aanvang-adres-buitenland.yaml#/components/schemas/e1320
             e1330:
-              $ref: ../c08/e1330.yaml#/components/schemas/e1330
+              $ref: ../verblijfplaats/adres-buitenland-regel-1.yaml#/components/schemas/e1330
             e1340:
-              $ref: ../c08/e1340.yaml#/components/schemas/e1340
+              $ref: ../verblijfplaats/adres-buitenland-regel-2.yaml#/components/schemas/e1340
             e1350:
-              $ref: ../c08/e1350.yaml#/components/schemas/e1350
+              $ref: ../verblijfplaats/adres-buitenland-regel-3.yaml#/components/schemas/e1350
     VerhuisdImmigratie:
       allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
@@ -94,4 +109,4 @@ components:
           type: object
           properties:
             e1310:
-              $ref: ../c08/e1310.yaml#/components/schemas/e1310
+              $ref: ../verblijfplaats/landcode.yaml#/components/schemas/e1310

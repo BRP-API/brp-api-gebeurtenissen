@@ -1,0 +1,11 @@
+openapi: 3.1.0
+info:
+  title: Element 13.30
+  description: |
+    Regel 1 adres buitenland
+  version: 1.0.0
+components:
+  schemas:
+    e1330:
+      type: string
+      example: Rue du pomme 26

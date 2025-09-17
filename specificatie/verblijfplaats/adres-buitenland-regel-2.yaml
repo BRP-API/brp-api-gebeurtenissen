@@ -1,11 +1,11 @@
 openapi: 3.1.0
 info:
-  title: Element 10.30
+  title: Element 13.40
   description: |
-    Landcode (13.10)
+    Regel 2 adres buitenland
   version: 1.0.0
 components:
   schemas:
-    e1310:
+    e1340:
       type: string
-      example: 6030
+      example: Bruxelles

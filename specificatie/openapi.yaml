@@ -1,0 +1,38 @@
+openapi: 3.1.0
+info:
+  title: BRP API Gebeurtenissen
+  version: 1.0.0
+  description: Voorbeeld OAS specificatie waarin VerhuisdEvent en IngeschrevenEvent worden gebruikt.
+paths:
+  /events/verhuisd:
+    get:
+      summary: Haal Verhuisd events op
+      operationId: getVerhuisdEvents
+      responses:
+        '200':
+          description: Lijst van Verhuisd events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VerhuisdEvent'
+  /events/ingeschreven:
+    get:
+      summary: Haal Ingeschreven events op
+      operationId: getIngeschrevenEvents
+      responses:
+        '200':
+          description: Lijst van Ingeschreven events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IngeschrevenEvent'
+components:
+  schemas:
+    VerhuisdEvent:
+      $ref: './classificatie-service-events/verhuisd-event.yaml#/components/schemas/VerhuisdEvent'
+    IngeschrevenEvent:
+      $ref: './classificatie-service-events/ingeschreven-event.yaml#/components/schemas/IngeschrevenEvent'
