@@ -11,7 +11,7 @@ Voor het specificeren van de BRP API Gebeurtenissen functionaliteit zijn stappen
 ```feature
 Scenario: aangeven van een geboorte
   Als de aangifte van geboorte van 'Jan' is verwerkt
-  Dan is een 'ingeschreven' gebeurtenis met subject 'geboorte' gepubliceerd
+  Dan is een 'ingeschreven.geboorte' gebeurtenis gepubliceerd
 ```
 
 Voorbeelden van BRP command stap definities zijn:
@@ -68,7 +68,7 @@ Met deze extensie stap definities kan bijv. de bovengenoemde 'aangeven van een g
 Scenario: aangeven van een geboorte
   Als de aangifte van geboorte van 'Jan' is verwerkt
   * is op 1-9-2025 geboren in Amsterdam
-  Dan is een 'ingeschreven' gebeurtenis met subject 'geboorte' gepubliceerd
+  Dan is een 'ingeschreven.geboorte' gebeurtenis gepubliceerd
 ```
 
 om het gekoppelde script de volgende JSON bericht te laten genereren
@@ -99,7 +99,7 @@ Scenario: aangeven van een binnengemeentelijke verhuizing
     * verblijft vanaf '14-4-2020' op een locatie in 'Amsterdam'
     Als de opgave van verhuizing van 'Jan' is verwerkt
     * verblijft vanaf '1-9-2025' op een ander adres in 'Amsterdam'
-    Dan is een gebeurtenis 'verhuisd' met subject 'binnengemeentelijk' het laatst gepubliceerd
+    Dan is een gebeurtenis 'verhuisd.binnengemeentelijk' het laatst gepubliceerd
 ```
 
 Om de volgorde van de gepubliceerde gebeurtenissen te specificeren kan worden gebruik gemaakt van de stap definitie `Dan zijn de volgende gebeurtenissen in de opgegeven volgorde gepubliceerd`. De bovengenoemde scenario ziet er dan als volgt uit:
@@ -111,9 +111,9 @@ Scenario: aangeven van een binnengemeentelijke verhuizing
     Als de opgave van verhuizing van 'Jan' is verwerkt
     * verblijft vanaf '1-9-2025' op een ander adres in 'Amsterdam'
     Dan zijn de volgende gebeurtenissen in de opgegeven volgorde gepubliceerd
-    | gebeurtenis type | subject            |
-    | ingeschreven     | geboorte           |
-    | verhuisd         | binnengemeentelijk |
+    | gebeurtenis type              |
+    | ingeschreven.geboorte         |
+    | verhuisd.binnengemeentelijk   |
 ```
 
 Om de attack surface van BRP API Gebeurtenissen te minimaliseren worden er geen/zo min mogelijk (gerelateerde) persoonsgegevens opgenomen in de opgeslagen gebeurtenissen. In de huidige versie worden bij een gebeurtenis alleen de persoonslijst id en indien noodzakelijk de adres id of het buitenlands adres én datum aanvang adreshouding/adres buitenland opgeslagen.
@@ -121,8 +121,8 @@ Om de attack surface van BRP API Gebeurtenissen te minimaliseren worden er geen/
 De gebeurtenissen die door BRP API Gebeurtenissen worden opgeslagen en worden geleverd conformeren zich aan de [cloudevents](https://cloudevents.io) specificatie.
 
 Voor het specificeren van de gepubliceerde gebeurtenissen en het valideren van de gepubliceerde gebeurtenissen bij het uitvoeren van de specificaties kan de volgende stap definities worden gebruikt:
-- Dan is een '[gebeurtenis type]' gebeurtenis met subject '[subject type]' gepubliceerd 
-- Dan is een '[gebeurtenis type]' gebeurtenis met subject '[subject type]' het laatst gepubliceerd 
+- Dan is een '[gebeurtenis type]' gebeurtenis gepubliceerd 
+- Dan is een '[gebeurtenis type]' gebeurtenis het laatst gepubliceerd 
 - Dan zijn de volgende gebeurtenissen in de opgegeven volgorde gepubliceerd
 - Dan heeft de volgende 'data' gegevens. Bij een cloudevents compliant gebeurtenis worden de niet-cloudevents specifieke velden opgenomen in het data veld. Deze stap definitie moet worden gebruikt om de velden in het data veld te specificeren
 
