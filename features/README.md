@@ -62,7 +62,7 @@ Ook zijn er BRP stap definities waarmee er aan het gegenereerde JSON bericht van
 - is (op) [datum] geboren in gemeente '[gemeente aanduiding]'
 - is (op) [datum] geboren in plaats '[plaats aanduiding]' in land '[land aanduiding]'
 
-Met deze extensie stap definities kan bijv. de bovengenoemde 'aangeven van een geboorte' scenario worden uitgebreid tot de volgende scenario:
+Met deze extensie stap definities kan bijv. de bovengenoemde 'aangeven van een geboorte' scenario worden uitgebreid tot het volgende scenario:
 
 ```
 Scenario: aangeven van een geboorte
@@ -91,7 +91,7 @@ om het gekoppelde script de volgende JSON bericht te laten genereren
 }
 ```
 
-Verder zijn er voor de BRP command stap definities ook een verwerkte variant. Een voorbeelden van een verwerkte BRP command stap definitie is: `Gegeven de verwerkte aangifte van geboorte van '[persoon aanduiding]'`. Hiermee kunnen wijzigingen op een specifieke persoon worden gespecificeerd die alleen maar kunnen plaatsvinden nadat de persoon is geregistreerd in de BRP. Bijv. de scenario 'aangeven van een binnengemeentelijke verhuizing' kan als volgt worden gespecificeerd
+Verder is er voor de BRP command stap definities ook een verwerkte variant. Een voorbeelden van een verwerkte BRP command stap definitie is: `Gegeven de verwerkte aangifte van geboorte van '[persoon aanduiding]'`. Hiermee kunnen wijzigingen op een specifieke persoon worden gespecificeerd die alleen maar kunnen plaatsvinden nadat de persoon is geregistreerd in de BRP. Bijv. de scenario 'aangeven van een binnengemeentelijke verhuizing' kan als volgt worden gespecificeerd
 
 ```feature
 Scenario: aangeven van een binnengemeentelijke verhuizing
@@ -102,7 +102,7 @@ Scenario: aangeven van een binnengemeentelijke verhuizing
     Dan is een gebeurtenis 'verhuisd.binnengemeentelijk' het laatst gepubliceerd
 ```
 
-Om de volgorde van de gepubliceerde gebeurtenissen te specificeren kan worden gebruik gemaakt van de stap definitie `Dan zijn de volgende gebeurtenissen in de opgegeven volgorde gepubliceerd`. De bovengenoemde scenario ziet er dan als volgt uit:
+Om de volgorde van de gepubliceerde gebeurtenissen te specificeren kan gebruik worden gemaakt van de stap definitie `Dan zijn de volgende gebeurtenissen in de opgegeven volgorde gepubliceerd`. Het bovengenoemde scenario ziet er dan als volgt uit:
 
 ```feature
 Scenario: aangeven van een binnengemeentelijke verhuizing
@@ -120,13 +120,13 @@ Om de attack surface van BRP API Gebeurtenissen te minimaliseren worden er geen/
 
 De gebeurtenissen die door BRP API Gebeurtenissen worden opgeslagen en worden geleverd conformeren zich aan de [cloudevents](https://cloudevents.io) specificatie.
 
-Voor het specificeren van de gepubliceerde gebeurtenissen en het valideren van de gepubliceerde gebeurtenissen bij het uitvoeren van de specificaties kan de volgende stap definities worden gebruikt:
+Voor het specificeren van de gepubliceerde gebeurtenissen en het valideren van de gepubliceerde gebeurtenissen bij het uitvoeren van de specificaties kunnen de volgende stap definities worden gebruikt:
 - Dan is een '[gebeurtenis type]' gebeurtenis gepubliceerd 
 - Dan is een '[gebeurtenis type]' gebeurtenis het laatst gepubliceerd 
 - Dan zijn de volgende gebeurtenissen in de opgegeven volgorde gepubliceerd
 - Dan heeft de volgende 'data' gegevens. Bij een cloudevents compliant gebeurtenis worden de niet-cloudevents specifieke velden opgenomen in het data veld. Deze stap definitie moet worden gebruikt om de velden in het data veld te specificeren
 
-De aangepaste 'aangeven van een geboorte' scenario waarbij de `Dan heeft de volgende 'data' gegevens` stap definitie is gebruikt ziet er dan als volgt uit:
+De aangepaste 'aangeven van een geboorte' scenario waarbij de `Dan heeft de volgende 'data' gegevens` stap definitie is gebruikt, ziet er dan als volgt uit:
 
 ```feature
 Scenario: aangeven van een geboorte
