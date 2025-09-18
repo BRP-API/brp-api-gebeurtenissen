@@ -131,7 +131,7 @@ De aangepaste 'aangeven van een geboorte' scenario waarbij de `Dan heeft de volg
 ```feature
 Scenario: aangeven van een geboorte
   Als de aangifte van geboorte van '[persoon aanduiding]' is verwerkt
-  Dan is een 'ingeschreven' gebeurtenis met subject 'geboorte' gepubliceerd
+  Dan is een 'ingeschreven.geboorte' gebeurtenis gepubliceerd
   * heeft de volgende 'data' gegevens
   | pl_id                |
   | [persoon aanduiding] |

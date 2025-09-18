@@ -34,7 +34,7 @@ Functionaliteit: geboorteaangifte
         | pl_id | adres_id    |
         | Jan   | Sesamstraat |
 
-  Regel: een successvolle geboorte aangifte leidt tot het publiceren van een 'ingeschreven' met subject 'geboorte' gebeurtenis
+  Regel: een successvolle geboorte aangifte leidt tot het publiceren van een 'ingeschreven.geboorte' gebeurtenis
 
     Scenario: geboorteaangifte van een kind geboren in Nederland
       Dan is een 'ingeschreven.geboorte' gebeurtenis gepubliceerd
