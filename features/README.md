@@ -56,7 +56,7 @@ Of de stap definitie kan worden gekoppeld aan een script die het volgende JSON b
 
 en het gegenereerde bericht stuurt naar de classificatie service.
 
-Ook zijn er BRP stap definities waarmee er aan het gegenereerde JSON bericht van een BRP command velden kan worden toegevoegd of bestaande velden worden gewijzigd. Voorbeelden van deze extensie stap definities zijn:
+Ook zijn er BRP stap definities waarmee er aan het gegenereerde JSON bericht van een BRP command velden kunnen worden toegevoegd of bestaande velden worden gewijzigd. Voorbeelden van deze extensie stap definities zijn:
 - verblijft vanaf [datum] op adres '[adres aanduiding]'
 - verblijft vanaf [datum] op buitenlands adres '[regel 1]', '[regel 2]', '[regep 3]' in land '[land aanduiding]'
 - is (op) [datum] geboren in gemeente '[gemeente aanduiding]'
