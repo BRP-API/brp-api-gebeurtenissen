@@ -5,7 +5,7 @@ Functionaliteit: geboorteaangifte
   zodat ik de functionaliteit van BRP API Gebeurtenissen kan valideren zonder afhankelijk te zijn van een echte BRPV
 
   Achtergrond:
-    Gegeven adres 'Sesamstraat' is de standaard adres die wordt opgegeven als verblijfplaats bij een standaard geboorte aangifte
+    Gegeven adres 'Sesamstraat' is het standaard adres dat wordt opgegeven als verblijfplaats bij een standaard geboorte aangifte
     Als de aangifte van geboorte van 'Jan' is verwerkt
 
   Regel: de response van een successvolle geboorte aangifte is 201 Created en bevat de pl_id van het kind
