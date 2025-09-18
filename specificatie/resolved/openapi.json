@@ -3,23 +3,19 @@
   "info": {
     "title": "BRP API Gebeurtenissen",
     "version": "1.0.0",
-    "description": "Voorbeeld OAS specificatie waarin VerhuisdEvent en IngeschrevenEvent worden gebruikt."
+    "description": "Voorbeeld OAS specificatie IngeschrevenEvent"
   },
   "paths": {
-    "/events/verhuisd": {
+    "/event/ingeschreven": {
       "get": {
-        "summary": "Haal Verhuisd events op",
-        "operationId": "getVerhuisdEvents",
+        "summary": "Haal events op",
         "responses": {
           "200": {
-            "description": "Lijst van Verhuisd events",
+            "description": "Een ingeschreven event",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/VerhuisdEvent"
-                  }
+                  "$ref": "#/components/schemas/IngeschrevenEvent"
                 }
               }
             }
@@ -27,20 +23,16 @@
         }
       }
     },
-    "/events/ingeschreven": {
+    "/event/verhuisd": {
       "get": {
-        "summary": "Haal Ingeschreven events op",
-        "operationId": "getIngeschrevenEvents",
+        "summary": "Haal events op",
         "responses": {
           "200": {
-            "description": "Lijst van Ingeschreven events",
+            "description": "Een ingeschreven event",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IngeschrevenEvent"
-                  }
+                  "$ref": "#/components/schemas/VerhuisdEvent"
                 }
               }
             }
@@ -51,554 +43,271 @@
   },
   "components": {
     "schemas": {
-      "VerhuisdEvent": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/VerhuisdBinnengemeentelijk"
+      "ClassificatieEvent": {
+        "type": "object",
+        "required": [
+          "type",
+          "data"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Het type van het event"
           },
-          {
-            "$ref": "#/components/schemas/VerhuisdBuitengemeentelijk"
-          },
-          {
-            "$ref": "#/components/schemas/VerhuisdEmigratie"
-          },
-          {
-            "$ref": "#/components/schemas/VerhuisdImmigratie"
+          "data": {
+            "type": "object",
+            "description": "Event-specifieke data"
           }
-        ]
+        }
+      },
+      "IngeschrevenGeboorteData": {
+        "type": "object",
+        "properties": {
+          "pl_id": {
+            "type": "string"
+          }
+        }
+      },
+      "IngeschrevenGeboorteEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ClassificatieEvent"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/IngeschrevenGeboorteData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.ingeschreven.geboorte",
+          "data": {
+            "pl_id": "123456789"
+          }
+        }
+      },
+      "IngeschrevenImmigratieData": {
+        "type": "object",
+        "properties": {
+          "pl_id": {
+            "type": "string"
+          }
+        }
+      },
+      "IngeschrevenImmigratieEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ClassificatieEvent"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/IngeschrevenImmigratieData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.ingeschreven.immigratie",
+          "data": {
+            "pl_id": "123456789"
+          }
+        }
+      },
+      "IngeschrevenNietIngezetenData": {
+        "type": "object",
+        "properties": {
+          "pl_id": {
+            "type": "string"
+          }
+        }
+      },
+      "IngeschrevenNietIngezetenEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ClassificatieEvent"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/IngeschrevenNietIngezetenData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.ingeschreven.niet-ingezeten",
+          "data": {
+            "pl_id": "123456789"
+          }
+        }
       },
       "IngeschrevenEvent": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/IngeschrevenGeboorte"
+            "$ref": "#/components/schemas/IngeschrevenGeboorteEvent"
           },
           {
-            "$ref": "#/components/schemas/IngeschrevenNietIngezeten"
+            "$ref": "#/components/schemas/IngeschrevenImmigratieEvent"
           },
           {
-            "$ref": "#/components/schemas/IngeschrevenImmigratie"
+            "$ref": "#/components/schemas/IngeschrevenNietIngezetenEvent"
           }
-        ]
-      },
-      "iddef": {
-        "type": "string",
-        "minLength": 1
-      },
-      "sourcedef": {
-        "type": "string",
-        "format": "uri-reference",
-        "minLength": 1
-      },
-      "specversiondef": {
-        "type": "string",
-        "minLength": 1
-      },
-      "typedef": {
-        "type": "string",
-        "minLength": 1
-      },
-      "datacontenttypedef": {
-        "type": [
-          "string",
-          "null"
         ],
-        "minLength": 1
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "nl.brp.ingeschreven.geboorte": "#/components/schemas/IngeschrevenGeboorteEvent",
+            "nl.brp.ingeschreven.immigratie": "#/components/schemas/IngeschrevenImmigratieEvent",
+            "nl.brp.ingeschreven.niet-ingezeten": "#/components/schemas/IngeschrevenNietIngezetenEvent"
+          }
+        }
       },
-      "dataschemadef": {
-        "type": [
-          "string",
-          "null"
-        ],
-        "format": "uri",
-        "minLength": 1
-      },
-      "subjectdef": {
-        "type": [
-          "string",
-          "null"
-        ],
-        "minLength": 1
-      },
-      "timedef": {
-        "type": [
-          "string",
-          "null"
-        ],
-        "format": "date-time",
-        "minLength": 1
-      },
-      "datadef": {
-        "type": [
-          "object",
-          "string",
-          "number",
-          "array",
-          "boolean",
-          "null"
-        ]
-      },
-      "data_base64def": {
-        "type": [
-          "string",
-          "null"
-        ],
-        "contentEncoding": "base64"
-      },
-      "cloud-events-v1.0.2": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "description": "CloudEvents Specification JSON Schema",
+      "VerhuisdGeboorteData": {
         "type": "object",
         "properties": {
-          "id": {
-            "description": "Identifies the event.",
-            "$ref": "#/components/schemas/iddef",
-            "examples": [
-              "A234-1234-1234"
-            ]
+          "pl_id": {
+            "type": "string"
+          }
+        }
+      },
+      "VerhuisdGeboorteEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ClassificatieEvent"
           },
-          "source": {
-            "description": "Identifies the context in which an event happened.",
-            "$ref": "#/components/schemas/sourcedef",
-            "examples": [
-              "https://github.com/cloudevents",
-              "mailto:cncf-wg-serverless@lists.cncf.io",
-              "urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66",
-              "cloudevents/spec/pull/123",
-              "/sensors/tn-1234567/alerts",
-              "1-555-123-4567"
-            ]
-          },
-          "specversion": {
-            "description": "The version of the CloudEvents specification which the event uses.",
-            "$ref": "#/components/schemas/specversiondef",
-            "examples": [
-              "1.0"
-            ]
-          },
-          "type": {
-            "description": "Describes the type of event related to the originating occurrence.",
-            "$ref": "#/components/schemas/typedef",
-            "examples": [
-              "com.github.pull_request.opened",
-              "com.example.object.deleted.v2"
-            ]
-          },
-          "datacontenttype": {
-            "description": "Content type of the data value. Must adhere to RFC 2046 format.",
-            "$ref": "#/components/schemas/datacontenttypedef",
-            "examples": [
-              "text/xml",
-              "application/json",
-              "image/png",
-              "multipart/form-data"
-            ]
-          },
-          "dataschema": {
-            "description": "Identifies the schema that data adheres to.",
-            "$ref": "#/components/schemas/dataschemadef"
-          },
-          "subject": {
-            "description": "Describes the subject of the event in the context of the event producer (identified by source).",
-            "$ref": "#/components/schemas/subjectdef",
-            "examples": [
-              "mynewfile.jpg"
-            ]
-          },
-          "time": {
-            "description": "Timestamp of when the occurrence happened. Must adhere to RFC 3339.",
-            "$ref": "#/components/schemas/timedef",
-            "examples": [
-              "2018-04-05T17:31:00Z"
-            ]
-          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/VerhuisdGeboorteData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.geboorte",
           "data": {
-            "description": "The event payload.",
-            "$ref": "#/components/schemas/datadef",
-            "examples": [
-              "<much wow=\"xml\"/>"
-            ]
-          },
-          "data_base64": {
-            "description": "Base64 encoded event payload. Must adhere to RFC4648.",
-            "$ref": "#/components/schemas/data_base64def",
-            "examples": [
-              "Zm9vYg=="
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "source",
-          "specversion",
-          "type"
-        ],
-        "definitions": {
-          "iddef": {
-            "type": "string",
-            "minLength": 1
-          },
-          "sourcedef": {
-            "type": "string",
-            "format": "uri-reference",
-            "minLength": 1
-          },
-          "specversiondef": {
-            "type": "string",
-            "minLength": 1
-          },
-          "typedef": {
-            "type": "string",
-            "minLength": 1
-          },
-          "datacontenttypedef": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 1
-          },
-          "dataschemadef": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri",
-            "minLength": 1
-          },
-          "subjectdef": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "minLength": 1
-          },
-          "timedef": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time",
-            "minLength": 1
-          },
-          "datadef": {
-            "type": [
-              "object",
-              "string",
-              "number",
-              "array",
-              "boolean",
-              "null"
-            ]
-          },
-          "data_base64def": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "contentEncoding": "base64"
+            "pl_id": "123456789"
           }
         }
-      },
-      "PlId": {
-        "type": "integer",
-        "example": 1
-      },
-      "AdresId": {
-        "type": "integer",
-        "example": 1
-      },
-      "e1030": {
-        "type": "string",
-        "example": "20250901"
-      },
-      "VerhuisdGemeentelijkData": {
-        "type": "object",
-        "properties": {
-          "pl_id": {
-            "$ref": "#/components/schemas/PlId"
-          },
-          "adres_id": {
-            "$ref": "#/components/schemas/AdresId"
-          },
-          "c08": {
-            "type": "object",
-            "properties": {
-              "e1030": {
-                "$ref": "#/components/schemas/e1030"
-              }
-            }
-          }
-        }
-      },
-      "VerhuisdBinnengemeentelijk": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/cloud-events-v1.0.2"
-          },
-          {
-            "required": [
-              "type",
-              "data"
-            ]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "enum": [
-                  "nl.brp.verhuisd.binnengemeentelijk"
-                ]
-              },
-              "data": {
-                "$ref": "#/components/schemas/VerhuisdGemeentelijkData"
-              }
-            }
-          }
-        ]
-      },
-      "VerhuisdBuitengemeentelijk": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/cloud-events-v1.0.2"
-          },
-          {
-            "required": [
-              "type",
-              "data"
-            ]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "enum": [
-                  "nl.brp.verhuisd.buitengemeentelijk"
-                ]
-              },
-              "data": {
-                "$ref": "#/components/schemas/VerhuisdGemeentelijkData"
-              }
-            }
-          }
-        ]
-      },
-      "e1310": {
-        "type": "string",
-        "example": "6030"
-      },
-      "e1320": {
-        "type": "string",
-        "example": "20250901"
-      },
-      "e1330": {
-        "type": "string",
-        "example": "Rue du pomme 26"
-      },
-      "e1340": {
-        "type": "string",
-        "example": "Bruxelles"
-      },
-      "e1350": {
-        "type": "string",
-        "example": "postcode 1000"
-      },
-      "VerhuisdEmigratieData": {
-        "type": "object",
-        "properties": {
-          "pl_id": {
-            "$ref": "#/components/schemas/PlId"
-          },
-          "c08": {
-            "type": "object",
-            "properties": {
-              "e1310": {
-                "$ref": "#/components/schemas/e1310"
-              },
-              "e1320": {
-                "$ref": "#/components/schemas/e1320"
-              },
-              "e1330": {
-                "$ref": "#/components/schemas/e1330"
-              },
-              "e1340": {
-                "$ref": "#/components/schemas/e1340"
-              },
-              "e1350": {
-                "$ref": "#/components/schemas/e1350"
-              }
-            }
-          }
-        }
-      },
-      "VerhuisdEmigratie": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/cloud-events-v1.0.2"
-          },
-          {
-            "required": [
-              "type",
-              "data"
-            ]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "type": {
-                "enum": [
-                  "nl.brp.verhuisd.emigratie"
-                ]
-              },
-              "data": {
-                "$ref": "#/components/schemas/VerhuisdEmigratieData"
-              }
-            }
-          }
-        ]
       },
       "VerhuisdImmigratieData": {
         "type": "object",
         "properties": {
           "pl_id": {
-            "$ref": "#/components/schemas/PlId"
-          },
-          "c08": {
-            "type": "object",
-            "properties": {
-              "e1310": {
-                "$ref": "#/components/schemas/e1310"
-              }
-            }
+            "type": "string"
           }
         }
       },
-      "VerhuisdImmigratie": {
+      "VerhuisdImmigratieEvent": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/cloud-events-v1.0.2"
-          },
-          {
-            "required": [
-              "type",
-              "data"
-            ]
+            "$ref": "#/components/schemas/ClassificatieEvent"
           },
           {
             "type": "object",
             "properties": {
-              "type": {
-                "enum": [
-                  "nl.brp.verhuisd.immigratie"
-                ]
-              },
               "data": {
                 "$ref": "#/components/schemas/VerhuisdImmigratieData"
               }
             }
           }
-        ]
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.immigratie",
+          "data": {
+            "pl_id": "123456789"
+          }
+        }
       },
-      "IngeschrevenGeboorte": {
+      "VerhuisdEmigratieData": {
+        "type": "object",
+        "properties": {
+          "pl_id": {
+            "type": "string"
+          }
+        }
+      },
+      "VerhuisdEmigratieEvent": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/cloud-events-v1.0.2"
-          },
-          {
-            "required": [
-              "type",
-              "data"
-            ]
+            "$ref": "#/components/schemas/ClassificatieEvent"
           },
           {
             "type": "object",
             "properties": {
-              "type": {
-                "enum": [
-                  "nl.brp.ingeschreven.geboorte"
-                ]
-              },
               "data": {
-                "type": "object",
-                "required": [
-                  "pl_id"
-                ],
-                "properties": {
-                  "pl_id": {
-                    "$ref": "#/components/schemas/PlId"
-                  }
-                }
+                "$ref": "#/components/schemas/VerhuisdEmigratieData"
               }
             }
           }
-        ]
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.emigratie",
+          "data": {
+            "pl_id": "123456789"
+          }
+        }
       },
-      "IngeschrevenNietIngezeten": {
+      "VerhuisdBuitenlandsData": {
+        "type": "object",
+        "properties": {
+          "pl_id": {
+            "type": "string"
+          }
+        }
+      },
+      "VerhuisdBuitenlandsEvent": {
         "allOf": [
           {
-            "$ref": "#/components/schemas/cloud-events-v1.0.2"
-          },
-          {
-            "required": [
-              "type",
-              "data"
-            ]
+            "$ref": "#/components/schemas/ClassificatieEvent"
           },
           {
             "type": "object",
             "properties": {
-              "type": {
-                "enum": [
-                  "nl.brp.ingeschreven.niet-ingezeten"
-                ]
-              },
               "data": {
-                "type": "object",
-                "required": [
-                  "pl_id"
-                ],
-                "properties": {
-                  "pl_id": {
-                    "$ref": "#/components/schemas/PlId"
-                  }
-                }
+                "$ref": "#/components/schemas/VerhuisdBuitenlandsData"
               }
             }
           }
-        ]
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.buitenlands",
+          "data": {
+            "pl_id": "123456789"
+          }
+        }
       },
-      "IngeschrevenImmigratie": {
-        "allOf": [
+      "VerhuisdEvent": {
+        "oneOf": [
           {
-            "$ref": "#/components/schemas/cloud-events-v1.0.2"
+            "$ref": "#/components/schemas/VerhuisdGeboorteEvent"
           },
           {
-            "required": [
-              "type",
-              "data"
-            ]
+            "$ref": "#/components/schemas/VerhuisdImmigratieEvent"
           },
           {
-            "type": "object",
-            "properties": {
-              "type": {
-                "enum": [
-                  "nl.brp.ingeschreven.immigratie"
-                ]
-              },
-              "data": {
-                "type": "object",
-                "required": [
-                  "pl_id"
-                ],
-                "properties": {
-                  "pl_id": {
-                    "$ref": "#/components/schemas/PlId"
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/schemas/VerhuisdEmigratieEvent"
+          },
+          {
+            "$ref": "#/components/schemas/VerhuisdBuitenlandsEvent"
           }
-        ]
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "nl.brp.verhuisd.geboorte": "#/components/schemas/VerhuisdGeboorteEvent",
+            "nl.brp.verhuisd.immigratie": "#/components/schemas/VerhuisdImmigratieEvent",
+            "nl.brp.verhuisd.emigratie": "#/components/schemas/VerhuisdEmigratieEvent",
+            "nl.brp.verhuisd.buitenlands": "#/components/schemas/VerhuisdBuitenlandsEvent"
+          }
+        }
       }
     }
   }

@@ -1,100 +1,83 @@
 openapi: 3.1.0
 info:
-  title: Persoon Verhuisd Event
+  title: Persoon Ingeschreven Event
   version: 1.0.0
 components:
   schemas:
     VerhuisdEvent:
-        oneOf:
-          - $ref: '#/components/schemas/VerhuisdBinnengemeentelijk'
-          - $ref: '#/components/schemas/VerhuisdBuitengemeentelijk'
-          - $ref: '#/components/schemas/VerhuisdEmigratie'
-          - $ref: '#/components/schemas/VerhuisdImmigratie'
-    VerhuisdBinnengemeentelijk:
+      oneOf:
+        - $ref: "#/components/schemas/VerhuisdGeboorteEvent"
+        - $ref: "#/components/schemas/VerhuisdImmigratieEvent"
+        - $ref: "#/components/schemas/VerhuisdEmigratieEvent"
+        - $ref: "#/components/schemas/VerhuisdBuitenlandsEvent"
+      discriminator:
+        propertyName: type
+        mapping:
+          nl.brp.verhuisd.geboorte: "#/components/schemas/VerhuisdGeboorteEvent"
+          nl.brp.verhuisd.immigratie: "#/components/schemas/VerhuisdImmigratieEvent"
+          nl.brp.verhuisd.emigratie: "#/components/schemas/VerhuisdEmigratieEvent"
+          nl.brp.verhuisd.buitenlands: "#/components/schemas/VerhuisdBuitenlandsEvent"
+    VerhuisdGeboorteEvent:
       allOf:
-        - $ref: ../cloud-events/cloud-events-v1.0.2.json
-        - required:
-            - type
-            - data
+        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
         - type: object
           properties:
-            type:
-              enum: [nl.brp.verhuisd.binnengemeentelijk]
             data:
-              $ref: "#/components/schemas/VerhuisdGemeentelijkData"
-    VerhuisdBuitengemeentelijk:
-      allOf:
-        - $ref: ../cloud-events/cloud-events-v1.0.2.json
-        - required:
-            - type
-            - data
-        - type: object
-          properties:
-            type:
-              enum: [nl.brp.verhuisd.buitengemeentelijk]
-            data:
-              $ref: "#/components/schemas/VerhuisdGemeentelijkData"
-    VerhuisdGemeentelijkData:
+              $ref: "#/components/schemas/VerhuisdGeboorteData"
+      example:
+        type: nl.brp.verhuisd.geboorte
+        data:
+          pl_id: "123456789"
+    VerhuisdGeboorteData:
       type: object
       properties:
         pl_id:
-          $ref: ../ids/pl-id.yaml#/components/schemas/PlId
-        adres_id:
-          $ref: ../ids/adres-id.yaml#/components/schemas/AdresId
-        c08:
-          type: object
-          properties:
-            e1030:
-              $ref: ../verblijfplaats/datum-aanvang-adreshouding.yaml#/components/schemas/e1030
-    VerhuisdEmigratie:
+          type: string
+    VerhuisdImmigratieEvent:
       allOf:
-        - $ref: ../cloud-events/cloud-events-v1.0.2.json
-        - required:
-            - type
-            - data
+        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
         - type: object
           properties:
-            type:
-              enum: [nl.brp.verhuisd.emigratie]
-            data:
-              $ref: "#/components/schemas/VerhuisdEmigratieData"
-    VerhuisdEmigratieData:
-      type: object
-      properties:
-        pl_id:
-          $ref: ../ids/pl-id.yaml#/components/schemas/PlId
-        c08:
-          type: object
-          properties:
-            e1310:
-              $ref: ../verblijfplaats/landcode.yaml#/components/schemas/e1310
-            e1320:
-              $ref: ../verblijfplaats/datum-aanvang-adres-buitenland.yaml#/components/schemas/e1320
-            e1330:
-              $ref: ../verblijfplaats/adres-buitenland-regel-1.yaml#/components/schemas/e1330
-            e1340:
-              $ref: ../verblijfplaats/adres-buitenland-regel-2.yaml#/components/schemas/e1340
-            e1350:
-              $ref: ../verblijfplaats/adres-buitenland-regel-3.yaml#/components/schemas/e1350
-    VerhuisdImmigratie:
-      allOf:
-        - $ref: ../cloud-events/cloud-events-v1.0.2.json
-        - required:
-            - type
-            - data
-        - type: object
-          properties:
-            type:
-              enum: [nl.brp.verhuisd.immigratie]
             data:
               $ref: "#/components/schemas/VerhuisdImmigratieData"
+      example:
+        type: nl.brp.verhuisd.immigratie
+        data:
+          pl_id: "123456789"
     VerhuisdImmigratieData:
       type: object
       properties:
         pl_id:
-          $ref: ../ids/pl-id.yaml#/components/schemas/PlId
-        c08:
-          type: object
+          type: string
+    VerhuisdEmigratieEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - type: object
           properties:
-            e1310:
-              $ref: ../verblijfplaats/landcode.yaml#/components/schemas/e1310
+            data:
+              $ref: "#/components/schemas/VerhuisdEmigratieData"
+      example:
+        type: nl.brp.verhuisd.emigratie
+        data:
+          pl_id: "123456789"
+    VerhuisdEmigratieData:
+      type: object
+      properties:
+        pl_id:
+          type: string
+    VerhuisdBuitenlandsEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/VerhuisdBuitenlandsData"
+      example:
+        type: nl.brp.verhuisd.buitenlands
+        data:
+          pl_id: "123456789"
+    VerhuisdBuitenlandsData:
+      type: object
+      properties:
+        pl_id:
+          type: string

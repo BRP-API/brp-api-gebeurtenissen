@@ -1,0 +1,19 @@
+openapi: 3.1.0
+info:
+  title: Classificatie Event
+  version: 1.0.0
+  description: Minimale specificatie op basis van de CloudEvent specificatie met alleen de velden 'type' en 'data'.
+components:
+  schemas:
+    ClassificatieEvent:
+      type: object
+      required:
+        - type
+        - data
+      properties:
+        type:
+          type: string
+          description: Het type van het event
+        data:
+          type: object
+          description: Event-specifieke data
