@@ -33,10 +33,10 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
       Gegeven de 1e inschrijving van persoon 'Jan'
       * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
       Als de verhuizing van 'Jan' naar adres 'Wilhelmina_van_Pruisenweg_52_Den_Haag' op 1-9-2025 is verwerkt
-      Dan is een gebeurtenis gepubliceerd
+      Dan is een 'verhuisd.binnengemeentelijk' gebeurtenis gepubliceerd
       * met de volgende gegevens
-        | specversion | type            | subject            | id   | time          |
-        |         1.0 | nl.brp.verhuisd | binnengemeentelijk | guid | timestamp-utc |
+        | specversion | type                               | id   | time          |
+        |         1.0 | nl.brp.verhuisd.binnengemeentelijk | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id | adres_id                         |
         | Jan   | Prinses_Beatrixlaan_116_Den_Haag |
@@ -53,10 +53,10 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
       Gegeven de 1e inschrijving van persoon 'Jan'
       * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
       Als de verhuizing van 'Jan' naar adres 'Stadsplateau_1_Utrecht' op 1-9-2025 is verwerkt
-      Dan is een gebeurtenis gepubliceerd
+      Dan is een 'verhuisd.buitengemeentelijk' gebeurtenis gepubliceerd
       * met de volgende gegevens
-        | specversion | type            | subject            | id   | time          |
-        |         1.0 | nl.brp.verhuisd | buitengemeentelijk | guid | timestamp-utc |
+        | specversion | type                               | id   | time          |
+        |         1.0 | nl.brp.verhuisd.buitengemeentelijk | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id | adres_id               |
         | Jan   | Stadsplateau_1_Utrecht |
@@ -73,10 +73,10 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
       Gegeven de 1e inschrijving van persoon 'Jan'
       * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
       Als de verhuizing van 'Jan' op 1-9-2025 naar 'Grote Markt 1', 'kamer 3-24', '2000 Antwerpen' in 'België' is verwerkt
-      Dan is een gebeurtenis gepubliceerd
+      Dan is een 'verhuisd.emigratie' gebeurtenis gepubliceerd
       * met de volgende gegevens
-        | specversion | type            | subject   | id   | time          |
-        |         1.0 | nl.brp.verhuisd | emigratie | guid | timestamp-utc |
+        | specversion | type                      | id   | time          |
+        |         1.0 | nl.brp.verhuisd.emigratie | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id |
         | Jan   |
@@ -99,10 +99,10 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
       * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
       En de emigratie van 'Jan' op 15-3-2021 naar België
       Als de verhuizing van 'Jan' naar adres 'Stadsplateau_1_Utrecht' op 1-9-2025 is verwerkt
-      Dan is een gebeurtenis gepubliceerd
+      Dan is een 'verhuisd.immigratie' gebeurtenis gepubliceerd
       * met de volgende gegevens
-        | specversion | type            | subject    | id   | time          |
-        |         1.0 | nl.brp.verhuisd | immigratie | guid | timestamp-utc |
+        | specversion | type                       | id   | time          |
+        |         1.0 | nl.brp.verhuisd.immigratie | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id | adres_id               |
         | Jan   | Stadsplateau_1_Utrecht |
@@ -119,10 +119,10 @@ Functionaliteit: Gebeurtenissen die een wijziging in de verblijfplaats betreffen
       * verblijft op adres 'Prinses_Beatrixlaan_116_Den_Haag'
       En de emigratie van 'Jan' op 15-3-2021 naar 'Hallenstraat 4', '1000 Brussel' in 'België'
       Als de verhuizing van 'Jan' op 1-9-2025 naar 'Grote Markt 1', 'kamer 3-24', '2000 Antwerpen' in 'België' is verwerkt
-      Dan is een gebeurtenis gepubliceerd
+      Dan is een 'verhuisd.buitenlands' gebeurtenis gepubliceerd
       * met de volgende gegevens
-        | specversion | type            | subject     | id   | time          |
-        |         1.0 | nl.brp.verhuisd | buitenlands | guid | timestamp-utc |
+        | specversion | type                        | id   | time          |
+        |         1.0 | nl.brp.verhuisd.buitenlands | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id |
         | Jan   |

@@ -15,13 +15,13 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
       Als de 1e inschrijving BRP van 'Jan' is verwerkt
       * is gisteren geboren
       * verblijft in gemeente Rotterdam
-      Dan is een gebeurtenis gepubliceerd
+      Dan is een 'ingeschreven.geboorte' gebeurtenis gepubliceerd
       * met de volgende gegevens
-        | specversion | type                | subject  | id   | time          |
-        |         1.0 | nl.brp.ingeschreven | geboorte | guid | timestamp-utc |
+        | specversion | type                         | id   | time          |
+        |         1.0 | nl.brp.ingeschreven.geboorte | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id |
-        |  Jan  |
+        | Jan   |
 
   Regel: Een wijziging in de BRP is gebeurtenis "ingeschreven" met subject "niet-ingezeten" wanneer een persoon voor het eerst is ingeschreven en de persoon staat ingeschreven in het RNI (Registratie van Niet-Ingezetenen)
     Waarbij:
@@ -30,13 +30,13 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
     Scenario: Persoon wordt ingeschreven als niet-ingezetene in het RNI
       Als de 1e inschrijving BRP van 'Jan' is verwerkt
       * verblijft in België
-      Dan is een gebeurtenis gepubliceerd
+      Dan is een 'ingeschreven.niet-ingezeten' gebeurtenis gepubliceerd
       * met de volgende gegevens
-        | specversion | type                | subject        | id   | time          |
-        |         1.0 | nl.brp.ingeschreven | niet-ingezeten | guid | timestamp-utc |
+        | specversion | type                               | id   | time          |
+        |         1.0 | nl.brp.ingeschreven.niet-ingezeten | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id |
-        |  Jan  |
+        | Jan   |
 
   Regel: Een wijziging in de BRP is gebeurtenis "ingeschreven" met subject "immigratie" wanneer een persoon voor het eerst is ingeschreven in Nederland en de persoon is geïmmigreerd
     Waarbij:
@@ -47,10 +47,10 @@ Functionaliteit: Gebeurtenissen die een eerste inschrijving betreffen
       Als de 1e inschrijving BRP van 'Jan' is verwerkt
       * is geïmmigreerd uit Duitsland
       * verblijft in gemeente Rotterdam
-      Dan is een gebeurtenis gepubliceerd
+      Dan is een 'ingeschreven.immigratie' gebeurtenis gepubliceerd
       * met de volgende gegevens
-        | specversion | type                | subject    | id   | time          |
-        |         1.0 | nl.brp.ingeschreven | immigratie | guid | timestamp-utc |
+        | specversion | type                           | id   | time          |
+        |         1.0 | nl.brp.ingeschreven.immigratie | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id |
-        |  Jan  |
+        | Jan   |
