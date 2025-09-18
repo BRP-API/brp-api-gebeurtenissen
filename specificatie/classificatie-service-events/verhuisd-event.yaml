@@ -4,54 +4,47 @@ info:
   version: 1.0.0
 components:
   schemas:
-    VerhuisdEvent:
-      oneOf:
-        - $ref: "#/components/schemas/VerhuisdGeboorteEvent"
-        - $ref: "#/components/schemas/VerhuisdImmigratieEvent"
-        - $ref: "#/components/schemas/VerhuisdEmigratieEvent"
-        - $ref: "#/components/schemas/VerhuisdBuitenlandsEvent"
-      discriminator:
-        propertyName: type
-        mapping:
-          nl.brp.verhuisd.geboorte: "#/components/schemas/VerhuisdGeboorteEvent"
-          nl.brp.verhuisd.immigratie: "#/components/schemas/VerhuisdImmigratieEvent"
-          nl.brp.verhuisd.emigratie: "#/components/schemas/VerhuisdEmigratieEvent"
-          nl.brp.verhuisd.buitenlands: "#/components/schemas/VerhuisdBuitenlandsEvent"
-    VerhuisdGeboorteEvent:
+    VerhuisdBinnengemeentelijkEvent:
       allOf:
-        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/VerhuisdGeboorteData"
+              $ref: "#/components/schemas/VerhuisdBinnengemeentelijkData"
       example:
-        type: nl.brp.verhuisd.geboorte
+        type: nl.brp.verhuisd.binnengemeentelijk
         data:
           pl_id: "123456789"
-    VerhuisdGeboorteData:
+          adres_id: "1122334455"
+    VerhuisdBinnengemeentelijkData:
       type: object
       properties:
         pl_id:
-          type: string
-    VerhuisdImmigratieEvent:
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
+        adres_id:
+          $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
+    VerhuisdBuitengemeentelijkEvent:
       allOf:
-        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/VerhuisdImmigratieData"
+              $ref: "#/components/schemas/VerhuisdBuitengemeentelijkData"
       example:
-        type: nl.brp.verhuisd.immigratie
+        type: nl.brp.verhuisd.buitengemeentelijk
         data:
           pl_id: "123456789"
-    VerhuisdImmigratieData:
+          adres_id: "1122334455"
+    VerhuisdBuitengemeentelijkData:
       type: object
       properties:
         pl_id:
-          type: string
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
+        adres_id: 
+          $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
     VerhuisdEmigratieEvent:
       allOf:
-        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
@@ -60,14 +53,34 @@ components:
         type: nl.brp.verhuisd.emigratie
         data:
           pl_id: "123456789"
+          adres_id: "1122334455"
     VerhuisdEmigratieData:
       type: object
       properties:
         pl_id:
-          type: string
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
+    VerhuisdImmigratieEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/VerhuisdImmigratieData"
+      example:
+        type: nl.brp.verhuisd.emigratie
+        data:
+          pl_id: "123456789"
+          adres_id: "1122334455"
+    VerhuisdImmigratieData:
+      type: object
+      properties:
+        pl_id:
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
+        adres_id:
+          $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
     VerhuisdBuitenlandsEvent:
       allOf:
-        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
@@ -76,8 +89,9 @@ components:
         type: nl.brp.verhuisd.buitenlands
         data:
           pl_id: "123456789"
+          adres_id: "1122334455"
     VerhuisdBuitenlandsData:
       type: object
       properties:
         pl_id:
-          type: string
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"

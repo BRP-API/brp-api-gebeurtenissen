@@ -2,25 +2,26 @@ openapi: 3.1.0
 info:
   title: BRP API Gebeurtenissen
   version: 1.0.0
-  description: Voorbeeld OAS specificatie IngeschrevenEvent
+  description: OAS specificatie geclassificeerde events
 paths:
-  /event/ingeschreven:
-    get:
-      summary: Haal events op
-      responses:
-        "200":
-          description: Een ingeschreven event
+  /event:
+    post:
+      operationId: publishEvent
+      summary: Publiceer events
+      requestBody:
           content:
             application/json:
               schema:
-                $ref: "classificatie-service-events/ingeschreven-event.yaml#/components/schemas/IngeschrevenEvent"
-  /event/verhuisd:
-    get:
-      summary: Haal events op
-      responses:
-        "200":
-          description: Een verhuisd event
+                $ref: "classificatie-service-events/classificatie-event.yaml#/components/schemas/Event"
+      responses: 
+        201:
+          description: Event succesvol gepubliceerd
           content:
             application/json:
               schema:
-                $ref: "classificatie-service-events/verhuisd-event.yaml#/components/schemas/VerhuisdEvent"
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unieke identificatie van het gepubliceerde event
+          

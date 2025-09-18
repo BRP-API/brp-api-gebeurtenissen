@@ -4,20 +4,9 @@ info:
   version: 1.0.0
 components:
   schemas:
-    IngeschrevenEvent:
-      oneOf:
-        - $ref: "#/components/schemas/IngeschrevenGeboorteEvent"
-        - $ref: "#/components/schemas/IngeschrevenImmigratieEvent"
-        - $ref: "#/components/schemas/IngeschrevenNietIngezetenEvent"
-      discriminator:
-        propertyName: type
-        mapping:
-          nl.brp.ingeschreven.geboorte: "#/components/schemas/IngeschrevenGeboorteEvent"
-          nl.brp.ingeschreven.immigratie: "#/components/schemas/IngeschrevenImmigratieEvent"
-          nl.brp.ingeschreven.niet-ingezeten: "#/components/schemas/IngeschrevenNietIngezetenEvent"
     IngeschrevenGeboorteEvent:
       allOf:
-        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
@@ -30,10 +19,10 @@ components:
       type: object
       properties:
         pl_id:
-          type: string
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
     IngeschrevenImmigratieEvent:
       allOf:
-        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
@@ -46,10 +35,10 @@ components:
       type: object
       properties:
         pl_id:
-          type: string
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
     IngeschrevenNietIngezetenEvent:
       allOf:
-        - $ref: "classificatie-event.yaml#/components/schemas/ClassificatieEvent"
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
@@ -62,4 +51,4 @@ components:
       type: object
       properties:
         pl_id:
-          type: string
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"

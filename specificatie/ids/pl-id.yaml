@@ -7,5 +7,5 @@ info:
 components:
   schemas:
     PlId:
-      type: integer
-      example: 1
+      type: string
+      example: "123456789"

@@ -5,11 +5,22 @@ info:
   description: Minimale specificatie op basis van de CloudEvent specificatie met alleen de velden 'type' en 'data'.
 components:
   schemas:
-    ClassificatieEvent:
+    Event:
       type: object
       required:
         - type
         - data
+      discriminator:
+        propertyName: type
+        mapping:
+          nl.brp.ingeschreven.geboorte: "ingeschreven-event.yaml#/components/schemas/IngeschrevenGeboorteEvent"
+          nl.brp.ingeschreven.immigratie: "ingeschreven-event.yaml#/components/schemas/IngeschrevenImmigratieEvent"
+          nl.brp.ingeschreven.niet-ingezeten: "ingeschreven-event.yaml#/components/schemas/IngeschrevenNietIngezetenEvent"
+          nl.brp.verhuisd.binnengemeentelijk: "verhuisd-event.yaml#/components/schemas/VerhuisdBinnengemeentelijkEvent"
+          nl.brp.verhuisd.buitengemeentelijk: "verhuisd-event.yaml#/components/schemas/VerhuisdBuitengemeentelijkEvent"
+          nl.brp.verhuisd.immigratie: "verhuisd-event.yaml#/components/schemas/VerhuisdEmigratieEvent"
+          nl.brp.verhuisd.emigratie: "verhuisd-event.yaml#/components/schemas/VerhuisdImmigratieEvent"
+          nl.brp.verhuisd.buitenlands: "verhuisd-event.yaml#/components/schemas/VerhuisdBuitenlandsEvent"
       properties:
         type:
           type: string

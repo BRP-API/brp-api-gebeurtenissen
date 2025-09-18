@@ -7,5 +7,5 @@ info:
 components:
   schemas:
     AdresId:
-      type: integer
-      example: 1
+      type: string
+      example: "1122334455"
