@@ -8,4 +8,3 @@ components:
   schemas:
     e1030:
       type: string
-      example: "20250901"

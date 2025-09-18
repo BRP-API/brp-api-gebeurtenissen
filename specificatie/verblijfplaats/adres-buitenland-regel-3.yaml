@@ -8,4 +8,3 @@ components:
   schemas:
     e1350:
       type: string
-      example: postcode 1000

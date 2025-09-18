@@ -8,4 +8,3 @@ components:
   schemas:
     e1330:
       type: string
-      example: Rue du pomme 26

@@ -8,4 +8,3 @@ components:
   schemas:
     e1310:
       type: string
-      example: "6030"

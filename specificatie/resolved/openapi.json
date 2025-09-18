@@ -6,7 +6,7 @@
     "description": "OAS specificatie geclassificeerde events"
   },
   "paths": {
-    "/event": {
+    "/events": {
       "post": {
         "operationId": "publishEvent",
         "summary": "Publiceer events",
@@ -20,8 +20,21 @@
           }
         },
         "responses": {
-          "default": {
-            "description": "OK"
+          "200": {
+            "description": "Event succesvol gepubliceerd",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unieke identificatie van het gepubliceerde event"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -40,12 +53,12 @@
           "mapping": {
             "nl.brp.ingeschreven.geboorte": "#/components/schemas/IngeschrevenGeboorteEvent",
             "nl.brp.ingeschreven.immigratie": "#/components/schemas/IngeschrevenImmigratieEvent",
-            "nl.brp.ingeschreven.niet-ingezeten": "#/components/schemas/IngeschrevenNietIngezetenEvent",
+            "nl.brp.ingeschreven.niet-ingezetene": "#/components/schemas/IngeschrevenNietIngezeteneEvent",
             "nl.brp.verhuisd.binnengemeentelijk": "#/components/schemas/VerhuisdBinnengemeentelijkEvent",
             "nl.brp.verhuisd.buitengemeentelijk": "#/components/schemas/VerhuisdBuitengemeentelijkEvent",
-            "nl.brp.verhuisd.immigratie": "#/components/schemas/VerhuisdEmigratieEvent",
-            "nl.brp.verhuisd.emigratie": "#/components/schemas/VerhuisdImmigratieEvent",
-            "nl.brp.verhuisd.buitenlands": "#/components/schemas/VerhuisdBuitenlandsEvent"
+            "nl.brp.verhuisd.emigratie": "#/components/schemas/VerhuisdEmigratieEvent",
+            "nl.brp.verhuisd.immigratie": "#/components/schemas/VerhuisdImmigratieEvent",
+            "nl.brp.verhuisd.in-buitenland": "#/components/schemas/VerhuisdInBuitenlandEvent"
           }
         },
         "properties": {
@@ -63,8 +76,7 @@
         "type": "string",
         "example": "123456789"
       },
-      "IngeschrevenGeboorteData": {
-        "type": "object",
+      "IngeschrevenData": {
         "properties": {
           "pl_id": {
             "$ref": "#/components/schemas/PlId"
@@ -80,7 +92,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/IngeschrevenGeboorteData"
+                "$ref": "#/components/schemas/IngeschrevenData"
               }
             }
           }
@@ -89,14 +101,6 @@
           "type": "nl.brp.ingeschreven.geboorte",
           "data": {
             "pl_id": "123456789"
-          }
-        }
-      },
-      "IngeschrevenImmigratieData": {
-        "type": "object",
-        "properties": {
-          "pl_id": {
-            "$ref": "#/components/schemas/PlId"
           }
         }
       },
@@ -109,27 +113,19 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/IngeschrevenImmigratieData"
+                "$ref": "#/components/schemas/IngeschrevenData"
+              }
+            },
+            "example": {
+              "type": "nl.brp.ingeschreven.immigratie",
+              "data": {
+                "pl_id": "123456789"
               }
             }
           }
-        ],
-        "example": {
-          "type": "nl.brp.ingeschreven.immigratie",
-          "data": {
-            "pl_id": "123456789"
-          }
-        }
+        ]
       },
-      "IngeschrevenNietIngezetenData": {
-        "type": "object",
-        "properties": {
-          "pl_id": {
-            "$ref": "#/components/schemas/PlId"
-          }
-        }
-      },
-      "IngeschrevenNietIngezetenEvent": {
+      "IngeschrevenNietIngezeteneEvent": {
         "allOf": [
           {
             "$ref": "#/components/schemas/Event"
@@ -138,30 +134,40 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/IngeschrevenNietIngezetenData"
+                "$ref": "#/components/schemas/IngeschrevenData"
+              }
+            },
+            "example": {
+              "type": "nl.brp.ingeschreven.niet-ingezetene",
+              "data": {
+                "pl_id": "123456789"
               }
             }
           }
-        ],
-        "example": {
-          "type": "nl.brp.ingeschreven.niet-ingezeten",
-          "data": {
-            "pl_id": "123456789"
-          }
-        }
+        ]
       },
       "AdresId": {
         "type": "string",
         "example": "1122334455"
       },
-      "VerhuisdBinnengemeentelijkData": {
-        "type": "object",
+      "e1030": {
+        "type": "string"
+      },
+      "VerhuisdData": {
         "properties": {
           "pl_id": {
             "$ref": "#/components/schemas/PlId"
           },
           "adres_id": {
             "$ref": "#/components/schemas/AdresId"
+          },
+          "c08": {
+            "type": "object",
+            "properties": {
+              "e1030": {
+                "$ref": "#/components/schemas/e1030"
+              }
+            }
           }
         }
       },
@@ -174,7 +180,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/VerhuisdBinnengemeentelijkData"
+                "$ref": "#/components/schemas/VerhuisdData"
               }
             }
           }
@@ -183,18 +189,10 @@
           "type": "nl.brp.verhuisd.binnengemeentelijk",
           "data": {
             "pl_id": "123456789",
-            "adres_id": "1122334455"
-          }
-        }
-      },
-      "VerhuisdBuitengemeentelijkData": {
-        "type": "object",
-        "properties": {
-          "pl_id": {
-            "$ref": "#/components/schemas/PlId"
-          },
-          "adres_id": {
-            "$ref": "#/components/schemas/AdresId"
+            "adres_id": "1122334455",
+            "c08": {
+              "e1030": "20250101"
+            }
           }
         }
       },
@@ -207,7 +205,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/VerhuisdBuitengemeentelijkData"
+                "$ref": "#/components/schemas/VerhuisdData"
               }
             }
           }
@@ -216,15 +214,55 @@
           "type": "nl.brp.verhuisd.buitengemeentelijk",
           "data": {
             "pl_id": "123456789",
-            "adres_id": "1122334455"
+            "adres_id": "1122334455",
+            "c08": {
+              "e1030": "20250101"
+            }
           }
         }
       },
-      "VerhuisdEmigratieData": {
-        "type": "object",
+      "e1310": {
+        "type": "string"
+      },
+      "e1320": {
+        "type": "string"
+      },
+      "e1330": {
+        "type": "string"
+      },
+      "e1340": {
+        "type": "string"
+      },
+      "e1350": {
+        "type": "string"
+      },
+      "VerhuisdBuitenlandData": {
         "properties": {
           "pl_id": {
             "$ref": "#/components/schemas/PlId"
+          },
+          "adres_id": {
+            "$ref": "#/components/schemas/AdresId"
+          },
+          "c08": {
+            "type": "object",
+            "properties": {
+              "e1310": {
+                "$ref": "#/components/schemas/e1310"
+              },
+              "e1320": {
+                "$ref": "#/components/schemas/e1320"
+              },
+              "e1330": {
+                "$ref": "#/components/schemas/e1330"
+              },
+              "e1340": {
+                "$ref": "#/components/schemas/e1340"
+              },
+              "e1350": {
+                "$ref": "#/components/schemas/e1350"
+              }
+            }
           }
         }
       },
@@ -237,7 +275,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/VerhuisdEmigratieData"
+                "$ref": "#/components/schemas/VerhuisdBuitenlandData"
               }
             }
           }
@@ -246,18 +284,13 @@
           "type": "nl.brp.verhuisd.emigratie",
           "data": {
             "pl_id": "123456789",
-            "adres_id": "1122334455"
-          }
-        }
-      },
-      "VerhuisdImmigratieData": {
-        "type": "object",
-        "properties": {
-          "pl_id": {
-            "$ref": "#/components/schemas/PlId"
-          },
-          "adres_id": {
-            "$ref": "#/components/schemas/AdresId"
+            "c08": {
+              "e1310": "5010",
+              "e1320": "20250101",
+              "e1330": "Rue de Pomme 26",
+              "e1340": "Bruxelles",
+              "e1350": "postcode 1000"
+            }
           }
         }
       },
@@ -270,7 +303,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/VerhuisdImmigratieData"
+                "$ref": "#/components/schemas/VerhuisdData"
               }
             }
           }
@@ -279,19 +312,14 @@
           "type": "nl.brp.verhuisd.emigratie",
           "data": {
             "pl_id": "123456789",
-            "adres_id": "1122334455"
+            "adres_id": "1122334455",
+            "c08": {
+              "e1030": "20250101"
+            }
           }
         }
       },
-      "VerhuisdBuitenlandsData": {
-        "type": "object",
-        "properties": {
-          "pl_id": {
-            "$ref": "#/components/schemas/PlId"
-          }
-        }
-      },
-      "VerhuisdBuitenlandsEvent": {
+      "VerhuisdInBuitenlandEvent": {
         "allOf": [
           {
             "$ref": "#/components/schemas/Event"
@@ -300,7 +328,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/VerhuisdBuitenlandsData"
+                "$ref": "#/components/schemas/VerhuisdBuitenlandData"
               }
             }
           }
@@ -309,7 +337,13 @@
           "type": "nl.brp.verhuisd.buitenlands",
           "data": {
             "pl_id": "123456789",
-            "adres_id": "1122334455"
+            "c08": {
+              "e1310": "5010",
+              "e1320": "20250101",
+              "e1330": "Rue de Pomme 26",
+              "e1340": "Bruxelles",
+              "e1350": "postcode 1000"
+            }
           }
         }
       }

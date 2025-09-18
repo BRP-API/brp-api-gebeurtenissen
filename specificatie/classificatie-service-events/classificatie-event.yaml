@@ -15,12 +15,12 @@ components:
         mapping:
           nl.brp.ingeschreven.geboorte: "ingeschreven-event.yaml#/components/schemas/IngeschrevenGeboorteEvent"
           nl.brp.ingeschreven.immigratie: "ingeschreven-event.yaml#/components/schemas/IngeschrevenImmigratieEvent"
-          nl.brp.ingeschreven.niet-ingezeten: "ingeschreven-event.yaml#/components/schemas/IngeschrevenNietIngezetenEvent"
+          nl.brp.ingeschreven.niet-ingezetene: "ingeschreven-event.yaml#/components/schemas/IngeschrevenNietIngezeteneEvent"
           nl.brp.verhuisd.binnengemeentelijk: "verhuisd-event.yaml#/components/schemas/VerhuisdBinnengemeentelijkEvent"
           nl.brp.verhuisd.buitengemeentelijk: "verhuisd-event.yaml#/components/schemas/VerhuisdBuitengemeentelijkEvent"
-          nl.brp.verhuisd.immigratie: "verhuisd-event.yaml#/components/schemas/VerhuisdEmigratieEvent"
-          nl.brp.verhuisd.emigratie: "verhuisd-event.yaml#/components/schemas/VerhuisdImmigratieEvent"
-          nl.brp.verhuisd.buitenlands: "verhuisd-event.yaml#/components/schemas/VerhuisdBuitenlandsEvent"
+          nl.brp.verhuisd.emigratie: "verhuisd-event.yaml#/components/schemas/VerhuisdEmigratieEvent"
+          nl.brp.verhuisd.immigratie: "verhuisd-event.yaml#/components/schemas/VerhuisdImmigratieEvent"
+          nl.brp.verhuisd.in-buitenland: "verhuisd-event.yaml#/components/schemas/VerhuisdInBuitenlandEvent"
       properties:
         type:
           type: string

@@ -10,88 +10,103 @@ components:
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/VerhuisdBinnengemeentelijkData"
+              $ref: "#/components/schemas/VerhuisdData"
       example:
         type: nl.brp.verhuisd.binnengemeentelijk
         data:
           pl_id: "123456789"
           adres_id: "1122334455"
-    VerhuisdBinnengemeentelijkData:
-      type: object
-      properties:
-        pl_id:
-          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
-        adres_id:
-          $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
+          c08:
+            e1030: "20250101"
     VerhuisdBuitengemeentelijkEvent:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/VerhuisdBuitengemeentelijkData"
+              $ref: "#/components/schemas/VerhuisdData"
       example:
         type: nl.brp.verhuisd.buitengemeentelijk
         data:
           pl_id: "123456789"
           adres_id: "1122334455"
-    VerhuisdBuitengemeentelijkData:
-      type: object
-      properties:
-        pl_id:
-          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
-        adres_id: 
-          $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
-    VerhuisdEmigratieEvent:
-      allOf:
-        - $ref: "classificatie-event.yaml#/components/schemas/Event"
-        - type: object
-          properties:
-            data:
-              $ref: "#/components/schemas/VerhuisdEmigratieData"
-      example:
-        type: nl.brp.verhuisd.emigratie
-        data:
-          pl_id: "123456789"
-          adres_id: "1122334455"
-    VerhuisdEmigratieData:
-      type: object
-      properties:
-        pl_id:
-          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
+          c08:
+            e1030: "20250101"        
     VerhuisdImmigratieEvent:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/VerhuisdImmigratieData"
+              $ref: "#/components/schemas/VerhuisdData"
       example:
         type: nl.brp.verhuisd.emigratie
         data:
           pl_id: "123456789"
           adres_id: "1122334455"
-    VerhuisdImmigratieData:
-      type: object
+          c08:
+            e1030: "20250101"             
+    VerhuisdData:
       properties:
         pl_id:
           $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
         adres_id:
           $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
-    VerhuisdBuitenlandsEvent:
+        c08: 
+            type: object
+            properties:
+              e1030:
+                $ref: "../verblijfplaats/datum-aanvang-adreshouding.yaml#/components/schemas/e1030"
+    VerhuisdEmigratieEvent:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/VerhuisdBuitenlandsData"
+              $ref: "#/components/schemas/VerhuisdBuitenlandData"
+      example:
+        type: nl.brp.verhuisd.emigratie
+        data:
+          pl_id: "123456789"
+          c08:
+            e1310: "5010"
+            e1320: "20250101"
+            e1330: "Rue de Pomme 26"
+            e1340: "Bruxelles"
+            e1350: "postcode 1000"
+    VerhuisdInBuitenlandEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/VerhuisdBuitenlandData"
       example:
         type: nl.brp.verhuisd.buitenlands
         data:
           pl_id: "123456789"
-          adres_id: "1122334455"
-    VerhuisdBuitenlandsData:
-      type: object
+          c08:
+            e1310: "5010"
+            e1320: "20250101"
+            e1330: "Rue de Pomme 26"
+            e1340: "Bruxelles"
+            e1350: "postcode 1000"
+    VerhuisdBuitenlandData:
       properties:
         pl_id:
           $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
+        adres_id:
+          $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
+        c08: 
+            type: object
+            properties:
+              e1310:
+                $ref: "../verblijfplaats/landcode.yaml#/components/schemas/e1310"
+              e1320:
+                $ref: "../verblijfplaats/datum-aanvang-adres-buitenland.yaml#/components/schemas/e1320"
+              e1330:
+                $ref: "../verblijfplaats/adres-buitenland-regel-1.yaml#/components/schemas/e1330"
+              e1340:
+                $ref: "../verblijfplaats/adres-buitenland-regel-2.yaml#/components/schemas/e1340"
+              e1350:
+                $ref: "../verblijfplaats/adres-buitenland-regel-3.yaml#/components/schemas/e1350"

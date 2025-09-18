@@ -10,45 +10,34 @@ components:
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/IngeschrevenGeboorteData"
+              $ref: "#/components/schemas/IngeschrevenData"
       example:
         type: nl.brp.ingeschreven.geboorte
         data:
           pl_id: "123456789"
-    IngeschrevenGeboorteData:
-      type: object
-      properties:
-        pl_id:
-          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
     IngeschrevenImmigratieEvent:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/IngeschrevenImmigratieData"
-      example:
-        type: nl.brp.ingeschreven.immigratie
-        data:
-          pl_id: "123456789"
-    IngeschrevenImmigratieData:
-      type: object
-      properties:
-        pl_id:
-          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
-    IngeschrevenNietIngezetenEvent:
+              $ref: "#/components/schemas/IngeschrevenData"
+          example:
+            type: nl.brp.ingeschreven.immigratie
+            data:
+              pl_id: "123456789"
+    IngeschrevenNietIngezeteneEvent:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
           properties:
             data:
-              $ref: "#/components/schemas/IngeschrevenNietIngezetenData"
-      example:
-        type: nl.brp.ingeschreven.niet-ingezeten
-        data:
-          pl_id: "123456789"
-    IngeschrevenNietIngezetenData:
-      type: object
+              $ref: "#/components/schemas/IngeschrevenData"
+          example:
+            type: nl.brp.ingeschreven.niet-ingezetene
+            data:
+              pl_id: "123456789"
+    IngeschrevenData:
       properties:
         pl_id:
           $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
