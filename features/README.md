@@ -8,7 +8,7 @@ Binnen een EDA systeem kunnen gebeurtenissen worden geïnitieerd door commands. 
 
 Voor het specificeren van de BRP API Gebeurtenissen functionaliteit zijn stappen gedefinieerd om in scenarios zoveel mogelijk wijzigingen aan personen in het BRP domein te kunnen illustreren. Het verwerken van bijv. een geboorteaangifte kan dan als volgt worden gespecificeerd:
 
-```
+```feature
 Scenario: aangeven van een geboorte
   Als de aangifte van geboorte van 'Jan' is verwerkt
   Dan is een 'ingeschreven' gebeurtenis met subject 'geboorte' gepubliceerd
@@ -29,7 +29,7 @@ Een voordeel van het specificeren van functionaliteit met behulp van in Gherkin 
     "gemeenteVanInschrijving": {
         "code": "vier cijferig waarde ongelijk aan 1999"
     },
-    "verblijfplaats: {
+    "verblijfplaats": {
       // verplichte adres of locatie velden om resp. een adres of locatie uniek te kunnen identificeren 
     }
 }
@@ -85,7 +85,7 @@ om het gekoppelde script de volgende JSON bericht te laten genereren
     "gemeenteVanInschrijving": {
         "code": "vier cijferig waarde ongelijk aan 1999"
     },
-    "verblijfplaats: {
+    "verblijfplaats": {
       // verplichte adres of locatie velden om resp. een adres of locatie uniek te kunnen identificeren 
     }
 }
@@ -93,7 +93,7 @@ om het gekoppelde script de volgende JSON bericht te laten genereren
 
 Verder zijn er voor de BRP command stap definities ook een verwerkte variant. Een voorbeelden van een verwerkte BRP command stap definitie is: `Gegeven de verwerkte aangifte van geboorte van '[persoon aanduiding]'`. Hiermee kunnen wijzigingen op een specifieke persoon worden gespecificeerd die alleen maar kunnen plaatsvinden nadat de persoon is geregistreerd in de BRP. Bijv. de scenario 'aangeven van een binnengemeentelijke verhuizing' kan als volgt worden gespecificeerd
 
-```
+```feature
 Scenario: aangeven van een binnengemeentelijke verhuizing
     Gegeven de verwerkte aangifte van geboorte van 'Jan'
     * verblijft vanaf '14-4-2020' op een locatie in 'Amsterdam'
@@ -104,7 +104,7 @@ Scenario: aangeven van een binnengemeentelijke verhuizing
 
 Om de volgorde van de gepubliceerde gebeurtenissen te specificeren kan worden gebruik gemaakt van de stap definitie `Dan zijn de volgende gebeurtenissen in de opgegeven volgorde gepubliceerd`. De bovengenoemde scenario ziet er dan als volgt uit:
 
-```
+```feature
 Scenario: aangeven van een binnengemeentelijke verhuizing
     Gegeven de verwerkte aangifte van geboorte van 'Jan'
     * verblijft vanaf '14-4-2020' op een locatie in 'Amsterdam'
@@ -128,7 +128,7 @@ Voor het specificeren van de gepubliceerde gebeurtenissen en het valideren van d
 
 De aangepaste 'aangeven van een geboorte' scenario waarbij de `Dan heeft de volgende 'data' gegevens` stap definitie is gebruikt ziet er dan als volgt uit:
 
-```
+```feature
 Scenario: aangeven van een geboorte
   Als de aangifte van geboorte van '[persoon aanduiding]' is verwerkt
   Dan is een 'ingeschreven' gebeurtenis met subject 'geboorte' gepubliceerd

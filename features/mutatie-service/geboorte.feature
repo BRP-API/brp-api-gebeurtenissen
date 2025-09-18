@@ -1,6 +1,5 @@
 # language: nl
 Functionaliteit: geboorteaangifte
-
   Als provider van BRP API Gebeurtenissen
   wil ik een mutatie service die het gedrag van de BRPV nabootst
   zodat ik de functionaliteit van BRP API Gebeurtenissen kan valideren zonder afhankelijk te zijn van een echte BRPV
@@ -38,10 +37,10 @@ Functionaliteit: geboorteaangifte
   Regel: een successvolle geboorte aangifte leidt tot het publiceren van een 'ingeschreven' met subject 'geboorte' gebeurtenis
 
     Scenario: geboorteaangifte van een kind geboren in Nederland
-      Dan is een 'ingeschreven' gebeurtenis met subject 'geboorte' gepubliceerd
+      Dan is een 'ingeschreven.geboorte' gebeurtenis gepubliceerd
       * heeft de volgende gegevens
-        | specversion | type                | subject  | id   | time          |
-        |         1.0 | nl.brp.ingeschreven | geboorte | guid | timestamp-utc |
+        | specversion | type                         | id   | time          |
+        |         1.0 | nl.brp.ingeschreven.geboorte | guid | timestamp-utc |
       * heeft de volgende 'data' gegevens
         | pl_id |
         | Jan   |
