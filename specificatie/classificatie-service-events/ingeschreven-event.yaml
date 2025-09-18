@@ -1,71 +1,62 @@
 openapi: 3.1.0
-info: 
+info:
   title: Persoon Ingeschreven Event
   version: 1.0.0
-components: 
+components:
   schemas:
     IngeschrevenEvent:
-        oneOf:
-          - $ref: '#/components/schemas/IngeschrevenGeboorte'
-          - $ref: '#/components/schemas/IngeschrevenNietIngezeten'
-          - $ref: '#/components/schemas/IngeschrevenImmigratie'
+      oneOf:
+        - $ref: "#/components/schemas/IngeschrevenGeboorte"
+        - $ref: "#/components/schemas/IngeschrevenNietIngezeten"
+        - $ref: "#/components/schemas/IngeschrevenImmigratie"
     IngeschrevenGeboorte:
-      allOf: 
+      allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
-          - type
-          - subject
-          - data
+            - type
+            - data
         - type: object
           properties:
             type:
-              enum: [nl.brp.ingeschreven]
-            subject:
-                enum: [geboorte]
+              enum: [nl.brp.ingeschreven.geboorte]
             data:
               type: object
               required:
                 - pl_id
               properties:
-                  pl_id:
-                    $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+                pl_id:
+                  $ref: ../ids/pl-id.yaml#/components/schemas/PlId
     IngeschrevenNietIngezeten:
-      allOf: 
+      allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
-          - type
-          - subject
-          - data
+            - type
+            - data
         - type: object
           properties:
             type:
-              enum: [nl.brp.ingeschreven]
-            subject:
-                enum: [niet-ingezeten]
+              enum: [nl.brp.ingeschreven.niet-ingezeten]
             data:
               type: object
               required:
                 - pl_id
               properties:
-                  pl_id:
-                    $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+                pl_id:
+                  $ref: ../ids/pl-id.yaml#/components/schemas/PlId
     IngeschrevenImmigratie:
-      allOf: 
+      allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
-          - type
-          - subject
-          - data
+            - type
+            - data
         - type: object
           properties:
             type:
-              enum: [nl.brp.ingeschreven]
-            subject:
-                enum: [immigratie]
+              enum: [nl.brp.ingeschreven.immigratie]
             data:
               type: object
               required:
                 - pl_id
               properties:
-                  pl_id:
-                    $ref: ../ids/pl-id.yaml#/components/schemas/PlId
+                pl_id:
+                  $ref: ../ids/pl-id.yaml#/components/schemas/PlId

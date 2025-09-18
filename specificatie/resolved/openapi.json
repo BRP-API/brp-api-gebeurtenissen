@@ -3,7 +3,7 @@
   "info": {
     "title": "BRP API Gebeurtenissen",
     "version": "1.0.0",
-    "description": "Voorbeeld OAS specificatie waarin VerhuisdEvent en IngeschrevenEvent worden getoond."
+    "description": "Voorbeeld OAS specificatie waarin VerhuisdEvent en IngeschrevenEvent worden gebruikt."
   },
   "paths": {
     "/events/verhuisd": {
@@ -54,10 +54,10 @@
       "VerhuisdEvent": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/VerhuisdBinnenGemeentelijk"
+            "$ref": "#/components/schemas/VerhuisdBinnengemeentelijk"
           },
           {
-            "$ref": "#/components/schemas/VerhuisdBuitenGemeentelijk"
+            "$ref": "#/components/schemas/VerhuisdBuitengemeentelijk"
           },
           {
             "$ref": "#/components/schemas/VerhuisdEmigratie"
@@ -330,7 +330,7 @@
           }
         }
       },
-      "VerhuisdBinnenGemeentelijk": {
+      "VerhuisdBinnengemeentelijk": {
         "allOf": [
           {
             "$ref": "#/components/schemas/cloud-events-v1.0.2"
@@ -338,7 +338,6 @@
           {
             "required": [
               "type",
-              "subject",
               "data"
             ]
           },
@@ -347,12 +346,7 @@
             "properties": {
               "type": {
                 "enum": [
-                  "nl.brp.verhuisd"
-                ]
-              },
-              "subject": {
-                "enum": [
-                  "binnengemeentelijk"
+                  "nl.brp.verhuisd.binnengemeentelijk"
                 ]
               },
               "data": {
@@ -362,7 +356,7 @@
           }
         ]
       },
-      "VerhuisdBuitenGemeentelijk": {
+      "VerhuisdBuitengemeentelijk": {
         "allOf": [
           {
             "$ref": "#/components/schemas/cloud-events-v1.0.2"
@@ -370,7 +364,6 @@
           {
             "required": [
               "type",
-              "subject",
               "data"
             ]
           },
@@ -379,12 +372,7 @@
             "properties": {
               "type": {
                 "enum": [
-                  "nl.brp.verhuisd"
-                ]
-              },
-              "subject": {
-                "enum": [
-                  "buitengemeentelijk"
+                  "nl.brp.verhuisd.buitengemeentelijk"
                 ]
               },
               "data": {
@@ -450,7 +438,6 @@
           {
             "required": [
               "type",
-              "subject",
               "data"
             ]
           },
@@ -459,12 +446,7 @@
             "properties": {
               "type": {
                 "enum": [
-                  "nl.brp.verhuisd"
-                ]
-              },
-              "subject": {
-                "enum": [
-                  "emigratie"
+                  "nl.brp.verhuisd.emigratie"
                 ]
               },
               "data": {
@@ -498,7 +480,6 @@
           {
             "required": [
               "type",
-              "subject",
               "data"
             ]
           },
@@ -507,12 +488,7 @@
             "properties": {
               "type": {
                 "enum": [
-                  "nl.brp.verhuisd"
-                ]
-              },
-              "subject": {
-                "enum": [
-                  "immigratie"
+                  "nl.brp.verhuisd.immigratie"
                 ]
               },
               "data": {
@@ -530,7 +506,6 @@
           {
             "required": [
               "type",
-              "subject",
               "data"
             ]
           },
@@ -539,12 +514,7 @@
             "properties": {
               "type": {
                 "enum": [
-                  "nl.brp.ingeschreven"
-                ]
-              },
-              "subject": {
-                "enum": [
-                  "geboorte"
+                  "nl.brp.ingeschreven.geboorte"
                 ]
               },
               "data": {
@@ -570,7 +540,6 @@
           {
             "required": [
               "type",
-              "subject",
               "data"
             ]
           },
@@ -579,12 +548,7 @@
             "properties": {
               "type": {
                 "enum": [
-                  "nl.brp.ingeschreven"
-                ]
-              },
-              "subject": {
-                "enum": [
-                  "niet-ingezeten"
+                  "nl.brp.ingeschreven.niet-ingezeten"
                 ]
               },
               "data": {
@@ -610,7 +574,6 @@
           {
             "required": [
               "type",
-              "subject",
               "data"
             ]
           },
@@ -619,12 +582,7 @@
             "properties": {
               "type": {
                 "enum": [
-                  "nl.brp.ingeschreven"
-                ]
-              },
-              "subject": {
-                "enum": [
-                  "immigratie"
+                  "nl.brp.ingeschreven.immigratie"
                 ]
               },
               "data": {

@@ -6,38 +6,32 @@ components:
   schemas:
     VerhuisdEvent:
         oneOf:
-          - $ref: '#/components/schemas/VerhuisdBinnenGemeentelijk'
-          - $ref: '#/components/schemas/VerhuisdBuitenGemeentelijk'
+          - $ref: '#/components/schemas/VerhuisdBinnengemeentelijk'
+          - $ref: '#/components/schemas/VerhuisdBuitengemeentelijk'
           - $ref: '#/components/schemas/VerhuisdEmigratie'
           - $ref: '#/components/schemas/VerhuisdImmigratie'
-    VerhuisdBinnenGemeentelijk:
+    VerhuisdBinnengemeentelijk:
       allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
             - type
-            - subject
             - data
         - type: object
           properties:
             type:
-              enum: [nl.brp.verhuisd]
-            subject:
-              enum: [binnengemeentelijk]
+              enum: [nl.brp.verhuisd.binnengemeentelijk]
             data:
               $ref: "#/components/schemas/VerhuisdGemeentelijkData"
-    VerhuisdBuitenGemeentelijk:
+    VerhuisdBuitengemeentelijk:
       allOf:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
             - type
-            - subject
             - data
         - type: object
           properties:
             type:
-              enum: [nl.brp.verhuisd]
-            subject:
-              enum: [buitengemeentelijk]
+              enum: [nl.brp.verhuisd.buitengemeentelijk]
             data:
               $ref: "#/components/schemas/VerhuisdGemeentelijkData"
     VerhuisdGemeentelijkData:
@@ -57,14 +51,11 @@ components:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
             - type
-            - subject
             - data
         - type: object
           properties:
             type:
-              enum: [nl.brp.verhuisd]
-            subject:
-              enum: [emigratie]
+              enum: [nl.brp.verhuisd.emigratie]
             data:
               $ref: "#/components/schemas/VerhuisdEmigratieData"
     VerhuisdEmigratieData:
@@ -90,14 +81,11 @@ components:
         - $ref: ../cloud-events/cloud-events-v1.0.2.json
         - required:
             - type
-            - subject
             - data
         - type: object
           properties:
             type:
-              enum: [nl.brp.verhuisd]
-            subject:
-              enum: [immigratie]
+              enum: [nl.brp.verhuisd.immigratie]
             data:
               $ref: "#/components/schemas/VerhuisdImmigratieData"
     VerhuisdImmigratieData:
