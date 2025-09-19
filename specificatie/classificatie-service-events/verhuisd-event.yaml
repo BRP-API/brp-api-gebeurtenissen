@@ -92,7 +92,5 @@ components:
       properties:
         pl_id:
           $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
-        adres_id:
-          $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
         c08: 
           $ref: "../verblijfplaats/verblijfplaats-buitenland.yaml#/components/schemas/verblijfplaatsBuitenland"

@@ -196,9 +196,6 @@ namespace Demo.BrpEvents
         [Newtonsoft.Json.JsonProperty("pl_id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Pl_id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("adres_id", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public string Adres_id { get; set; }
-
         [Newtonsoft.Json.JsonProperty("c08", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public VerblijfplaatsBuitenland C08 { get; set; }
 

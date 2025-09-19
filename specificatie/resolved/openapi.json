@@ -289,9 +289,6 @@
           "pl_id": {
             "$ref": "#/components/schemas/PlId"
           },
-          "adres_id": {
-            "$ref": "#/components/schemas/AdresId"
-          },
           "c08": {
             "$ref": "#/components/schemas/verblijfplaatsBuitenland"
           }
