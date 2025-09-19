@@ -40,7 +40,7 @@ components:
             data:
               $ref: "#/components/schemas/VerhuisdData"
       example:
-        type: nl.brp.verhuisd.emigratie
+        type: nl.brp.verhuisd.immigratie
         data:
           pl_id: "123456789"
           adres_id: "1122334455"
@@ -53,10 +53,7 @@ components:
         adres_id:
           $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
         c08: 
-            type: object
-            properties:
-              e1030:
-                $ref: "../verblijfplaats/datum-aanvang-adreshouding.yaml#/components/schemas/e1030"
+          $ref: "../verblijfplaats/verblijfplaats.yaml#/components/schemas/c08"
     VerhuisdEmigratieEvent:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
@@ -64,6 +61,8 @@ components:
           properties:
             data:
               $ref: "#/components/schemas/VerhuisdBuitenlandData"
+            c08:
+              $ref: "../verblijfplaats/verblijfplaats-buitenland.yaml#/components/schemas/c08"
       example:
         type: nl.brp.verhuisd.emigratie
         data:
@@ -98,15 +97,4 @@ components:
         adres_id:
           $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
         c08: 
-            type: object
-            properties:
-              e1310:
-                $ref: "../verblijfplaats/landcode.yaml#/components/schemas/e1310"
-              e1320:
-                $ref: "../verblijfplaats/datum-aanvang-adres-buitenland.yaml#/components/schemas/e1320"
-              e1330:
-                $ref: "../verblijfplaats/adres-buitenland-regel-1.yaml#/components/schemas/e1330"
-              e1340:
-                $ref: "../verblijfplaats/adres-buitenland-regel-2.yaml#/components/schemas/e1340"
-              e1350:
-                $ref: "../verblijfplaats/adres-buitenland-regel-3.yaml#/components/schemas/e1350"
+          $ref: "../verblijfplaats/verblijfplaats-buitenland.yaml#/components/schemas/c08"

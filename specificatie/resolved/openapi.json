@@ -150,8 +150,28 @@
         "type": "string",
         "example": "1122334455"
       },
-      "e1030": {
-        "type": "string"
+      "datum-aanvang-adreshouding": {
+        "openapi": "3.1.0",
+        "info": {
+          "title": "Element 10.30",
+          "description": "Datum aanvang adreshouding (10.30)\n",
+          "version": "1.0.0"
+        },
+        "components": {
+          "schemas": {
+            "e1030": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "c08": {
+        "type": "object",
+        "properties": {
+          "e1030": {
+            "$ref": "#/components/schemas/datum-aanvang-adreshouding"
+          }
+        }
       },
       "VerhuisdData": {
         "properties": {
@@ -162,12 +182,7 @@
             "$ref": "#/components/schemas/AdresId"
           },
           "c08": {
-            "type": "object",
-            "properties": {
-              "e1030": {
-                "$ref": "#/components/schemas/e1030"
-              }
-            }
+            "$ref": "#/components/schemas/c08"
           }
         }
       },
@@ -236,6 +251,26 @@
       "e1350": {
         "type": "string"
       },
+      "schemas-c08": {
+        "type": "object",
+        "properties": {
+          "e1310": {
+            "$ref": "#/components/schemas/e1310"
+          },
+          "e1320": {
+            "$ref": "#/components/schemas/e1320"
+          },
+          "e1330": {
+            "$ref": "#/components/schemas/e1330"
+          },
+          "e1340": {
+            "$ref": "#/components/schemas/e1340"
+          },
+          "e1350": {
+            "$ref": "#/components/schemas/e1350"
+          }
+        }
+      },
       "VerhuisdBuitenlandData": {
         "properties": {
           "pl_id": {
@@ -245,24 +280,7 @@
             "$ref": "#/components/schemas/AdresId"
           },
           "c08": {
-            "type": "object",
-            "properties": {
-              "e1310": {
-                "$ref": "#/components/schemas/e1310"
-              },
-              "e1320": {
-                "$ref": "#/components/schemas/e1320"
-              },
-              "e1330": {
-                "$ref": "#/components/schemas/e1330"
-              },
-              "e1340": {
-                "$ref": "#/components/schemas/e1340"
-              },
-              "e1350": {
-                "$ref": "#/components/schemas/e1350"
-              }
-            }
+            "$ref": "#/components/schemas/schemas-c08"
           }
         }
       },
@@ -276,6 +294,9 @@
             "properties": {
               "data": {
                 "$ref": "#/components/schemas/VerhuisdBuitenlandData"
+              },
+              "c08": {
+                "$ref": "#/components/schemas/schemas-c08"
               }
             }
           }
@@ -309,7 +330,7 @@
           }
         ],
         "example": {
-          "type": "nl.brp.verhuisd.emigratie",
+          "type": "nl.brp.verhuisd.immigratie",
           "data": {
             "pl_id": "123456789",
             "adres_id": "1122334455",
