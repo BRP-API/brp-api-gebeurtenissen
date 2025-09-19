@@ -6,16 +6,18 @@ info:
   version: 1.0.0
 components:
   schemas:
-    c08:
-      type: object
-      properties:
-        e1310:
-          $ref: landcode.yaml#/components/schemas/e1310
-        e1320: 
-          $ref: datum-aanvang-adres-buitenland.yaml#/components/schemas/e1320
-        e1330: 
-          $ref: adres-buitenland-regel-1.yaml#/components/schemas/e1330
-        e1340:
-          $ref: adres-buitenland-regel-2.yaml#/components/schemas/e1340
-        e1350:
-          $ref: adres-buitenland-regel-3.yaml#/components/schemas/e1350
+    verblijfplaatsBuitenland:
+       allOf:
+        - $ref: "verblijfplaats-basis.yaml#/components/schemas/c08"
+        - type: object
+        - properties:
+            e1310:
+              $ref: landcode.yaml#/components/schemas/e1310
+            e1320: 
+              $ref: datum-aanvang-adres-buitenland.yaml#/components/schemas/e1320
+            e1330: 
+              $ref: adres-buitenland-regel-1.yaml#/components/schemas/e1330
+            e1340:
+              $ref: adres-buitenland-regel-2.yaml#/components/schemas/e1340
+            e1350:
+              $ref: adres-buitenland-regel-3.yaml#/components/schemas/e1350

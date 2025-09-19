@@ -1,15 +1,15 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "BRP API Gebeurtenissen",
+    "title": "Geclassificeerde gebeurtenissen",
     "version": "1.0.0",
-    "description": "OAS specificatie geclassificeerde events"
+    "description": "OAS specificatie geclassificeerde gebeurtenissen"
   },
   "paths": {
     "/events": {
       "post": {
         "operationId": "publishEvent",
-        "summary": "Publiceer events",
+        "summary": "Publiceer gebeurtenis",
         "requestBody": {
           "content": {
             "application/json": {
@@ -150,6 +150,9 @@
         "type": "string",
         "example": "1122334455"
       },
+      "c08": {
+        "type": "object"
+      },
       "datum-aanvang-adreshouding": {
         "openapi": "3.1.0",
         "info": {
@@ -165,15 +168,22 @@
           }
         }
       },
-      "c08": {
-        "type": "object",
-        "properties": {
-          "e1030": {
-            "$ref": "#/components/schemas/datum-aanvang-adreshouding"
+      "verblijfplaatsBinnenland": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/c08"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "e1030": {
+                "$ref": "#/components/schemas/datum-aanvang-adreshouding"
+              }
+            }
           }
-        }
+        ]
       },
-      "VerhuisdData": {
+      "VerhuisdBinnenlandData": {
         "properties": {
           "pl_id": {
             "$ref": "#/components/schemas/PlId"
@@ -182,7 +192,7 @@
             "$ref": "#/components/schemas/AdresId"
           },
           "c08": {
-            "$ref": "#/components/schemas/c08"
+            "$ref": "#/components/schemas/verblijfplaatsBinnenland"
           }
         }
       },
@@ -195,7 +205,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/VerhuisdData"
+                "$ref": "#/components/schemas/VerhuisdBinnenlandData"
               }
             }
           }
@@ -220,7 +230,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/VerhuisdData"
+                "$ref": "#/components/schemas/VerhuisdBinnenlandData"
               }
             }
           }
@@ -251,25 +261,34 @@
       "e1350": {
         "type": "string"
       },
-      "schemas-c08": {
-        "type": "object",
-        "properties": {
-          "e1310": {
-            "$ref": "#/components/schemas/e1310"
+      "verblijfplaatsBuitenland": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/c08"
           },
-          "e1320": {
-            "$ref": "#/components/schemas/e1320"
+          {
+            "type": "object"
           },
-          "e1330": {
-            "$ref": "#/components/schemas/e1330"
-          },
-          "e1340": {
-            "$ref": "#/components/schemas/e1340"
-          },
-          "e1350": {
-            "$ref": "#/components/schemas/e1350"
+          {
+            "properties": {
+              "e1310": {
+                "$ref": "#/components/schemas/e1310"
+              },
+              "e1320": {
+                "$ref": "#/components/schemas/e1320"
+              },
+              "e1330": {
+                "$ref": "#/components/schemas/e1330"
+              },
+              "e1340": {
+                "$ref": "#/components/schemas/e1340"
+              },
+              "e1350": {
+                "$ref": "#/components/schemas/e1350"
+              }
+            }
           }
-        }
+        ]
       },
       "VerhuisdBuitenlandData": {
         "properties": {
@@ -280,7 +299,7 @@
             "$ref": "#/components/schemas/AdresId"
           },
           "c08": {
-            "$ref": "#/components/schemas/schemas-c08"
+            "$ref": "#/components/schemas/verblijfplaatsBuitenland"
           }
         }
       },
@@ -321,7 +340,7 @@
             "type": "object",
             "properties": {
               "data": {
-                "$ref": "#/components/schemas/VerhuisdData"
+                "$ref": "#/components/schemas/VerhuisdBinnenlandData"
               }
             }
           }

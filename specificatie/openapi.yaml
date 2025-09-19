@@ -1,13 +1,13 @@
 openapi: 3.1.0
 info:
-  title: BRP API Gebeurtenissen
+  title: Geclassificeerde gebeurtenissen
   version: 1.0.0
-  description: OAS specificatie geclassificeerde events
+  description: OAS specificatie geclassificeerde gebeurtenissen
 paths:
   /events:
     post:
       operationId: publishEvent
-      summary: Publiceer events
+      summary: Publiceer gebeurtenis
       requestBody:
           content:
             application/json:

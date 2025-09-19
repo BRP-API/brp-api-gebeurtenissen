@@ -1,0 +1,10 @@
+openapi: 3.1.0
+info:
+  title: Verblijfplaats basis
+  description: |
+    Verblijfplaats
+  version: 1.0.0
+components:
+  schemas:
+    c08:
+      type: object
