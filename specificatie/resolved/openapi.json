@@ -153,20 +153,9 @@
       "c08": {
         "type": "object"
       },
-      "datum-aanvang-adreshouding": {
-        "openapi": "3.1.0",
-        "info": {
-          "title": "Element 10.30",
-          "description": "Datum aanvang adreshouding (10.30)\n",
-          "version": "1.0.0"
-        },
-        "components": {
-          "schemas": {
-            "e1030": {
-              "type": "string"
-            }
-          }
-        }
+      "e1030": {
+        "type": "string",
+        "description": "Datum aanvang adreshouding (10.30)"
       },
       "verblijfplaatsBinnenland": {
         "allOf": [
@@ -177,7 +166,7 @@
             "type": "object",
             "properties": {
               "e1030": {
-                "$ref": "#/components/schemas/datum-aanvang-adreshouding"
+                "$ref": "#/components/schemas/e1030"
               }
             }
           }
@@ -247,19 +236,24 @@
         }
       },
       "e1310": {
-        "type": "string"
+        "type": "string",
+        "description": "Landcode (13.10)"
       },
       "e1320": {
-        "type": "string"
+        "type": "string",
+        "description": "Datum aanvang adres buitenland (13.20)"
       },
       "e1330": {
-        "type": "string"
+        "type": "string",
+        "description": "Regel 1 adres buitenland (13.30)"
       },
       "e1340": {
-        "type": "string"
+        "type": "string",
+        "description": "Regel 2 adres buitenland (13.40)"
       },
       "e1350": {
-        "type": "string"
+        "type": "string",
+        "description": "Regel 3 adres buitenland (13.50)"
       },
       "verblijfplaatsBuitenland": {
         "allOf": [

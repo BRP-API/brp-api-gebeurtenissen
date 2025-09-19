@@ -1,8 +1,6 @@
 openapi: 3.1.0
 info:
   title: Verblijfplaats data (binnenlands)
-  description: |
-    Verblijfplaats
   version: 1.0.0
 components:
   schemas:
@@ -12,4 +10,4 @@ components:
         - type: object
           properties:
             e1030:
-              $ref: datum-aanvang-adreshouding.yaml
+              $ref: "datum-aanvang-adreshouding.yaml#/components/schemas/e1030"

@@ -1,10 +1,9 @@
 openapi: 3.1.0
 info:
   title: Element 13.10
-  description: |
-    Landcode (13.10)
   version: 1.0.0
 components:
   schemas:
     e1310:
       type: string
+      description: Landcode (13.10)

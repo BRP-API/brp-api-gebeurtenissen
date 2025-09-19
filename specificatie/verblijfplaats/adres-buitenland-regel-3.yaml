@@ -1,10 +1,9 @@
 openapi: 3.1.0
 info:
   title: Element 13.50
-  description: |
-    Regel 3 adres buitenland
   version: 1.0.0
 components:
   schemas:
     e1350:
       type: string
+      description: Regel 3 adres buitenland (13.50)

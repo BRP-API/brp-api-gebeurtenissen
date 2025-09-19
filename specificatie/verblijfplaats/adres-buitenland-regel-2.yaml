@@ -1,10 +1,9 @@
 openapi: 3.1.0
 info:
   title: Element 13.40
-  description: |
-    Regel 2 adres buitenland
   version: 1.0.0
 components:
   schemas:
     e1340:
       type: string
+      description: Regel 2 adres buitenland (13.40)
