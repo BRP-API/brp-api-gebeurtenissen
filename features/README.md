@@ -99,7 +99,7 @@ Scenario: aangeven van een binnengemeentelijke verhuizing
     * verblijft vanaf '14-4-2020' op een locatie in 'Amsterdam'
     Als de opgave van verhuizing van 'Jan' is verwerkt
     * verblijft vanaf '1-9-2025' op een ander adres in 'Amsterdam'
-    Dan is een gebeurtenis 'verhuisd.binnengemeentelijk' het laatst gepubliceerd
+    Dan is een 'verhuisd.binnengemeentelijk' gebeurtenis het laatst gepubliceerd
 ```
 
 Om de volgorde van de gepubliceerde gebeurtenissen te specificeren kan gebruik worden gemaakt van de stap definitie `Dan zijn de volgende gebeurtenissen in de opgegeven volgorde gepubliceerd`. Het bovengenoemde scenario ziet er dan als volgt uit:
