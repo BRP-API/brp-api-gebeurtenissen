@@ -294,9 +294,6 @@
             "properties": {
               "data": {
                 "$ref": "#/components/schemas/VerhuisdBuitenlandData"
-              },
-              "c08": {
-                "$ref": "#/components/schemas/schemas-c08"
               }
             }
           }

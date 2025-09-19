@@ -61,8 +61,6 @@ components:
           properties:
             data:
               $ref: "#/components/schemas/VerhuisdBuitenlandData"
-            c08:
-              $ref: "../verblijfplaats/verblijfplaats-buitenland.yaml#/components/schemas/c08"
       example:
         type: nl.brp.verhuisd.emigratie
         data:
