@@ -9,7 +9,7 @@ Dan heeft het systeem een nieuwe state
 ```
 
 BRP API Gebeurtenissen is een systeem geïmplementeerd conform de Event-Driven Architecture (EDA) design pattern. In een EDA systeem worden significante wijzigingen in het systeem gecommuniceerd door het publiceren van events (gebeurtenissen) en worden events geïnitieerd door commands (opdrachten).
-BRP API Gebeurtenissen communiceert gebeurtenissen van personen die geregistreerd staan in de BRP als opgegeven aangiften/wijzigingen voor deze personen zijn verwerkt. BRP specifieke gebeurtenissen zijn bijvoorbeeld geëmigreerd, geïmmigreerd, geboren, verhuisd en overleden en BRP specifieke aangiften zijn bijvoorbeeld 'aangeven immigratie', 'aangeven geboorte', 'aangeven verhuizing', en 'aangeven overlijden'.
+BRP API Gebeurtenissen communiceert gebeurtenissen van personen die geregistreerd staan in de BRP als opgegeven aangiften/wijzigingen voor deze personen zijn verwerkt. BRP specifieke gebeurtenissen zijn bijvoorbeeld geëmigreerd, geïmmigreerd, geboren, verhuisd en overleden en BRP specifieke aangiften zijn bijvoorbeeld 'aangeven immigratie', 'aangeven geboorte', 'aangeven verhuizing', en 'aangeven overlijden'. Deze gebeurtenissen zijn bedoeld voor afnemers zodat zij geactiveerd worden tot het ophalen van actuele persoonsgegevens.
 
 Voor het specificeren van de BRP API Gebeurtenissen functionaliteit zijn stappen gedefinieerd om in scenarios zoveel mogelijk aangiften/wijzigingen en bijbehorende gebeurtenissen van personen in het BRP domein te kunnen illustreren. Het verwerken van bijvoorbeeld een geboorteaangifte van een kind 'Jan' wordt dan als volgt gespecificeerd:
 
