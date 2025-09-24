@@ -6,6 +6,8 @@ info:
 paths:
   /events:
     post:
+      tags: 
+        -  Gebeurtenis
       operationId: publishEvent
       summary: Publiceer gebeurtenis
       requestBody:

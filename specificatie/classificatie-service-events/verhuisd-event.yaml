@@ -8,6 +8,8 @@ components:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
+          required:
+            - "data"
           properties:
             data:
               $ref: "#/components/schemas/VerhuisdBinnenlandData"
@@ -22,6 +24,8 @@ components:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
+          required:
+            - "data"
           properties:
             data:
               $ref: "#/components/schemas/VerhuisdBinnenlandData"
@@ -36,6 +40,8 @@ components:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
+          required:
+            - "data"
           properties:
             data:
               $ref: "#/components/schemas/VerhuisdBinnenlandData"
@@ -58,6 +64,8 @@ components:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
+          required:
+            - "data"
           properties:
             data:
               $ref: "#/components/schemas/VerhuisdBuitenlandData"
@@ -75,6 +83,8 @@ components:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
+          required:
+            - "data"
           properties:
             data:
               $ref: "#/components/schemas/VerhuisdBuitenlandData"

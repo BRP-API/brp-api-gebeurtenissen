@@ -8,6 +8,8 @@ components:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
+          required:
+            - "data"
           properties:
             data:
               $ref: "#/components/schemas/IngeschrevenData"
@@ -19,6 +21,8 @@ components:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
+          required:
+            - "data"
           properties:
             data:
               $ref: "#/components/schemas/IngeschrevenData"
@@ -30,6 +34,8 @@ components:
       allOf:
         - $ref: "classificatie-event.yaml#/components/schemas/Event"
         - type: object
+          required:
+            - "data"
           properties:
             data:
               $ref: "#/components/schemas/IngeschrevenData"
