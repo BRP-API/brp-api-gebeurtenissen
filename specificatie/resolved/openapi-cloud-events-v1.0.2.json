@@ -1,0 +1,602 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Geclassificeerde gebeurtenissen",
+    "version": "1.0.0",
+    "description": "OAS specificatie geclassificeerde gebeurtenissen"
+  },
+  "paths": {
+    "/events": {
+      "post": {
+        "operationId": "publishEvent",
+        "summary": "Publiceer gebeurtenis",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Event"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event succesvol gepubliceerd",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unieke identificatie van het gepubliceerde event"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "iddef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "sourcedef": {
+        "type": "string",
+        "format": "uri-reference",
+        "minLength": 1
+      },
+      "specversiondef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "typedef": {
+        "type": "string",
+        "minLength": 1
+      },
+      "datacontenttypedef": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "minLength": 1
+      },
+      "dataschemadef": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "minLength": 1
+      },
+      "subjectdef": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "minLength": 1
+      },
+      "timedef": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "date-time",
+        "minLength": 1
+      },
+      "datadef": {
+        "type": [
+          "object",
+          "string",
+          "number",
+          "array",
+          "boolean",
+          "null"
+        ]
+      },
+      "data_base64def": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "contentEncoding": "base64"
+      },
+      "cloud-event": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "CloudEvent",
+        "description": "CloudEvents Specification JSON Schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Identifies the event.",
+            "$ref": "#/components/schemas/iddef",
+            "examples": [
+              "A234-1234-1234"
+            ]
+          },
+          "source": {
+            "description": "Identifies the context in which an event happened.",
+            "$ref": "#/components/schemas/sourcedef",
+            "examples": [
+              "https://github.com/cloudevents",
+              "mailto:cncf-wg-serverless@lists.cncf.io",
+              "urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66",
+              "cloudevents/spec/pull/123",
+              "/sensors/tn-1234567/alerts",
+              "1-555-123-4567"
+            ]
+          },
+          "specversion": {
+            "description": "The version of the CloudEvents specification which the event uses.",
+            "$ref": "#/components/schemas/specversiondef",
+            "examples": [
+              "1.0"
+            ]
+          },
+          "type": {
+            "description": "Describes the type of event related to the originating occurrence.",
+            "$ref": "#/components/schemas/typedef",
+            "examples": [
+              "com.github.pull_request.opened",
+              "com.example.object.deleted.v2"
+            ]
+          },
+          "datacontenttype": {
+            "description": "Content type of the data value. Must adhere to RFC 2046 format.",
+            "$ref": "#/components/schemas/datacontenttypedef",
+            "x-display": false,
+            "examples": [
+              "text/xml",
+              "application/json",
+              "image/png",
+              "multipart/form-data"
+            ]
+          },
+          "dataschema": {
+            "description": "Identifies the schema that data adheres to.",
+            "$ref": "#/components/schemas/dataschemadef"
+          },
+          "subject": {
+            "description": "Describes the subject of the event in the context of the event producer (identified by source).",
+            "$ref": "#/components/schemas/subjectdef",
+            "examples": [
+              "mynewfile.jpg"
+            ]
+          },
+          "time": {
+            "description": "Timestamp of when the occurrence happened. Must adhere to RFC 3339.",
+            "$ref": "#/components/schemas/timedef",
+            "examples": [
+              "2018-04-05T17:31:00Z"
+            ]
+          },
+          "data": {
+            "description": "The event payload.",
+            "$ref": "#/components/schemas/datadef",
+            "examples": [
+              "<much wow=\"xml\"/>"
+            ]
+          },
+          "data_base64": {
+            "description": "Base64 encoded event payload. Must adhere to RFC4648.",
+            "$ref": "#/components/schemas/data_base64def",
+            "examples": [
+              "Zm9vYg=="
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "source",
+          "specversion",
+          "type"
+        ],
+        "definitions": {
+          "iddef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourcedef": {
+            "type": "string",
+            "format": "uri-reference",
+            "minLength": 1
+          },
+          "specversiondef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "typedef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "datacontenttypedef": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "dataschemadef": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "minLength": 1
+          },
+          "subjectdef": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "timedef": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "minLength": 1
+          },
+          "datadef": {
+            "type": [
+              "object",
+              "string",
+              "number",
+              "array",
+              "boolean",
+              "null"
+            ]
+          },
+          "data_base64def": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "contentEncoding": "base64"
+          }
+        }
+      },
+      "Event": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/cloud-event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "nl.brp.ingeschreven.geboorte": "#/components/schemas/IngeschrevenGeboorteEvent",
+                "nl.brp.ingeschreven.immigratie": "#/components/schemas/IngeschrevenImmigratieEvent",
+                "nl.brp.ingeschreven.niet-ingezetene": "#/components/schemas/IngeschrevenNietIngezeteneEvent",
+                "nl.brp.verhuisd.binnengemeentelijk": "#/components/schemas/VerhuisdBinnengemeentelijkEvent",
+                "nl.brp.verhuisd.buitengemeentelijk": "#/components/schemas/VerhuisdBuitengemeentelijkEvent",
+                "nl.brp.verhuisd.emigratie": "#/components/schemas/VerhuisdEmigratieEvent",
+                "nl.brp.verhuisd.immigratie": "#/components/schemas/VerhuisdImmigratieEvent",
+                "nl.brp.verhuisd.in-buitenland": "#/components/schemas/VerhuisdInBuitenlandEvent"
+              }
+            }
+          }
+        ]
+      },
+      "PlId": {
+        "type": "string",
+        "example": "123456789"
+      },
+      "IngeschrevenData": {
+        "properties": {
+          "pl_id": {
+            "$ref": "#/components/schemas/PlId"
+          }
+        }
+      },
+      "IngeschrevenGeboorteEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/IngeschrevenData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.ingeschreven.geboorte",
+          "data": {
+            "pl_id": "123456789"
+          }
+        }
+      },
+      "IngeschrevenImmigratieEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/IngeschrevenData"
+              }
+            },
+            "example": {
+              "type": "nl.brp.ingeschreven.immigratie",
+              "data": {
+                "pl_id": "123456789"
+              }
+            }
+          }
+        ]
+      },
+      "IngeschrevenNietIngezeteneEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/IngeschrevenData"
+              }
+            },
+            "example": {
+              "type": "nl.brp.ingeschreven.niet-ingezetene",
+              "data": {
+                "pl_id": "123456789"
+              }
+            }
+          }
+        ]
+      },
+      "AdresId": {
+        "type": "string",
+        "example": "1122334455"
+      },
+      "c08": {
+        "type": "object"
+      },
+      "e1030": {
+        "type": "string",
+        "description": "Datum aanvang adreshouding (10.30)"
+      },
+      "verblijfplaatsBinnenland": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/c08"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "e1030": {
+                "$ref": "#/components/schemas/e1030"
+              }
+            }
+          }
+        ]
+      },
+      "VerhuisdBinnenlandData": {
+        "properties": {
+          "pl_id": {
+            "$ref": "#/components/schemas/PlId"
+          },
+          "adres_id": {
+            "$ref": "#/components/schemas/AdresId"
+          },
+          "c08": {
+            "$ref": "#/components/schemas/verblijfplaatsBinnenland"
+          }
+        }
+      },
+      "VerhuisdBinnengemeentelijkEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/VerhuisdBinnenlandData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.binnengemeentelijk",
+          "data": {
+            "pl_id": "123456789",
+            "adres_id": "1122334455",
+            "c08": {
+              "e1030": "20250101"
+            }
+          }
+        }
+      },
+      "VerhuisdBuitengemeentelijkEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/VerhuisdBinnenlandData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.buitengemeentelijk",
+          "data": {
+            "pl_id": "123456789",
+            "adres_id": "1122334455",
+            "c08": {
+              "e1030": "20250101"
+            }
+          }
+        }
+      },
+      "e1310": {
+        "type": "string",
+        "description": "Landcode (13.10)"
+      },
+      "e1320": {
+        "type": "string",
+        "description": "Datum aanvang adres buitenland (13.20)"
+      },
+      "e1330": {
+        "type": "string",
+        "description": "Regel 1 adres buitenland (13.30)"
+      },
+      "e1340": {
+        "type": "string",
+        "description": "Regel 2 adres buitenland (13.40)"
+      },
+      "e1350": {
+        "type": "string",
+        "description": "Regel 3 adres buitenland (13.50)"
+      },
+      "verblijfplaatsBuitenland": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/c08"
+          },
+          {
+            "type": "object"
+          },
+          {
+            "properties": {
+              "e1310": {
+                "$ref": "#/components/schemas/e1310"
+              },
+              "e1320": {
+                "$ref": "#/components/schemas/e1320"
+              },
+              "e1330": {
+                "$ref": "#/components/schemas/e1330"
+              },
+              "e1340": {
+                "$ref": "#/components/schemas/e1340"
+              },
+              "e1350": {
+                "$ref": "#/components/schemas/e1350"
+              }
+            }
+          }
+        ]
+      },
+      "VerhuisdBuitenlandData": {
+        "properties": {
+          "pl_id": {
+            "$ref": "#/components/schemas/PlId"
+          },
+          "c08": {
+            "$ref": "#/components/schemas/verblijfplaatsBuitenland"
+          }
+        }
+      },
+      "VerhuisdEmigratieEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/VerhuisdBuitenlandData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.emigratie",
+          "data": {
+            "pl_id": "123456789",
+            "c08": {
+              "e1310": "5010",
+              "e1320": "20250101",
+              "e1330": "Rue de Pomme 26",
+              "e1340": "Bruxelles",
+              "e1350": "postcode 1000"
+            }
+          }
+        }
+      },
+      "VerhuisdImmigratieEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/VerhuisdBinnenlandData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.immigratie",
+          "data": {
+            "pl_id": "123456789",
+            "adres_id": "1122334455",
+            "c08": {
+              "e1030": "20250101"
+            }
+          }
+        }
+      },
+      "VerhuisdInBuitenlandEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Event"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/VerhuisdBuitenlandData"
+              }
+            }
+          }
+        ],
+        "example": {
+          "type": "nl.brp.verhuisd.buitenlands",
+          "data": {
+            "pl_id": "123456789",
+            "c08": {
+              "e1310": "5010",
+              "e1320": "20250101",
+              "e1330": "Rue de Pomme 26",
+              "e1340": "Bruxelles",
+              "e1350": "postcode 1000"
+            }
+          }
+        }
+      }
+    }
+  }
+}

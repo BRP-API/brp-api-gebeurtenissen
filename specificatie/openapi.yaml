@@ -1,0 +1,29 @@
+openapi: 3.1.0
+info:
+  title: Geclassificeerde gebeurtenissen
+  version: 1.0.0
+  description: OAS specificatie geclassificeerde gebeurtenissen
+paths:
+  /events:
+    post:
+      tags: 
+        -  Gebeurtenis
+      operationId: publishEvent
+      summary: Publiceer gebeurtenis
+      requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: "classificatie-service-events/classificatie-event.yaml#/components/schemas/Event"
+      responses: 
+        "200":
+          description: Event succesvol gepubliceerd
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unieke identificatie van het gepubliceerde event
+          

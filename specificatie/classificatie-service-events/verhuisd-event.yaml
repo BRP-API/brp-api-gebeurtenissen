@@ -1,0 +1,106 @@
+openapi: 3.1.0
+info:
+  title: Persoon Ingeschreven Event
+  version: 1.0.0
+components:
+  schemas:
+    VerhuisdBinnengemeentelijkEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
+        - type: object
+          required:
+            - "data"
+          properties:
+            data:
+              $ref: "#/components/schemas/VerhuisdBinnenlandData"
+      example:
+        type: nl.brp.verhuisd.binnengemeentelijk
+        data:
+          pl_id: "123456789"
+          adres_id: "1122334455"
+          c08:
+            e1030: "20250101"
+    VerhuisdBuitengemeentelijkEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
+        - type: object
+          required:
+            - "data"
+          properties:
+            data:
+              $ref: "#/components/schemas/VerhuisdBinnenlandData"
+      example:
+        type: nl.brp.verhuisd.buitengemeentelijk
+        data:
+          pl_id: "123456789"
+          adres_id: "1122334455"
+          c08:
+            e1030: "20250101"        
+    VerhuisdImmigratieEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
+        - type: object
+          required:
+            - "data"
+          properties:
+            data:
+              $ref: "#/components/schemas/VerhuisdBinnenlandData"
+      example:
+        type: nl.brp.verhuisd.immigratie
+        data:
+          pl_id: "123456789"
+          adres_id: "1122334455"
+          c08:
+            e1030: "20250101"             
+    VerhuisdBinnenlandData:
+      properties:
+        pl_id:
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
+        adres_id:
+          $ref: "../ids/adres-id.yaml#/components/schemas/AdresId"
+        c08: 
+          $ref: "../verblijfplaats/verblijfplaats-binnenland.yaml#/components/schemas/verblijfplaatsBinnenland"
+    VerhuisdEmigratieEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
+        - type: object
+          required:
+            - "data"
+          properties:
+            data:
+              $ref: "#/components/schemas/VerhuisdBuitenlandData"
+      example:
+        type: nl.brp.verhuisd.emigratie
+        data:
+          pl_id: "123456789"
+          c08:
+            e1310: "5010"
+            e1320: "20250101"
+            e1330: "Rue de Pomme 26"
+            e1340: "Bruxelles"
+            e1350: "postcode 1000"
+    VerhuisdInBuitenlandEvent:
+      allOf:
+        - $ref: "classificatie-event.yaml#/components/schemas/Event"
+        - type: object
+          required:
+            - "data"
+          properties:
+            data:
+              $ref: "#/components/schemas/VerhuisdBuitenlandData"
+      example:
+        type: nl.brp.verhuisd.buitenlands
+        data:
+          pl_id: "123456789"
+          c08:
+            e1310: "5010"
+            e1320: "20250101"
+            e1330: "Rue de Pomme 26"
+            e1340: "Bruxelles"
+            e1350: "postcode 1000"
+    VerhuisdBuitenlandData:
+      properties:
+        pl_id:
+          $ref: "../ids/pl-id.yaml#/components/schemas/PlId"
+        c08: 
+          $ref: "../verblijfplaats/verblijfplaats-buitenland.yaml#/components/schemas/verblijfplaatsBuitenland"
