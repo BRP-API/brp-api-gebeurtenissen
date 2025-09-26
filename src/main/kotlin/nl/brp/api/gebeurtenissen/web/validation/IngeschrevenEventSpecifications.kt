@@ -1,5 +1,6 @@
-package nl.brp.api.gebeurtenissen.web.api
+package nl.brp.api.gebeurtenissen.web.validation
 
+import nl.brp.api.gebeurtenissen.web.api.*
 import org.springframework.stereotype.Component
 
 @Component

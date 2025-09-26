@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    active: docker  # standaard actief profiel
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker  # activeer dit profiel bij gebruik van 'docker' profiel
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/axondb
+    username: admin
+    password: topsecret
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+axon:
+  axonserver:
+    enabled: false
+  eventhandling:
+    processors:
+      _default_:
+        source: eventStore
+  eventstore:
+    type: jdbc
+
+logging:
+  level:
+    org.axonframework: DEBUG
+    org.hibernate.SQL: DEBUG

@@ -12,6 +12,8 @@ group = "nl.brp.api"
 version = "0.0.1-SNAPSHOT"
 description = "BRP API Gebeurtenissen"
 
+val axonVersion = "4.9.0"
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
@@ -30,12 +32,28 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+	runtimeOnly("org.postgresql:postgresql")
+
 	//	 OpenAPI Generator runtime dependencies
 	implementation("jakarta.validation:jakarta.validation-api:3.0.2")
 	implementation("org.openapitools:jackson-databind-nullable:0.2.5")
 	implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
 	implementation("jakarta.el:jakarta.el-api:5.0.1")
 	runtimeOnly("org.glassfish.expressly:expressly:5.0.0")
+
+	// JPA and Postgres dependencies
+	implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+	// Axon Framework dependencies
+	implementation("org.axonframework:axon-spring-boot-starter:$axonVersion")
+
+	// Axon Server Connector for the JdbcEventStorageEngine
+	implementation("org.axonframework:axon-server-connector:$axonVersion")
+
+	// Axon Test dependency
+	testImplementation("org.axonframework:axon-test:$axonVersion")
+
 }
 
 sourceSets {
@@ -58,8 +76,6 @@ openApiGenerate {
 	configOptions.put("documentationProvider", "none")
 	configOptions.put("implicitHeaders", "true")
 	configOptions.put("useOptional", "false")
-	configOptions.put("useBeanValidation", "false")
-	configOptions.put("modelPropertyNaming", "original")
 	configOptions.put("useSpringBoot3", "true")
 	configOptions.put("useTags", "true")
 	configOptions.put("useSwaggerUI", "false")
