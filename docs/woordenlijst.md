@@ -28,3 +28,7 @@ De datastructuur kan worden gepersisteerd in database tabellen.
 
 Signaal dat een wijziging heeft plaatsgevonden in de toestand van een entiteit.
 Een notificatie is een kopie van een event exclusief de data horende bij de wijziging.
+Vastgelegd:
+- de wijziging als dat het al heeft plaatsgevonden. v.b. verhuisd
+- wanneer heeft de wijziging plaatsgevonden
+- id van de event
