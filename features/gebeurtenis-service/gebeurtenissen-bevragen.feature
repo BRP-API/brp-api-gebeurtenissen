@@ -43,14 +43,14 @@ Functionaliteit: Gebeurtenissen bevragen
       Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'B1'
       Dan wordt een 'ingeschreven.immigratie' gebeurtenis geleverd
       * bevat de id 'A1234'
-      * bevat de 'data' de burgerservicenummer van 'Jan'
+      * bevat de 'data' het burgerservicenummer van 'Jan'
 
     Scenario: Afnemer heeft al een gebeurtenis gevraagd
       Gegeven een niet-gelezen gebeurtenis is gevraagd door afnemer 'B1'
       Als nog een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'B1'
       Dan wordt een 'ingeschreven.immigratie' gebeurtenis geleverd
       * bevat de id 'A2345'
-      * bevat de 'data' de burgerservicenummer van 'Piet'
+      * bevat de 'data' het burgerservicenummer van 'Piet'
 
     Scenario: Afnemer heeft alle niet-gelezen gebeurtenissen al gevraagd
       Gegeven alle niet-gelezen gebeurtenissen zijn gevraagd door afnemer 'B1'
@@ -65,7 +65,7 @@ Functionaliteit: Gebeurtenissen bevragen
       Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'B1'
       Dan wordt een 'ingeschreven.immigratie' gebeurtenis geleverd
       * bevat de id 'A1234'
-      * bevat de 'data' de burgerservicenummer van 'Jan'
+      * bevat de 'data' het burgerservicenummer van 'Jan'
 
   Regel: Een afnemer kan gebeurtenissen vanaf een datum als niet-gelezen markeren
 
@@ -75,4 +75,4 @@ Functionaliteit: Gebeurtenissen bevragen
       Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'B1'
       Dan wordt een 'ingeschreven.immigratie' gebeurtenis geleverd
       * bevat de id 'A2345'
-      * bevat de 'data' de burgerservicenummer van 'Piet'
+      * bevat de 'data' het burgerservicenummer van 'Piet'
