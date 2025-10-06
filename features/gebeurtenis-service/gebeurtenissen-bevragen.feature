@@ -31,7 +31,7 @@ Functionaliteit: Gebeurtenissen bevragen
       Als een gebeurtenis wordt gevraagd door afnemer 'B1' met identifier 'A1234'
       Dan wordt een 'ingeschreven.immigratie' gebeurtenis geleverd
       * bevat de id 'A1234'
-      * bevat de 'data' de burgerservicenummer van 'Jan'
+      * bevat de 'data' het burgerservicenummer van 'Jan'
 
     Scenario: Afnemer is niet geabonneerd op 'ingeschreven.immigratie' gebeurtenissen
       Als een gebeurtenis wordt gevraagd door afnemer 'C1' met identifier 'A1234'
