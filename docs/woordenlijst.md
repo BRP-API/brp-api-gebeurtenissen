@@ -32,3 +32,9 @@ Vastgelegd:
 - de wijziging als dat het al heeft plaatsgevonden. v.b. verhuisd
 - wanneer heeft de wijziging plaatsgevonden
 - id van de event
+Verschillende communicatie media kan worden gebruikt voor het leveren van een notificatie, bijv.
+- e-mail
+- ftp
+- webhook
+- kafka topic
+- etc
