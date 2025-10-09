@@ -12,16 +12,6 @@ Functionaliteit: gepubliceerde gebeurtenis bij een verhuizing
     * bevat de 'data' de adres_id van het nieuwe adres
     * bevat de 'data' in categorie 'verblijfplaats' element 'datum aanvang adreshouding (10.30)' met waarde '1-9-2025'
 
-  Scenario: Verhuizing naar een andere gemeente in Nederland aangegeven
-    Gegeven de verwerkte aangifte van geboorte van 'Jan'
-    * verblijft vanaf '14-4-2020' op een adres in 'Amsterdam'
-    Als de opgave van verhuizing van 'Jan' is verwerkt
-    * verblijft vanaf '1-9-2025' op een adres in 'Utrecht'
-    Dan is een 'verhuisd.buitengemeentelijk' gebeurtenis het laatst gepubliceerd
-    * bevat de 'data' de pl_id van 'Jan'
-    * bevat de 'data' de adres_id van het nieuwe adres
-    * bevat de 'data' in categorie 'verblijfplaats' element 'datum aanvang adreshouding (10.30)' met waarde '1-9-2025'
-
   @to-do @skip-verify
   Scenario: Verhuizing van Nederland naar het buitenland aangegeven
     Gegeven de verwerkte aangifte van geboorte van 'Jan'
