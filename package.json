@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/BRP-API/brp-api-gebeurtenissen/issues"
   },
-  "homepage": "https://github.com/BRP-API/brp-api-gebeurtenissen#readme"
+  "homepage": "https://github.com/BRP-API/brp-api-gebeurtenissen#readme",
+  "devDependencies": {
+    "@redocly/cli": "^2.4.0"
+  }
 }
