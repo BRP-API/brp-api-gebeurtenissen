@@ -1,0 +1,20 @@
+openapi: 3.1.0
+info: 
+  title: verblijfplaats binnenland (polymorf) specificatie tbv gebeurtenissen
+  version: 1.0.0
+components: 
+  schemas:
+    VerblijfplaatsBinnenland:
+      type: object
+      description: |
+        Verblijfplaats binnenland (polymorf).
+      required: 
+        -  type
+      properties:
+        type:
+          type: string
+      discriminator: 
+        propertyName: type
+        mapping:
+          Adres: 'adres-v1.yaml#/components/schemas/Adres'
+          Locatie: 'locatie-v1.yaml#/components/schemas/Locatie'

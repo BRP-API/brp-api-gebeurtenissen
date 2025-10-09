@@ -1,0 +1,15 @@
+openapi: 3.1.0
+info:
+  title: adres tbv gebeurtenissen specificatie
+  version: 1.0.0
+components:
+  schemas:
+    Adres:
+      allOf:
+        - $ref: 'verblijfplaats-binnenland-v1.yaml#/components/schemas/VerblijfplaatsBinnenland'
+        - type: object
+          properties:
+            adresseerbaarObjectIdentificatie:
+              $ref: '../../brp/adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatie'
+            datumVan:
+              $ref: '../datum/datum-polymorf-v1.yaml#/components/schemas/AbstractDatum'

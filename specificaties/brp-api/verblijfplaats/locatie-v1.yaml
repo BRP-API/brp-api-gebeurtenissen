@@ -1,0 +1,21 @@
+openapi: 3.1.0
+info: 
+  title: locatie specificatie tbv gebeurtenissen
+  version: 1.0.0
+components: 
+  schemas:
+    Locatie:
+      allOf:
+        - $ref: 'verblijfplaats-binnenland-v1.yaml#/components/schemas/VerblijfplaatsBinnenland'
+        - type: object
+          properties:
+            datumVan:
+              $ref: '../datum/datum-polymorf-v1.yaml#/components/schemas/AbstractDatum'
+            Verblijfadres:
+              $ref: '#/components/schemas/VerblijfadresLocatie'
+
+    VerblijfadresLocatie:
+      type: object
+      properties:
+        locatiebeschrijving:
+          $ref: '../../brp/locatie/locatiebeschrijving-v1.yaml#/components/schemas/Locatiebeschrijving'
