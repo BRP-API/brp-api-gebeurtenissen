@@ -15,3 +15,9 @@ paths:
       responses:
         '201':
           description: Gebeurtenis succesvol gepubliceerd
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
