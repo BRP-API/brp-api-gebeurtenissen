@@ -1,0 +1,30 @@
+openapi: 3.1.0
+info: 
+  title: verhuisd intergemeentelijk gebeurtenis specificatie
+  version: 1.0.0
+components:
+  schemas:
+    VerhuisdIntergemeentelijk:
+      allOf: 
+        - $ref: 'gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+        - type: object
+          required: 
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
+
+    VerhuisdIntergemeentelijkData:
+      type: object
+      properties:
+        c01:
+          $ref: '../identificatienummers/anummer-v1.yaml#/components/schemas/AnummerIdentificatieNummersPersoon'
+        c08:
+          type: object
+          properties:
+            g10:
+              $ref: '../adres/datum-aanvang-adreshouding-v1.yaml#/components/schemas/DatumAanvangAdreshoudingAdreshouding'
+            g11:
+              $ref: '../adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatieAdres'
+            g12:
+              $ref: '../locatie/locatiebeschrijving-v1.yaml#/components/schemas/LocatiebeschrijvingLocatie'

@@ -1,0 +1,16 @@
+openapi: 3.1.0
+info:
+  title: BRP gebeurtenis specificatie
+  version: 1.0.0
+components: 
+  schemas:
+    Gebeurtenis:
+      allOf:
+        - $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/CloudEvent'
+      required: 
+        - type
+      discriminator: 
+        propertyName: type
+        mapping:
+          nl.brp.verhuisd.intergemeentelijk: 'verhuisd-intergemeentelijk-v1.yaml#/components/schemas/VerhuisdIntergemeentelijk'
+        

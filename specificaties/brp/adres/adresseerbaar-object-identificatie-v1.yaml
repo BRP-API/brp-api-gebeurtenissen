@@ -1,0 +1,23 @@
+openapi: 3.1.0
+info:
+  title: adresseerbaar object identificatie specificatie
+  version: 1.0.0
+components:
+  schemas:
+    AdresseerbaarObjectIdentificatie:
+      type: string
+      title: Identificatiecode verblijfplaats
+      description: |
+        Een verblijfplaats kan een ligplaats, een standplaats of een verblijfsobject in een of meerdere panden zijn, waaraan respectievelijk een ligplaatsidentificatie, standplaatsidentificatie of verblijfsobjectidentificatie is toegekend.
+        De Identificatiecode verblijfplaats is een combinatie van een viercijferige gemeentecode, een tweecijferige objecttypecode die aangeeft of de aanduiding een verblijfsobject (01), ligplaats (02) of standplaats (03) betreft en een voor het betreffende objecttype binnen een gemeente uniek tiencijferig volgnummer.
+        - Groep: Adres (11)
+        - Element: Identificatiecode verblijfplaats (11.80)
+      pattern: ^[0-9]{16}$
+
+    AdresseerbaarObjectIdentificatieAdres:
+      type: object
+      description: |
+        Adres groep met adresseerbaar object identificatie veld.
+      properties:
+        e1180:
+          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'

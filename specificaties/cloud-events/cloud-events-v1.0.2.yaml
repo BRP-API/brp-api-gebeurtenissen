@@ -1,0 +1,30 @@
+openapi: 3.1.0
+info:
+  title: CloudEvents Specification YAML Format
+  version: 1.0.2
+components: 
+  schemas:
+    CloudEvent:
+      type: object
+      properties:
+        type:
+          description: |
+            Describes the type of event related to the originating occurrence.
+          $ref: '#/components/schemas/typedef'
+        data:
+          description: |
+            The event payload.
+          $ref: '#/components/schemas/datadef'
+
+    typedef:
+      type: string
+      minLength: 1
+
+    datadef:
+      type:
+        - object
+        - string
+        - number
+        - array
+        - boolean
+        - "null"

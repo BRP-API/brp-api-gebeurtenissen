@@ -1,0 +1,28 @@
+openapi: 3.1.0
+info:
+  title: a-nummer specificatie
+  version: 1.0.0
+components:
+  schemas:
+    Anummer:
+      type: string
+      title: A-nummer
+      description: |
+        Het administratienummer, bedoeld in artikel 4.9 van de Wet BRP.
+        - Groep: Identificatienummers (01)
+        - Element: A-nummer (01.10)
+      pattern: ^(?!.*([0-9])\\1)[1-9][0-9]{9}$
+
+    AnummerIdentificatieNummers:
+      type: object
+      description: |
+        Identificatienummers groep met a-nummer veld.
+      properties:
+        e0110:
+          $ref: '#/components/schemas/Anummer'
+
+    AnummerIdentificatieNummersPersoon:
+      type: object
+      properties:
+        g01:
+          $ref: '#/components/schemas/AnummerIdentificatieNummers'

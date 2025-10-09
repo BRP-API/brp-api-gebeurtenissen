@@ -1,0 +1,22 @@
+openapi: 3.1.0
+info: 
+  title: datum aanvang adreshouding specificatie
+  version: 1.0.0
+components:
+  schemas:
+    DatumAanvangAdreshouding:
+      type: string
+      title: Datum aanvang adreshouding
+      description: |
+        De datum van aangifte of ambtshalve melding van verblijf en adres. Bij een tijdige aangifte (tussen vier weken voor en vijf dagen na de verhuizing) van vestiging op het adres is dit de in de aangifte vermelde datum van adreswijziging. Bij een niet tijdige aangifte is dit de aangiftedatum. Bij inschrijving op grond van een geboorteakte is dit de geboortedatum. Bij ambtshalve inschrijving is dit de datum waarop de betrokkene schriftelijk van het voornemen van ambtshalve opneming mededeling is gedaan.
+        - Groep: Adreshouding (10)
+        - Element: Datum aanvang adreshouding (10.30)
+      pattern: ^(18|19|20|21|22)[0-9]{2}((0[1-9]|1[0-2])((0[1-9]|[12][0-9]|3[01])|00)|0000)|00000000$
+
+    DatumAanvangAdreshoudingAdreshouding:
+      type: object
+      description: |
+        Adreshouding groep met datum aanvang adreshouding veld.
+      properties:
+        e1030:
+          $ref: '#/components/schemas/DatumAanvangAdreshouding'
