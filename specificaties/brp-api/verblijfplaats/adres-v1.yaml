@@ -5,11 +5,9 @@ info:
 components:
   schemas:
     Adres:
-      allOf:
-        - $ref: 'verblijfplaats-binnenland-v1.yaml#/components/schemas/VerblijfplaatsBinnenland'
-        - type: object
-          properties:
-            adresseerbaarObjectIdentificatie:
-              $ref: '../../brp/adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatie'
-            datumVan:
-              $ref: '../datum/datum-polymorf-v1.yaml#/components/schemas/AbstractDatum'
+      type: object
+      properties:
+        adresseerbaarObjectIdentificatie:
+          $ref: '../../brp/adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatie'
+        datumVan:
+          $ref: '../datum/datum-polymorf-v1.yaml#/components/schemas/AbstractDatum'

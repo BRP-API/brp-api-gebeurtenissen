@@ -37,20 +37,6 @@ components:
       description: |
         Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
       pattern: ^[0-9]{9}$
-    VerblijfplaatsBinnenland:
-      type: object
-      description: |
-        Verblijfplaats binnenland (polymorf).
-      required:
-        - type
-      properties:
-        type:
-          type: string
-      discriminator:
-        propertyName: type
-        mapping:
-          Adres: '#/components/schemas/Adres'
-          Locatie: '#/components/schemas/Locatie'
     AdresseerbaarObjectIdentificatie:
       type: string
       title: Identificatiecode verblijfplaats
@@ -152,44 +138,19 @@ components:
         maand: 7
         langFormaat: juli 2018
     Adres:
-      allOf:
-        - $ref: '#/components/schemas/VerblijfplaatsBinnenland'
-        - type: object
-          properties:
-            adresseerbaarObjectIdentificatie:
-              $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
-            datumVan:
-              $ref: '#/components/schemas/AbstractDatum'
-    Locatiebeschrijving:
-      type: string
-      title: Locatiebeschrijving
-      minLength: 1
-      maxLength: 35
-      description: |
-        Een geheel of gedeeltelijke omschrijving van de ligging van een object, indien dit niet kan worden aangegeven in de groep 11 Adres.
-        - Groep: Locatie (12)
-        - Element: Locatiebeschrijving (12.10)
-    VerblijfadresLocatie:
       type: object
       properties:
-        locatiebeschrijving:
-          $ref: '#/components/schemas/Locatiebeschrijving'
-    Locatie:
-      allOf:
-        - $ref: '#/components/schemas/VerblijfplaatsBinnenland'
-        - type: object
-          properties:
-            datumVan:
-              $ref: '#/components/schemas/AbstractDatum'
-            Verblijfadres:
-              $ref: '#/components/schemas/VerblijfadresLocatie'
+        adresseerbaarObjectIdentificatie:
+          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
+        datumVan:
+          $ref: '#/components/schemas/AbstractDatum'
     VerhuisdIntergemeentelijkData:
       type: object
       properties:
         burgerservicenummer:
           $ref: '#/components/schemas/Burgerservicenummer'
         verblijfplaats:
-          $ref: '#/components/schemas/VerblijfplaatsBinnenland'
+          $ref: '#/components/schemas/Adres'
     VerhuisdIntergemeentelijk:
       allOf:
         - $ref: '#/components/schemas/Gebeurtenis'

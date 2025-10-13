@@ -20,4 +20,4 @@ components:
         burgerservicenummer:
               $ref: '../../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
         verblijfplaats:
-          $ref: '../verblijfplaats/verblijfplaats-binnenland-v1.yaml#/components/schemas/VerblijfplaatsBinnenland'
+          $ref: '../verblijfplaats/adres-v1.yaml#/components/schemas/Adres'
