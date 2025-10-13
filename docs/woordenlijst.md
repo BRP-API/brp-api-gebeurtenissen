@@ -22,7 +22,7 @@ Vastgelegd:
 ## Projection
 
 Een datastructuur die wordt gecreeërd door het verwerken van een reeks gebeurtenissen.
-De datastructuur kan worden gepersisteerd in database tabellen.
+De datastructuur kan worden gepersisteerd in relationele database.
 
 ## Notificatie
 
