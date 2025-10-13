@@ -1,0 +1,27 @@
+openapi: 3.1.0
+info:
+  title: Gebeurtenis Abonnementen API Specificatie
+  version: 1.0.0
+paths:
+  /abonnees:
+    post:
+      operationId: RegistreerAbonnee
+      summary: Registreer een geauthenticeerde afnemer als nieuwe abonnee van BRP API Gebeurtenissen
+      responses:
+        '201':
+          description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+        '400':
+          $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
+        '409':
+          $ref: '../problem-details/409-conflict-response-v1.yaml#/components/responses/409'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+components:
+  securitySchemes:
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: http://identityserver:6000/connect/token
