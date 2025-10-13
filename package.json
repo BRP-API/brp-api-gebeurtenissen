@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/BRP-API/brp-api-gebeurtenissen#readme",
   "devDependencies": {
-    "@redocly/cli": "^2.4.0"
+    "@redocly/cli": "^2.5.1"
   }
 }
