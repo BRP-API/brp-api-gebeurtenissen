@@ -10,8 +10,8 @@ paths:
       responses:
         '201':
           description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
-        '400':
-          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
         '409':
           $ref: '#/components/responses/409'
         '500':
@@ -55,59 +55,20 @@ components:
           description: Systeemcode die het type fout aangeeft
           type: string
           pattern: ^[a-zA-Z0-9]{1,25}$
-    InvalidParam:
-      type: object
-      description: Details over fouten in opgegeven parameters
-      properties:
-        type:
-          type: string
-          format: uri
-          example: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
-        name:
-          description: Naam van de parameter
-          type: string
-          pattern: ^[a-zA-Z0-9\._]{1,30}$
-          example: huisnummer
-        code:
-          description: Systeemcode die het type fout aangeeft
-          type: string
-          pattern: ^[a-zA-Z0-9]{1,25}$
-          example: integer
-        reason:
-          description: Beschrijving van de fout op de parameterwaarde
-          type: string
-          pattern: ^[a-zA-Z0-9\., ]{1,80}$
-          example: Waarde is geen geldig getal.
-    BadRequestFoutbericht:
-      allOf:
-        - $ref: '#/components/schemas/Foutbericht'
-        - type: object
-          properties:
-            invalidParams:
-              description: |
-                Foutmelding per fout in een parameter. Alle gevonden fouten worden één keer teruggemeld.
-              type: array
-              items:
-                $ref: '#/components/schemas/InvalidParam'
   responses:
-    '400':
-      description: Bad Request
+    '401':
+      description: Unauthorized
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/BadRequestFoutbericht'
+            $ref: '#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
-            title: Ten minste één parameter moet worden opgegeven.
-            status: 400
-            detail: The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
+            title: Niet correct geauthenticeerd.
+            status: 401
+            detail: The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-            code: paramsRequired
-            invalidParams:
-              - type: https://www.vng.nl/realisatie/api/validaties/integer
-                name: huisnummer
-                code: integer
-                reason: Waarde is geen geldig getal.
+            code: authentication
     '409':
       description: Conflict
       content:

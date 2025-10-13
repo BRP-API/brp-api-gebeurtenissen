@@ -10,8 +10,8 @@ paths:
       responses:
         '201':
           description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
-        '400':
-          $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
         '409':
           $ref: '../problem-details/409-conflict-response-v1.yaml#/components/responses/409'
         '500':
