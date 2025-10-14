@@ -14,17 +14,17 @@ Functionaliteit: Registreer abonnee
       Als een registreer abonnee verzoek wordt gedaan door afnemer 'Gemeente Den Haag'
       Dan is een 'abonnee-geregistreerd' gebeurtenis gepubliceerd
       * bevat de 'data' de afnemer id van 'Gemeente Den Haag'
-      En wordt een '201 Created' bericht geleverd
+      En is de response '201 Created'
 
     Scenario: Een reeds geregistreerde afnemer registreert zich als abonnee
       Gegeven de afnemer 'Gemeente Den Haag'
       En de verwerkte registreer abonnee verzoek gedaan door afnemer 'Gemeente Den Haag'
       Als nog een registreer abonnee verzoek wordt gedaan door afnemer 'Gemeente Den Haag'
       Dan zijn er geen gebeurtenissen gepubliceerd
-      En wordt een '409 Conflict' bericht geleverd
-      * bevat detail de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al als abonnee geregistreerd bent.'
+      En is de response '409 Conflict'
+      * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al als abonnee geregistreerd bent.'
 
     Scenario: Een niet-geautheniceerde gebruiker probeert zich te registreren als abonnee
       Als een registreer abonnee verzoek wordt gedaan door een niet-geauthenticeerde gebruiker
       Dan zijn er geen gebeurtenissen gepubliceerd
-      En wordt een '401 Unauthorized' bericht geleverd
+      En is de response '401 Unauthorized'
