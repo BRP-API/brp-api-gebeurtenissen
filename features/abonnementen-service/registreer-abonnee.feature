@@ -11,20 +11,20 @@ Functionaliteit: Registreer abonnee
     Scenario: Een niet-geregistreerde afnemer registreert zich als abonnee
       Gegeven de afnemer 'Gemeente Den Haag'
       * is niet geregistreerd als abonnee van BRP API Gebeurtenissen
-      Als een registreer abonnee verzoek wordt gedaan door afnemer 'Gemeente Den Haag'
+      Als de afnemer zich registreert als abonnee
       Dan is een 'abonnee-geregistreerd' gebeurtenis gepubliceerd
       * bevat de 'data' de afnemer id van 'Gemeente Den Haag'
       En is de response '201 Created'
 
     Scenario: Een reeds geregistreerde afnemer registreert zich als abonnee
       Gegeven de afnemer 'Gemeente Den Haag'
-      En de verwerkte registreer abonnee verzoek gedaan door afnemer 'Gemeente Den Haag'
-      Als nog een registreer abonnee verzoek wordt gedaan door afnemer 'Gemeente Den Haag'
+      * is geregistreerd als abonnee van BRP API Gebeurtenissen
+      Als de afnemer zich registreert als abonnee
       Dan zijn er geen gebeurtenissen gepubliceerd
       En is de response '409 Conflict'
       * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al als abonnee geregistreerd bent.'
 
     Scenario: Een niet-geautheniceerde gebruiker probeert zich te registreren als abonnee
-      Als een registreer abonnee verzoek wordt gedaan door een niet-geauthenticeerde gebruiker
+      Als een niet-geauthenticeerde gebruiker zich registreert als abonnee
       Dan zijn er geen gebeurtenissen gepubliceerd
       En is de response '401 Unauthorized'
