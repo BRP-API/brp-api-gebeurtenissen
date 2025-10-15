@@ -18,6 +18,24 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /abonnees/mijn/abonnementen:
+    post:
+      operationId: Abonnementen
+      summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbonneerOpGebeurtenisTypeCommand'
+      responses:
+        '201':
+          description: Abonnement(en) succesvol aangemaakt.
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
 components:
   securitySchemes:
     clientCredentials:
@@ -26,6 +44,35 @@ components:
         clientCredentials:
           tokenUrl: http://identityserver:6000/connect/token
   schemas:
+    AbonnementenCommand:
+      type: object
+      properties:
+        type:
+          type: string
+      required:
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          AbonneerOpGebeurtenisType: '#/components/schemas/AbonneerOpGebeurtenisTypeCommand'
+    AbonneerOpGebeurtenisTypeCommand:
+      allOf:
+        - $ref: '#/components/schemas/AbonnementenCommand'
+        - type: object
+          properties:
+            gebeurtenisTypes:
+              type: array
+              items:
+                type: string
+                pattern: ^[a-z/-/.]{1,50}$
+              description: Lijst van gebeurtenistypen waarop de abonnee zich wil abonneren
+            burgerServiceNummers:
+              type: array
+              items:
+                $ref: '#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon/personen waarvoor de abonnee gebeurtenissen van de opgegeven type(n) wilt ontvangen
+          required:
+            - gebeurtenisTypes
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
@@ -55,6 +102,12 @@ components:
           description: Systeemcode die het type fout aangeeft
           type: string
           pattern: ^[a-zA-Z0-9]{1,25}$
+    Burgerservicenummer:
+      type: string
+      title: Burgerservicenummer
+      description: |
+        Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
+      pattern: ^[0-9]{9}$
   responses:
     '401':
       description: Unauthorized
