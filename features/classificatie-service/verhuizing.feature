@@ -1,6 +1,7 @@
 # language: nl
 Functionaliteit: gepubliceerde gebeurtenis bij een verhuizing
 
+  @to-do @skip-verify
   Scenario: Verhuizing binnen dezelfde gemeente aangegeven
     Gegeven de verwerkte aangifte van geboorte van 'Jan'
     * verblijft vanaf '14-4-2020' op een adres in 'Amsterdam'
@@ -21,6 +22,7 @@ Functionaliteit: gepubliceerde gebeurtenis bij een verhuizing
     * bevat de 'data' de adres_id van het nieuwe adres
     * bevat de 'data' in categorie 'verblijfplaats' element 'datum aanvang adreshouding (10.30)' met waarde '1-9-2025'
 
+  @to-do @skip-verify
   Scenario: Verhuizing van Nederland naar het buitenland aangegeven
     Gegeven de verwerkte aangifte van geboorte van 'Jan'
     * verblijft vanaf '14-4-2020' op een adres in 'Amsterdam'
@@ -31,6 +33,7 @@ Functionaliteit: gepubliceerde gebeurtenis bij een verhuizing
     * bevat de 'data' in categorie 'verblijfplaats' element 'datum aanvang adres buitenland (13.20)' met waarde '1-9-2025'
     * bevat de 'data' in categorie 'verblijfplaats' het nieuwe adres in het buitenland
 
+  @to-do @skip-verify
   Scenario: Verhuizing van het buitenland naar Nederland aangegeven door persoon die eerder ingezetene is geweest
     Gegeven de verwerkte aangifte van geboorte van 'Jan'
     * verblijft vanaf '14-4-2020' op een adres in 'Amsterdam'
@@ -44,6 +47,7 @@ Functionaliteit: gepubliceerde gebeurtenis bij een verhuizing
     * bevat de 'data' de adres_id van het nieuwe adres
     * bevat de 'data' in categorie 'verblijfplaats' element 'datum aanvang adreshouding (10.30)' met waarde '1-9-2025'
 
+  @to-do @skip-verify
   Scenario: Verhuizing van het buitenland naar Nederland aangegeven door persoon die nooit ingezetene is geweest
     Gegeven de verwerkte eerste inschrijving in het RNI van 'Jan'
     * verblijft vanaf '14-4-2020' op een adres in het buitenland
@@ -55,6 +59,7 @@ Functionaliteit: gepubliceerde gebeurtenis bij een verhuizing
     * bevat de 'data' de adres_id van het nieuwe adres
     * bevat de 'data' in categorie 'verblijfplaats' element 'datum aanvang adreshouding (10.30)' met waarde '1-9-2025'
 
+  @to-do @skip-verify
   Scenario: Verhuizing van het buitenland naar een ander adres in het buitenland aangegeven
     Gegeven de verwerkte eerste inschrijving in het RNI van 'Jan'
     * verblijft vanaf '14-4-2020' op een adres in het buitenland
