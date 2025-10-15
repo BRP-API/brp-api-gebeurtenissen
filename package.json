@@ -23,6 +23,7 @@
     "@redocly/cli": "^2.5.1",
     "@types/chai": "^5.2.2",
     "@types/deep-equal-in-any-order": "^1.0.4",
+    "axios": "^1.12.2",
     "chai": "^6.2.0",
     "deep-equal-in-any-order": "^2.1.0",
     "ts-node": "^10.9.2",
