@@ -56,6 +56,9 @@ components:
             verhuisdatum:
               $ref: '#/components/schemas/Datum'
               description: De datum wanneer de persoon verhuist naar het nieuwe adres
+      required:
+        - adresseerbaarObjectIdentificatie
+        - verhuisdatum
     AdresseerbaarObjectIdentificatie:
       type: string
       title: Identificatiecode verblijfplaats

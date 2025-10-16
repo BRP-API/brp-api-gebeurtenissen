@@ -60,6 +60,9 @@ components:
             verhuisdatum:
               $ref: '../brp-api/datum/datum-v1.yaml#/components/schemas/Datum'
               description: De datum wanneer de persoon verhuist naar het nieuwe adres
+      required:
+        - adresseerbaarObjectIdentificatie
+        - verhuisdatum
 
   securitySchemes:
     clientCredentials:
