@@ -11,25 +11,25 @@ AfterStep(function(this: ICustomWorld, { pickleStep }) {
     switch(pickleStep.type) {
         case 'Context':
             this.stepContext = "given"
-            this.logger.info(`Gegeven ${pickleStep.text}`, this.context);
+            this.logger.info(`Gegeven ${pickleStep.text}`, { context: this.context });
             break;
         case 'Action':
             this.stepContext = "when"
-            this.logger.info(`Als ${pickleStep.text}`);
+            this.logger.info(`Als ${pickleStep.text}`, { context: this.context });
             break;
         case 'Outcome':
             this.stepContext = "then"
-            this.logger.info(`Dan ${pickleStep.text}`, this.expected);
+            this.logger.info(`Dan ${pickleStep.text}`, { expected: this.expected });
             break;
         default:
             if(this.stepContext === "given") {
-                this.logger.info(`${pickleStep.text}`, this.context);
+                this.logger.info(`${pickleStep.text}`, { context: this.context });
             }
             else if(this.stepContext === "when") {
-                this.logger.info(`${pickleStep.text}`);
+                this.logger.info(`${pickleStep.text}`, { context: this.context });
             }
             else if(this.stepContext === "then") {
-                this.logger.info(`${pickleStep.text}`, this.expected);
+                this.logger.info(`${pickleStep.text}`, { expected: this.expected });
             }
             else {
                 this.logger.info(`onbekende stap type: ${JSON.stringify(pickleStep)}`);
