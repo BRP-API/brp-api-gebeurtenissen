@@ -6,7 +6,7 @@ Functionaliteit: Registreer abonnee
   wil ik mij kunnen registreren als abonnee
   zodat ik gebeurtenissen kan krijgen van personen aan wie ik diensten verleen om daarmee mijn dienstverlening te verbeteren
 
-  Regel: Alleen een niet als abonnee geregistreerde afnemer kan zich registreren als abonnee van BRP API Gebeurtenissen
+  Regel: Een afnemer kan zich alleen registreren als hij nog niet staat geregistreerd als abonnee van BRP API Gebeurtenissen
 
     Scenario: Een niet-geregistreerde afnemer registreert zich als abonnee
       Gegeven de afnemer 'Gemeente Den Haag'
