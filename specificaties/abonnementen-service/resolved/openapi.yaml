@@ -66,13 +66,16 @@ components:
                 type: string
                 pattern: ^[a-z/-/.]{1,50}$
               description: Lijst van gebeurtenistypen waarop de abonnee zich wil abonneren
-            burgerServiceNummers:
+              minItems: 1
+            burgerservicenummers:
               type: array
               items:
                 $ref: '#/components/schemas/Burgerservicenummer'
               description: Het burgerservicenummer (BSN) van de persoon/personen waarvoor de abonnee gebeurtenissen van de opgegeven type(n) wilt ontvangen
+              minItems: 1
           required:
             - gebeurtenisTypes
+            - burgerservicenummers
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).

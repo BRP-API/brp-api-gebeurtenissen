@@ -18,6 +18,7 @@ paths:
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
         - clientCredentials: []
+
   /abonnees/mijn/abonnementen:
     post: 
       operationId: Abonnementen
@@ -45,6 +46,7 @@ components:
         clientCredentials:
           tokenUrl: http://identityserver:6000/connect/token
 
+
   schemas:
     AbonnementenCommand:
       type: object
@@ -69,10 +71,13 @@ components:
                 type: string
                 pattern: ^[a-z/-/.]{1,50}$
               description: Lijst van gebeurtenistypen waarop de abonnee zich wil abonneren
-            burgerServiceNummers:
+              minItems: 1
+            burgerservicenummers:
               type: array
               items:
                 $ref: '../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
               description: Het burgerservicenummer (BSN) van de persoon/personen waarvoor de abonnee gebeurtenissen van de opgegeven type(n) wilt ontvangen
+              minItems: 1
           required:
             - gebeurtenisTypes
+            - burgerservicenummers
