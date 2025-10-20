@@ -13,7 +13,7 @@ class GebeurtenisApiDelegateService(
     override fun publishEvent(event: Event?): ResponseEntity<PublishEvent200Response> {
         if (event == null) return ResponseEntity(HttpStatus.BAD_REQUEST)
 
-        val anySatisfied = specifications.stream().anyMatch { spec: Specification<Event> -> spec.isSatisfiedBy(event) }
+        val anySatisfied = specifications.asSequence().any { spec: Specification<Event> -> spec.isSatisfiedBy(event) }
 
         if(!anySatisfied) return ResponseEntity(HttpStatus.BAD_REQUEST)
 
