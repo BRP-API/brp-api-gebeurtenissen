@@ -4,7 +4,7 @@ Functionaliteit: Registreer abonnee
 
   Als consumer van BRP API Gebeurtenissen
   wil ik mij kunnen registreren als abonnee
-  zodat ik gebeurtenissen krijg van personen aan wie ik diensten verleen om daarmee mijn dienstverlening te verbeteren
+  zodat ik gebeurtenissen kan krijgen van personen aan wie ik diensten verleen om daarmee mijn dienstverlening te verbeteren
 
   Regel: Alleen een niet als abonnee geregistreerde afnemer kan zich registreren als abonnee van BRP API Gebeurtenissen
 
