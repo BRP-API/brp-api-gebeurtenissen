@@ -23,15 +23,28 @@ paths:
           $ref: '#/components/responses/500'
 components:
   schemas:
-    Gebeurtenis:
-      allOf:
-        - $ref: '#/components/schemas/CloudEvent'
-      required:
-        - type
-      discriminator:
-        propertyName: type
-        mapping:
-          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
+    typedef:
+      type: string
+      minLength: 1
+    datadef:
+      type:
+        - object
+        - string
+        - number
+        - array
+        - boolean
+        - 'null'
+    CloudEvent:
+      type: object
+      properties:
+        type:
+          description: |
+            Describes the type of event related to the originating occurrence.
+          $ref: '#/components/schemas/typedef'
+        data:
+          description: |
+            The event payload.
+          $ref: '#/components/schemas/datadef'
     Anummer:
       type: string
       title: A-nummer
@@ -67,19 +80,6 @@ components:
       properties:
         e1030:
           $ref: '#/components/schemas/DatumAanvangAdreshouding'
-    AdresseerbaarObjectIdentificatie:
-      type: string
-      title: Identificatiecode verblijfplaats
-      description: |
-        De identificatiecode van een adresseerbaar object.
-      pattern: ^[0-9]{16}$
-    AdresseerbaarObjectIdentificatieAdres:
-      type: object
-      description: |
-        Adres groep met adresseerbaar object identificatie veld.
-      properties:
-        e1180:
-          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
     Locatiebeschrijving:
       type: string
       title: Locatiebeschrijving
@@ -106,41 +106,24 @@ components:
           properties:
             g10:
               $ref: '#/components/schemas/DatumAanvangAdreshoudingAdreshouding'
-            g11:
-              $ref: '#/components/schemas/AdresseerbaarObjectIdentificatieAdres'
             g12:
               $ref: '#/components/schemas/LocatiebeschrijvingLocatie'
     VerhuisdIntergemeentelijk:
       allOf:
-        - $ref: '#/components/schemas/Gebeurtenis'
+        - $ref: '#/components/schemas/CloudEvent'
         - type: object
           required:
             - data
           properties:
             data:
               $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
-    typedef:
-      type: string
-      minLength: 1
-    datadef:
-      type:
-        - object
-        - string
-        - number
-        - array
-        - boolean
-        - 'null'
-    CloudEvent:
-      type: object
-      properties:
-        type:
-          description: |
-            Describes the type of event related to the originating occurrence.
-          $ref: '#/components/schemas/typedef'
-        data:
-          description: |
-            The event payload.
-          $ref: '#/components/schemas/datadef'
+    Gebeurtenis:
+      oneOf:
+        - $ref: '#/components/schemas/VerhuisdIntergemeentelijk'
+      discriminator:
+        propertyName: type
+        mapping:
+          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).

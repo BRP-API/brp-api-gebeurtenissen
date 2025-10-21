@@ -22,15 +22,28 @@ paths:
           $ref: '#/components/responses/500'
 components:
   schemas:
-    Gebeurtenis:
-      allOf:
-        - $ref: '#/components/schemas/CloudEvent'
-      required:
-        - type
-      discriminator:
-        propertyName: type
-        mapping:
-          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
+    typedef:
+      type: string
+      minLength: 1
+    datadef:
+      type:
+        - object
+        - string
+        - number
+        - array
+        - boolean
+        - 'null'
+    CloudEvent:
+      type: object
+      properties:
+        type:
+          description: |
+            Describes the type of event related to the originating occurrence.
+          $ref: '#/components/schemas/typedef'
+        data:
+          description: |
+            The event payload.
+          $ref: '#/components/schemas/datadef'
     Burgerservicenummer:
       type: string
       title: Burgerservicenummer
@@ -153,35 +166,20 @@ components:
           $ref: '#/components/schemas/Adres'
     VerhuisdIntergemeentelijk:
       allOf:
-        - $ref: '#/components/schemas/Gebeurtenis'
+        - $ref: '#/components/schemas/CloudEvent'
         - type: object
           required:
             - data
           properties:
             data:
               $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
-    typedef:
-      type: string
-      minLength: 1
-    datadef:
-      type:
-        - object
-        - string
-        - number
-        - array
-        - boolean
-        - 'null'
-    CloudEvent:
-      type: object
-      properties:
-        type:
-          description: |
-            Describes the type of event related to the originating occurrence.
-          $ref: '#/components/schemas/typedef'
-        data:
-          description: |
-            The event payload.
-          $ref: '#/components/schemas/datadef'
+    Gebeurtenis:
+      oneOf:
+        - $ref: '#/components/schemas/VerhuisdIntergemeentelijk'
+      discriminator:
+        propertyName: type
+        mapping:
+          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
