@@ -6,7 +6,7 @@ components:
   schemas:
     VerhuisdIntergemeentelijk:
       allOf: 
-        - $ref: 'gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+        - $ref: ../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/CloudEvent
         - type: object
           required: 
             - data

@@ -5,12 +5,9 @@ info:
 components: 
   schemas:
     Gebeurtenis:
-      allOf:
-        - $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/CloudEvent'
-      required: 
-        - type
+      oneOf:
+        - $ref: './verhuisd-intergemeentelijk-v1.yaml#/components/schemas/VerhuisdIntergemeentelijk'
       discriminator: 
         propertyName: type
         mapping:
           nl.brp.verhuisd.intergemeentelijk: 'verhuisd-intergemeentelijk-v1.yaml#/components/schemas/VerhuisdIntergemeentelijk'
-        
