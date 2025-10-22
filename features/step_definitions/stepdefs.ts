@@ -1,10 +1,19 @@
-import { Before, AfterStep, After } from '@cucumber/cucumber';
+import { Before, AfterStep, After, AfterAll } from '@cucumber/cucumber';
 import { ICustomWorld } from './support/custom-world';
+import { expect } from 'chai';
+import { PostgresqlManager } from './support/postgresql-manager';
+import { poolConfig } from './support/postgresql-config';
 
 Before(async function(this: ICustomWorld, { pickle }) {
     this.init(pickle);
 
+    PostgresqlManager.setup(poolConfig, this.logger);
+
     this.logger.info(`Scenario: ${pickle.name}`);
+});
+
+AfterAll(async function() {
+    await PostgresqlManager.getInstance().close();
 });
 
 AfterStep(function(this: ICustomWorld, { pickleStep }) {
@@ -15,21 +24,21 @@ AfterStep(function(this: ICustomWorld, { pickleStep }) {
             break;
         case 'Action':
             this.stepContext = "when"
-            this.logger.info(`Als ${pickleStep.text}`, { context: this.context });
+            this.logger.info(`Als ${pickleStep.text}`, { command: this.command });
             break;
         case 'Outcome':
             this.stepContext = "then"
-            this.logger.info(`Dan ${pickleStep.text}`, { expected: this.expected });
+            this.logger.info(`Dan ${pickleStep.text}`, { context: this.context, command: this.command, result: this.result, expected: this.expected });
             break;
         default:
             if(this.stepContext === "given") {
                 this.logger.info(`${pickleStep.text}`, { context: this.context });
             }
             else if(this.stepContext === "when") {
-                this.logger.info(`${pickleStep.text}`, { context: this.context });
+                this.logger.info(`${pickleStep.text}`, { command: this.command });
             }
             else if(this.stepContext === "then") {
-                this.logger.info(`${pickleStep.text}`, { expected: this.expected });
+                this.logger.info(`Dan ${pickleStep.text}`, { context: this.context, command: this.command, result: this.result, expected: this.expected });
             }
             else {
                 this.logger.info(`onbekende stap type: ${JSON.stringify(pickleStep)}`);
@@ -39,4 +48,6 @@ AfterStep(function(this: ICustomWorld, { pickleStep }) {
 
 After(function(this: ICustomWorld, { pickle }) {
     this.logger.info(`Scenario: ${pickle.name} -----------`);
+
+    expect(this.result).to.deep.equal(this.expected);
 });

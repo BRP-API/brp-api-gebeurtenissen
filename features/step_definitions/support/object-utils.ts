@@ -34,3 +34,25 @@ export function setNestedProperty(targetObject: any, path: string, value: any): 
         throw new Error(`property '${path}' kan niet worden gezet: ${error.message}`);
     }
 }
+
+/**
+ * Utility function om de waarde van alle properties van een object te converteren naar een string
+ * @param o - Het object waarvan de alle properties geconverteerd moeten worden naar een string
+ * @returns Het object met alle property waarden geconverteerd naar een string
+ */
+export function stringifyValues(o: any): any {
+    if(o === undefined) return o;
+
+    if(o === null) return 'null';
+    
+    Object.keys(o).forEach(k => {
+        if (typeof o[k] === 'object') {
+            o[k] = stringifyValues(o[k]);
+        }
+        else {
+            o[k] = '' + o[k];
+        }
+    });
+
+    return o;
+}
