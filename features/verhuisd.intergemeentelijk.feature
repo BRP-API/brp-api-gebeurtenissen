@@ -47,7 +47,7 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
     * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     En de opgave van verhuizing van 'Jan' is verwerkt
     * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-    Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Roosendaal'
+    Als een ongelezen gebeurtenis wordt gevraagd door afnemer 'Roosendaal'
     Dan wordt een 'verhuisd.intergemeentelijk' gebeurtenis geleverd met de volgende data
     * het burgerservicenummer van 'Jan'
     * de vanaf datum van de opgave van verhuizing van 'Jan'
