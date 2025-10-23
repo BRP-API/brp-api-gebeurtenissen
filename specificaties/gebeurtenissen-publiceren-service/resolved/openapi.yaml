@@ -51,11 +51,15 @@ components:
       properties:
         e0110:
           $ref: '#/components/schemas/Anummer'
+      required:
+        - e0110
     AnummerIdentificatieNummersPersoon:
       type: object
       properties:
         g01:
           $ref: '#/components/schemas/AnummerIdentificatieNummers'
+      required:
+        - g01
     DatumAanvangAdreshouding:
       type: string
       title: Datum aanvang adreshouding
@@ -71,6 +75,8 @@ components:
       properties:
         e1030:
           $ref: '#/components/schemas/DatumAanvangAdreshouding'
+      required:
+        - e1030
     AdresseerbaarObjectIdentificatie:
       type: string
       title: Identificatiecode verblijfplaats
@@ -84,18 +90,28 @@ components:
       properties:
         e1180:
           $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
+      required:
+        - e1180
+    VerhuisdIntergemeentelijkVerblijfplaatsData:
+      type: object
+      properties:
+        g10:
+          $ref: '#/components/schemas/DatumAanvangAdreshoudingAdreshouding'
+        g11:
+          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatieAdres'
+      required:
+        - g10
+        - g11
     VerhuisdIntergemeentelijkData:
       type: object
       properties:
         c01:
           $ref: '#/components/schemas/AnummerIdentificatieNummersPersoon'
         c08:
-          type: object
-          properties:
-            g10:
-              $ref: '#/components/schemas/DatumAanvangAdreshoudingAdreshouding'
-            g11:
-              $ref: '#/components/schemas/AdresseerbaarObjectIdentificatieAdres'
+          $ref: '#/components/schemas/VerhuisdIntergemeentelijkVerblijfplaatsData'
+      required:
+        - c01
+        - c08
     VerhuisdIntergemeentelijk:
       allOf:
         - $ref: '#/components/schemas/Gebeurtenis'
