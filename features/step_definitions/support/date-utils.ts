@@ -51,3 +51,52 @@ export function toIsoDate(dateString: string): string {
 
     return `${year}-${paddedMonth}-${paddedDay}`;
 }
+
+function isVolledigeDatum(jaar: string, maand: string, dag: string): boolean {
+    return maand !== '00' && dag !== '00';
+}
+
+function naarMaandInTekst(maand: string): string {
+    const maandenInTekst: { [key: string]: string } = {
+        '01': 'januari',
+        '02': 'februari',
+        '03': 'maart',
+        '04': 'april',
+        '05': 'mei',
+        '06': 'juni',
+        '07': 'juli',
+        '08': 'augustus',
+        '09': 'september',
+        '10': 'oktober',
+        '11': 'november',
+        '12': 'december'
+    };
+
+    return maandenInTekst[maand];
+}
+
+/**
+ * Converteer een datum in yyyymmdd formaat naar een BRP API datum (polymorf)
+ * @param dateString - Datum in ddmmyyyy formaat
+ * @returns BRP API datum
+ */
+export function toBrpApiDatum(dateString: string): any | undefined {
+    const dateRegex = /^(\d{4})(\d{2})(\d{2})$/;
+    const match = dateString.match(dateRegex);
+    
+    if (!match) {
+        throw new Error('ongeldig datum string');
+    }
+
+    const [, year, month, day] = match;
+
+    if (isVolledigeDatum(year, month, day)) {
+        return {
+            type: 'Datum',
+            datum: `${year}-${month}-${day}`,
+            langFormaat: `${parseInt(day)} ${naarMaandInTekst(month)} ${year}`
+        };
+    }
+
+    return undefined;
+}

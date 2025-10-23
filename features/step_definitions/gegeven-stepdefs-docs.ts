@@ -12,3 +12,8 @@ Given('heeft id {string}', function (id:string) {
 Given('de gepubliceerde gebeurtenis', function (docString: string) {
     this.result = JSON.parse(docString);
 });
+
+Given('de geleverde gebeurtenis', function (docString: string) {
+    this.result = JSON.parse(docString);
+});
+
