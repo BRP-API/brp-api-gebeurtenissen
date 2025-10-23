@@ -18,3 +18,5 @@ components:
       properties:
         e1180:
           $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
+      required:
+        - e1180

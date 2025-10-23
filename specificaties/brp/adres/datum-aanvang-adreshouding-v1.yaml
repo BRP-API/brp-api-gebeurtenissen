@@ -20,3 +20,5 @@ components:
       properties:
         e1030:
           $ref: '#/components/schemas/DatumAanvangAdreshouding'
+      required: 
+        - e1030
