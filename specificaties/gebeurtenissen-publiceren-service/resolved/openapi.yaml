@@ -24,8 +24,12 @@ paths:
 components:
   schemas:
     Gebeurtenis:
-      allOf:
-        - $ref: '#/components/schemas/CloudEvent'
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/typedef'
+        data:
+          $ref: '#/components/schemas/datadef'
       required:
         - type
       discriminator:
@@ -80,22 +84,6 @@ components:
       properties:
         e1180:
           $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
-    Locatiebeschrijving:
-      type: string
-      title: Locatiebeschrijving
-      minLength: 1
-      maxLength: 35
-      description: |
-        Een geheel of gedeeltelijke omschrijving van de ligging van een object, indien dit niet kan worden aangegeven in de groep 11 Adres.
-        - Groep: Locatie (12)
-        - Element: Locatiebeschrijving (12.10)
-    LocatiebeschrijvingLocatie:
-      type: object
-      description: |
-        Locatie groep met locatiebeschrijving veld.
-      properties:
-        e1210:
-          $ref: '#/components/schemas/Locatiebeschrijving'
     VerhuisdIntergemeentelijkData:
       type: object
       properties:
@@ -108,8 +96,6 @@ components:
               $ref: '#/components/schemas/DatumAanvangAdreshoudingAdreshouding'
             g11:
               $ref: '#/components/schemas/AdresseerbaarObjectIdentificatieAdres'
-            g12:
-              $ref: '#/components/schemas/LocatiebeschrijvingLocatie'
     VerhuisdIntergemeentelijk:
       allOf:
         - $ref: '#/components/schemas/Gebeurtenis'
@@ -120,9 +106,13 @@ components:
             data:
               $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
     typedef:
+      description: |
+        Describes the type of event related to the originating occurrence.
       type: string
       minLength: 1
     datadef:
+      description: |
+        The event payload.
       type:
         - object
         - string
@@ -130,17 +120,6 @@ components:
         - array
         - boolean
         - 'null'
-    CloudEvent:
-      type: object
-      properties:
-        type:
-          description: |
-            Describes the type of event related to the originating occurrence.
-          $ref: '#/components/schemas/typedef'
-        data:
-          description: |
-            The event payload.
-          $ref: '#/components/schemas/datadef'
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).

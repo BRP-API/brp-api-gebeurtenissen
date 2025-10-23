@@ -24,5 +24,5 @@ components:
           properties:
             g10:
               $ref: '../adres/datum-aanvang-adreshouding-v1.yaml#/components/schemas/DatumAanvangAdreshoudingAdreshouding'
-            g12:
-              $ref: '../locatie/locatiebeschrijving-v1.yaml#/components/schemas/LocatiebeschrijvingLocatie'
+            g11:
+              $ref: '../adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatieAdres'

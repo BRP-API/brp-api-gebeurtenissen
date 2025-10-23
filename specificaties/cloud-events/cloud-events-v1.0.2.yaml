@@ -8,19 +8,19 @@ components:
       type: object
       properties:
         type:
-          description: |
-            Describes the type of event related to the originating occurrence.
           $ref: '#/components/schemas/typedef'
         data:
-          description: |
-            The event payload.
           $ref: '#/components/schemas/datadef'
 
     typedef:
+      description: |
+        Describes the type of event related to the originating occurrence.
       type: string
       minLength: 1
 
     datadef:
+      description: |
+        The event payload.
       type:
         - object
         - string
