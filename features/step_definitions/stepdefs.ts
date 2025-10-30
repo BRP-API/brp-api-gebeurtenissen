@@ -32,10 +32,10 @@ AfterStep(function(this: ICustomWorld, { pickleStep }) {
             break;
         default:
             if(this.stepContext === "given") {
-                this.logger.info(`${pickleStep.text}`, { context: this.context });
+                this.logger.info(`Given ${pickleStep.text}`, { context: this.context });
             }
             else if(this.stepContext === "when") {
-                this.logger.info(`${pickleStep.text}`, { command: this.command });
+                this.logger.info(`Als ${pickleStep.text}`, { command: this.command });
             }
             else if(this.stepContext === "then") {
                 this.logger.info(`Dan ${pickleStep.text}`, { context: this.context, command: this.command, result: this.result, expected: this.expected });
