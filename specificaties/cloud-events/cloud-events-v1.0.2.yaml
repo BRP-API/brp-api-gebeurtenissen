@@ -21,10 +21,4 @@ components:
     datadef:
       description: |
         The event payload.
-      type:
-        - object
-        - string
-        - number
-        - array
-        - boolean
-        - "null"
+      type: object

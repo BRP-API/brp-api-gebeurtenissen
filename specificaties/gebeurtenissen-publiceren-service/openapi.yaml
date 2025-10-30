@@ -6,6 +6,8 @@ paths:
   /personen/gebeurtenissen:
     post: 
       operationId: PubliceerGebeurtenis
+      tags: 
+        -  Gebeurtenissen
       summary: Publiceer een persoon gebeurtenis
       requestBody: 
         content:
