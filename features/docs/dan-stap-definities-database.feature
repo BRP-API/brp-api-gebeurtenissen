@@ -1,5 +1,4 @@
 # language: nl
-
 @integratie
 Functionaliteit: Database dan stap definities gebeurtenissen
 
@@ -22,9 +21,10 @@ Functionaliteit: Database dan stap definities gebeurtenissen
 
   Scenario: Gegeven verblijft vanaf '[datum]' op het adres '[adres aanduiding]'
     Gegeven het adres 'A1'
+    * in gemeente 'Den Haag'
     En de persoon 'P1'
     * verblijft vanaf '1-9-2025' op het adres 'A1'
     Als de sql statements gegenereerd uit de gegeven stappen zijn uitgevoerd
     Dan heeft tabel 'lo3_pl_verblijfplaats' de volgende rij
-      | pl_id | adres_id | volg_nr | vanaf_datum | verblijf_status |
-      | P1    | A1       | 0      | 2025-09-01  | V               |
+      | pl_id | adres_id | volg_nr | inschrijving_gemeente_code | inschrijving_datum | adres_functie | adreshouding_start_datum | aangifte_adreshouding_oms | geldigheid_start_datum |
+      | P1    | A1       |       0 |                        518 |           20250901 | W             |                 20250901 | I                         |               20250901 |

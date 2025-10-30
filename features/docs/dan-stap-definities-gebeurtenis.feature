@@ -7,7 +7,7 @@ Functionaliteit: Gebeurtenis dan stap definities
     * met adresseerbaar object identificatie '0518000000000001'
     En de persoon 'P1'
     * met A-nummer '1234567890'
-    En de verwerkte opgave van verhuizing van 'P1'
+    En de verwerkte aangifte van adreswijziging van 'P1'
     * verblijft vanaf '1-9-2025' op het adres 'A1'
     En de gepubliceerde gebeurtenis
     ```
@@ -40,7 +40,7 @@ Functionaliteit: Gebeurtenis dan stap definities
     * met adresseerbaar object identificatie '0518000000000001'
     En de persoon 'P1'
     * met burgerservicenummer '123456789'
-    En de verwerkte opgave van verhuizing van 'P1'
+    En de verwerkte aangifte van adreswijziging van 'P1'
     * verblijft vanaf '1-9-2025' op het adres 'A1'
     En de geleverde gebeurtenis
     ```
