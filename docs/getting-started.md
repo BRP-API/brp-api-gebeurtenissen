@@ -6,7 +6,7 @@ Onder  Account / Settings / Developer settings / Personal access tokens / Tokens
 
 In **Edit personal access token (classic)** scherm
 - geef de token een naam (bijv. Docker GHCR Access) in het *Note* veld
-- selecteer *read:packages* scope
+- selecteer *read:packages* scope. Deze staat onder de *write:packages scope
 
 noteer de gegenereerde token
 
@@ -14,7 +14,7 @@ noteer de gegenereerde token
 
 Voer de volgende statement uit:
 ```
-docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_PERSONAL_ACCESS_TOKEN
+docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
 ```
 
 ### Starten containers
