@@ -44,13 +44,14 @@ export class PostgresqlManager {
             
             // Convert each row to a Map with only columns that have values
             const resultMap: Map<string, any> = new Map<string, any>();
-                
-            Object.entries(result.rows[0]).forEach(([column, value]) => {
-                // Only add columns that have a value (not null, undefined, or empty string)
-                if (value !== null && value !== undefined && value !== '') {
-                    resultMap.set(column, value);
-                }
-            });
+            if (result.rows.length > 0) {
+                Object.entries(result.rows[0]).forEach(([column, value]) => {
+                    // Only add columns that have a value (not null, undefined, or empty string)
+                    if (value !== null && value !== undefined && value !== '') {
+                        resultMap.set(column, value);
+                    }
+                });
+            }
 
             this.logger.info(`SQL executed successfully. Result: ${JSON.stringify(Object.fromEntries(resultMap))}`);
 

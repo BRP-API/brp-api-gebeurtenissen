@@ -2,6 +2,7 @@ import { DataTable, When, Then } from '@cucumber/cucumber';
 import { createLo3AdresInsertStatement,
          createLo3PlInsertStatement,
          createLo3PlPersoonInsertStatement,
+         createLo3PlVerblijfplaatsInsertStatement,
         createSelectStatement } from './support/sql-statements-factory';
 import { PostgresqlManager } from './support/postgresql-manager';
 import { stringifyValues } from './support/object-utils';
@@ -21,6 +22,7 @@ When('de sql statements gegenereerd uit de gegeven stappen zijn uitgevoerd', asy
             });
         }
     }
+    this.logger.info('aangepaste adressen:', this.context.adressen);
 
     if(this.context.personen) {
         for(const persoonAanduiding of Object.keys(this.context.personen)) {
@@ -44,6 +46,12 @@ When('de sql statements gegenereerd uit de gegeven stappen zijn uitgevoerd', asy
                 }
             });
             this.logger.info('aangepast persoon na pl_persoon:', persoon);
+
+            if(persoon.verblijfplaats !== undefined) {
+
+                let statement2 = createLo3PlVerblijfplaatsInsertStatement(persoon);
+                result = await PostgresqlManager.getInstance().execute(statement2);
+            }
         }
     }
 });
@@ -61,6 +69,16 @@ Then('heeft tabel {string} de volgende rij', async function (tabel: string, data
             for(const [column, value] of Object.entries(expected)) {
                 if(Object.keys(this.context.personen).includes(value)) {
                     expected[column] = this.context.personen[value][column];
+                }
+            }
+        }
+        if(tabel === 'lo3_pl_verblijfplaats') {
+            for(const [column, value] of Object.entries(expected)) {
+                if(Object.keys(this.context.personen).includes(value)) {
+                    expected[column] = this.context.personen[value][column];
+                }
+                if(Object.keys(this.context.adressen).includes(value)) {
+                    expected[column] = this.context.adressen[value][column];
                 }
             }
         }

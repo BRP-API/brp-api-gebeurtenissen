@@ -40,9 +40,9 @@ export function createLo3PlPersoonInsertStatement(persoon: Persoon): SqlStatemen
                              [persoon.pl_id, persoon.persoon_type, persoon.stapel_nr, persoon.volg_nr]);
 }
 
-export function createLo3PlVerblijfplaatsInsertStatement(persoon: Persoon): SqlStatement | null {
+export function createLo3PlVerblijfplaatsInsertStatement(persoon: Persoon): SqlStatement {
     if(persoon.verblijfplaats === undefined) {
-        return null;
+        throw new Error('Er is geen verblijfplaats');
     }
 
     const verblijfplaats = persoon.verblijfplaats;

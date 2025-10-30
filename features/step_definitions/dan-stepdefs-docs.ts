@@ -17,7 +17,7 @@ Then('heeft de persoon {string} de volgende eigenschappen', function (persoonAan
 });
 
 Then('heeft persoon {string} een verblijfplaats met de volgende eigenschappen', function (persoonAanduiding: string, dataTable: DataTable) {
-    expect(this.context.personen[persoonAanduiding].verblijfplaats).to.deep.equal(dataTable.hashes()[0]);
+    expect(this.context.personen[persoonAanduiding].verblijfplaats.getClone()).to.deep.equal(dataTable.hashes()[0]);
 });
 
 Then('heeft de command de volgende eigenschappen', function (dataTable: DataTable) {
