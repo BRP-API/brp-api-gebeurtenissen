@@ -18,7 +18,7 @@ components:
       type: object
       properties:
         c01:
-          $ref: '../identificatienummers/anummer-v1.yaml#/components/schemas/AnummerIdentificatieNummersPersoon'
+          $ref: '../identificatienummers/anummer-v1.yaml#/components/schemas/AnummerIdentificatieNummers'
         c08:
           $ref: '#/components/schemas/VerhuisdIntergemeentelijkVerblijfplaatsData'
       required: 
@@ -28,10 +28,10 @@ components:
     VerhuisdIntergemeentelijkVerblijfplaatsData:
       type: object
       properties:
-        g10:
-          $ref: '../adres/datum-aanvang-adreshouding-v1.yaml#/components/schemas/DatumAanvangAdreshoudingAdreshouding'
-        g11:
-          $ref: '../adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatieAdres'
+        e1030:
+          $ref: '../adres/datum-aanvang-adreshouding-v1.yaml#/components/schemas/DatumAanvangAdreshouding'
+        e1180:
+          $ref: '../adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatie'
       required: 
-        - g10
-        - g11
+        - e1030
+        - e1180

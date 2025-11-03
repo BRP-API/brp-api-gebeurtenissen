@@ -10,13 +10,3 @@ components:
       description: |
         De identificatiecode van een adresseerbaar object.
       pattern: ^[0-9]{16}$
-
-    AdresseerbaarObjectIdentificatieAdres:
-      type: object
-      description: |
-        Adres groep met adresseerbaar object identificatie veld.
-      properties:
-        e1180:
-          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
-      required:
-        - e1180
