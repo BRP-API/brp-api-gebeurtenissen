@@ -2,9 +2,12 @@
 
 ### Aanmaken van een Personal access token in GitHub
 
-Onder  Account / Settings / Developer settings / Personal access tokens / Tokens (classic), klik `Genereer new token`
+- Navigeer naar GitHub en login
+- Navigeer naar [Personal access tokens (classic)](https://github.com/settings/tokens)
+- Klik op `Generate new token` dropdown button en selecteer `Generate new token (classic)` om de **New personal access token (classic)** scherm te openen.
 
-In **Edit personal access token (classic)** scherm
+
+In de **New personal access token (classic)** scherm
 - geef de token een naam (bijv. Docker GHCR Access) in het *Note* veld
 - selecteer *read:packages* scope. Deze staat onder de *write:packages scope
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker-compose \
+docker compose \
     -f ./.docker/axon-server.yml \
     -f ./.docker/gebeurtenissen-publiceren-service.yml \
     down
