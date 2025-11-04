@@ -2,74 +2,38 @@
 graph LR
   linkStyle default fill:#ffffff
 
-  subgraph diagram ["BRP API Gebeurtenissen - Containers"]
+  subgraph diagram ["Container View: BRP API Gebeurtenissen"]
     style diagram fill:#ffffff,stroke:#ffffff
 
     1("<div style='font-weight: bold'>BRPV</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>")
-    style 1 fill:#dddddd,stroke:#0773af,color:#0773af
-    19("<div style='font-weight: bold'>BRP Afnemers</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>")
-    style 19 fill:#dddddd,stroke:#0773af,color:#0773af
+    style 1 fill:#ffffff,stroke:#0773af,color:#0773af
+    14("<div style='font-weight: bold'>BRP Afnemers</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>")
+    style 14 fill:#ffffff,stroke:#0773af,color:#0773af
 
     subgraph 2 ["BRP API Gebeurtenissen"]
       style 2 fill:#ffffff,stroke:#0773af,color:#0773af
 
-      subgraph group1 ["Abonnementen sub-systeem"]
-        style group1 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
-
-        5("<div style='font-weight: bold'>Abonnementen API</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
-        style 5 fill:#dddddd,stroke:#0773af,color:#0773af
-        6[("<div style='font-weight: bold'>Abonnementen Database</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")]
-        style 6 fill:#dddddd,stroke:#0773af,color:#0773af
-      end
-
-      subgraph group2 ["Gebeurtenissen sub-systeem"]
-        style group2 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
-
-        3[("<div style='font-weight: bold'>Event Store</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>opslag voor gebeurtenissen</div>")]
-        style 3 fill:#dddddd,stroke:#0773af,color:#0773af
-        4("<div style='font-weight: bold'>Gebeurtenissen API</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>Spring Boot & Kotlin Beheert<br />gebeurtenissen in de Event<br />Store</div>")
-        style 4 fill:#dddddd,stroke:#0773af,color:#0773af
-      end
-
-      subgraph group3 ["Notificaties sub-systeem"]
-        style group3 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
-
-        7("<div style='font-weight: bold'>Notificaties Publisher</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
-        style 7 fill:#dddddd,stroke:#0773af,color:#0773af
-        8("<div style='font-weight: bold'>Message Broker</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
-        style 8 fill:#dddddd,stroke:#0773af,color:#0773af
-      end
-
-      9("<div style='font-weight: bold'>Mutatie API voor test/acceptatie doeleinden\nSimuleert de BRP(V)</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>Spring Boot & Kotlin</div>")
-      style 9 fill:#dddddd,stroke:#0773af,color:#0773af
+      3[("<div style='font-weight: bold'>Event Store</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>opslag voor gebeurtenissen<br />Axon Server</div>")]
+      style 3 fill:#ffffff,stroke:#0773af,color:#0773af
+      4("<div style='font-weight: bold'>Gebeurtenissen Publiceren API</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>Spring Boot & Kotlin Beheert<br />gebeurtenissen in de Event<br />Store</div>")
+      style 4 fill:#ffffff,stroke:#0773af,color:#0773af
+      5("<div style='font-weight: bold'>Gebeurtenissen Bevragen API</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>Spring Boot & Kotlin Levert<br />gebeurtenissen opgeslagen in<br />de Event Store</div>")
+      style 5 fill:#ffffff,stroke:#0773af,color:#0773af
+      6("<div style='font-weight: bold'>Abonnementen API</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
+      style 6 fill:#ffffff,stroke:#0773af,color:#0773af
+      7("<div style='font-weight: bold'>Mutatie API voor test/acceptatie doeleinden\nSimuleert de BRP(V)</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div><div style='font-size: 80%; margin-top:10px'>Spring Boot & Kotlin</div>")
+      style 7 fill:#ffffff,stroke:#0773af,color:#0773af
     end
 
-    subgraph 20 ["BRP API Bewoningen"]
-      style 20 fill:#ffffff,stroke:#0773af,color:#0773af
-
-      21("<div style='font-weight: bold'>Bewoningen Projector</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
-      style 21 fill:#dddddd,stroke:#0773af,color:#0773af
-      22("<div style='font-weight: bold'>Bewoningen Database</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
-      style 22 fill:#dddddd,stroke:#0773af,color:#0773af
-      23("<div style='font-weight: bold'>Bewoningen API</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>")
-      style 23 fill:#dddddd,stroke:#0773af,color:#0773af
-    end
-
+    7-. "<div>publiceert mutaties als<br />gebeurtenissen in<br />LAP/proefomgeving in</div><div style='font-size: 70%'></div>" .->4
+    6-. "<div>publiceert abonnement<br />gebeurtenissen in</div><div style='font-size: 70%'></div>" .->3
+    4-. "<div>publiceert gebeurtenissen in</div><div style='font-size: 70%'></div>" .->3
+    5-. "<div>abonneert op abonnement<br />gebeurtenissen in</div><div style='font-size: 70%'></div>" .->3
+    14-. "<div>beheert BRP gebeurtenis<br />abonnementen met</div><div style='font-size: 70%'></div>" .->6
+    14-. "<div>muteert persoon/adres in<br />LAP/proefomgeving met</div><div style='font-size: 70%'></div>" .->7
+    14-. "<div>bevraagt gebeurtenissen bij</div><div style='font-size: 70%'></div>" .->5
     1-. "<div>classificeert mutaties en<br />publiceer deze als<br />gebeurtenissen in</div><div style='font-size: 70%'></div>" .->4
-    9-. "<div>publiceert mutaties als<br />gebeurtenissen in<br />LAP/proefomgeving in</div><div style='font-size: 70%'></div>" .->4
-    5-. "<div>leest en schrijft<br />abonnementen in</div><div style='font-size: 70%'></div>" .->6
-    4-. "<div>beheert gebeurtenissen in</div><div style='font-size: 70%'></div>" .->3
-    4-. "<div>haalt abonnementen van<br />afnemer op bij</div><div style='font-size: 70%'></div>" .->5
-    7-. "<div>vertaalt gebeurtenis naar<br />notificatie en publiceer in</div><div style='font-size: 70%'></div>" .->8
-    7-. "<div>bevraagt gebeurtenissen bij</div><div style='font-size: 70%'></div>" .->4
-    7-. "<div>haalt abonnementen voor<br />gebeurtenis op bij</div><div style='font-size: 70%'></div>" .->5
-    19-. "<div>abonneert op gebeurtenis<br />types met</div><div style='font-size: 70%'></div>" .->5
-    19-. "<div>muteert persoon/adres in<br />LAP/proefomgeving met</div><div style='font-size: 70%'></div>" .->9
-    19-. "<div>bevraagt gebeurtenissen bij</div><div style='font-size: 70%'></div>" .->4
-    19-. "<div>haalt notificaties op bij</div><div style='font-size: 70%'></div>" .->8
-    21-. "<div>bevraagt gebeurtenissen bij</div><div style='font-size: 70%'></div>" .->4
-    21-. "<div>beheert bewoningen in</div><div style='font-size: 70%'></div>" .->22
-    23-. "<div>bevraagt bewoningen in</div><div style='font-size: 70%'></div>" .->22
-    19-. "<div>bevraagt bewoningen met</div><div style='font-size: 70%'></div>" .->23
+
   end
-```
+  ```
+  
