@@ -1,13 +1,32 @@
 {
-  "name": "brp-gebeurtenissen-notificaties",
+  "name": "brp-api-gebeurtenissen",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BRP-API/brp-api-gebeurtenissen.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/BRP-API/brp-api-gebeurtenissen/issues"
+  },
+  "homepage": "https://github.com/BRP-API/brp-api-gebeurtenissen#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "@redocly/cli": "^2.5.1",
+    "@types/chai": "^5.2.2",
+    "@types/deep-equal-in-any-order": "^1.0.4",
+    "axios": "^1.12.2",
+    "chai": "^6.2.0",
+    "deep-equal-in-any-order": "^2.1.0",
+    "ts-node": "^10.9.2",
+    "winston": "^3.18.3"
+  }
 }

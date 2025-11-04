@@ -25,7 +25,7 @@ Voorbeelden van BRP command stap definities zijn:
 
 Een bijkomend voordeel van Gherkin-voorbeelden en scenarios is dat ze met behulp van tooling (bijvoorbeeld [Cucumber](https://cucumber.io)) kunnen worden omgezet tot uitvoerbare specificaties. Hierdoor kunnen de voorbeelden en scenarios worden gebruikt om het gedrag van het systeem te valideren.
 
-De stap definitie `Als de geboorteaangifte van 'Jan' is verwerkt` kan dan worden gekoppeld aan een script die een valide HTTP request genereert voor het initieren van de verwerking van een geboorteaangifte door (een sub-systeem van) de BRP of door een mock van de BRP zoals de Personen Mutatie service. Het gegenereerde JSON bericht bevat alle verplichte velden vooringevuld met valide waarden zodat de geboorteaangifte succesvol kan worden verwerkt door de (sub-systeem van) de BRP of de Personen Mutatie service.
+De stap definitie `Als de geboorteaangifte van 'Jan' is verwerkt` kan dan worden gekoppeld aan een script die een valide HTTP request genereert voor het initieren van de verwerking van een geboorteaangifte door (een sub-systeem van) de BRP of door een mock van de BRP zoals de Personen Mutatie service. Het gegenereerde JSON bericht bevat alle verplichte velden vooringevuld met valide waarden zodat de geboorteaangifte succesvol kan worden verwerkt door (het sub-systeem van) de BRP of de Personen Mutatie service.
 
 Een voorbeeld van een valide geboorteaangifte request voor de Personen Mutatie service ziet er als volgt uit:
 
