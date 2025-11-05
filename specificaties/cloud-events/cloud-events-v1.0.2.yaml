@@ -11,12 +11,6 @@ components:
           $ref: '#/components/schemas/typedef'
         data:
           $ref: '#/components/schemas/datadef'
-        id:
-          $ref: '#/components/schemas/iddef'
-        source:
-          $ref: "#/components/schemas/sourcedef"
-        specversion:
-          $ref: '#/components/schemas/specversiondef'
 
     typedef:
       description: |
@@ -28,29 +22,3 @@ components:
       description: |
         The event payload.
       type: object
-      
-    iddef:
-      description: |
-        Identifies the event.
-      type: string
-      minLength: 1
-    
-    sourcedef:
-      description: |
-        Identifies the context in which an event happened.
-      type: string
-      format: uri-reference
-      minLength: 1
-      example: urn:uuid:0f0c73ae-d9c6-48a4-b935-ecd114564ae0
-
-    specversiondef:
-      description: |
-        The version of the CloudEvents specification which the event uses. 
-        This enables the interpretation of the context. 
-        Compliant event producers MUST use a value of 1.0 when referring to this version of the specification.
-      type: string
-      minLength: 1
-      example: '1.0'
-    
-    
-

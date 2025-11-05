@@ -7,21 +7,12 @@ components:
     Gebeurtenis:
       type: object
       properties:
-        id:
-          $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/iddef'
-        source:
-          $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/sourcedef'
-        specversion:
-          $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/specversiondef'
         type:
           $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/typedef'
         data:
           $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/datadef'
       required: 
         - type
-        - id
-        - source
-        - specversion
       discriminator: 
         propertyName: type
         mapping:
