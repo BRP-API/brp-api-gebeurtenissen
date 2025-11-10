@@ -2,6 +2,9 @@ openapi: 3.1.0
 info:
   title: Gebeurtenissen Publiceren API specificatie
   version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: development server
 paths:
   /personen/gebeurtenissen:
     post:
@@ -17,10 +20,12 @@ paths:
       responses:
         '201':
           description: Gebeurtenis succesvol gepubliceerd
-        '401':
-          $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GebeurtenisPublicerenResponse'
+        '400':
+          $ref: '#/components/responses/400'
         '500':
           $ref: '#/components/responses/500'
 components:
@@ -131,6 +136,26 @@ components:
       maxItems: 10
       items:
         $ref: '#/components/schemas/MetadataItem'
+    iddef:
+      description: |
+        Identifies the event.
+      type: string
+      format: uuid
+    GebeurtenisPublicerenResponse:
+      description: |
+        Response object voor een succesvol gepubliceerde gebeurtenis.
+      type: object
+      required:
+        - gebeurtenisId
+      properties:
+        gebeurtenisId:
+          $ref: '#/components/schemas/iddef'
+          description: |
+            Unieke identifier voor de gepubliceerde gebeurtenis.
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: |
+            metadata meegestuurd met de gepubliceerde gebeurtenis.
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
@@ -160,33 +185,59 @@ components:
           description: Systeemcode die het type fout aangeeft
           type: string
           pattern: ^[a-zA-Z0-9]{1,25}$
+    InvalidParam:
+      type: object
+      description: Details over fouten in opgegeven parameters
+      properties:
+        type:
+          type: string
+          format: uri
+          example: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
+        name:
+          description: Naam van de parameter
+          type: string
+          pattern: ^[a-zA-Z0-9\._]{1,30}$
+          example: huisnummer
+        code:
+          description: Systeemcode die het type fout aangeeft
+          type: string
+          pattern: ^[a-zA-Z0-9]{1,25}$
+          example: integer
+        reason:
+          description: Beschrijving van de fout op de parameterwaarde
+          type: string
+          pattern: ^[a-zA-Z0-9\., ]{1,80}$
+          example: Waarde is geen geldig getal.
+    BadRequestFoutbericht:
+      allOf:
+        - $ref: '#/components/schemas/Foutbericht'
+        - type: object
+          properties:
+            invalidParams:
+              description: |
+                Foutmelding per fout in een parameter. Alle gevonden fouten worden één keer teruggemeld.
+              type: array
+              items:
+                $ref: '#/components/schemas/InvalidParam'
   responses:
-    '401':
-      description: Unauthorized
+    '400':
+      description: Bad Request
       content:
         application/problem+json:
           schema:
-            $ref: '#/components/schemas/Foutbericht'
+            $ref: '#/components/schemas/BadRequestFoutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
-            title: Niet correct geauthenticeerd.
-            status: 401
-            detail: The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+            title: Ten minste één parameter moet worden opgegeven.
+            status: 400
+            detail: The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-            code: authentication
-    '403':
-      description: Forbidden
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Foutbericht'
-          example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
-            title: U bent niet geautoriseerd voor deze operatie.
-            status: 403
-            detail: The server understood the request, but is refusing to fulfill it.
-            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-            code: autorisation
+            code: paramsRequired
+            invalidParams:
+              - type: https://www.vng.nl/realisatie/api/validaties/integer
+                name: huisnummer
+                code: integer
+                reason: Waarde is geen geldig getal.
     '500':
       description: Internal Server Error
       content:

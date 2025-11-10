@@ -22,3 +22,9 @@ components:
       description: |
         The event payload.
       type: object
+
+    iddef:
+      description: |
+        Identifies the event.
+      type: string
+      format: uuid
