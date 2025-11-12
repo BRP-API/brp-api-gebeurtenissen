@@ -22,28 +22,29 @@ paths:
           $ref: '#/components/responses/500'
 components:
   schemas:
-    typedef:
-      type: string
-      minLength: 1
-    datadef:
-      type:
-        - object
-        - string
-        - number
-        - array
-        - boolean
-        - 'null'
-    CloudEvent:
+    Gebeurtenis:
       type: object
       properties:
+        id:
+          $ref: '#/components/schemas/iddef'
+        source:
+          $ref: '#/components/schemas/sourcedef'
+        specversion:
+          $ref: '#/components/schemas/specversiondef'
         type:
-          description: |
-            Describes the type of event related to the originating occurrence.
           $ref: '#/components/schemas/typedef'
         data:
-          description: |
-            The event payload.
           $ref: '#/components/schemas/datadef'
+      required:
+        - id
+        - source
+        - specversion
+        - type
+        - data
+      discriminator:
+        propertyName: type
+        mapping:
+          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
     Burgerservicenummer:
       type: string
       title: Burgerservicenummer
@@ -166,20 +167,28 @@ components:
           $ref: '#/components/schemas/Adres'
     VerhuisdIntergemeentelijk:
       allOf:
-        - $ref: '#/components/schemas/CloudEvent'
+        - $ref: '#/components/schemas/Gebeurtenis'
         - type: object
           required:
             - data
           properties:
             data:
               $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
-    Gebeurtenis:
-      oneOf:
-        - $ref: '#/components/schemas/VerhuisdIntergemeentelijk'
-      discriminator:
-        propertyName: type
-        mapping:
-          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
+    iddef:
+      type: string
+      format: uuid
+    sourcedef:
+      type: string
+      format: uri-reference
+      minLength: 1
+    specversiondef:
+      type: string
+      minLength: 1
+    typedef:
+      type: string
+      minLength: 1
+    datadef:
+      type: object
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
