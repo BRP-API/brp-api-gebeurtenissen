@@ -1,161 +1,82 @@
 openapi: 3.1.0
 info:
-  title: Gebeurtenissen Publiceren API specificatie
+  title: Mutaties API Specificaties
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
-    description: development server
+  - url: http://localhost
+    description: Lokale ontwikkelomgeving
 paths:
-  /personen/gebeurtenissen:
+  /personen/aangiftes:
     post:
-      operationId: PubliceerGebeurtenis
-      tags:
-        - Gebeurtenissen
-      summary: Publiceer een persoon gebeurtenis
+      operationId: Aangiftes
+      summary: Doe een aangifte voor een persoon
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Gebeurtenis'
+              $ref: '#/components/schemas/AangifteCommand'
       responses:
         '201':
-          description: Gebeurtenis succesvol gepubliceerd
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GebeurtenisPublicerenResponse'
+          description: Aangifte succesvol geregistreerd
         '400':
           $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
         '500':
           $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
 components:
   schemas:
-    Gebeurtenis:
+    AangifteCommand:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/typedef'
-        data:
-          $ref: '#/components/schemas/datadef'
-        metadata:
-          $ref: '#/components/schemas/Metadata'
+          type: string
+          description: Type van de aangifte (bijv. geboorte, verhuizing, overlijden)
+        burgerservicenummer:
+          $ref: '#/components/schemas/Burgerservicenummer'
+          description: Het burgerservicenummer van de persoon waarvoor de aangifte wordt gedaan
       required:
         - type
+        - burgerservicenummer
       discriminator:
         propertyName: type
         mapping:
-          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
-    Anummer:
-      type: string
-      title: A-nummer
-      description: |
-        Het administratienummer, bedoeld in artikel 4.9 van de Wet BRP.
-        - Groep: Identificatienummers (01)
-        - Element: A-nummer (01.10)
-      pattern: ^(?!.*([0-9])\\1)[1-9][0-9]{9}$
-    AnummerIdentificatieNummers:
-      type: object
-      description: |
-        Identificatienummers groep met a-nummer veld.
-      properties:
-        e0110:
-          $ref: '#/components/schemas/Anummer'
+          OpgaveVanVerhuizing: '#/components/schemas/OpgaveVanVerhuizingCommand'
+    OpgaveVanVerhuizingCommand:
+      allOf:
+        - $ref: '#/components/schemas/AangifteCommand'
+        - type: object
+          properties:
+            adresseerbaarObjectIdentificatie:
+              $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
+              description: De identificatiecode van het nieuwe adres van de persoon
+            verhuisdatum:
+              $ref: '#/components/schemas/Datum'
+              description: De datum wanneer de persoon verhuist naar het nieuwe adres
       required:
-        - e0110
-    DatumAanvangAdreshouding:
-      type: string
-      title: Datum aanvang adreshouding
-      description: |
-        De datum van aangifte of ambtshalve melding van verblijf en adres. Bij een tijdige aangifte (tussen vier weken voor en vijf dagen na de verhuizing) van vestiging op het adres is dit de in de aangifte vermelde datum van adreswijziging. Bij een niet tijdige aangifte is dit de aangiftedatum. Bij inschrijving op grond van een geboorteakte is dit de geboortedatum. Bij ambtshalve inschrijving is dit de datum waarop de betrokkene schriftelijk van het voornemen van ambtshalve opneming mededeling is gedaan.
-        - Groep: Adreshouding (10)
-        - Element: Datum aanvang adreshouding (10.30)
-      pattern: ^(18|19|20|21|22)[0-9]{2}((0[1-9]|1[0-2])((0[1-9]|[12][0-9]|3[01])|00)|0000)|00000000$
+        - adresseerbaarObjectIdentificatie
+        - verhuisdatum
     AdresseerbaarObjectIdentificatie:
       type: string
       title: Identificatiecode verblijfplaats
       description: |
         De identificatiecode van een adresseerbaar object.
       pattern: ^[0-9]{16}$
-    VerhuisdIntergemeentelijkVerblijfplaatsData:
-      type: object
-      properties:
-        e1030:
-          $ref: '#/components/schemas/DatumAanvangAdreshouding'
-        e1180:
-          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
-      required:
-        - e1030
-        - e1180
-    VerhuisdIntergemeentelijkData:
-      type: object
-      properties:
-        c01:
-          $ref: '#/components/schemas/AnummerIdentificatieNummers'
-        c08:
-          $ref: '#/components/schemas/VerhuisdIntergemeentelijkVerblijfplaatsData'
-      required:
-        - c01
-        - c08
-    VerhuisdIntergemeentelijk:
-      allOf:
-        - $ref: '#/components/schemas/CloudEvent'
-        - type: object
-          required:
-            - data
-          properties:
-            data:
-              $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
-    typedef:
-      description: |
-        Describes the type of event related to the originating occurrence.
+    Datum:
       type: string
-      minLength: 1
-    datadef:
+      format: date
+      example: '1964-09-24'
       description: |
-        The event payload.
-      type: object
-    MetadataItem:
-      type: object
-      properties:
-        naam:
-          type: string
-          description: De naam van het metadata item.
-          pattern: ^[a-zA-Z0-9]{1,50}$
-        waarde:
-          type: string
-          description: De waarde van het metadata item.
-          pattern: ^[a-zA-Z0-9]{1,50}$
-      required:
-        - naam
-        - waarde
-      additionalProperties: false
-    Metadata:
-      type: array
-      description: Lijst van metadata items.
-      minItems: 1
-      maxItems: 10
-      items:
-        $ref: '#/components/schemas/MetadataItem'
-    iddef:
-      description: |
-        Identifies the event.
+        Datum conform ISO-8601
+    Burgerservicenummer:
       type: string
-      format: uuid
-    GebeurtenisPublicerenResponse:
+      title: Burgerservicenummer
       description: |
-        Response object voor een succesvol gepubliceerde gebeurtenis.
-      type: object
-      required:
-        - gebeurtenisId
-      properties:
-        gebeurtenisId:
-          $ref: '#/components/schemas/iddef'
-          description: |
-            Unieke identifier voor de gepubliceerde gebeurtenis.
-        metadata:
-          $ref: '#/components/schemas/Metadata'
-          description: |
-            metadata meegestuurd met de gepubliceerde gebeurtenis.
+        Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
+      pattern: ^[0-9]{9}$
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
@@ -219,6 +140,12 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/InvalidParam'
+  securitySchemes:
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: http://identityserver:6000/token
   responses:
     '400':
       description: Bad Request
@@ -238,6 +165,19 @@ components:
                 name: huisnummer
                 code: integer
                 reason: Waarde is geen geldig getal.
+    '401':
+      description: Unauthorized
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Foutbericht'
+          example:
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
+            title: Niet correct geauthenticeerd.
+            status: 401
+            detail: The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: authentication
     '500':
       description: Internal Server Error
       content:

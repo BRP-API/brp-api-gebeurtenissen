@@ -20,9 +20,5 @@ components:
       properties:
         e0110:
           $ref: '#/components/schemas/Anummer'
-
-    AnummerIdentificatieNummersPersoon:
-      type: object
-      properties:
-        g01:
-          $ref: '#/components/schemas/AnummerIdentificatieNummers'
+      required: 
+        - e0110

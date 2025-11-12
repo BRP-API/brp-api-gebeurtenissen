@@ -1,0 +1,72 @@
+openapi: 3.1.0
+info: 
+  title: Mutaties API Specificaties
+  version: 1.0.0
+
+servers: 
+  - url: http://localhost
+    description: Lokale ontwikkelomgeving
+
+paths:
+  /personen/aangiftes:
+    post: 
+      operationId: Aangiftes
+      summary: Doe een aangifte voor een persoon
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AangifteCommand'
+      responses:
+        '201':
+          description: Aangifte succesvol geregistreerd
+        '400':
+          $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security: 
+        -  clientCredentials: []
+
+components:
+  schemas:
+    AangifteCommand:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type van de aangifte (bijv. geboorte, verhuizing, overlijden)
+        burgerservicenummer:
+          $ref: '../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+          description: Het burgerservicenummer van de persoon waarvoor de aangifte wordt gedaan
+      required: 
+        - type
+        - burgerservicenummer
+      discriminator:
+        propertyName: type
+        mapping:
+          OpgaveVanVerhuizing: '#/components/schemas/OpgaveVanVerhuizingCommand'
+
+    OpgaveVanVerhuizingCommand:
+      allOf: 
+        - $ref: '#/components/schemas/AangifteCommand'
+        - type: object
+          properties:
+            adresseerbaarObjectIdentificatie:
+              $ref: '../brp/adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatie'
+              description: De identificatiecode van het nieuwe adres van de persoon
+            verhuisdatum:
+              $ref: '../brp-api/datum/datum-v1.yaml#/components/schemas/Datum'
+              description: De datum wanneer de persoon verhuist naar het nieuwe adres
+      required:
+        - adresseerbaarObjectIdentificatie
+        - verhuisdatum
+
+  securitySchemes:
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: http://identityserver:6000/token
