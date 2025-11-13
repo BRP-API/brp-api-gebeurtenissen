@@ -52,11 +52,65 @@ Content-Type: application/json
       }
     },
     "c08": {
-      "g10": {
-        "e1030": "20230101"
-      },
-      "g11": {
-        "e1180": "0000123456789012"
+      "e1030": "20230101",
+      "e1180": "0000123456789012"
+    }
+  }
+}
+```
+
+voorbeeld van een `verhuisd.intergemeentelijk gebeurtenis met metadata publiceren` request
+
+```
+POST http://localhost:8080/personen/gebeurtenissen
+Content-Type: application/json
+
+{
+  "type": "nl.brp.verhuisd.intergemeentelijk",
+  "metadata": [
+    { "naam": "test1", "waarde": "waarde1" },
+    { "naam": "test2", "waarde": "waarde2" }
+  ],
+  "data": {
+    "c01": {
+      "g01": {
+        "e0110": "1234567891"
+      }
+    },
+    "c08": {
+      "e1030": "00000000",
+      "e1180": "0000123456789012"
+    }
+  }
+}
+```
+
+### Bevragen van oudste ongelezen gebeurtenissen met behulp van Gebeurtenissen Bevragen service
+
+Stuur hiervoor een GET request naar de **/personen/gebeurtenissen** endpoint
+
+voorbeeld request
+
+```
+GET http://localhost:8082/personen/gebeurtenissen
+```
+
+voorbeeld response
+
+```
+{
+  "type": "nl.brp.verhuisd.intergemeentelijk",
+  "id": "f16c227e-fd85-41fd-9d0f-a90b9874e51e",
+  "source": "brp",
+  "specversion": "1.0.2",
+  "data": {
+    "burgerservicenummer": "1234567890",
+    "verblijfplaats": {
+      "adresseerbaarObjectIdentificatie": "0000123456789012",
+      "datumVan": {
+        "type": "JaarDatum",
+        "langFormaat": "2024",
+        "jaar": 2024
       }
     }
   }

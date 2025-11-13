@@ -1,0 +1,16 @@
+services:
+  bevraag-service:
+    image: ghcr.io/brp-api/gebeurtenis-bevragen-service:latest
+    container_name: gebeurtenis-bevragen-service
+    depends_on:
+      - axonserver
+    ports:
+      - "8082:8082"
+    environment:
+      - AXON_AXONSERVER_SERVERS=axonserver:8124
+    networks:
+      - brp-api-network
+
+networks:
+  brp-api-network:
+    name: brp-api-network
