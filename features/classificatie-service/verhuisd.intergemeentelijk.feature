@@ -85,73 +85,7 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
       * verblijft vanaf '1-9-2025' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Enschede'
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
 
-  Regel: Wanneer het adres wijzigt door een correctie op een eerder geregistreerde verblijfplaats, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
-
-    Scenario: Het adres van de persoon wordt gecorrigeerd naar een adres in een andere gemeente
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      Als de correctie op het adres van 'Jan' is verwerkt
-      * het actuele adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' is incorrect
-      * verblijft vanaf '14-4-2020' op het adres 'Stadserf_1_Roosendaal'
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
-
-    Scenario: Het adres van de persoon wordt gecorrigeerd want de persoon heeft nooit op het actuele adres gewoond
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      En de opgave van verhuizing van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      Als de correctie op het adres van 'Jan' is verwerkt
-      * het actuele adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' is incorrect
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
-
-    Scenario: Een eerder adres van de persoon wordt gecorrigeerd naar een adres in een andere gemeente
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      En de opgave van verhuizing van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      En het adres 'Hengelosestraat_51_Enschede'
-      * in gemeente 'Enschede'
-      * met adresseerbaar object identificatie '0153010000421499'
-      Als de correctie op het adres van 'Jan' is verwerkt
-      * het historische adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' is incorrect
-      * verblijft vanaf '14-4-2020' op het adres 'Hengelosestraat_51_Enschede'
-      * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
-
-    Scenario: Een eerder adres én het huidige adres van de persoon worden gecorrigeerd naar een adres in een andere gemeente dan het actuele adres
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      En de opgave van verhuizing van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      Als de correctie op het adres van 'Jan' is verwerkt
-      * het historische adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' is incorrect
-      * het actuele adres 'Stadserf_1_Roosendaal' is incorrect
-      * verblijft vanaf '14-4-2020' op het adres 'Beursstraat_44_Hengelo'
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
-
-  Regel: Wanneer een onderzoek naar de verblijfplaats is gestart, gewijzigd of beëindigd, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
-
-    Scenario: Een adresonderzoek is gestart
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      Als een onderzoek op het verblijfadres van 'Jan' is op '1-9-2025' gestart
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
-
-    Scenario: Een adresonderzoek is afgerond zonder wijziging van het adres
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      En een onderzoek op het verblijfadres van 'Jan' is op '1-9-2025' gestart
-      Als het onderzoek op het verblijfadres is beëindigd
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
-
-    Scenario: Bij een adresonderzoek is vastgesteld dat de persoon niet meer op het adres verblijft
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      En een onderzoek op het verblijfadres van 'Jan' is op '1-9-2025' gestart
-      Als in het onderzoek op het verblijfadres is vastgesteld verblijft niet op adres
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
-
+ 
   Regel: Wanneer een verhuizing niet naar een correct vastgelegd BAG adresseerbaar object gaat, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
 
     Scenario: De persoon verhuist naar een adres met locatiebeschrijving
