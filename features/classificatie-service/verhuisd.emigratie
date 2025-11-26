@@ -15,9 +15,10 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.emigratie' bij een aangifte
     Gegeven de persoon 'Jan'
     En afnemer 'Roosendaal' is geabonneerd op 'verhuisd.emigratie' gebeurtenissen van de persoon 'Jan'
 
-  Regel: Wanneer de bijhouding van persoon is opgeschort met emigratie als reden, heeft gebeurtenis 'verhuisd.emigratie' plaatsgevonden
 
-   Scenario: Aangifte van emigratie naar het buitenland 
+Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden
+
+ Scenario: Aangifte van emigratie naar het buitenland 
       Gegeven de persoon 'Jan'
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
       Als de aangifte van emigratie naar het buitenland van 'Jan' is verwerkt
@@ -25,3 +26,8 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.emigratie' bij een aangifte
       Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * 
+
+
+Regel: Wanneer de bijhouding van persoon is opgeschort met emigratie als reden, heeft gebeurtenis 'verhuisd.emigratie' plaatsgevonden
+
+  
