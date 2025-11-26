@@ -18,16 +18,17 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.emigratie' bij een aangifte
 
 Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden
 
- Scenario: Aangifte van emigratie naar het buitenland 
+ Scenario: Opgave van verhuizing naar het buitenland 
       Gegeven de persoon 'Jan'
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      Als de aangifte van emigratie naar het buitenland van 'Jan' is verwerkt
-      * bijhouding is opgeschort vanaf '1-9-2025' met reden 'emigratie'
+      Als de opgave van verhuizing naar het buitenland van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' op het adres'Chemin_du_Calvaire_19_Lausanne'
       Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
-      * 
+      * de vanaf datum van de aangifte van adreswijziging van 'Jan'
+      * de adresregels van het adres 'Chemin_du_Calvaire_19_Lausanne'
 
 
-Regel: Wanneer de bijhouding van persoon is opgeschort met emigratie als reden, heeft gebeurtenis 'verhuisd.emigratie' plaatsgevonden
+
 
   
