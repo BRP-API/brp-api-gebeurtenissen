@@ -1,8 +1,7 @@
 # language: nl
 @classificatie-service
 Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.emigratie' bij een aangifte van adreswijziging naar het buitenland, of naar het Caribisch deel van het Koninkrijk.
-  De gebeurtenis 'verhuisd.emigratie' betekent dat de persoon fysiek verhuisd is van een Nederlandse gemeente 
-  naar het buitenland of het Caribisch deel van het Koninkrijk.
+  De gebeurtenis 'verhuisd.emigratie' betekent dat de persoon fysiek verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
@@ -12,22 +11,48 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.emigratie' bij een aangifte
     * met adresregel 1 'Chemin de Calvaire 19'
     * met adresregel 2 '10005 Lausanne'
     * met adresregel 3 'Vaud'
+    * met land adres buitenland 'Zwitserland'
     Gegeven de persoon 'Jan'
     En afnemer 'Roosendaal' is geabonneerd op 'verhuisd.emigratie' gebeurtenissen van de persoon 'Jan'
 
 
 Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden
 
- Scenario: Opgave van verhuizing naar het buitenland 
+ Scenario: Aangifte van vertrek naar het buitenland 
       Gegeven de persoon 'Jan'
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
       Als de opgave van verhuizing naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres'Chemin_du_Calvaire_19_Lausanne'
       Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
-      * de vanaf datum van de aangifte van adreswijziging van 'Jan'
+      * de datum dat 'Jan' is geemigreerd
+      * het land adres buitenland 'Zwitserland'
       * de adresregels van het adres 'Chemin_du_Calvaire_19_Lausanne'
 
+Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definitief woonadres heeft, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden.
+
+ Scenario: Aangifte van vertrek naar het buitenland en alleen het land is bekend
+      Gegeven de persoon 'Jan'
+      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+      Als de opgave van verhuizing naar het buitenland van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
+      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * de datum dat 'Jan' is geemigreerd
+      * het land adres buitenland 'Zwitserland'
+
+Scenario: Aangifte van vertrek naar het buitenland en alleen het land en de plaats is bekend
+#Is dit scenario relevant voor de classificatie? Staat in de HUP als mogelijke command.
+      Gegeven de persoon 'Jan'
+      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+      Als de opgave van verhuizing naar het buitenland van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
+      * verblijft vanaf '1-9-2025' in de plaats 'Lausanne'
+      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * de datum dat 'Jan' is geemigreerd
+      * het land adres buitenland 'Zwitserland'
+      * adresregel 2 'Lausanne'
 
 
 
