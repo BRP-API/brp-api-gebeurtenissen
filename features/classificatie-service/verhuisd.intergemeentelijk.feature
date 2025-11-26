@@ -51,17 +51,15 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
       * verblijft vanaf '1-9-2025' op een adres in het buitenland
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
 
-  Regel: Wanneer de functie van het adres wijzigt van woonadres naar een briefadres in een andere Nederlandse gemeente, heeft gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
+  Regel: Wanneer de functie van het adres wijzigt van woonadres naar een briefadres in een andere Nederlandse gemeente, heeft geen gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
 
     Scenario: De persoon verhuist van een woonadres naar een briefadres in een andere gemeente
       Gegeven de persoon 'Jan'
       * verblijft vanaf '14-4-2020' op het woonadres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
       * schrijft zich vanaf '1-9-2025' in op het briefadres 'Stadserf_1_Roosendaal'
-      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
-      * de vanaf datum van de aangifte van adreswijziging van 'Jan'
-      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
+      Dan is geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
+     
 
     Scenario: De persoon verhuist van een briefadres naar een woonadres in een andere gemeente
       Gegeven de persoon 'Jan'
