@@ -14,7 +14,7 @@ Functionaliteit: als stap definities
       | AangifteVanAdreswijziging |           123456789 |                 0000000000000001 |   2025-09-01 |
 
 
-Scenario: Als de aangifte van vertrek van '[persoon indicatie]' is verwerkt
+  Scenario: Als de aangifte van vertrek van '[persoon indicatie]' is verwerkt
     Gegeven het adres 'A1'
     * met adresseerbaar object identificatie '0000000000000001'
     En de persoon 'P1'
