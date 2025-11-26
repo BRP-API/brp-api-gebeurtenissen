@@ -21,12 +21,12 @@ Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeur
  Scenario: Aangifte van vertrek naar het buitenland 
       Gegeven de persoon 'Jan'
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      Als de opgave van verhuizing naar het buitenland van 'Jan' is verwerkt
+      Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres'Chemin_du_Calvaire_19_Lausanne'
       Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
-      * het land adres buitenland 'Zwitserland'
+      * het land adres buitenland is 'Zwitserland'
       * de adresregels van het adres 'Chemin_du_Calvaire_19_Lausanne'
 
 Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definitief woonadres heeft, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden.
@@ -34,26 +34,57 @@ Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definit
  Scenario: Aangifte van vertrek naar het buitenland en alleen het land is bekend
       Gegeven de persoon 'Jan'
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      Als de opgave van verhuizing naar het buitenland van 'Jan' is verwerkt
+      Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
       Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
-      * het land adres buitenland 'Zwitserland'
+      * het land adres buitenland is 'Zwitserland'
 
 Scenario: Aangifte van vertrek naar het buitenland en alleen het land en de plaats is bekend
 #Is dit scenario relevant voor de classificatie? Staat in de HUP als mogelijke command.
       Gegeven de persoon 'Jan'
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-      Als de opgave van verhuizing naar het buitenland van 'Jan' is verwerkt
+      Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
       * verblijft vanaf '1-9-2025' in de plaats 'Lausanne'
       Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
-      * het land adres buitenland 'Zwitserland'
+      * het land adres buitenland is 'Zwitserland'
       * adresregel 2 'Lausanne'
 
 
+Regel: Wanneer een persoon naar een Caribisch deel van het Koninkrijk is verhuisd, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden.
+      
+Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk 
+      Gegeven de persoon 'Jan'
+      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+      Als de opgave van verhuizing naar het Caribisch deel van het Koninkrijk van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' in het land 'Bonaire'
+      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * de datum dat 'Jan' is geemigreerd
+      * het land adres buitenland is 'Bonaire'
 
-  
+Regel: Er heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden als voor een persoon ambtshalve het vertrek uit Nederland is geregistreerd, of als de Minister van Buitenlandse Zaken heeft gemeld dat een persoon niet langer als ingezetene ingeschreven mag zijn. 
+
+Scenario: Ambtshalve vertrek uit Nederland
+      * Gegeven de persoon 'Jan'
+      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+      Als het ambtshalve vertrek 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' in een onbekend land 
+      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * de datum dat 'Jan' is geemigreerd
+      * het land adres buitenland is 'onbekend'
+
+Scenario: Ministrieel besluit dat een persoon niet langer als ingezetene geregistreerd mag zijn.
+      * Gegeven de persoon 'Jan'
+      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+      Als het ministrieel besluit van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' in een onbekend land 
+      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * de datum dat 'Jan' is geemigreerd
+      * het land adres buitenland is 'onbekend'
