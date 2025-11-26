@@ -2,7 +2,7 @@
 Functionaliteit: als stap definities
 
   @mutatie-service
-  Scenario: Als de opgaven van verhuizing van '[persoon indicatie]' is verwerkt
+  Scenario: Als aangifte van adreswijziging van '[persoon indicatie]' is verwerkt
     Gegeven het adres 'A1'
     * met adresseerbaar object identificatie '0000000000000001'
     En de persoon 'P1'
