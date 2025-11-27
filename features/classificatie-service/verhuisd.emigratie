@@ -2,7 +2,7 @@
 @classificatie-service
 Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.emigratie' bij een aangifte van adreswijziging naar het buitenland, of naar het Caribisch deel van het Koninkrijk.
   De gebeurtenis 'verhuisd.emigratie' betekent dat de persoon verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
-  Wanneer geen aangifte van vertrek is gedaan, maar het vertrek uit Nederland ambthalve is geregistreerd of als gevolg van een ministrieel besluit is het adres buitenland onbekend.  
+  Wanneer geen aangifte van vertrek is gedaan, maar het vertrek uit Nederland ambthalve is geregistreerd of als gevolg van een ministrieel besluit is het niet bekend waar persoon verblijft.  
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
