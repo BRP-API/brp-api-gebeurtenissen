@@ -1,7 +1,7 @@
 # language: nl
 @classificatie-service
 Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.emigratie' bij een aangifte van adreswijziging naar het buitenland, of naar het Caribisch deel van het Koninkrijk.
-  De gebeurtenis 'verhuisd.emigratie' betekent dat de persoon fysiek verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
+  De gebeurtenis 'verhuisd.emigratie' betekent dat de persoon verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
@@ -41,7 +41,7 @@ Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definit
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Zwitserland'
 
-Scenario: Aangifte van vertrek naar het buitenland en alleen het land en de plaats is bekend
+Scenario: Aangifte van vertrek naar het buitenland en alleen het land en de plaats zijn bekend
 #Is dit scenario relevant voor de classificatie? Staat in de HUP als mogelijke command.
       Gegeven de persoon 'Jan'
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
