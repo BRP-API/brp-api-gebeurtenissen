@@ -28,3 +28,9 @@ components:
         Identifies the event.
       type: string
       format: uuid
+
+    timedef:
+      description: |
+        Timestamp of when the occurrence happened. Must adhere to RFC 3339.
+      type: string
+      format: date-time
