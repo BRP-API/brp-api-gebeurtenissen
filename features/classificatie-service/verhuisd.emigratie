@@ -1,8 +1,8 @@
 # language: nl
-Functionaliteit: 'verhuisd.emigratie' gebeurtenis
+Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
 
-Bij een aangifte van adreswijziging naar het buitenland, of naar het Caribisch deel van het Koninkrijk heeft een gebeurtenis.emigratie plaatsgevonden.
-  De gebeurtenis 'verhuisd.emigratie' betekent dat de persoon verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
+Bij een aangifte van een verhuizing naar het buitenland, of naar het Caribisch deel van het Koninkrijk heeft een gebeurtenis verhuisd.naar-buitenland plaatsgevonden.
+  De gebeurtenis 'verhuisd.naar-buitenland' betekent dat de persoon verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
   Wanneer geen aangifte van vertrek is gedaan, maar het vertrek uit Nederland ambthalve is geregistreerd of als gevolg van een ministrieel besluit is het niet bekend waar persoon verblijft.  
 
   Achtergrond:
@@ -24,7 +24,7 @@ Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeur
  Scenario: Aangifte van vertrek naar het buitenland 
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres'Chemin_du_Calvaire_19_Lausanne'
-      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Zwitserland'
@@ -35,7 +35,7 @@ Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definit
  Scenario: Aangifte van vertrek naar het buitenland en alleen het land is bekend
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
-      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Zwitserland'
@@ -44,7 +44,7 @@ Scenario: Aangifte van vertrek naar het buitenland en alleen het land en de plaa
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
       * verblijft vanaf '1-9-2025' in de plaats 'Lausanne'
-      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Zwitserland'
@@ -56,7 +56,7 @@ Regel: Wanneer een persoon naar een Caribisch deel van het Koninkrijk is verhuis
 Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk 
       Als de opgave van verhuizing naar het Caribisch deel van het Koninkrijk van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in het land 'Bonaire'
-      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Bonaire'
@@ -66,7 +66,7 @@ Regel: Er heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden als voor een
 Scenario: Ambtshalve vertrek uit Nederland
       Als het ambtshalve vertrek 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in een onbekend land 
-      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'onbekend'
@@ -74,7 +74,7 @@ Scenario: Ambtshalve vertrek uit Nederland
 Scenario: Ministrieel besluit dat een persoon niet langer als ingezetene geregistreerd mag zijn.
       Als het ministrieel besluit van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in een onbekend land 
-      Dan is een 'verhuisd.geemigreerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'onbekend'
