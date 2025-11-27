@@ -1,27 +1,26 @@
 # language: nl
-@classificatie-service
-Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een aangifte van adreswijziging naar een andere gemeente
-  De gebeurtenis 'verhuisd.intergemeentelijk' betekent dat de persoon verhuisd is van een Nederlandse gemeente 
-  naar een andere Nederlandse gemeente.
+Functionaliteit: 'verhuisd.intergemeentelijk' gebeurtenis
+
+Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd.intergemeentelijk' gebeurtenis plaatsgevonden. 
+  De gebeurtenis 'verhuisd.intergemeentelijk' betekent dat de persoon is verhuisd van een Nederlandse gemeente naar een andere Nederlandse gemeente.
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     * in gemeente 'Hengelo'
     * met adresseerbaar object identificatie '0164010000047847'
+    En de persoon 'Jan'
+    * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     En het adres 'Stadserf_1_Roosendaal'
     * in gemeente 'Roosendaal'
     * met adresseerbaar object identificatie '1674010000008508'
     En het adres 'Beursstraat_44_Hengelo'
     * in gemeente 'Hengelo'
     * met adresseerbaar object identificatie '0164010000002401'
-    Gegeven de persoon 'Jan'
     En afnemer 'Roosendaal' is geabonneerd op 'verhuisd.intergemeentelijk' gebeurtenissen van de persoon 'Jan'
 
   Regel: Wanneer de persoon is ingeschreven in een andere Nederlandse gemeente, heeft gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
 
     Scenario: Aangifte van adreswijziging naar een andere gemeente in Nederland
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
@@ -30,8 +29,6 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
       * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
 
     Scenario: Aangifte van adreswijziging naar een ander adres in dezelfde gemeente
-      Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Beursstraat_44_Hengelo'
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
