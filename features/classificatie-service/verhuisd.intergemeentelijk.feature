@@ -42,7 +42,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       * verblijft vanaf '1-9-2025' op het adres 'Beursstraat_44_Hengelo'
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Piet'
 
-  Regel: Wanneer bij aangifte van adreswijziging de functie van het adres is gewijzigd van woonadres naar een briefadres in een andere Nederlandse gemeente, heeft een gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
+  Regel: Wanneer bij aangifte van adreswijziging in een andere Nederlandse gemeente de functie van het adres is gewijzigd van woonadres naar een briefadres, heeft een gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
 
     Scenario: De persoon heeft aangifte van adreswijziging gedaan van een woonadres naar een briefadres in een andere gemeente
       Gegeven de persoon 'Jan'
