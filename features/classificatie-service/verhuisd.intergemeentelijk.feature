@@ -19,7 +19,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
     * met adresseerbaar object identificatie '0164010000002401'
     En afnemer 'Roosendaal' is geabonneerd op 'verhuisd.intergemeentelijk' gebeurtenissen van de persoon 'Jan'
 
-  Regel: Wanneer de persoon is ingeschreven in een andere Nederlandse gemeente, heeft gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
+  Regel: Wanneer aangifte van adreswijziging is gedaan in een andere Nederlandse gemeente dan waar persoon verblijft, heeft de gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
 
     Scenario: Aangifte van adreswijziging naar een andere gemeente in Nederland
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
@@ -38,17 +38,17 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       Gegeven de persoon 'Piet'
       * verblijft vanaf '14-4-2020' op een adres in het buitenland
       * staat ingeschreven in het RNI
-      Als de aangifte van verblijf en adres in Nederland van 'Jan' is verwerkt
+      Als de aangifte van verblijf en adres in Nederland van 'Piet' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Beursstraat_44_Hengelo'
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
+      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Piet'
 
-  Regel: Wanneer de functie van het adres wijzigt van woonadres naar een briefadres in een andere Nederlandse gemeente, heeft een gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
+  Regel: Wanneer bij aangifte van adreswijziging de functie van het adres is gewijzigd van woonadres naar een briefadres in een andere Nederlandse gemeente, heeft een gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
 
-    Scenario: De persoon verhuist van een woonadres naar een briefadres in een andere gemeente
+    Scenario: De persoon heeft aangifte van adreswijziging gedaan van een woonadres naar een briefadres in een andere gemeente
       Gegeven de persoon 'Jan'
-      * verblijft vanaf '14-4-2020' op het woonadres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
-      * schrijft zich vanaf '1-9-2025' in op het briefadres 'Stadserf_1_Roosendaal'
+      * schrijft zich in vanaf '1-9-2025' in op het briefadres 'Stadserf_1_Roosendaal'
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de vanaf datum van de aangifte van adreswijziging van 'Jan'
@@ -56,30 +56,30 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       * de functie van het adres is 'briefadres'
      
 
-    Scenario: De persoon verhuist van een briefadres naar een woonadres in een andere gemeente
+    Scenario: De persoon heeft aangifte van adreswijziging gedaan van een briefadres naar een woonadres in een andere gemeente
       Gegeven de persoon 'Cees'
       * staat vanaf '14-4-2020' op het briefadres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' ingeschreven
-      Als de aangifte van adreswijziging van 'Jan' is verwerkt
+      Als de aangifte van adreswijziging van 'Cees' is verwerkt
       * verblijft vanaf '1-9-2025' op het woonadres 'Stadserf_1_Roosendaal'
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
-      * de vanaf datum van de aangifte van adreswijziging van 'Jan'
+      * het A-nummer van 'Cees'
+      * de vanaf datum van de aangifte van adreswijziging van 'Cees'
       * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
 
-  Regel: Wanneer het adres wijzigt door een infrastructurele wijziging, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
+  Regel: Wanneer het adres is gewijzigd door een infrastructurele wijziging, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
 
     Scenario: De persoon woont nog in hetzelfde adresseerbaar object dat in een andere gemeente is komen te liggen
-      En het adres 'Burgemeester_Van_Der_Dussenplein_1_Enschede'
+      Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Enschede'
       * in gemeente 'Enschede'
       * met adresseerbaar object identificatie '0164010000047847'
       Als de intergemeentelijke infrastructurele wijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Enschede'
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
  
-  Regel: Wanneer een verhuizing niet naar een correct BAG adresseerbaar object gaat, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
+  Regel: Wanneer bij aangifte van een adreswijziging geen (correct) BAG adresseerbaar object is geregistreerd, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
 
     Scenario: De persoon verhuist naar een adres met locatiebeschrijving
-      En het adres 'Locatie_De_Brug_Apeldoorn'
+      Gegeven het adres 'Locatie_De_Brug_Apeldoorn'
       * in gemeente 'Apeldoorn'
       * met locatiebeschrijving 'De Brug'
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
@@ -87,7 +87,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
 
     Scenario: De persoon verhuist naar een adres zonder adresseerbaar object identificatie
-      En het adres 'Laan_van_Westenenk_701_Apeldoorn'
+      Gegeven het adres 'Laan_van_Westenenk_701_Apeldoorn'
       * in gemeente 'Apeldoorn'
       * met straat 'Laan van Westenenk', huisnummer 701 en postcode '7334DP'
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
@@ -95,7 +95,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
 
     Scenario: De persoon verhuist naar een adres met een onjuist opgevoerde adresserbaar object identificatie met 15 cijfers
-      En het adres 'Laan_van_Westenenk_701_Apeldoorn'
+      Gegeven het adres 'Laan_van_Westenenk_701_Apeldoorn'
       * in gemeente 'Apeldoorn'
       * met straat 'Laan van Westenenk', huisnummer 701 en postcode '7334DP'
       * met adresseerbaar object identificatie '200010000130331'
