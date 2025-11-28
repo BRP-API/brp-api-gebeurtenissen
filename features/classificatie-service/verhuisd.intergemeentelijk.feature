@@ -65,6 +65,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       * het A-nummer van 'Cees'
       * de vanaf datum van de aangifte van adreswijziging van 'Cees'
       * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
+      * de functie van het adres is 'woonadres'
 
   Regel: Wanneer het adres is gewijzigd door een infrastructurele wijziging, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
 
