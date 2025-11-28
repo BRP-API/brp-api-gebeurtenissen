@@ -8,6 +8,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     * in gemeente 'Hengelo'
     * met adresseerbaar object identificatie '0164010000047847'
+    * met de functie 'woonadres'
     En de persoon 'Jan'
     * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     En het adres 'Stadserf_1_Roosendaal'
