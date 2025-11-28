@@ -17,7 +17,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
     En het adres 'Beursstraat_44_Hengelo'
     * in gemeente 'Hengelo'
     * met adresseerbaar object identificatie '0164010000002401'
-    En afnemer 'Roosendaal' is geabonneerd op 'verhuisd.intergemeentelijk' gebeurtenissen van de persoon 'Jan'
+    En afnemer 'Hengelo' is geabonneerd op 'verhuisd.intergemeentelijk' gebeurtenissen van de persoon 'Jan'
 
   Regel: Wanneer aangifte van adreswijziging is gedaan in een andere Nederlandse gemeente dan waar persoon verblijft, heeft de gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
 
