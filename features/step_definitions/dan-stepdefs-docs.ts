@@ -32,15 +32,18 @@ Then('zijn de gegenereerde sql statements voor adres {string}', function (adresA
 
     const actual = createLo3AdresInsertStatement(this.context.adressen[adresAanduiding]);
 
-    expected.forEach((expectedStatement, index) => {
+    let index = 0;
+    for (const expectedStatement of expected) {
         const actualStatement = actual;
-        
+
         expect(actualStatement.statementText, `Statement text at index ${index}`)
             .to.equal(expectedStatement.statementText);
-            
+
         expect(actualStatement.values, `Statement values at index ${index}`)
             .to.deep.equal(expectedStatement.values);
-    });
+
+        index++;
+    }
 });
 
 Then('zijn de gegenereerde sql statements voor persoon {string}', function (persoonAanduiding: string, dataTable: DataTable) {
@@ -51,7 +54,8 @@ Then('zijn de gegenereerde sql statements voor persoon {string}', function (pers
 
     const actual = createInsertStatements(this.context.personen[persoonAanduiding]);
 
-    expected.forEach((expectedStatement, index) => {
+    let index = 0;
+    for (const expectedStatement of expected) {
         const actualStatement = actual[index];
         
         expect(actualStatement.statementText, `Statement text at index ${index}`)
@@ -59,5 +63,7 @@ Then('zijn de gegenereerde sql statements voor persoon {string}', function (pers
             
         expect(actualStatement.values, `Statement values at index ${index}`)
             .to.deep.equal(expectedStatement.values);
-    });
+        
+        index++;
+    }
 });

@@ -11,15 +11,47 @@ export class SqlStatement {
     }
 }
 
-export function createLo3AdresInsertStatement(adres: Adres): SqlStatement {
-    const insertPart = 'adres_id,gemeente_code,verblijf_plaats_ident_code';
-    const valuesPart = '(SELECT COALESCE(MAX(adres_id), 0)+1 FROM public.lo3_adres),' +
-                        '(SELECT COALESCE(MAX(gemeente_code), 0)+1 FROM public.lo3_adres),' +
-                        '(SELECT LPAD((COALESCE(MAX(gemeente_code), 0)+1)::text, 4, \'0\') || \'000000000001\' FROM public.lo3_adres)';
+function extendSqlStatementValuesPartForAdresId() {
+    return '(SELECT COALESCE(MAX(adres_id), 0)+1 FROM public.lo3_adres)';
+}
 
+function extendSqlStatementValuesPartForGemeentecode(adres: Adres, valuesPart: string, values: string[]) {
+    if(valuesPart.length > 0) {
+        valuesPart += ',';
+    }
+    if (adres.gemeente_code === undefined) {
+        valuesPart += '(SELECT COALESCE(MAX(gemeente_code), 0)+1 FROM public.lo3_adres)';
+    } else {
+        valuesPart += `$${values.length + 1}`;
+        values.push(adres.gemeente_code);
+    }
+    return valuesPart;
+}
+
+function extendSqlStatementValuesPartForVerblijfplaatsIdentificatieCode(adres: Adres, valuesPart: string, values: string[]) {
+    if(valuesPart.length > 0) {
+        valuesPart += ',';
+    }
+    if (adres.verblijf_plaats_ident_code === undefined) {
+        valuesPart += '(SELECT LPAD((COALESCE(MAX(gemeente_code), 0)+1)::text, 4, \'0\') || \'000000000001\' FROM public.lo3_adres)';
+    } else {
+        valuesPart += `$${values.length + 1}`;
+        values.push(adres.verblijf_plaats_ident_code);
+    }
+    return valuesPart;
+}
+
+export function createLo3AdresInsertStatement(adres: Adres): SqlStatement {
+    let values: string[] = [];
+
+    let valuesPart = extendSqlStatementValuesPartForAdresId();
+    valuesPart = extendSqlStatementValuesPartForGemeentecode(adres, valuesPart, values);
+    valuesPart = extendSqlStatementValuesPartForVerblijfplaatsIdentificatieCode(adres, valuesPart, values);
+
+    const insertPart = 'adres_id,gemeente_code,verblijf_plaats_ident_code';
     const statementText = `INSERT INTO public.lo3_adres(${insertPart}) VALUES(${valuesPart}) RETURNING *`;
 
-    return new SqlStatement(statementText);
+    return new SqlStatement(statementText, values);
 }
 
 export function createLo3PlInsertStatement(persoon: Persoon): SqlStatement {
@@ -56,13 +88,13 @@ export function createLo3PlVerblijfplaatsInsertStatement(persoon: Persoon): SqlS
 }
 
 export function createInsertStatements(persoon: Persoon): SqlStatement[] {
-    const statements: SqlStatement[] = [];
-
-    statements.push(createLo3PlInsertStatement(persoon));
-    statements.push(createLo3PlPersoonInsertStatement(persoon));
+    const statements: SqlStatement[] = [
+        createLo3PlInsertStatement(persoon),
+        createLo3PlPersoonInsertStatement(persoon)
+    ];
 
     if(persoon.verblijfplaats) {
-        statements.push(createLo3PlVerblijfplaatsInsertStatement(persoon)!);
+        statements.push(createLo3PlVerblijfplaatsInsertStatement(persoon));
     }
 
     return statements;

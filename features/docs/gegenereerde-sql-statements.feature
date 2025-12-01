@@ -9,6 +9,20 @@ Functionaliteit: gegenereerde sql statements
         | statementText                                                                                                                                                                                                                                                                                                                               | values |
         | INSERT INTO public.lo3_adres(adres_id,gemeente_code,verblijf_plaats_ident_code) VALUES((SELECT COALESCE(MAX(adres_id), 0)+1 FROM public.lo3_adres),(SELECT COALESCE(MAX(gemeente_code), 0)+1 FROM public.lo3_adres),(SELECT LPAD((COALESCE(MAX(gemeente_code), 0)+1)::text, 4, '0') \|\| '000000000001' FROM public.lo3_adres)) RETURNING * |        |
 
+    Scenario: Gegeven het adres '[adres aanduiding]' in gemeente '[gemeente omschrijving]'
+      Gegeven het adres 'A1'
+      * in gemeente 'Den Haag'
+      Dan zijn de gegenereerde sql statements voor adres 'A1'
+        | statementText                                                                                                                                                                                                                                                                 | values |
+        | INSERT INTO public.lo3_adres(adres_id,gemeente_code,verblijf_plaats_ident_code) VALUES((SELECT COALESCE(MAX(adres_id), 0)+1 FROM public.lo3_adres),$1,(SELECT LPAD((COALESCE(MAX(gemeente_code), 0)+1)::text, 4, '0') \|\| '000000000001' FROM public.lo3_adres)) RETURNING * |   0518 |
+
+    Scenario: Gegeven het adres '[adres aanduiding]' met adresseerbaar object identificatie '[adresseerbaar object id]'
+      Gegeven het adres 'A1'
+      * met adresseerbaar object identificatie '0000000000000001'
+      Dan zijn de gegenereerde sql statements voor adres 'A1'
+        | statementText                                                                                                                                                                                                                       | values           |
+        | INSERT INTO public.lo3_adres(adres_id,gemeente_code,verblijf_plaats_ident_code) VALUES((SELECT COALESCE(MAX(adres_id), 0)+1 FROM public.lo3_adres),(SELECT COALESCE(MAX(gemeente_code), 0)+1 FROM public.lo3_adres),$1) RETURNING * | 0000000000000001 |
+
   Regel: Voor een standaard persoon is a_nr gelijk aan MAX(a_nr)+1 en is burger_service_nr gelijk aan MAX(burger_service_nr)+1
 
     Scenario: Gegeven de persoon 'P1'

@@ -4,8 +4,8 @@ import { SqlStatement } from './sql-statements-factory';
 
 export class PostgresqlManager {
     private static instance: PostgresqlManager | null = null;
-    private pool: Pool;
-    private logger: Logger;
+    private readonly pool: Pool;
+    private readonly logger: Logger;
 
     constructor(config: PoolConfig, logger: Logger) {
         this.pool = new Pool(config);
@@ -15,9 +15,7 @@ export class PostgresqlManager {
     }
 
     public static setup(config: PoolConfig, logger: Logger): void {
-        if (!PostgresqlManager.instance) {
-            PostgresqlManager.instance = new PostgresqlManager(config, logger);
-        }
+        PostgresqlManager.instance ??= new PostgresqlManager(config, logger);
     }
 
     public static getInstance(): PostgresqlManager {
@@ -45,12 +43,12 @@ export class PostgresqlManager {
             // Convert each row to a Map with only columns that have values
             const resultMap: Map<string, any> = new Map<string, any>();
             if (result.rows.length > 0) {
-                Object.entries(result.rows[0]).forEach(([column, value]) => {
+                for (const [column, value] of Object.entries(result.rows[0])) {
                     // Only add columns that have a value (not null, undefined, or empty string)
                     if (value !== null && value !== undefined && value !== '') {
                         resultMap.set(column, value);
                     }
-                });
+                }
             }
 
             this.logger.info(`SQL executed successfully. Result: ${JSON.stringify(Object.fromEntries(resultMap))}`);

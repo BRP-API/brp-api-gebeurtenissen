@@ -41,7 +41,7 @@ Functionaliteit: Gebeurtenis dan stap definities
     En de persoon 'P1'
     * met burgerservicenummer '123456789'
     En de verwerkte aangifte van adreswijziging van 'P1'
-    * verblijft vanaf '1-9-2025' op het adres 'A1'
+    * verblijft vanaf '1-12-2025' op het adres 'A1'
     En de geleverde gebeurtenis
     ```
     {
@@ -51,8 +51,8 @@ Functionaliteit: Gebeurtenis dan stap definities
         "adresseerbaarObjectIdentificatie": "0518000000000001",
         "datumVan": {
           "type": "Datum",
-          "datum": "2025-09-01",
-          "langFormaat": "1 september 2025"
+          "datum": "2025-12-01",
+          "langFormaat": "1 december 2025"
         }
       }
     }

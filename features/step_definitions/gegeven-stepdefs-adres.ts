@@ -1,6 +1,7 @@
 import { Given } from '@cucumber/cucumber';
 import { Adres } from './brp/adres-entity';
 import { Aanduiding } from './support/aanduiding';
+import { AdresBuitenland } from './brp/adres-buitenland-entity';
 
 Given('het adres {string}', function (adresAanduiding: string) {
     if(!this.context.adressen) {
@@ -28,5 +29,45 @@ Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
 Given('met adresseerbaar object identificatie {string}', function (adresseerbaarObjectIdentificatie:string) {
     if(this.huidigAanduiding?.isAdres) {
         this.context.adressen[this.huidigAanduiding.id].verblijf_plaats_ident_code = adresseerbaarObjectIdentificatie;
+    }
+});
+
+Given('het adres buitenland {string}', function (adresAanduiding: string) {
+    if(!this.context.adressen) {
+        this.context.adressen = {};
+    }
+    this.context.adressen[adresAanduiding] = new AdresBuitenland();
+    this.huidigAanduiding = Aanduiding.adresBuitenland(adresAanduiding);
+});
+
+Given('met adres regel 1 {string}', function (adresRegel1: string) {
+    if(this.huidigAanduiding?.isAdresBuitenland) {
+        this.context.adressen[this.huidigAanduiding.id].vertrek_land_adres_1 = adresRegel1;
+    }
+});
+
+Given('met adres regel 2 {string}', function (adresRegel2: string) {
+    if(this.huidigAanduiding?.isAdresBuitenland) {
+        this.context.adressen[this.huidigAanduiding.id].vertrek_land_adres_2 = adresRegel2;
+    }
+});
+
+Given('met adres regel 3 {string}', function (adresRegel3: string) {
+    if(this.huidigAanduiding?.isAdresBuitenland) {
+        this.context.adressen[this.huidigAanduiding.id].vertrek_land_adres_3 = adresRegel3;
+    }
+});
+
+Given('in land {string}', function (landCode: string) {
+    const landCodeMap: {[key: string]: string} = {
+        'Frankrijk': '5002',
+        'Zwitserland': '5003',
+        'België': '5010',
+        'Verenigde Staten van Amerika': '6014',
+        'Duitsland': '6029',
+    };
+
+    if(this.huidigAanduiding?.isAdresBuitenland) {
+        this.context.adressen[this.huidigAanduiding.id].vertrek_land_code = landCodeMap[landCode] || landCode;
     }
 });
