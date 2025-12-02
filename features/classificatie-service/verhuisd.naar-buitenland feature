@@ -11,17 +11,17 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
     * met adresseerbaar object identificatie '0164010000047847'
     En de persoon 'Jan'
     * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-    En het adres buitenland 'Chemin_du_Calvaire_19_Lausanne'
-    * met adresregel 1 'Chemin de Calvaire 19'
-    * met adresregel 2 'Lausanne'
-    * met adresregel 3 'Vaud'
-    * in land 'Zwitserland'
     En afnemer 'Roosendaal' is geabonneerd op 'verhuisd.emigratie' gebeurtenissen van de persoon 'Jan'
 
 
-  Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden
+  Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden
 
     Scenario: Aangifte van vertrek naar het buitenland 
+      Gegeven het adres buitenland 'Chemin_du_Calvaire_19_Lausanne'
+      * met adresregel 1 'Chemin de Calvaire 19'
+      * met adresregel 2 'Lausanne'
+      * met adresregel 3 'Vaud'
+      * in land 'Zwitserland'
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Chemin_du_Calvaire_19_Lausanne'
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
@@ -30,9 +30,12 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       * het land adres buitenland is 'Zwitserland'
       * de adresregels van het adres 'Chemin_du_Calvaire_19_Lausanne'
 
-Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definitief woonadres heeft, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden.
+Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definitief woonadres heeft, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
 
  Scenario: Aangifte van vertrek naar het buitenland en alleen het land is bekend
+      Gegeven het adres buitenland 'Chemin_du_Calvaire_19_Lausanne'
+      * zonder adresregels
+      * in land 'Zwitserland'
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
@@ -41,6 +44,9 @@ Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definit
       * het land adres buitenland is 'Zwitserland'
 
 Scenario: Aangifte van vertrek naar het buitenland en alleen het land en de plaats zijn bekend
+      Gegeven het adres buitenland 'Chemin_du_Calvaire_19_Lausanne'
+      * met adresregel 2 'Lausanne'
+      * in land 'Zwitserland'
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
       * verblijft vanaf '1-9-2025' in de plaats 'Lausanne'
@@ -51,20 +57,22 @@ Scenario: Aangifte van vertrek naar het buitenland en alleen het land en de plaa
       * adresregel 2 'Lausanne'
 
 
-Regel: Wanneer een persoon naar een Caribisch deel van het Koninkrijk is verhuisd, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden.
+Regel: Wanneer een persoon naar een Caribisch deel van het Koninkrijk is verhuisd, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
       
 Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk 
-      Als de opgave van verhuizing naar het Caribisch deel van het Koninkrijk van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' in het land 'Bonaire'
+      Gegeven het adres buitenland 'Onbekend_adres_in_Bonaire'
+      * in land 'Bonaire'
+      Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' op adres 'Onbekend_adres_in_Bonaire'
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Bonaire'
 
-Regel: Er heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden als voor een persoon ambtshalve het vertrek uit Nederland is geregistreerd, of als de Minister van Buitenlandse Zaken heeft gemeld dat een persoon niet langer als ingezetene ingeschreven mag zijn. 
+Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als voor een persoon vertrek naar een onbekend land is geregistreerd als gevolg van een ambtshalve het vertrek uit Nederland, of een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn. 
 
 Scenario: Ambtshalve vertrek uit Nederland
-      Als het ambtshalve vertrek 'Jan' is verwerkt
+      Als het vertrek naar een onbekend land van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in een onbekend land 
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
@@ -72,7 +80,7 @@ Scenario: Ambtshalve vertrek uit Nederland
       * het land adres buitenland is 'onbekend'
 
 Scenario: Ministrieel besluit dat een persoon niet langer als ingezetene geregistreerd mag zijn.
-      Als het ministrieel besluit van 'Jan' is verwerkt
+      Als het vertrek naar een onbekend land van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in een onbekend land 
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
