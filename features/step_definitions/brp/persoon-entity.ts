@@ -1,59 +1,9 @@
 import { Adres } from "./adres-entity";
+import { AdresBuitenland } from "./adres-buitenland-entity";
+import { Verblijfplaats,
+         VerblijfplaatsBinnenland,
+         VerblijfplaatsBuitenland } from "./verblijfplaats-entity";
 import { toBrpDate } from "../support/date-utils";
-
-class Verblijfplaats {
-    private adres: Adres;
-    volg_nr: string = '0';
-    inschrijving_datum?: string;
-    adres_functie?: string;
-    adreshouding_start_datum?: string;
-    aangifte_adreshouding_oms?: string;
-    geldigheid_start_datum?: string;
-
-    constructor(adres: Adres,
-                adreshouding_start_datum: string) {
-        this.adres = adres;
-        this.inschrijving_datum = adreshouding_start_datum;
-        this.adreshouding_start_datum = adreshouding_start_datum;
-        this.adres_functie = 'W';
-        this.aangifte_adreshouding_oms = 'I';
-        this.geldigheid_start_datum = adreshouding_start_datum;
-    }
-
-    get adres_id(): string | undefined {
-        return this.adres.adres_id?.toString();
-    }
-
-    get inschrijving_gemeente_code(): string | undefined {
-        return this.adres.gemeente_code?.toString();
-    }
-
-    getPropertyNames(): string[] {
-        return [
-            'volg_nr',
-            'inschrijving_gemeente_code',
-            'inschrijving_datum',
-            'adres_id',
-            'adres_functie',
-            'adreshouding_start_datum',
-            'aangifte_adreshouding_oms',
-            'geldigheid_start_datum'
-        ];
-    }
-
-    getClone(): any {
-        return {
-            volg_nr: this.volg_nr,
-            inschrijving_gemeente_code: this.inschrijving_gemeente_code,
-            inschrijving_datum: this.inschrijving_datum,
-            adres_id: this.adres_id,
-            adres_functie: this.adres_functie,
-            adreshouding_start_datum: this.adreshouding_start_datum,
-            aangifte_adreshouding_oms: this.aangifte_adreshouding_oms,
-            geldigheid_start_datum: this.geldigheid_start_datum
-        };
-    }
-}
 
 export class Persoon {
     pl_id?: string;
@@ -84,7 +34,10 @@ export class Persoon {
     }
 
     verhuistNaarAdres(adres: Adres, datum: string): void {
-            this.verblijfplaats = new Verblijfplaats(adres,
-                                                     toBrpDate(datum));
+        this.verblijfplaats = new VerblijfplaatsBinnenland(adres, toBrpDate(datum));
+    }
+
+    verhuistNaarAdresBuitenland(adres: AdresBuitenland, datum: string): void {
+        this.verblijfplaats = new VerblijfplaatsBuitenland(adres, toBrpDate(datum));
     }
 }

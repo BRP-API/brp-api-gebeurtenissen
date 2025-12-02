@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { createLo3AdresInsertStatement,
          createInsertStatements, 
          SqlStatement } from './support/sql-statements-factory';
+import { createObjectFrom } from './support/dataTable2Object';
 
 Then('heeft het adres {string} geen eigenschappen', function (adresAanduiding: string) {
     expect(this.context.adressen[adresAanduiding]).to.deep.equal({});
@@ -21,7 +22,7 @@ Then('heeft persoon {string} een verblijfplaats met de volgende eigenschappen', 
 });
 
 Then('heeft de command de volgende eigenschappen', function (dataTable: DataTable) {
-    expect(this.command).to.deep.equal(dataTable.hashes()[0]);
+    expect(this.command).to.deep.equal(createObjectFrom(dataTable));
 });
 
 Then('zijn de gegenereerde sql statements voor adres {string}', function (adresAanduiding: string, dataTable: DataTable) {

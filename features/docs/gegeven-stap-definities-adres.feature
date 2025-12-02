@@ -59,3 +59,4 @@ Functionaliteit: Adres gegeven stap definities
       | België                       |      5010 |
       | Verenigde Staten van Amerika |      6014 |
       | Duitsland                    |      6029 |
+      | Onbekend                     |      0000 |

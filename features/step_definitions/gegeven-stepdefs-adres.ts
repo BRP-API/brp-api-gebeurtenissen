@@ -22,13 +22,13 @@ Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
     };
 
     if(this.huidigAanduiding?.isAdres) {
-        this.context.adressen[this.huidigAanduiding.id].gemeente_code = gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
+        (this.context.adressen[this.huidigAanduiding.id] as Adres).gemeente_code = gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
     }
 });
 
 Given('met adresseerbaar object identificatie {string}', function (adresseerbaarObjectIdentificatie:string) {
     if(this.huidigAanduiding?.isAdres) {
-        this.context.adressen[this.huidigAanduiding.id].verblijf_plaats_ident_code = adresseerbaarObjectIdentificatie;
+        (this.context.adressen[this.huidigAanduiding.id] as Adres).verblijf_plaats_ident_code = adresseerbaarObjectIdentificatie;
     }
 });
 
@@ -42,19 +42,19 @@ Given('het adres buitenland {string}', function (adresAanduiding: string) {
 
 Given('met adres regel 1 {string}', function (adresRegel1: string) {
     if(this.huidigAanduiding?.isAdresBuitenland) {
-        this.context.adressen[this.huidigAanduiding.id].vertrek_land_adres_1 = adresRegel1;
+        (this.context.adressen[this.huidigAanduiding.id] as AdresBuitenland).vertrek_land_adres_1 = adresRegel1;
     }
 });
 
 Given('met adres regel 2 {string}', function (adresRegel2: string) {
     if(this.huidigAanduiding?.isAdresBuitenland) {
-        this.context.adressen[this.huidigAanduiding.id].vertrek_land_adres_2 = adresRegel2;
+        (this.context.adressen[this.huidigAanduiding.id] as AdresBuitenland).vertrek_land_adres_2 = adresRegel2;
     }
 });
 
 Given('met adres regel 3 {string}', function (adresRegel3: string) {
     if(this.huidigAanduiding?.isAdresBuitenland) {
-        this.context.adressen[this.huidigAanduiding.id].vertrek_land_adres_3 = adresRegel3;
+        (this.context.adressen[this.huidigAanduiding.id] as AdresBuitenland).vertrek_land_adres_3 = adresRegel3;
     }
 });
 
@@ -65,9 +65,10 @@ Given('in land {string}', function (landCode: string) {
         'België': '5010',
         'Verenigde Staten van Amerika': '6014',
         'Duitsland': '6029',
+        'Onbekend': '0000',
     };
 
     if(this.huidigAanduiding?.isAdresBuitenland) {
-        this.context.adressen[this.huidigAanduiding.id].vertrek_land_code = landCodeMap[landCode] || landCode;
+        (this.context.adressen[this.huidigAanduiding.id] as AdresBuitenland).vertrek_land_code = landCodeMap[landCode] || landCode;
     }
 });
