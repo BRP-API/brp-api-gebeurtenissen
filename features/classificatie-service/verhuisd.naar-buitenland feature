@@ -68,9 +68,9 @@ Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisc
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Bonaire'
 
-Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als voor een persoon vertrek naar een onbekend land is geregistreerd als gevolg van een ambtshalve het vertrek uit Nederland, of een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn. 
+Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als een persoon ambtshalve is uitgeschreven bij onbekend adres, of is geemigreerd als gevolg van een Ministrieel Besluit. Een ministrieel besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn. 
 
-Scenario: Ambtshalve vertrek uit Nederland
+Scenario: Ambtshalve uitschrijving bij onbekend adres
       Als het vertrek naar een onbekend land van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in een onbekend land 
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
@@ -78,7 +78,7 @@ Scenario: Ambtshalve vertrek uit Nederland
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'onbekend'
 
-Scenario: Ministrieel besluit dat een persoon niet langer als ingezetene geregistreerd mag zijn.
+Scenario: Emigratie Ministrieel Besluit
       Als het vertrek naar een onbekend land van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in een onbekend land 
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
