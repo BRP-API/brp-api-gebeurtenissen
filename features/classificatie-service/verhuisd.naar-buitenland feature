@@ -27,8 +27,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
-      * het land adres buitenland is 'Zwitserland'
-      * de adresregels van het adres 'Chemin_du_Calvaire_19_Lausanne'
+      * het adres 'Chemin_du_Calvaire_19_Lausanne'
 
 Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definitief woonadres heeft, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
 
