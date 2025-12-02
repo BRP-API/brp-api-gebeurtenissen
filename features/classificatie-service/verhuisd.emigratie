@@ -19,7 +19,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
     En afnemer 'Roosendaal' is geabonneerd op 'verhuisd.emigratie' gebeurtenissen van de persoon 'Jan'
 
 
-Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden
+  Regel: Wanneer een persoon naar het buitenland is verhuisd, dan heeft een gebeurtenis 'verhuisd.emigratie' plaatsgevonden
 
  Scenario: Aangifte van vertrek naar het buitenland 
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
