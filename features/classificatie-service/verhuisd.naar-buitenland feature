@@ -15,7 +15,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
     * met adresregel 1 'Chemin de Calvaire 19'
     * met adresregel 2 'Lausanne'
     * met adresregel 3 'Vaud'
-    * met land adres buitenland 'Zwitserland'
+    * in land 'Zwitserland'
     En afnemer 'Roosendaal' is geabonneerd op 'verhuisd.emigratie' gebeurtenissen van de persoon 'Jan'
 
 
