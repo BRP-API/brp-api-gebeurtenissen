@@ -23,7 +23,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
 
     Scenario: Aangifte van vertrek naar het buitenland 
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' op het adres'Chemin_du_Calvaire_19_Lausanne'
+      * verblijft vanaf '1-9-2025' op het adres 'Chemin_du_Calvaire_19_Lausanne'
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
