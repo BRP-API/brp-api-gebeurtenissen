@@ -19,7 +19,8 @@ Scenario: Verwerking overlijden op basis van een brondocument
       * in <land overlijden>
       * op basis van <beschrijving document>
       * met nummer brondocument <aktenummer>
-      * door <gemeente ontlening> op <datum ontlening>
+      * door <gemeente ontlening> 
+      * op <datum ontlening>
       Dan is een 'overleden' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is overleden
