@@ -31,6 +31,11 @@ workspace "BRP API Gebeurtenissen" "Beheren van door BRPV gepubliceerde gebeurte
         BRPGN.EvtApi -> BRPGN.ES "abonneert op abonnement gebeurtenissen in"
 
         BRPAfn = softwareSystem "BRP Afnemers"
+
+        BRPAfn -> BRPGN.SubApi "beheert BRP gebeurtenis abonnementen met"
+        BRPAfn -> BRPGN.MutApi "muteert persoon/adres in LAP/proefomgeving met"
+        BRPAfn -> BRPGN.EvtApi "bevraagt gebeurtenissen bij"
+
         BRPBew = softwareSystem "BRP API Bewoningen" {
             Prj = container "Bewoningen Projector"
             Db = container "Bewoningen Database" {
@@ -39,15 +44,19 @@ workspace "BRP API Gebeurtenissen" "Beheren van door BRPV gepubliceerde gebeurte
             Api = container "Bewoningen API"
         }
 
-        BRPAfn -> BRPGN.SubApi "beheert BRP gebeurtenis abonnementen met"
-        BRPAfn -> BRPGN.MutApi "muteert persoon/adres in LAP/proefomgeving met"
-        BRPAfn -> BRPGN.EvtApi "bevraagt gebeurtenissen bij"
-
         BRPBew.Prj -> BRPGN.EvtApi "bevraagt gebeurtenissen bij"
         BRPBew.Prj -> BRPBew.Db "beheert bewoningen in"
         BRPBew.Api -> BRPBew.Db "bevraagt bewoningen in"
         BRPAfn -> BRPBew.Api "bevraagt bewoningen met"
 
+        BRPPrs = softwareSystem "BRP API Personen" "Bevragen van gegevens van in BRP geregistreerde personen" {
+            Personen = container "Personen API"
+            Gezag = container "Gezag API"
+        }
+
+        BRPAfn -> BRPPrs.Personen "bevraagt gezagsrelaties van persoon bij"
+        BRPPrs.Personen -> BRPPrs.Gezag "bevraagt gezagsrelaties van persoon bij"
+        BRPPrs.Gezag -> BRPGN.EvtApi "bevraagt gebeurtenissen van persoon bij"
     }
 
     views {
@@ -71,6 +80,22 @@ workspace "BRP API Gebeurtenissen" "Beheren van door BRPV gepubliceerde gebeurte
             autolayout lr
         }
 
+        container BRPGN "ContainerDiagram2" {
+            include BRPGN.ES
+            include BRPGN.EvtApi
+
+            include BRPPrs.Personen
+            include BRPPrs.Gezag
+
+            include BRPBew.Api
+            include BRPBew.Db
+            include BRPBew.Prj
+
+            include BRPAfn
+            
+            autolayout lr
+        }
+        
         styles {
             element "Element" {
                 color #0773af
