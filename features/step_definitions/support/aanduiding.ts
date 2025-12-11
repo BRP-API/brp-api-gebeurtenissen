@@ -1,8 +1,8 @@
 export class Aanduiding {
-    type: 'persoon' | 'adres' | 'adresBuitenland' | 'command' | 'gepubliceerdGebeurtenis';
+    type: 'persoon' | 'adres' | 'adresBuitenland' | 'afnemer' | 'command' | 'gepubliceerdGebeurtenis';
     id?: string;
 
-    constructor(type: 'persoon' | 'adres' | 'adresBuitenland' | 'command' | 'gepubliceerdGebeurtenis', id?: string) {
+    constructor(type: 'persoon' | 'adres' | 'adresBuitenland' | 'afnemer' | 'command' | 'gepubliceerdGebeurtenis', id?: string) {
         this.type = type;
         this.id = id;
     }
@@ -17,6 +17,10 @@ export class Aanduiding {
 
     get isAdresBuitenland(): boolean {
         return this.type === 'adresBuitenland';
+    }
+
+    get isAfnemer(): boolean {
+        return this.type === 'afnemer';
     }
 
     get isCommand(): boolean {
@@ -37,6 +41,10 @@ export class Aanduiding {
 
     static adresBuitenland(id: string): Aanduiding {
         return new Aanduiding('adresBuitenland', id);
+    }
+
+    static afnemer(id: string): Aanduiding {
+        return new Aanduiding('afnemer', id);
     }
 
     static command(id: string): Aanduiding {

@@ -1,11 +1,9 @@
 import { setWorldConstructor, World, IWorldOptions } from "@cucumber/cucumber";
 import { Pickle } from "@cucumber/messages";
-import { Logger } from "winston";
-import { createWinstonLogger } from './logger';
+import { setupLogger } from "./logger";
 import { Aanduiding } from "./aanduiding";
 
 export interface ICustomWorld extends World {
-    logger: Logger;
     tags: string[];
     stepContext: string;
     context: any;
@@ -17,7 +15,6 @@ export interface ICustomWorld extends World {
 }
 
 export class CustomWorld extends World implements ICustomWorld {
-    logger: Logger;
     tags: string[];
     stepContext: string;
     context: any;
@@ -29,7 +26,7 @@ export class CustomWorld extends World implements ICustomWorld {
     constructor(options: IWorldOptions) {
         super(options);
 
-        this.logger = createWinstonLogger(options.parameters?.logger?.level || 'warn');
+        setupLogger(options.parameters?.logger?.level || 'warn');
         this.tags = [];
         this.stepContext = "";
         this.context = {};

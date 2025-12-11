@@ -4,6 +4,10 @@ import { createLo3AdresInsertStatement,
          createInsertStatements, 
          SqlStatement } from './support/sql-statements-factory';
 import { createObjectFrom } from './support/dataTable2Object';
+import { generateClientScopeJSON,
+         generateClientJSON,
+         generateProtocollMapperJSON, 
+         fetchClientVoorAfnemer} from './support/oauth-helpers';
 
 Then('heeft het adres {string} geen eigenschappen', function (adresAanduiding: string) {
     expect(this.context.adressen[adresAanduiding]).to.deep.equal({});
@@ -11,6 +15,10 @@ Then('heeft het adres {string} geen eigenschappen', function (adresAanduiding: s
 
 Then('heeft het adres {string} de volgende eigenschappen', function (adresAanduiding: string, dataTable: DataTable) {
     expect(this.context.adressen[adresAanduiding]).to.deep.equal(dataTable.hashes()[0]);
+});
+
+Then('heeft de afnemer {string} de volgende eigenschappen', function (afnemerAanduiding: string, dataTable: DataTable) {
+    expect(this.context.afnemers[afnemerAanduiding]).to.deep.equal(dataTable.hashes()[0]);
 });
 
 Then('heeft de persoon {string} de volgende eigenschappen', function (persoonAanduiding: string, dataTable: DataTable) {
@@ -67,4 +75,35 @@ Then('zijn de gegenereerde sql statements voor persoon {string}', function (pers
         
         index++;
     }
+});
+
+Then('is de gegenereerde client scope JSON voor afnemer {string}', function (afnemerAanduiding: string, docString: string) {
+    const afnemer = this.context.afnemers[afnemerAanduiding];
+    const expectedClientScopeJson = JSON.parse(docString);
+
+    expect(generateClientScopeJSON(afnemer.oin)).to.deep.equal(expectedClientScopeJson);
+});
+
+Then('is de gegenereerde client JSON voor afnemer {string}', function (afnemerAanduiding: string, docString: string) {
+    const afnemer = this.context.afnemers[afnemerAanduiding];
+    const expectedClientJson = JSON.parse(docString);
+
+    expect(generateClientJSON(afnemer.aanduiding, 'secret')).to.deep.equal(expectedClientJson);
+});
+
+Then('is de gegenereerde protocol mapper JSON voor afnemer {string}', function (afnemerAanduiding: string, docString: string) {
+    const afnemer = this.context.afnemers[afnemerAanduiding];
+    const expectedClientJson = JSON.parse(docString);
+
+    expect(generateProtocollMapperJSON(afnemer.oin || '000000099000000010000', afnemer.afnemerId || '000001', afnemer.gemeenteCode)).to.deep.equal(expectedClientJson);
+});
+
+Then('is de client succesvol aangemaakt in Keycloak voor afnemer {string}', async function (afnemerAanduiding: string) {
+    const afnemer = this.context.afnemers[afnemerAanduiding];
+
+    const client = await fetchClientVoorAfnemer(afnemer);
+
+    expect(client.id).to.equal(afnemer.idpId);
+    expect(client.clientId).to.equal(afnemer.aanduiding);
+    expect(client.protocolMappers[0].config['claim.value']).to.equal(`["OIN=${afnemer.oin}","afnemerID=${afnemer.afnemerId}"${afnemer.gemeenteCode ? `,"gemeenteCode=${afnemer.gemeenteCode}"` : ''}]`);
 });

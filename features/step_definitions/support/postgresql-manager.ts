@@ -1,21 +1,19 @@
 import { Pool, PoolClient, PoolConfig, QueryResult } from 'pg';
-import { Logger } from 'winston';
+import { logger } from './logger';
 import { SqlStatement } from './sql-statements-factory';
 
 export class PostgresqlManager {
     private static instance: PostgresqlManager | null = null;
     private readonly pool: Pool;
-    private readonly logger: Logger;
 
-    constructor(config: PoolConfig, logger: Logger) {
+    constructor(config: PoolConfig) {
         this.pool = new Pool(config);
-        this.logger = logger;
 
-        this.logger.info('PostgreSQL connection pool created.');
+        logger.info('PostgreSQL connection pool created.');
     }
 
-    public static setup(config: PoolConfig, logger: Logger): void {
-        PostgresqlManager.instance ??= new PostgresqlManager(config, logger);
+    public static setup(config: PoolConfig): void {
+        PostgresqlManager.instance ??= new PostgresqlManager(config);
     }
 
     public static getInstance(): PostgresqlManager {
@@ -28,7 +26,7 @@ export class PostgresqlManager {
     async close(): Promise<void> {
         if (this.pool) {
             await this.pool.end();
-            this.logger.info('PostgreSQL connection pool closed.');
+            logger.info('PostgreSQL connection pool closed.');
         }
         PostgresqlManager.instance = null;
     }
@@ -37,7 +35,7 @@ export class PostgresqlManager {
         const client: PoolClient = await this.pool.connect();
 
         try {
-            this.logger.info(`Executing SQL: ${sqlStatement.statementText}`, sqlStatement.values);
+            logger.info(`Executing SQL: ${sqlStatement.statementText}`, sqlStatement.values);
             const result: QueryResult = await client.query(sqlStatement.statementText, sqlStatement.values);
             
             // Convert each row to a Map with only columns that have values
@@ -51,11 +49,11 @@ export class PostgresqlManager {
                 }
             }
 
-            this.logger.info(`SQL executed successfully. Result: ${JSON.stringify(Object.fromEntries(resultMap))}`);
+            logger.info(`SQL executed successfully. Result: ${JSON.stringify(Object.fromEntries(resultMap))}`);
 
             return resultMap;
         } catch (error) {
-            this.logger.error(`Error executing SQL: ${error}`);
+            logger.error(`Error executing SQL: ${error}`);
 
             throw error;
         } finally {

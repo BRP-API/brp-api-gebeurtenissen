@@ -27,6 +27,7 @@
     "axios": "^1.13.2",
     "chai": "^6.2.1",
     "deep-equal-in-any-order": "^2.1.0",
+    "dotenv": "^17.2.3",
     "pg": "^8.16.3",
     "ts-node": "^10.9.2",
     "winston": "^3.19.0"

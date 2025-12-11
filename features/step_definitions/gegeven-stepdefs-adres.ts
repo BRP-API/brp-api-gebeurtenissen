@@ -2,6 +2,7 @@ import { Given } from '@cucumber/cucumber';
 import { Adres } from './brp/adres-entity';
 import { Aanduiding } from './support/aanduiding';
 import { AdresBuitenland } from './brp/adres-buitenland-entity';
+import { Afnemer } from './brp/afnemer-entity';
 
 Given('het adres {string}', function (adresAanduiding: string) {
     if(!this.context.adressen) {
@@ -23,6 +24,9 @@ Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
 
     if(this.huidigAanduiding?.isAdres) {
         (this.context.adressen[this.huidigAanduiding.id] as Adres).gemeente_code = gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
+    }
+    if(this.huidigAanduiding?.isAfnemer) {
+        (this.context.afnemers[this.huidigAanduiding.id] as Afnemer).gemeenteCode = gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
     }
 });
 
