@@ -31,3 +31,41 @@ Functionaliteit: Abonneer op gebeurtenis type
       Als een niet-geauthenticeerde gebruiker zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan zijn er geen gebeurtenissen gepubliceerd
       En is de response '401 Unauthorized'
+
+  Regel: Alleen een als abonnee geregistreerde afnemer kan zich abonneren op gebeurtenis types met een rol als deze geregistreerd is met die rol
+
+    Scenario: Een geregistreerde abonnee met een rol abonneert zich op een specifiek gebeurtenis type
+      Gegeven de persoon 'Jan'
+      Gegeven de afnemer 'Gemeente Den Haag'
+      * is geregistreerd als abonnee van BRP API Gebeurtenissen met rol 'szw'
+      Als de afnemer zich abonneert met de rol 'szw' op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Dan is een 'op-gebeurtenis-type-geabonneerd' gebeurtenis gepubliceerd met de volgende data velden
+      * de afnemer id van 'Gemeente Den Haag'
+      * 'rol' met de waarde 'szw'
+      * het gebeurtenis type 'verhuisd.intergemeentelijk'
+      * het a-nummer van 'Jan'
+      En is de response '201 Created'
+
+    Scenario: Een afnemer is geregistreerd als abonnee met een rol probeert zich te abonneren op een specifiek gebeurtenis type met een andere rol
+      Gegeven de afnemer 'Gemeente Den Haag'
+      * is geregistreerd als abonnee van BRP API Gebeurtenissen met rol 'szw'
+      Als de afnemer zich abonneert met de rol 'JZ' op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Dan zijn er geen gebeurtenissen gepubliceerd
+      En is de response '403 Forbidden'
+      * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
+
+    Scenario: Een afnemer is geregistreerd als abonnee zonder rol probeert zich te abonneren op een specifiek gebeurtenis type met een andere rol
+      Gegeven de afnemer 'Gemeente Den Haag'
+      * is geregistreerd als abonnee van BRP API Gebeurtenissen
+      Als de afnemer zich abonneert met de rol 'JZ' op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Dan zijn er geen gebeurtenissen gepubliceerd
+      En is de response '403 Forbidden'
+      * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
+
+    Scenario: Een afnemer is geregistreerd als abonnee met een rol probeert zich te abonneren op een specifiek gebeurtenis type zonder rol
+      Gegeven de afnemer 'Gemeente Den Haag'
+      * is geregistreerd als abonnee van BRP API Gebeurtenissen met rol 'szw'
+      Als de afnemer zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Dan zijn er geen gebeurtenissen gepubliceerd
+      En is de response '403 Forbidden'
+      * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
