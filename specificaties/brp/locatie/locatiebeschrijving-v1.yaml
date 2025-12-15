@@ -1,0 +1,23 @@
+openapi: 3.1.0
+info:
+  title: locatiebeschrijving specificatie
+  version: 1.0.0
+components:
+  schemas:
+    Locatiebeschrijving:
+      type: string
+      title: Locatiebeschrijving
+      minLength: 1
+      maxLength: 35
+      description: |
+        Een geheel of gedeeltelijke omschrijving van de ligging van een object, indien dit niet kan worden aangegeven in de groep 11 Adres.
+        - Groep: Locatie (12)
+        - Element: Locatiebeschrijving (12.10)
+
+    LocatiebeschrijvingLocatie:
+      type: object
+      description: |
+        Locatie groep met locatiebeschrijving veld.
+      properties:
+        e1210:
+          $ref: '#/components/schemas/Locatiebeschrijving'

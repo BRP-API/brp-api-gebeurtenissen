@@ -1,3 +1,7 @@
 #!/bin/bash
 
-docker-compose -f .docker/docker-compose.yml down
+docker compose \
+    -f ./.docker/axon-server.yml \
+    -f ./.docker/gebeurtenissen-publiceren-service.yml \
+    -f ./.docker/gebeurtenissen-bevragen-service.yml \
+    down
