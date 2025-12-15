@@ -1,0 +1,260 @@
+openapi: 3.1.0
+info:
+  title: Gebeurtenissen Publiceren API specificatie
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: development server
+paths:
+  /personen/gebeurtenissen:
+    post:
+      operationId: PubliceerGebeurtenis
+      tags:
+        - Gebeurtenissen
+      summary: Publiceer een persoon gebeurtenis
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Gebeurtenis'
+      responses:
+        '201':
+          description: Gebeurtenis succesvol gepubliceerd
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GebeurtenisPublicerenResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  schemas:
+    Gebeurtenis:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/typedef'
+        data:
+          $ref: '#/components/schemas/datadef'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        time:
+          $ref: '#/components/schemas/timedef'
+      required:
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
+    Anummer:
+      type: string
+      title: A-nummer
+      description: |
+        Het administratienummer, bedoeld in artikel 4.9 van de Wet BRP.
+        - Groep: Identificatienummers (01)
+        - Element: A-nummer (01.10)
+      pattern: ^(?!.*([0-9])\\1)[1-9][0-9]{9}$
+    AnummerIdentificatieNummers:
+      type: object
+      description: |
+        Identificatienummers groep met a-nummer veld.
+      properties:
+        e0110:
+          $ref: '#/components/schemas/Anummer'
+      required:
+        - e0110
+    DatumAanvangAdreshouding:
+      type: string
+      title: Datum aanvang adreshouding
+      description: |
+        De datum van aangifte of ambtshalve melding van verblijf en adres. Bij een tijdige aangifte (tussen vier weken voor en vijf dagen na de verhuizing) van vestiging op het adres is dit de in de aangifte vermelde datum van adreswijziging. Bij een niet tijdige aangifte is dit de aangiftedatum. Bij inschrijving op grond van een geboorteakte is dit de geboortedatum. Bij ambtshalve inschrijving is dit de datum waarop de betrokkene schriftelijk van het voornemen van ambtshalve opneming mededeling is gedaan.
+        - Groep: Adreshouding (10)
+        - Element: Datum aanvang adreshouding (10.30)
+      pattern: ^(18|19|20|21|22)[0-9]{2}((0[1-9]|1[0-2])((0[1-9]|[12][0-9]|3[01])|00)|0000)|00000000$
+    AdresseerbaarObjectIdentificatie:
+      type: string
+      title: Identificatiecode verblijfplaats
+      description: |
+        De identificatiecode van een adresseerbaar object.
+      pattern: ^[0-9]{16}$
+    VerhuisdIntergemeentelijkVerblijfplaatsData:
+      type: object
+      properties:
+        e1030:
+          $ref: '#/components/schemas/DatumAanvangAdreshouding'
+        e1180:
+          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
+      required:
+        - e1030
+        - e1180
+    VerhuisdIntergemeentelijkData:
+      type: object
+      properties:
+        c01:
+          $ref: '#/components/schemas/AnummerIdentificatieNummers'
+        c08:
+          $ref: '#/components/schemas/VerhuisdIntergemeentelijkVerblijfplaatsData'
+      required:
+        - c01
+        - c08
+    VerhuisdIntergemeentelijk:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
+    typedef:
+      description: |
+        Describes the type of event related to the originating occurrence.
+      type: string
+      minLength: 1
+    datadef:
+      description: |
+        The event payload.
+      type: object
+    MetadataItem:
+      type: object
+      properties:
+        naam:
+          type: string
+          description: De naam van het metadata item.
+          pattern: ^[a-zA-Z0-9]{1,50}$
+        waarde:
+          type: string
+          description: De waarde van het metadata item.
+          pattern: ^[a-zA-Z0-9]{1,50}$
+      required:
+        - naam
+        - waarde
+      additionalProperties: false
+    Metadata:
+      type: array
+      description: Lijst van metadata items.
+      minItems: 1
+      maxItems: 10
+      items:
+        $ref: '#/components/schemas/MetadataItem'
+    timedef:
+      description: |
+        Timestamp of when the occurrence happened. Must adhere to RFC 3339.
+      type: string
+      format: date-time
+    iddef:
+      description: |
+        Identifies the event.
+      type: string
+      format: uuid
+    GebeurtenisPublicerenResponse:
+      description: |
+        Response object voor een succesvol gepubliceerde gebeurtenis.
+      type: object
+      required:
+        - gebeurtenisId
+      properties:
+        gebeurtenisId:
+          $ref: '#/components/schemas/iddef'
+          description: |
+            Unieke identifier voor de gepubliceerde gebeurtenis.
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+          description: |
+            metadata meegestuurd met de gepubliceerde gebeurtenis.
+    Foutbericht:
+      type: object
+      description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
+      properties:
+        type:
+          description: Link naar meer informatie over deze fout
+          type: string
+          format: uri
+        title:
+          description: Beschrijving van de fout
+          type: string
+          pattern: ^[a-zA-Z0-9À-ž \.\-]{1,80}$
+        status:
+          type: integer
+          minimum: 100
+          maximum: 600
+          description: Http status code
+        detail:
+          description: Details over de fout
+          type: string
+          pattern: ^[a-zA-Z0-9À-ž \.\-\(\),]{1,200}$
+        instance:
+          description: Uri van de aanroep die de fout heeft veroorzaakt
+          type: string
+          format: uri
+        code:
+          description: Systeemcode die het type fout aangeeft
+          type: string
+          pattern: ^[a-zA-Z0-9]{1,25}$
+    InvalidParam:
+      type: object
+      description: Details over fouten in opgegeven parameters
+      properties:
+        type:
+          type: string
+          format: uri
+          example: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
+        name:
+          description: Naam van de parameter
+          type: string
+          pattern: ^[a-zA-Z0-9\._]{1,30}$
+          example: huisnummer
+        code:
+          description: Systeemcode die het type fout aangeeft
+          type: string
+          pattern: ^[a-zA-Z0-9]{1,25}$
+          example: integer
+        reason:
+          description: Beschrijving van de fout op de parameterwaarde
+          type: string
+          pattern: ^[a-zA-Z0-9\., ]{1,80}$
+          example: Waarde is geen geldig getal.
+    BadRequestFoutbericht:
+      allOf:
+        - $ref: '#/components/schemas/Foutbericht'
+        - type: object
+          properties:
+            invalidParams:
+              description: |
+                Foutmelding per fout in een parameter. Alle gevonden fouten worden één keer teruggemeld.
+              type: array
+              items:
+                $ref: '#/components/schemas/InvalidParam'
+  responses:
+    '400':
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/BadRequestFoutbericht'
+          example:
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+            title: Ten minste één parameter moet worden opgegeven.
+            status: 400
+            detail: The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: paramsRequired
+            invalidParams:
+              - type: https://www.vng.nl/realisatie/api/validaties/integer
+                name: huisnummer
+                code: integer
+                reason: Waarde is geen geldig getal.
+    '500':
+      description: Internal Server Error
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Foutbericht'
+          example:
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
+            title: Interne server fout.
+            status: 500
+            detail: The server encountered an unexpected condition which prevented it from fulfilling the request.
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: serverError
