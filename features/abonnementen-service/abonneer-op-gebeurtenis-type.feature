@@ -6,7 +6,7 @@ Functionaliteit: Abonneer op gebeurtenis type
   wil ik mij kunnen abonneren op gebeurtenissen van personen aan wie ik diensten verleen
   zodat ik alleen de relevante gebeurtenissen krijg die nodig zijn voor mijn dienstverlening
 
-  Regel: Alleen een als abonnee geregistreerde afnemer kan zich abonneren op gebeurtenis types
+  Regel: Een afnemer kan zich abonneren op gebeurtenis types als hij is geregistreerd als abonnee.
 
     Scenario: Een geregistreerde abonnee abonneert zich op een specifiek gebeurtenis type
       Gegeven de persoon 'Jan'
