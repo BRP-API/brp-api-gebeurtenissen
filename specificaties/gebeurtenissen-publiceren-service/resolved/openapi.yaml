@@ -39,6 +39,8 @@ components:
           $ref: '#/components/schemas/datadef'
         metadata:
           $ref: '#/components/schemas/Metadata'
+        time:
+          $ref: '#/components/schemas/timedef'
       required:
         - type
       discriminator:
@@ -98,7 +100,7 @@ components:
         - c08
     VerhuisdIntergemeentelijk:
       allOf:
-        - $ref: '#/components/schemas/CloudEvent'
+        - $ref: '#/components/schemas/Gebeurtenis'
         - type: object
           required:
             - data
@@ -136,6 +138,11 @@ components:
       maxItems: 10
       items:
         $ref: '#/components/schemas/MetadataItem'
+    timedef:
+      description: |
+        Timestamp of when the occurrence happened. Must adhere to RFC 3339.
+      type: string
+      format: date-time
     iddef:
       description: |
         Identifies the event.

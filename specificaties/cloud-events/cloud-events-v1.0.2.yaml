@@ -8,42 +8,43 @@ components:
       type: object
       properties:
         id:
-          description: "Identifies the event."
           $ref: '#/components/schemas/iddef'
-        source:
-          description: "Identifies the context in which an event happened."
-          $ref: '#/components/schemas/sourcedef'
         specversion:
-          description: "The version of the CloudEvents specification which the event uses."
           $ref: '#/components/schemas/specversiondef'
         type:
-          description: "Describes the type of event related to the originating occurrence."
           $ref: '#/components/schemas/typedef'
         data:
-          description: "The event payload."
           $ref: '#/components/schemas/datadef'
       required:
         - id
-        - source
         - specversion
         - type
 
     typedef:
+      description: |
+        Describes the type of event related to the originating occurrence.
       type: string
       minLength: 1
 
     datadef:
+      description: |
+        The event payload.
       type: object
 
     iddef:
+      description: |
+        Identifies the event.
       type: string
       format: uuid
 
-    sourcedef:
-      type: string
-      format: uri-reference
-      minLength: 1
-    
     specversiondef:
+      description: |
+        The version of the CloudEvents specification which the event uses.
       type: string
       minLength: 1
+
+    timedef:
+      description: |
+        Timestamp of when the occurrence happened. Must adhere to RFC 3339.
+      type: string
+      format: date-time

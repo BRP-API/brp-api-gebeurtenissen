@@ -1,6 +1,6 @@
 # BRP API Gebeurtenissen functionaliteit documentatie
 
-Deze features map bevat de documentatie van de functionaliteit van BRP API Gebeurtenissen. De functionaliteit is gespecificeerd met behulp van scenario/voorbeelden geschreven in [Gherkin](https://cucumber.io/docs/#what-is-gherkin) syntax. Gherkin maakt het mogelijk om de functionaliteit van een systeem op een gestructureerde manier in natuurlijke taal te beschrijven, zodat het begrijpbaar is voor zowel technische als niet-technische lezers. Het structuur van een scenario/voorbeeld ziet er in grote lijnen als volgt uit
+Deze features map bevat de documentatie van de functionaliteit van BRP API Gebeurtenissen, bedoeld om afnemers tot actie te bewegen voor een bepaalde (potentiele) klant. De functionaliteit is gespecificeerd met behulp van scenario/voorbeelden geschreven in [Gherkin](https://cucumber.io/docs/#what-is-gherkin) syntax. Gherkin maakt het mogelijk om de functionaliteit van een systeem op een gestructureerde manier in natuurlijke taal te beschrijven, zodat het begrijpbaar is voor zowel technische als niet-technische lezers. Het structuur van een scenario/voorbeeld ziet er in grote lijnen als volgt uit
 
 ```feature
 Gegeven het systeem heeft een huidige state
