@@ -27,7 +27,6 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
     Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
     * het A-nummer van 'Jan'
     * de vanaf datum van de opgave van verhuizing van 'Jan'
-    * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
 
   Scenario: Aangifte van adreswijziging naar een briefadres in andere gemeente in Nederland
     Als de aangifte van adreswijziging van 'Jan' is verwerkt
@@ -35,7 +34,6 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
     Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
     * het A-nummer van 'Jan'
     * de vanaf datum van de opgave van verhuizing van 'Jan'
-    * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
 
   @gebeurtenis-service
   Scenario: Aangifte van adreswijziging naar een andere gemeente in Nederland
@@ -45,4 +43,3 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
     Dan wordt een 'verhuisd.intergemeentelijk' gebeurtenis geleverd met de volgende data
     * het burgerservicenummer van 'Jan'
     * de vanaf datum van de opgave van verhuizing van 'Jan'
-    * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
