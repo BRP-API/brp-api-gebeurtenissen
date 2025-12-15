@@ -13,12 +13,15 @@ export class Persoon {
     a_nr?: string;
     burger_service_nr?: string;
     geheim_ind: string = '0';
+    geslachts_naam?: string;
     verblijfplaats?: Verblijfplaats;
 
     constructor(a_nr?: string,
-                burger_service_nr?: string) {
+                burger_service_nr?: string,
+                geslachts_naam?: string) {
         if(a_nr) this.a_nr = a_nr;
         if(burger_service_nr) this.burger_service_nr = burger_service_nr;
+        if(geslachts_naam) this.geslachts_naam = geslachts_naam;
     }
 
     getPropertyNames(): string[] {

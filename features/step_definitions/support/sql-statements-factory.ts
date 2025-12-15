@@ -63,13 +63,13 @@ export function createLo3PlInsertStatement(persoon: Persoon): SqlStatement {
 }
 
 export function createLo3PlPersoonInsertStatement(persoon: Persoon): SqlStatement {
-    const insertPart = 'pl_id,persoon_type,stapel_nr,volg_nr,a_nr,burger_service_nr';
-    const valuesPart = '$1,$2,$3,$4,' +
+    const insertPart = 'pl_id,persoon_type,stapel_nr,volg_nr,geslachts_naam,a_nr,burger_service_nr';
+    const valuesPart = '$1,$2,$3,$4,$5,' +
                         '(SELECT COALESCE(MAX(a_nr), 0)+1 FROM public.lo3_pl_persoon),' +
                         '(SELECT COALESCE(MAX(burger_service_nr), 0)+1 FROM public.lo3_pl_persoon)';
 
     return new SqlStatement(`INSERT INTO public.lo3_pl_persoon(${insertPart}) VALUES(${valuesPart}) RETURNING *`,
-                             [persoon.pl_id, persoon.persoon_type, persoon.stapel_nr, persoon.volg_nr]);
+                             [persoon.pl_id, persoon.persoon_type, persoon.stapel_nr, persoon.volg_nr, persoon.geslachts_naam]);
 }
 
 export function createLo3PlVerblijfplaatsInsertStatement(persoon: Persoon): SqlStatement {

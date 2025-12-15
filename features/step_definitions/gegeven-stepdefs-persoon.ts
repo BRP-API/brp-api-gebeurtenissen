@@ -6,7 +6,7 @@ Given('de persoon {string}', function (persoonAanduiding: string) {
     if(!this.context.personen) {
         this.context.personen = {};
     }
-    this.context.personen[persoonAanduiding] = new Persoon();
+    this.context.personen[persoonAanduiding] = new Persoon(undefined, undefined, persoonAanduiding);
     this.huidigAanduiding = Aanduiding.persoon(persoonAanduiding);
 });
 

@@ -29,9 +29,9 @@ Functionaliteit: gegenereerde sql statements
       Gegeven de persoon 'P1'
       * heeft id '12345'
       Dan zijn de gegenereerde sql statements voor persoon 'P1'
-        | statementText                                                                                                                                                                                                                                                         | values      |
-        | INSERT INTO public.lo3_pl(pl_id,mutatie_dt,geheim_ind) VALUES((SELECT COALESCE(MAX(pl_id), 0)+1 FROM public.lo3_pl),current_timestamp,$1) RETURNING *                                                                                                                 |           0 |
-        | INSERT INTO public.lo3_pl_persoon(pl_id,persoon_type,stapel_nr,volg_nr,a_nr,burger_service_nr) VALUES($1,$2,$3,$4,(SELECT COALESCE(MAX(a_nr), 0)+1 FROM public.lo3_pl_persoon),(SELECT COALESCE(MAX(burger_service_nr), 0)+1 FROM public.lo3_pl_persoon)) RETURNING * | 12345,P,0,0 |
+        | statementText                                                                                                                                                                                                                                                                           | values         |
+        | INSERT INTO public.lo3_pl(pl_id,mutatie_dt,geheim_ind) VALUES((SELECT COALESCE(MAX(pl_id), 0)+1 FROM public.lo3_pl),current_timestamp,$1) RETURNING *                                                                                                                                   |              0 |
+        | INSERT INTO public.lo3_pl_persoon(pl_id,persoon_type,stapel_nr,volg_nr,geslachts_naam,a_nr,burger_service_nr) VALUES($1,$2,$3,$4,$5,(SELECT COALESCE(MAX(a_nr), 0)+1 FROM public.lo3_pl_persoon),(SELECT COALESCE(MAX(burger_service_nr), 0)+1 FROM public.lo3_pl_persoon)) RETURNING * | 12345,P,0,0,P1 |
 
     Scenario: Gegeven verblijft vanaf '[verhuis datum]' op het adres 'A1'
       Gegeven het adres 'A1'
@@ -41,7 +41,7 @@ Functionaliteit: gegenereerde sql statements
       * verblijft vanaf '14-04-2020' op het adres 'A1'
       * heeft id '12345'
       Dan zijn de gegenereerde sql statements voor persoon 'P1'
-        | statementText                                                                                                                                                                                                                                                         | values                                            |
-        | INSERT INTO public.lo3_pl(pl_id,mutatie_dt,geheim_ind) VALUES((SELECT COALESCE(MAX(pl_id), 0)+1 FROM public.lo3_pl),current_timestamp,$1) RETURNING *                                                                                                                 |                                                 0 |
-        | INSERT INTO public.lo3_pl_persoon(pl_id,persoon_type,stapel_nr,volg_nr,a_nr,burger_service_nr) VALUES($1,$2,$3,$4,(SELECT COALESCE(MAX(a_nr), 0)+1 FROM public.lo3_pl_persoon),(SELECT COALESCE(MAX(burger_service_nr), 0)+1 FROM public.lo3_pl_persoon)) RETURNING * |                                       12345,P,0,0 |
-        | INSERT INTO public.lo3_pl_verblijfplaats(pl_id,volg_nr,inschrijving_gemeente_code,inschrijving_datum,adres_id,adres_functie,adreshouding_start_datum,aangifte_adreshouding_oms,geldigheid_start_datum) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)                             | 12345,0,0599,20200414,67890,W,20200414,I,20200414 |
+        | statementText                                                                                                                                                                                                                                                                           | values                                            |
+        | INSERT INTO public.lo3_pl(pl_id,mutatie_dt,geheim_ind) VALUES((SELECT COALESCE(MAX(pl_id), 0)+1 FROM public.lo3_pl),current_timestamp,$1) RETURNING *                                                                                                                                   |                                                 0 |
+        | INSERT INTO public.lo3_pl_persoon(pl_id,persoon_type,stapel_nr,volg_nr,geslachts_naam,a_nr,burger_service_nr) VALUES($1,$2,$3,$4,$5,(SELECT COALESCE(MAX(a_nr), 0)+1 FROM public.lo3_pl_persoon),(SELECT COALESCE(MAX(burger_service_nr), 0)+1 FROM public.lo3_pl_persoon)) RETURNING * |                                    12345,P,0,0,P1 |
+        | INSERT INTO public.lo3_pl_verblijfplaats(pl_id,volg_nr,inschrijving_gemeente_code,inschrijving_datum,adres_id,adres_functie,adreshouding_start_datum,aangifte_adreshouding_oms,geldigheid_start_datum) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)                                               | 12345,0,0599,20200414,67890,W,20200414,I,20200414 |

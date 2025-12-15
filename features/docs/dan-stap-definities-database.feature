@@ -28,8 +28,8 @@ Functionaliteit: Database dan stap definities gebeurtenissen
       | pl_id | geheim_ind |
       | P1    |          0 |
     En heeft tabel 'lo3_pl_persoon' de volgende rij
-      | pl_id | persoon_type | stapel_nr | volg_nr | a_nr | burger_service_nr |
-      | P1    | P            |         0 |       0 | P1   | P1                |
+      | pl_id | persoon_type | stapel_nr | volg_nr | geslachts_naam | a_nr | burger_service_nr |
+      | P1    | P            |         0 |       0 | P1             | P1   | P1                |
 
   Scenario: Gegeven verblijft vanaf '[datum]' op het adres '[adres aanduiding]'
     Gegeven het adres 'A1'
