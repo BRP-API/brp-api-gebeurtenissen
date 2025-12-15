@@ -27,8 +27,6 @@ components:
       properties:
         id:
           $ref: '#/components/schemas/iddef'
-        source:
-          $ref: '#/components/schemas/sourcedef'
         specversion:
           $ref: '#/components/schemas/specversiondef'
         type:
@@ -175,19 +173,23 @@ components:
             data:
               $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
     iddef:
+      description: |
+        Identifies the event.
       type: string
       format: uuid
-    sourcedef:
-      type: string
-      format: uri-reference
-      minLength: 1
     specversiondef:
+      description: |
+        The version of the CloudEvents specification which the event uses.
       type: string
       minLength: 1
     typedef:
+      description: |
+        Describes the type of event related to the originating occurrence.
       type: string
       minLength: 1
     datadef:
+      description: |
+        The event payload.
       type: object
     Foutbericht:
       type: object
