@@ -3,8 +3,8 @@
 Functionaliteit: Abonneer op gebeurtenis type
 
   Als abonnee van BRP API Gebeurtenissen
-  wil ik mij kunnen abonneren op specifieke gebeurtenissen van personen aan wie ik diensten verleen
-  zodat ik alleen die gebeurtenissen krijg die relevant zijn voor mijn dienstverlening
+  wil ik mij kunnen abonneren op gebeurtenissen van personen aan wie ik diensten verleen
+  zodat ik alleen de relevante gebeurtenissen krijg die nodig zijn voor mijn dienstverlening
 
   Regel: Alleen een als abonnee geregistreerde afnemer kan zich abonneren op gebeurtenis types
 
