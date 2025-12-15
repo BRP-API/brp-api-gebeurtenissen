@@ -1,14 +1,12 @@
 services:
-  bevraag-service:
-    image: ghcr.io/brp-api/gebeurtenis-bevragen-service:latest
-    container_name: bevraag-service
-    depends_on:
-      - axonserver
-      - postgres
+  mutatie-service:
+    image: ghcr.io/brp-api/gebeurtenis-mutatie-service:latest
+    container_name: mutatie-service
     ports:
-      - "8002:8082"
+      - "8000:8000"
     environment:
-      - AXON_AXONSERVER_SERVERS=axonserver:8124
+      - GEBEURTENIS-PUBLICEREN_BASE-URL=http://publiceer-service:8080/personen/gebeurtenissen
+      - GEBEURTENIS-PUBLICEREN_AUTH=Bearer some-token-value
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/rvig_haalcentraal_testdata
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
