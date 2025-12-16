@@ -54,7 +54,21 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
 
   Regel: Wanneer een persoon naar een Caribisch deel van het Koninkrijk is verhuisd, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
 
-    Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk
+   Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk
+      Gegeven het adres buitenland 'KayaGrandi_12_Kralendijk'
+      * met adresregel 1 'Kaya Grandi 12'
+      * met adresregel 2 'Kralendijk'
+      * in land 'Bonaire'
+      Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' op adres 'KayaGrandi_12_Kralendijk'
+      Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * de datum dat 'Jan' is geemigreerd
+      * met adresregel 1 'Kaya Grandi 12'
+      * met adresregel 2 'Kralendijk'
+      * het land adres buitenland is 'Bonaire'
+
+    Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk en adres is (nog) niet bekend
       Gegeven het adres buitenland 'Onbekend_adres_in_Bonaire'
       * in land 'Bonaire'
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
