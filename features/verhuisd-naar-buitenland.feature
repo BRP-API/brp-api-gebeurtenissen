@@ -2,7 +2,7 @@
 Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
   Bij een aangifte van een verhuizing naar het buitenland, of naar het Caribisch deel van het Koninkrijk heeft een gebeurtenis verhuisd.naar-buitenland plaatsgevonden.
   De gebeurtenis 'verhuisd.naar-buitenland' betekent dat de persoon verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
-  Wanneer geen aangifte van vertrek is gedaan, maar het vertrek uit Nederland ambthalve is geregistreerd of als gevolg van een ministrieel besluit is het niet bekend waar persoon verblijft.  
+  Wanneer geen aangifte van vertrek is gedaan, maar het vertrek uit Nederland ambthalve is geregistreerd of als gevolg van een Ministerieel Besluit is het niet bekend waar persoon verblijft.  
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
@@ -65,10 +65,10 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Bonaire'
 
-  Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als een persoon ambtshalve is uitgeschreven bij onbekend adres, of is geemigreerd als gevolg van een Ministrieel Besluit.
+  Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als een persoon ambtshalve is uitgeschreven bij onbekend adres, of is geemigreerd als gevolg van een Ministerieel Besluit.
     Als een persoon ambtshalve wordt uitgeschreven is de verblijfplaats van de persoon niet bekend, nadat uitgebreid onderzoek heeft plaatsgevonden.
-    Een ministrieel besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn.
-    (note voor automation: reden opschorting ambtshalve uitschrijving is E, reden opschorting bij Emigratie Ministrieel Besluit is M)
+    Een Ministerieel Besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn.
+    (note voor automation: reden opschorting ambtshalve uitschrijving is E, reden opschorting bij Emigratie Ministerieel Besluit is M)
 
     Scenario: Ambtshalve uitschrijving bij onbekend adres
       Als de ambtshalve uitschrijving bij onbekend adres van 'Jan' is verwerkt
@@ -78,8 +78,8 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'onbekend'
 
-    Scenario: Emigratie Ministrieel Besluit
-      Als de emigratie Ministrieel Besluit van 'Jan' is verwerkt
+    Scenario: Emigratie Ministerieel Besluit
+      Als de emigratie Ministerieel Besluit van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' in een onbekend land
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
