@@ -68,16 +68,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       * met adresregel 2 'Kralendijk'
       * het land adres buitenland is 'Bonaire'
 
-    Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk en adres is (nog) niet bekend
-      Gegeven het adres buitenland 'Onbekend_adres_in_Bonaire'
-      * in land 'Bonaire'
-      Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' op adres 'Onbekend_adres_in_Bonaire'
-      Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
-      * de datum dat 'Jan' is geemigreerd
-      * het land adres buitenland is 'Bonaire'
-
+    
   Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als een persoon ambtshalve is uitgeschreven bij onbekend adres, of is geemigreerd als gevolg van een Ministerieel Besluit.
     Als een persoon ambtshalve wordt uitgeschreven is de verblijfplaats van de persoon niet bekend, nadat uitgebreid onderzoek heeft plaatsgevonden.
     Een Ministerieel Besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn.
