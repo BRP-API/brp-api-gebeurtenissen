@@ -50,12 +50,6 @@ components:
       description: |
         Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
       pattern: ^[0-9]{9}$
-    AdresseerbaarObjectIdentificatie:
-      type: string
-      title: Identificatiecode verblijfplaats
-      description: |
-        De identificatiecode van een adresseerbaar object.
-      pattern: ^[0-9]{16}$
     AbstractDatum:
       type: object
       required:
@@ -153,8 +147,6 @@ components:
     Adres:
       type: object
       properties:
-        adresseerbaarObjectIdentificatie:
-          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
         datumVan:
           $ref: '#/components/schemas/AbstractDatum'
     VerhuisdIntergemeentelijkData:

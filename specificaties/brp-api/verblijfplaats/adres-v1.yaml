@@ -7,7 +7,5 @@ components:
     Adres:
       type: object
       properties:
-        adresseerbaarObjectIdentificatie:
-          $ref: '../../brp/adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatie'
         datumVan:
           $ref: '../datum/datum-polymorf-v1.yaml#/components/schemas/AbstractDatum'
