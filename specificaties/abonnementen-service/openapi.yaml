@@ -27,7 +27,7 @@ paths:
         content:
           application/json:
             schema: 
-              $ref: '#/components/schemas/AbonneerOpGebeurtenisTypeCommand'
+              $ref: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
       responses: 
         '201':
           description: Abonnement(en) succesvol aangemaakt.
@@ -45,6 +45,7 @@ components:
       flows:
         clientCredentials:
           tokenUrl: http://identityserver:6000/connect/token
+          scopes: {}
 
 
   schemas:
@@ -58,26 +59,20 @@ components:
       discriminator: 
         propertyName: type
         mapping: 
-          AbonneerOpGebeurtenisType: '#/components/schemas/AbonneerOpGebeurtenisTypeCommand'
+          AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
 
-    AbonneerOpGebeurtenisTypeCommand:
+    AbonneerOpGebeurtenisTypeVanPersoonCommand:
       allOf: 
         - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
           properties:
-            gebeurtenisTypes:
-              type: array
-              items:
-                type: string
-                pattern: ^[a-z/-/.]{1,50}$
-              description: Lijst van gebeurtenistypen waarop de abonnee zich wil abonneren
-              minItems: 1
-            burgerservicenummers:
-              type: array
-              items:
-                $ref: '../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
-              description: Het burgerservicenummer (BSN) van de persoon/personen waarvoor de abonnee gebeurtenissen van de opgegeven type(n) wilt ontvangen
-              minItems: 1
+            gebeurtenisType:
+              type: string
+              pattern: ^[a-z/-/.]{1,50}$
+              description: Het gebeurtenistype waarop de abonnee zich wil abonneren
+            burgerservicenummer:
+              $ref: '../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
           required:
-            - gebeurtenisTypes
-            - burgerservicenummers
+            - gebeurtenisType
+            - burgerservicenummer
