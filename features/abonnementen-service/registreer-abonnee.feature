@@ -1,5 +1,6 @@
 #language: nl
 
+@integratie
 Functionaliteit: Registreer abonnee
 
   Als consumer van BRP API Gebeurtenissen
@@ -11,7 +12,7 @@ Functionaliteit: Registreer abonnee
     Scenario: Een niet-geregistreerde afnemer registreert zich als abonnee
       Gegeven de afnemer 'Gemeente Den Haag'
       * is niet geregistreerd als abonnee van BRP API Gebeurtenissen
-      Als de afnemer zich registreert als abonnee
+      Als afnemer 'Gemeente Den Haag' zich registreert als abonnee
       Dan is een 'abonnee-geregistreerd' gebeurtenis gepubliceerd met de volgende velden
       * 'afnemerId' met de afnemer id van 'Gemeente Den Haag'
       En is de response '201 Created'
@@ -19,7 +20,7 @@ Functionaliteit: Registreer abonnee
     Scenario: Een reeds geregistreerde afnemer registreert zich als abonnee
       Gegeven de afnemer 'Gemeente Den Haag'
       * is geregistreerd als abonnee van BRP API Gebeurtenissen
-      Als de afnemer zich registreert als abonnee
+      Als afnemer 'Gemeente Den Haag' zich registreert als abonnee
       Dan zijn er geen gebeurtenissen gepubliceerd
       En is de response '409 Conflict' met de volgende velden
       * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al als abonnee geregistreerd bent.'

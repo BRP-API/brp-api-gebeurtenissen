@@ -23,9 +23,12 @@
     "@redocly/cli": "^2.12.3",
     "@types/chai": "^5.2.3",
     "@types/deep-equal-in-any-order": "^1.0.4",
+    "@types/pg": "^8.15.5",
     "axios": "^1.13.2",
     "chai": "^6.2.1",
     "deep-equal-in-any-order": "^2.1.0",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3",
     "ts-node": "^10.9.2",
     "winston": "^3.19.0"
   }
