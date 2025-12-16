@@ -17,3 +17,6 @@ Given('de geleverde gebeurtenis', function (docString: string) {
     this.result = JSON.parse(docString);
 });
 
+Given('de response', function (docString: string) {
+    this.result = JSON.parse(docString);
+});
