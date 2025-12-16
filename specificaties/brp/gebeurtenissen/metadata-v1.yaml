@@ -1,0 +1,28 @@
+openapi: 3.1.0
+info:
+  title: BRP gebeurtenis metadata specificatie
+  version: 1.0.0
+components: 
+  schemas:
+    MetadataItem:
+      type: object
+      properties:
+        naam:
+          type: string
+          description: De naam van het metadata item.
+          pattern: ^[a-zA-Z0-9]{1,50}$
+        waarde:
+          type: string
+          description: De waarde van het metadata item.
+          pattern: ^[a-zA-Z0-9]{1,50}$
+      required: 
+        - naam
+        - waarde
+      additionalProperties: false
+    Metadata:
+      type: array
+      description: Lijst van metadata items.
+      minItems: 1
+      maxItems: 10
+      items:
+        $ref: '#/components/schemas/MetadataItem'

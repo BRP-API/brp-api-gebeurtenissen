@@ -44,8 +44,8 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          OpgaveVanVerhuizing: '#/components/schemas/OpgaveVanVerhuizingCommand'
-    OpgaveVanVerhuizingCommand:
+          AangifteVanAdreswijziging: '#/components/schemas/AangifteVanAdreswijzigingCommand'
+    AangifteVanAdreswijzigingCommand:
       allOf:
         - $ref: '#/components/schemas/AangifteCommand'
         - type: object
@@ -146,6 +146,7 @@ components:
       flows:
         clientCredentials:
           tokenUrl: http://identityserver:6000/token
+          scopes: {}
   responses:
     '400':
       description: Bad Request
