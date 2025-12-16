@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: BRP gebeurtenis specificatie
+  title: BRP API gebeurtenissen specificatie
   version: 1.0.0
 components: 
   schemas:
@@ -21,4 +21,3 @@ components:
         propertyName: type
         mapping:
           nl.brp.verhuisd.intergemeentelijk: 'verhuisd-intergemeentelijk-v1.yaml#/components/schemas/VerhuisdIntergemeentelijk'
-        

@@ -7,10 +7,18 @@ components:
     CloudEvent:
       type: object
       properties:
+        id:
+          $ref: '#/components/schemas/iddef'
+        specversion:
+          $ref: '#/components/schemas/specversiondef'
         type:
           $ref: '#/components/schemas/typedef'
         data:
           $ref: '#/components/schemas/datadef'
+      required:
+        - id
+        - specversion
+        - type
 
     typedef:
       description: |
@@ -28,6 +36,19 @@ components:
         Identifies the event.
       type: string
       format: uuid
+
+    sourcedef:
+      description: |
+        Identifies the context in which an event happened.
+      type: string
+      format: uri-reference
+      minLength: 1
+
+    specversiondef:
+      description: |
+        The version of the CloudEvents specification which the event uses.
+      type: string
+      minLength: 1
 
     timedef:
       description: |

@@ -1,0 +1,22 @@
+openapi: 3.1.0
+info:
+  title: Gebeurtenissen Bevragen API specificatie
+  version: 1.0.0
+paths:
+  /personen/gebeurtenissen:
+    get: 
+      operationId: BevraagGebeurtenis
+      summary: Bevragen van de oudste ongelezen gebeurtenis
+      responses:
+        '200':
+          description: De oudste ongelezen gebeurtenis is succesvol opgehaald
+          content:
+            application/json:
+              schema:
+                $ref: '../brp-api/gebeurtenissen/gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
