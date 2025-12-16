@@ -30,23 +30,22 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
   Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definitief woonadres heeft, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
 
     Scenario: Aangifte van vertrek naar het buitenland en alleen het land is bekend
-      Gegeven het adres buitenland 'Chemin_du_Calvaire_19_Lausanne'
+      Gegeven het adres buitenland 'Adres_in_Zwitserland'
       * zonder adresregels
       * in land 'Zwitserland'
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
+      * verblijft vanaf '1-9-2025' op 'Adres_in_Zwitserland'
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'Zwitserland'
 
     Scenario: Aangifte van vertrek naar het buitenland en alleen het land en de plaats zijn bekend
-      Gegeven het adres buitenland 'Chemin_du_Calvaire_19_Lausanne'
+      Gegeven het adres buitenland 'Adres_in_Lausanne'
       * met adresregel 2 'Lausanne'
       * in land 'Zwitserland'
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' in het land 'Zwitserland'
-      * verblijft vanaf '1-9-2025' in de plaats 'Lausanne'
+      * verblijft vanaf '1-9-2025' op 'Adres_in_Lausanne'
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
