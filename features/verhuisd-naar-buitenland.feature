@@ -25,7 +25,10 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
-      * het adres 'Chemin_du_Calvaire_19_Lausanne'
+      * adresregel 1 is 'Chemin de Calvaire 19'
+      * adresregel 2 is 'Lausanne'
+      * adresregel 3 is 'Vaud'
+      * het land adres buitenland is 'Zwitserland'
 
   Regel: Wanneer een persoon naar het buitenland is verhuisd maar nog geen definitief woonadres heeft, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
 
@@ -49,8 +52,8 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
+      * adresregel 2 is 'Lausanne'
       * het land adres buitenland is 'Zwitserland'
-      * adresregel 2 'Lausanne'
 
   Regel: Wanneer een persoon naar een Caribisch deel van het Koninkrijk is verhuisd, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
 
@@ -64,8 +67,8 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
-      * met adresregel 1 'Kaya Grandi 12'
-      * met adresregel 2 'Kralendijk'
+      * adresregel 1 is 'Kaya Grandi 12'
+      * adresregel 2 is 'Kralendijk'
       * het land adres buitenland is 'Bonaire'
 
     
