@@ -14,9 +14,9 @@ Functionaliteit: Gebeurtenissen bevragen
 
   Achtergrond:
     Gegeven de afnemer 'Hengelo'
-    * is geregistreerd als abonnee van BRP API Gebeurtenissen met rol 'SZW'
-    * is geregistreerd als abonnee van BRP API Gebeurtenissen met rol 'JZ'
-    * is geregistreerd als abonnee van BRP API Gebeurtenissen met rol 'Belastingen'
+    * is geregistreerd als abonnee 'SZW' van BRP API Gebeurtenissen
+    * is geregistreerd als abonnee 'JZ' van BRP API Gebeurtenissen
+    * is geregistreerd als abonnee 'Belastingen' van BRP API Gebeurtenissen
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     * in gemeente 'Hengelo'
     * met adresseerbaar object identificatie '0164010000047847'
@@ -25,77 +25,101 @@ Functionaliteit: Gebeurtenissen bevragen
     * met adresseerbaar object identificatie '1674010000008508'
     Gegeven de persoon 'Jan'
     * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
-    En afnemer 'Hengelo' met de rol 'SZW' is geabonneerd op 'verhuisd.intergemeentelijk' gebeurtenissen van de persoon 'Jan'
-    En afnemer 'Hengelo' met de rol 'JZ' is geabonneerd op 'verhuisd.intergemeentelijk' gebeurtenissen van de persoon 'Jan'
+    En de persoon 'Piet'
+    * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+    En abonnee 'SZW' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+    En abonnee 'SZW' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Piet'
+    En abonnee 'JZ' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
 
-  Regel: Een afnemer kan niet-gelezen gebeurtenissen waarop hij is geabonneerd chronologisch bevragen
+  Regel: Een abonnee kan niet-gelezen gebeurtenissen waarop hij is geabonneerd chronologisch bevragen
 
-    Scenario: Afnemer heeft nog geen gebeurtenissen gevraagd
+    Scenario: De abonnee heeft nog geen gebeurtenissen gevraagd
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo' met rol 'SZW'
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'SZW'
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
+      * het burgerservicenummer van 'Jan'
       * de vanaf datum van de opgave van verhuizing van 'Jan'
-      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
 
-    Scenario: Afnemer heeft alle niet-gelezen gebeurtenissen al gevraagd met deze rol en nog niet met een andere rol
+    Scenario: De abonnee vraagt ongelezen gebeurtenissen en er zijn meerdere gebeurtenissen
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      En alle niet-gelezen gebeurtenissen zijn gevraagd door afnemer 'Hengelo' met rol 'SZW'
-      Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo' met rol 'SZW'
+      En de aangifte van adreswijziging van 'Piet' is verwerkt
+      * verblijft vanaf '2-9-2025' op het adres 'Stadserf_1_Roosendaal'
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'SZW'
+      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
+      * het burgerservicenummer van 'Jan'
+      * de vanaf datum van de opgave van verhuizing van 'Jan'
+
+    Scenario: De abonnee vraagt ongelezen gebeurtenissen, er zijn meerdere gebeurtenissen en de eerste gebeurtenis is al gelezen
+      Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
+      En de aangifte van adreswijziging van 'Piet' is verwerkt
+      * verblijft vanaf '2-9-2025' op het adres 'Stadserf_1_Roosendaal'
+      En een niet-gelezen gebeurtenis is gevraagd door abonnee 'SZW'
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'SZW'
+      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
+      * het burgerservicenummer van 'Piet'
+      * de vanaf datum van de opgave van verhuizing van 'Piet'
+
+    Scenario: De abonnee heeft alle niet-gelezen gebeurtenissen al gevraagd en nog niet met een andere abonnee van dezelfde afnemer
+      Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
+      En alle niet-gelezen gebeurtenissen zijn gevraagd door abonnee 'SZW'
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'SZW'
       Dan wordt er geen gebeurtenis geleverd
 
-    Scenario: Afnemer heeft alle niet-gelezen gebeurtenissen al gevraagd met een rol en vraagt ongelezen gebeurtenissen met een andere rol
+    Scenario: De abonnee vraagt ongelezen gebeurtenissen en heeft alle niet-gelezen gebeurtenissen al gevraagd met een andere abonnee van dezelfde afnemer
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      En alle niet-gelezen gebeurtenissen zijn gevraagd door afnemer 'Hengelo' met rol 'SZW'
-      Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo' met rol 'JZ'
+      En alle niet-gelezen gebeurtenissen zijn gevraagd door abonnee 'SZW'
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'JZ'
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
+      * het burgerservicenummer van 'Jan'
       * de vanaf datum van de opgave van verhuizing van 'Jan'
-      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
 
-    Scenario: Afnemer is geabonneerd op een gebeurtenis voor een rol en vraagt ongelezen gebeurtenissen met een andere rol
+    Scenario: De abonnee vraagt ongelezen gebeurtenissen en een andere abonnee van dezelfde afnemer is geabonneerd op de gebeurtenis
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo' met rol 'Belastingen'
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'Belastingen'
       Dan wordt er geen gebeurtenis geleverd
 
-  Regel: Een afnemer kan alleen niet-gelezen gebeurtenissen bevragen met een rol die als abonnee geregistreerd is
+  Regel: Een afnemer kan alleen niet-gelezen gebeurtenissen bevragen met een abonnee die al geregistreerd is
 
-    Scenario: Afnemer is geabonneerd op een gebeurtenis voor een rol en vraagt ongelezen gebeurtenissen met een niet-geregistreerde rol
+    Scenario: Afnemer is geabonneerd op een gebeurtenis voor een abonnee en vraagt ongelezen gebeurtenissen met een niet-geregistreerde abonnee
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo' met rol 'WMO'
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'WMO'
       En is de response '403 Forbidden'
       * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
 
-    Scenario: Afnemer is geabonneerd op een gebeurtenis voor een rol en vraagt ongelezen gebeurtenissen zonder een rol op te geven
+    Scenario: Afnemer is geabonneerd op een gebeurtenis voor een abonnee en vraagt ongelezen gebeurtenissen zonder de abonnee op te geven
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
       Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo'
-      En is de response '403 Forbidden'
-      * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
+      En is de response '400 Bad Request'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: abonnee.'
+      * een 'invalidParams' met de volgende gegevens
+        | code     | name    | reason                  |
+        | required | abonnee | Parameter is verplicht. |
 
-  Regel: Een afnemer kan alle gebeurtenissen als niet-gelezen markeren
+  Regel: Een abonnee kan alle gebeurtenissen als niet-gelezen markeren
 
-    Scenario: Afnemer heeft alle niet-gelezen gebeurtenissen gevraagd en markeert alle gebeurtenissen als niet-gelezen
+    Scenario: De abonnee heeft alle niet-gelezen gebeurtenissen gevraagd en markeert alle gebeurtenissen als niet-gelezen
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      En alle niet-gelezen gebeurtenissen zijn gevraagd door afnemer 'Hengelo' met rol 'SZW'
-      En afnemer 'Hengelo' met rol 'SZW' markeert al zijn gebeurtenissen als niet-gelezen
-      Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo' met rol 'SZW'
+      En alle niet-gelezen gebeurtenissen zijn gevraagd door abonnee 'SZW'
+      En abonnee 'SZW' markeert al zijn gebeurtenissen als niet-gelezen
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'SZW'
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
+      * het burgerservicenummer van 'Jan'
       * de vanaf datum van de opgave van verhuizing van 'Jan'
-      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
 
-    Scenario: Afnemer met een rol heeft alle niet-gelezen gebeurtenissen gevraagd en dezelfde afnemer met een andere rol markeert alle gebeurtenissen als niet-gelezen
+    Scenario: De abonnee heeft alle niet-gelezen gebeurtenissen gevraagd en een andere abonnee van dezelfde afnemer markeert alle gebeurtenissen als niet-gelezen
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      En alle niet-gelezen gebeurtenissen zijn gevraagd door afnemer 'Hengelo' met rol 'SZW'
-      En alle niet-gelezen gebeurtenissen zijn gevraagd door afnemer 'Hengelo' met rol 'JZ'
-      En afnemer 'Hengelo' met rol 'JZ' markeert al zijn gebeurtenissen als niet-gelezen
-      Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo' met rol 'SZW'
+      En alle niet-gelezen gebeurtenissen zijn gevraagd door abonnee 'SZW'
+      En alle niet-gelezen gebeurtenissen zijn gevraagd door abonnee 'JZ'
+      En abonnee 'JZ' markeert al zijn gebeurtenissen als niet-gelezen
+      Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'SZW'
       Dan wordt er geen gebeurtenis geleverd
