@@ -13,7 +13,7 @@ Functionaliteit: Abonneer op gebeurtenistype
     Scenario: Een geregistreerde abonnee abonneert zich op een specifiek gebeurtenistype
       Gegeven de afnemer 'Gemeente Den Haag'
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
-      Als de abonnee 'szw' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is een 'op-gebeurtenis-type-van-persoon-geabonneerd' gebeurtenis gepubliceerd met de volgende data velden
       * de afnemer id van 'Gemeente Den Haag'
       * 'abonnee' met de waarde 'szw'
@@ -24,7 +24,7 @@ Functionaliteit: Abonneer op gebeurtenistype
     Scenario: Een niet-geregistreerde abonnee probeert zich te abonneren op een specifiek gebeurtenistype
       Gegeven de afnemer 'Gemeente Den Haag'
       * is niet geregistreerd als abonnee van BRP API Gebeurtenissen
-      Als de abonnee 'szw' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan zijn er geen gebeurtenissen gepubliceerd
       En is de response '403 Forbidden'
       * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
@@ -32,7 +32,7 @@ Functionaliteit: Abonneer op gebeurtenistype
     Scenario: Een afnemer heeft zich geregistreerd als abonnee en probeert zich te abonneren met een andere abonneenaam op een specifiek gebeurtenistype
       Gegeven de afnemer 'Gemeente Den Haag'
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
-      Als de abonnee 'JZ' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Als de abonnee 'JZ' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan zijn er geen gebeurtenissen gepubliceerd
       En is de response '403 Forbidden'
       * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
@@ -47,6 +47,8 @@ Functionaliteit: Abonneer op gebeurtenistype
       En is de response '403 Forbidden'
       * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
 
+  Regel: Alleen gebruikers die zich hebben geauthenticeerd met een geldig OAuth2 access token kunnen zich abonneren op specifieke gebeurtenistypes
+
     Scenario: Een niet-geautheniceerde gebruiker probeert zich te abonneren op een specifiek gebeurtenistype
       Als een niet-geauthenticeerde gebruiker zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan zijn er geen gebeurtenissen gepubliceerd
@@ -57,9 +59,8 @@ Functionaliteit: Abonneer op gebeurtenistype
     Scenario: Een geregistreerde abonnee abonneert zich op een specifiek gebeurtenistype en is hier al op geabonneerd
       Gegeven de afnemer 'Gemeente Den Haag'
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
-      * is geregistreerd als abonnee 'JZ' van BRP API Gebeurtenissen
-      En abonnee 'JZ' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
-      Als de abonnee 'szw' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      En abonnee 'szw' van afnemer 'Gemeente Den Haag' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan zijn er geen gebeurtenissen gepubliceerd
       En is de response '409 Conflict' met de volgende velden
       * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat u dit abonnement al heeft.'
@@ -68,8 +69,8 @@ Functionaliteit: Abonneer op gebeurtenistype
       Gegeven de afnemer 'Gemeente Den Haag'
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
       * is geregistreerd als abonnee 'JZ' van BRP API Gebeurtenissen
-      En abonnee 'JZ' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
-      Als de abonnee 'szw' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      En abonnee 'JZ' van afnemer 'Gemeente Den Haag' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is een 'op-gebeurtenis-type-van-persoon-geabonneerd' gebeurtenis gepubliceerd met de volgende data velden
       * de afnemer id van 'Gemeente Den Haag'
       * 'abonnee' met de waarde 'szw'
@@ -77,11 +78,11 @@ Functionaliteit: Abonneer op gebeurtenistype
       * het a-nummer van 'Jan'
       En is de response '201 Created'
 
-    Scenario: Een geregistreerde abonnee abonneert zich op een specifiek gebeurtenistype en is al op geabonneerd op hetzelfde gebeurtenistype van een andere persoon
+    Scenario: Een geregistreerde abonnee abonneert zich op een specifiek gebeurtenistype en is al geabonneerd op hetzelfde gebeurtenistype van een andere persoon
       Gegeven de afnemer 'Gemeente Den Haag'
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
-      En abonnee 'szw' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Piet'
-      Als de abonnee 'szw' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      En abonnee 'szw' van afnemer 'Gemeente Den Haag' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Piet'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is een 'op-gebeurtenis-type-van-persoon-geabonneerd' gebeurtenis gepubliceerd met de volgende data velden
       * de afnemer id van 'Gemeente Den Haag'
       * 'abonnee' met de waarde 'szw'
@@ -92,8 +93,8 @@ Functionaliteit: Abonneer op gebeurtenistype
     Scenario: Een geregistreerde abonnee abonneert zich op een specifiek gebeurtenistype en is al op geabonneerd op een ander gebeurtenistype van een dezelfde persoon
       Gegeven de afnemer 'Gemeente Den Haag'
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
-      En abonnee 'szw' is geabonneerd op de 'verhuisd.naar-buitenland' gebeurtenissen van 'Jan'
-      Als de abonnee 'szw' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      En abonnee 'szw' van afnemer 'Gemeente Den Haag' is geabonneerd op de 'verhuisd.naar-buitenland' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is een 'op-gebeurtenis-type-van-persoon-geabonneerd' gebeurtenis gepubliceerd met de volgende data velden
       * de afnemer id van 'Gemeente Den Haag'
       * 'abonnee' met de waarde 'szw'
@@ -104,10 +105,10 @@ Functionaliteit: Abonneer op gebeurtenistype
     Scenario: Een geregistreerde abonnee abonneert zich op een specifiek gebeurtenistype en een abonnee met dezelfde abonneenaam van een andere afnemer is hier al op geabonneerd
       Gegeven de afnemer 'Gemeente Rotterdam'
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
-      * abonnee 'szw' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      * abonnee 'szw' van afnemer 'Gemeente Den Haag' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       En de afnemer 'Gemeente Den Haag'
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
-      Als de abonnee 'szw' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is een 'op-gebeurtenis-type-van-persoon-geabonneerd' gebeurtenis gepubliceerd met de volgende data velden
       * de afnemer id van 'Gemeente Den Haag'
       * 'abonnee' met de waarde 'szw'
