@@ -9,6 +9,8 @@ components:
       properties:
         id:
           $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/iddef'
+        source:
+          $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/sourcedef'
         specversion:
           $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/specversiondef'
         type:
@@ -20,7 +22,6 @@ components:
         - source
         - specversion
         - type
-        - data
       discriminator: 
         propertyName: type
         mapping:
