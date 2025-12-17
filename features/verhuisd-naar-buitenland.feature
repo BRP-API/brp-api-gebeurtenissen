@@ -72,10 +72,9 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       * het land adres buitenland is 'Bonaire'
 
     
-  Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als een persoon ambtshalve is uitgeschreven bij onbekend adres, of is geemigreerd als gevolg van een Ministerieel Besluit.
-    Als een persoon ambtshalve wordt uitgeschreven is de verblijfplaats van de persoon niet bekend, nadat uitgebreid onderzoek heeft plaatsgevonden.
-    Een Ministerieel Besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn.
-    (note voor automation: reden opschorting ambtshalve uitschrijving is E, reden opschorting bij Emigratie Ministerieel Besluit is M)
+  Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als een persoon ambtshalve is uitgeschreven bij onbekend adres.
+    Wanneer een persoon ambtshalve wordt uitgeschreven is de verblijfplaats van de persoon niet bekend, nadat uitgebreid onderzoek heeft plaatsgevonden door de gemeente.
+    (note voor automation: reden opschorting ambtshalve uitschrijving is E)
 
     Scenario: Ambtshalve uitschrijving bij onbekend adres
       Als de ambtshalve uitschrijving bij onbekend adres van 'Jan' is verwerkt
@@ -84,6 +83,10 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       * het A-nummer van 'Jan'
       * de datum dat 'Jan' is geemigreerd
       * het land adres buitenland is 'onbekend'
+
+ Regel: Er heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden als een persoon is geemigreerd als gevolg van een Ministerieel Besluit.
+    Een Ministerieel Besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn.
+    (note voor automation: reden opschorting bij Emigratie Ministerieel Besluit is M)
 
     Scenario: Emigratie Ministerieel Besluit
       Als de emigratie Ministerieel Besluit van 'Jan' is verwerkt
