@@ -7,7 +7,7 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
   zodat ik de invordering naar het juiste adres kan sturen en het weet wanneer een persoon vertrokken is.
  
   Als afdeling WGS Vroegsignalering van de gemeente wil ik het weten wanneer een gevolgde persoon verhuisd is naar een andere gemeente,
-  zodat ik het dossier kan overdragen naar de nieuwe gemeente en het dossier kan sluiten.
+  zodat ik het dossier kan overdragen aan de nieuwe gemeente en het dossier kan sluiten.
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
