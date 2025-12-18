@@ -6,7 +6,7 @@ Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een 
   Als afdeling Parkeerbelasting van de gemeente wil ik het weten wanneer een gevolgde persoon verhuisd is,
   zodat ik de invordering naar het juiste adres kan sturen en het weet wanneer een persoon vertrokken is.
  
-  Als afdeling WGS Vroegsignalering van de gemeente wil ik het weten wanneer een gevolgde persoon verhuisd is naar een andere gemeente,
+  Als afdeling WGS Vroegsignalering van de gemeente wil ik het weten wanneer mijn client is verhuisd van mijn eigen gemeente naar een andere gemeente,
   zodat ik het dossier kan overdragen aan de nieuwe gemeente en het dossier kan sluiten.
 
   Achtergrond:
