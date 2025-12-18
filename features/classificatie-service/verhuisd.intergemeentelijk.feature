@@ -24,10 +24,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
     Scenario: Aangifte van adreswijziging naar een andere gemeente in Nederland
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
-      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
-      * de vanaf datum van de aangifte van adreswijziging van 'Jan'
-      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
+      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
 
     Scenario: Aangifte van adreswijziging naar een ander adres in dezelfde gemeente
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
@@ -49,23 +46,14 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
       * schrijft zich in vanaf '1-9-2025' in op het briefadres 'Stadserf_1_Roosendaal'
-      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
-      * de vanaf datum van de aangifte van adreswijziging van 'Jan'
-      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
-      * de functie van het adres is 'briefadres'
-     
+      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd     
 
     Scenario: De persoon heeft aangifte van adreswijziging gedaan van een briefadres naar een woonadres in een andere gemeente
       Gegeven de persoon 'Cees'
       * staat vanaf '14-4-2020' op het briefadres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' ingeschreven
       Als de aangifte van adreswijziging van 'Cees' is verwerkt
       * verblijft vanaf '1-9-2025' op het woonadres 'Stadserf_1_Roosendaal'
-      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Cees'
-      * de vanaf datum van de aangifte van adreswijziging van 'Cees'
-      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
-      * de functie van het adres is 'woonadres'
+      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
 
   Regel: Wanneer het adres is gewijzigd door een infrastructurele wijziging, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
 
@@ -104,11 +92,26 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       * verblijft vanaf '1-9-2025' op het adres 'Laan_van_Westenenk_701_Apeldoorn'
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
 
-    Scenario: De persoon verhuist naar een adres met adresserbaar object identificatie en aanduiding bij huisnummer
-      En het adres 'Tegenover_Laan_van_Westenenk_701_Apeldoorn'
-      * in gemeente 'Apeldoorn'
-      * met adresseerbaar object identificatie '0200010000130331'
-      * met aanduiding bij huisnummer 'tegenover'
+  Regel: Bij gebeurtenis 'verhuisd.intergemeentelijk' wordt de datum aanvang adreshouding en de adresseerbaar object identificatie en functie adres gepubliceerd
+    zodat de gebeurtenis uniek kan worden geïdentificeerd
+    en zo nodig overige gegevens van de nieuwe verblijfplaats kunnen worden opgezocht
+
+    Scenario: Aangifte van adreswijziging naar een andere gemeente in Nederland
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
-      * verblijft vanaf '1-9-2025' op het adres 'Tegenover_Laan_van_Westenenk_701_Apeldoorn'
-      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
+      * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
+      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * de vanaf datum van de aangifte van adreswijziging van 'Jan'
+      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
+      * de functie van het adres is 'woonadres'
+
+    Scenario: De persoon heeft aangifte van adreswijziging gedaan van een woonadres naar een briefadres in een andere gemeente
+      Gegeven de persoon 'Jan'
+      * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+      Als de aangifte van adreswijziging van 'Jan' is verwerkt
+      * schrijft zich in vanaf '1-9-2025' in op het briefadres 'Stadserf_1_Roosendaal'
+      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * de vanaf datum van de aangifte van adreswijziging van 'Jan'
+      * de adresseerbaar object identificatie van het adres 'Stadserf_1_Roosendaal'
+      * de functie van het adres is 'briefadres'
