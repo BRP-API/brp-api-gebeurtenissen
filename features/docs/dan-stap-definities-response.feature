@@ -1,5 +1,6 @@
 #language: nl
 
+@stap-documentatie
 Functionaliteit: Response dan stap definities
 
   Scenario: Dan is de response '409 Conflict'

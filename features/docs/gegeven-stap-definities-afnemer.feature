@@ -1,4 +1,5 @@
 # language: nl
+@stap-documentatie
 Functionaliteit: Afnemer gegeven stap definities
 
   Scenario: Gegeven de afnemer '[afnemer aanduiding]'

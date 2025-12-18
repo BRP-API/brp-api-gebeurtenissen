@@ -51,5 +51,19 @@ module.exports = {
                 level: 'warn'
             }
         }
+    },
+    EndToEnd: {
+        ...baseConfig,
+        paths: ['features/*.feature'], // Only run end-to-end features
+        format: [ // output formats and locations
+            'json:./test-reports/cucumber-js/e2e/test-result.json',
+            'summary:./test-reports/cucumber-js/e2e/test-result-summary.txt',
+            'summary'
+        ],
+        worldParameters: {
+            logger: {
+                level: 'warn'
+            }
+        }
     }
 };

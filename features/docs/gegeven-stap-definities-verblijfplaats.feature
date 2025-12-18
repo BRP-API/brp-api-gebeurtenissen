@@ -1,4 +1,5 @@
 # language: nl
+@stap-documentatie
 Functionaliteit: Verblijfplaats gegeven stap definities
 
   Scenario: Gegeven verblijft vanaf '[datum]' op het adres '[adres aanduiding]'

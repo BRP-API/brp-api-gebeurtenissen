@@ -1,6 +1,6 @@
 # language: nl
 
-@mutatie-service
+@stap-documentatie @mutatie-service
 Functionaliteit: als stap definities
 
   Scenario: Als aangifte van adreswijziging van '[persoon indicatie]' is verwerkt

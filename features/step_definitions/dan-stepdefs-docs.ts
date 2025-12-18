@@ -99,6 +99,10 @@ Then('is de gegenereerde protocol mapper JSON voor afnemer {string}', function (
 });
 
 Then('is de client succesvol aangemaakt in Keycloak voor afnemer {string}', async function (afnemerAanduiding: string) {
+    if(!this.isStapDocumentatieIntegratieScenario) {
+        return;
+    }
+
     const afnemer = this.context.afnemers[afnemerAanduiding];
 
     const client = await fetchClientVoorAfnemer(afnemer);

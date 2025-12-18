@@ -1,4 +1,5 @@
 # language: nl
+@stap-documentatie
 Functionaliteit: Adres gegeven stap definities
 
   Scenario: Gegeven het adres '[adres aanduiding]'

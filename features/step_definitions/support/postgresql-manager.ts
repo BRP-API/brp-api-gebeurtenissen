@@ -9,7 +9,7 @@ export class PostgresqlManager {
     constructor(config: PoolConfig) {
         this.pool = new Pool(config);
 
-        logger.info('PostgreSQL connection pool created.');
+        logger.debug('PostgreSQL connection pool created.');
     }
 
     public static setup(config: PoolConfig): void {
@@ -26,16 +26,17 @@ export class PostgresqlManager {
     async close(): Promise<void> {
         if (this.pool) {
             await this.pool.end();
-            logger.info('PostgreSQL connection pool closed.');
+            logger.debug('PostgreSQL connection pool closed.');
         }
         PostgresqlManager.instance = null;
     }
 
     async execute(sqlStatement: SqlStatement): Promise<Map<string, any>> {
+        logger.debug(`PostgresqlManager.execute`, { sqlStatement: sqlStatement });
+
         const client: PoolClient = await this.pool.connect();
 
         try {
-            logger.info(`Executing SQL: ${sqlStatement.statementText}`, sqlStatement.values);
             const result: QueryResult = await client.query(sqlStatement.statementText, sqlStatement.values);
             
             // Convert each row to a Map with only columns that have values
@@ -49,11 +50,11 @@ export class PostgresqlManager {
                 }
             }
 
-            logger.info(`SQL executed successfully. Result: ${JSON.stringify(Object.fromEntries(resultMap))}`);
+            logger.debug(`PostgresqlManager.execute success`, { sqlStatement: sqlStatement, result: JSON.stringify(Object.fromEntries(resultMap)) });
 
             return resultMap;
         } catch (error) {
-            logger.error(`Error executing SQL: ${error}`);
+            logger.error(`PostgresqlManager.execute error`, { sqlStatement: sqlStatement, error: error });
 
             throw error;
         } finally {

@@ -1,13 +1,8 @@
 import { Afnemer } from "../brp/afnemer-entity";
 import { logger } from "./logger";
 import { getClientAccessToken } from "./oauth-helpers";
-import * as dotenv from "dotenv";
-
-dotenv.config();
 
 export async function registreerAlsAbonnee(afnemer?: Afnemer): Promise<any> {
-    logger.info(`Registreer afnemer '${afnemer?.aanduiding}' als abonnee`);
-
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
     const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/abonnees`, {
@@ -16,6 +11,8 @@ export async function registreerAlsAbonnee(afnemer?: Afnemer): Promise<any> {
             'Authorization': `Bearer ${accessToken}`
         },
     });
+
+    logger.debug(`registreerAlsAbonnee '${afnemer?.aanduiding}'`, {response: response });
 
     return await response.json();
 }
