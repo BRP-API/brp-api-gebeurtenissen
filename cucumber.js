@@ -14,6 +14,14 @@ module.exports = {
             },
         }
     },
+    debug: {
+        ...baseConfig,
+        worldParameters: {
+            logger: {
+                level: 'debug', // Override logger level for debug
+            },
+        },
+    },
     dev: {
         ...baseConfig,
         worldParameters: {
