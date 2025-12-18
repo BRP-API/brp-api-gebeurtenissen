@@ -1,0 +1,57 @@
+openapi: 3.1.0
+info:
+  title: CloudEvents Specification YAML Format
+  version: 1.0.2
+components: 
+  schemas:
+    CloudEvent:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/iddef'
+        specversion:
+          $ref: '#/components/schemas/specversiondef'
+        type:
+          $ref: '#/components/schemas/typedef'
+        data:
+          $ref: '#/components/schemas/datadef'
+      required:
+        - id
+        - specversion
+        - type
+
+    typedef:
+      description: |
+        Describes the type of event related to the originating occurrence.
+      type: string
+      minLength: 1
+
+    datadef:
+      description: |
+        The event payload.
+      type: object
+
+    iddef:
+      description: |
+        Identifies the event.
+      type: string
+      format: uuid
+
+    sourcedef:
+      description: |
+        Identifies the context in which an event happened.
+      type: string
+      format: uri-reference
+      minLength: 1
+
+    specversiondef:
+      description: |
+        The version of the CloudEvents specification which the event uses.
+      type: string
+      minLength: 1
+
+    timedef:
+      description: |
+        Timestamp of when the occurrence happened. Must adhere to RFC 3339.
+      type: string
+      format: date-time

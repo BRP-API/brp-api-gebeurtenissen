@@ -27,6 +27,26 @@ paths:
         content:
           application/json:
             schema: 
+              $ref: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
+      responses: 
+        '201':
+          description: Abonnement(en) succesvol aangemaakt.
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+
+
+  /abonnees/mijn/abonnementen:
+    post: 
+      operationId: Abonnementen
+      summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
+      requestBody: 
+        content:
+          application/json:
+            schema: 
               $ref: '#/components/schemas/AbonneerOpGebeurtenisTypeCommand'
       responses: 
         '201':
@@ -45,7 +65,37 @@ components:
       flows:
         clientCredentials:
           tokenUrl: http://identityserver:6000/connect/token
+          scopes: {}
 
+
+  schemas:
+    AbonnementenCommand:
+      type: object
+      properties:
+        type:
+          type: string
+      required:
+        - type
+      discriminator: 
+        propertyName: type
+        mapping: 
+          AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
+
+    AbonneerOpGebeurtenisTypeVanPersoonCommand:
+      allOf: 
+        - $ref: '#/components/schemas/AbonnementenCommand'
+        - type: object
+          properties:
+            gebeurtenisType:
+              type: string
+              pattern: ^[a-z/-/.]{1,50}$
+              description: Het gebeurtenistype waarop de abonnee zich wil abonneren
+            burgerservicenummer:
+              $ref: '../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
+          required:
+            - gebeurtenisType
+            - burgerservicenummer
 
   schemas:
     AbonnementenCommand:

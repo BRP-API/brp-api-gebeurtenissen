@@ -1,4 +1,5 @@
 # language: nl
+@integratie
 Functionaliteit: Registreer abonnee
   Als afnemer van BRP API Gebeurtenissen
   wil ik mijn interne afnemers (applicaties, processen) als abonnee kunnen registreren

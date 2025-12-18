@@ -1,6 +1,6 @@
 import { createLogger, format, transports, Logger } from 'winston';
 
-export function createWinstonLogger(logLevel: string): Logger {
+function createWinstonLogger(logLevel: string): Logger {
     return createLogger({
         level: logLevel,
         transports: [
@@ -9,4 +9,12 @@ export function createWinstonLogger(logLevel: string): Logger {
             })
         ]
     });
-};
+}
+
+let loggerInstance: Logger = createWinstonLogger('warn');
+
+export function setupLogger(logLevel: string): void {
+    loggerInstance.level = logLevel;
+}
+
+export const logger = loggerInstance;
