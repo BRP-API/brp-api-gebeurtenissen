@@ -1,5 +1,5 @@
 # language: nl
-@integratie
+@stap-documentatie@integratie
 Functionaliteit: Database dan stap definities gebeurtenissen
 
   Scenario: Gegeven het adres '[adres aanduiding]'

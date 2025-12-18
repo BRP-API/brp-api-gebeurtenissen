@@ -11,6 +11,8 @@ export interface ICustomWorld extends World {
     expected: any;
     result: any;
     huidigAanduiding: Aanduiding | null;
+    isStapDocumentatieScenario: boolean;
+    isStapDocumentatieIntegratieScenario: boolean;
     init(pickle: Pickle): void;
 }
 
@@ -22,6 +24,8 @@ export class CustomWorld extends World implements ICustomWorld {
     expected: any;
     result: any;
     huidigAanduiding: Aanduiding | null;
+    isStapDocumentatieScenario: boolean = false;
+    isStapDocumentatieIntegratieScenario: boolean = false;
 
     constructor(options: IWorldOptions) {
         super(options);
@@ -38,6 +42,9 @@ export class CustomWorld extends World implements ICustomWorld {
 
     init(pickle: Pickle) {
         this.tags = pickle.tags.map(tag => tag.name);
+
+        this.isStapDocumentatieScenario = this.tags.includes('@stap-documentatie') && !this.tags.includes('@integratie');
+        this.isStapDocumentatieIntegratieScenario = this.tags.includes('@stap-documentatie') && this.tags.includes('@integratie');
     }
 }
 

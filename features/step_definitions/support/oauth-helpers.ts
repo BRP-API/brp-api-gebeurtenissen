@@ -67,11 +67,12 @@ async function createClientScope(adminToken: string, scopeName: string): Promise
         body: JSON.stringify(generateClientScopeJSON(scopeName))
     });
     
+    logger.debug(`create client scope '${scopeName}'`, { response: response });
+
     if (!response.ok) {
         throw new Error(`Failed to create client scope '${scopeName}': ${response.status} ${response.statusText}`);
     }
 
-    logger.info(`Created client scope '${scopeName}'`);
     return response.headers.get('Location')!.split('/').pop()!;
 }
 
@@ -105,11 +106,12 @@ async function createClient(adminToken: string, clientId: string, clientSecret: 
         body: JSON.stringify(generateClientJSON(clientId, clientSecret))
     });
 
+    logger.debug(`create client '${clientId}'`, { response: response });
+
     if (!response.ok) {
         throw new Error(`Failed to create client '${clientId}': ${response.status} ${response.statusText}`);
     }
 
-    logger.info(`Created client '${clientId}'`);
     return response.headers.get('Location')!.split('/').pop()!;
 }
 
@@ -140,11 +142,11 @@ async function addProtocolMapperToClient(adminToken: string, clientUuid: string,
         body: JSON.stringify(generateProtocollMapperJSON(oin, afnemerID, gemeenteCode))
     });
 
+    logger.debug(`add protocol mapper to client '${clientUuid}', oin='${oin}', afnemerID='${afnemerID}', gemeenteCode='${gemeenteCode}'`, { response: response });
+
     if (!response.ok) {
         throw new Error(`Failed to add protocol mapper to client '${clientUuid}': ${response.status} ${response.statusText}`);
     }
-
-    logger.info(`Added claims protocol mapper to client '${clientUuid}'`);
 }
 
 async function addOptionalClientScopeToClient(adminToken: string, clientUuid: string, scopeUuid: string): Promise<void> {
@@ -155,15 +157,15 @@ async function addOptionalClientScopeToClient(adminToken: string, clientUuid: st
         }
     });
 
+    logger.debug(`add optional client scope '${scopeUuid}' to client '${clientUuid}'`, { response: response });
+
     if (!response.ok) {
         throw new Error(`Failed to add optional client scope '${scopeUuid}' to client '${clientUuid}': ${response.status} ${response.statusText}`);
     }
-
-    logger.info(`Added optional client scope '${scopeUuid}' to client '${clientUuid}'`);
 }
 
 export async function setupClient(afnemer: Afnemer): Promise<void> {
-    logger.info('Setting up client', afnemer);
+    logger.debug('Setting up client', {afnemer: afnemer});
 
     const adminToken = await getAdminAccessToken();
 
@@ -212,7 +214,7 @@ async function deleteClientScopes(adminToken: string, scopeUuid: string): Promis
 }
 
 export async function tearDownClient(afnemer: Afnemer): Promise<void> {
-    logger.info('Tearing down client', afnemer);
+    logger.debug('Tearing down client', afnemer);
 
     const adminToken = await getAdminAccessToken();
 

@@ -1,4 +1,5 @@
 # language: nl
+@stap-documentatie
 Functionaliteit: Afnemer gegeven stap definities
 
   Scenario: Gegeven de afnemer '[afnemer aanduiding]'
@@ -144,17 +145,24 @@ Functionaliteit: Afnemer gegeven stap definities
       }
       """
 
-  @integratie
-  Scenario: Aanmaken van een client in Keycloak voor afnemer
-    Gegeven de afnemer 'Gemeente Rotterdam'
-    * in gemeente 'Rotterdam'
-    * met afnemer identificatie '000002'
-    * met oin '000000099000000082345'
-    Dan is de client succesvol aangemaakt in Keycloak voor afnemer 'Gemeente Rotterdam'
+  Regel: De default afnemer (geen enkel gegeven wordt expliciet gezet) heeft als oin '000000099000000010000', afnemer identificatie '000001' en geen gemeente
 
-  @integratie
-  Scenario: Aanmaken van een client in Keycloak voor afnemer zonder gemeentecode
-    Gegeven de afnemer 'Afnemer Zonder Gemeente'
-    * met afnemer identificatie '200001'
-    * met oin '000000099000000085678'
-    Dan is de client succesvol aangemaakt in Keycloak voor afnemer 'Afnemer Zonder Gemeente'
+    @integratie
+    Scenario: Aanmaken van een client in Keycloak voor de default afnemer
+      Gegeven de afnemer 'Default Afnemer'
+      Dan is de client succesvol aangemaakt in Keycloak voor afnemer 'Default Afnemer'
+
+    @integratie
+    Scenario: Aanmaken van een client in Keycloak voor afnemer
+      Gegeven de afnemer 'Gemeente Rotterdam'
+      * in gemeente 'Rotterdam'
+      * met afnemer identificatie '000002'
+      * met oin '000000099000000082345'
+      Dan is de client succesvol aangemaakt in Keycloak voor afnemer 'Gemeente Rotterdam'
+
+    @integratie
+    Scenario: Aanmaken van een client in Keycloak voor afnemer die geen gemeente is
+      Gegeven de afnemer 'Niet-gemeente afnemer'
+      * met afnemer identificatie '200001'
+      * met oin '000000099000000085678'
+      Dan is de client succesvol aangemaakt in Keycloak voor afnemer 'Niet-gemeente afnemer'

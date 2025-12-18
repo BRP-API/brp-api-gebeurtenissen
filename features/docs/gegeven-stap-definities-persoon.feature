@@ -1,4 +1,5 @@
 # language: nl
+@stap-documentatie
 Functionaliteit: Persoon gegeven stap definities
 
   Scenario: Gegeven de persoon '[persoon aanduiding]'

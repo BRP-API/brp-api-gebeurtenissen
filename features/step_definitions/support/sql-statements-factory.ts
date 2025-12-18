@@ -104,4 +104,9 @@ export function createSelectStatement(tableName: string, columns: string[], valu
     const whereClause = columns.map((col, index) => `${col} = $${index + 1}`).join(' AND ');
     const statementText = `SELECT ${columns.join(', ')} FROM ${tableName} WHERE ${whereClause}`;
     return new SqlStatement(statementText, values);
-}   
+}
+
+export function createLo3AdresDeleteStatement(adres: Adres): SqlStatement {
+    const statementText = `DELETE FROM public.lo3_adres WHERE adres_id = $1`;
+    return new SqlStatement(statementText, [adres.adres_id]);
+}

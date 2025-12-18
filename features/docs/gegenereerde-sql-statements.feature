@@ -1,4 +1,5 @@
 # language: nl
+@stap-documentatie
 Functionaliteit: gegenereerde sql statements
 
   Regel: Voor een standaard adres is gemeente_code gelijk aan MAX(gemeente_code)+1 en is verblijf_plaats_ident_code gelijk aan MAX(verblijf_plaats_ident_code)+1
