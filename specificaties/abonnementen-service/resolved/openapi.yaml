@@ -50,13 +50,26 @@ components:
           tokenUrl: http://identityserver:6000/connect/token
           scopes: {}
   schemas:
-    RegistreerAbonneeCommand:
+    AbonneeCommand:
       type: object
       properties:
-        abonneeNaam:
-          $ref: '#/components/schemas/AbonneeNaam'
+        type:
+          type: string
       required:
-        - abonneeNaam
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          RegistreerAbonnee: '#/components/schemas/RegistreerAbonneeCommand'
+    RegistreerAbonneeCommand:
+      allOf:
+        - $ref: '#/components/schemas/AbonneeCommand'
+        - type: object
+          properties:
+            abonneeNaam:
+              $ref: '#/components/schemas/AbonneeNaam'
+          required:
+            - abonneeNaam
     AbonneeNaam:
       type: string
       description: De naam van de abonnee
