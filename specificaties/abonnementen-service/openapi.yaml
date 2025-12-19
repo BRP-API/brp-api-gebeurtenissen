@@ -7,6 +7,11 @@ paths:
     post:
       operationId: RegistreerAbonnee
       summary: Registreer een geauthenticeerde afnemer als nieuwe abonnee van BRP API Gebeurtenissen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistreerAbonneeCommand'
       responses:
         '201':
           description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
@@ -49,6 +54,16 @@ components:
 
 
   schemas:
+    RegistreerAbonneeCommand:
+      type: object
+      properties:
+        abonneeNaam:
+          $ref: '#/components/schemas/AbonneeNaam'
+      required:
+        - abonneeNaam
+    AbonneeNaam:
+      type: string
+      description: De naam van de abonnee
     AbonnementenCommand:
       type: object
       properties:
@@ -66,6 +81,9 @@ components:
         - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
           properties:
+            abonneeNaam:
+              $ref: '#/components/schemas/AbonneeNaam'
+              description: De naam van de abonnee
             gebeurtenisType:
               type: string
               pattern: ^[a-z/-/.]{1,50}$
@@ -74,5 +92,6 @@ components:
               $ref: '../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
               description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
           required:
+            - abonneeNaam
             - gebeurtenisType
             - burgerservicenummer
