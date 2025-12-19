@@ -42,7 +42,7 @@ function extendSqlStatementValuesPartForVerblijfplaatsIdentificatieCode(adres: A
 }
 
 export function createLo3AdresInsertStatement(adres: Adres): SqlStatement {
-    let values: string[] = [];
+    const values: string[] = [];
 
     let valuesPart = extendSqlStatementValuesPartForAdresId();
     valuesPart = extendSqlStatementValuesPartForGemeentecode(adres, valuesPart, values);

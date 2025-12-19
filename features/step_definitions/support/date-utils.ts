@@ -81,5 +81,10 @@ export function toBrpApiDatum(dateString: string): BrpApiDatum | undefined {
 }
 
 export function toDateOrString(value: string, dateAsDate: boolean): Date | string {
-    return value;
+    if(dateAsDate) {
+        const asDate = toBrpDate(value);
+        return new Date(asDate);
+    } else {
+        return value;
+    }
 }

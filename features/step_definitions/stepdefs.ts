@@ -101,8 +101,8 @@ AfterStep(function(this: ICustomWorld, { pickleStep }) {
 function copyIdIfExpectedIsExternalEventAndResultHasId(expected: any, result: any) {
     if (expected instanceof Event &&
         !expected.intern &&
-        result.hasOwnProperty('id')) {
-        expected.id = result.id;
+        result && result.id) {
+            expected.id = result.id;
     }
 }
 

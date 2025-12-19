@@ -11,7 +11,7 @@ function createWinstonLogger(logLevel: string): Logger {
     });
 }
 
-let loggerInstance: Logger = createWinstonLogger('warn');
+const loggerInstance: Logger = createWinstonLogger('warn');
 
 export function setupLogger(logLevel: string): void {
     loggerInstance.level = logLevel;

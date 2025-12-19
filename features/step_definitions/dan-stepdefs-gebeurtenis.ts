@@ -5,6 +5,7 @@ import { Aanduiding } from './support/aanduiding';
 import { VerhuisdIntergemeentelijkEvent } from './brp/verhuisd-intergemeentelijk-event';
 import { AangifteVanAdreswijzigingCommand } from './brp-api/commands';
 import { Persoon } from './brp/persoon-entity';
+import { logger } from './support/logger';
 
 Then('zijn er geen gebeurtenissen gepubliceerd', function () {
 });
@@ -45,6 +46,8 @@ Then('het A-nummer van {string}', function (aanduidingPersoon: string) {
 });
 
 Then('de vanaf datum van de opgave van verhuizing van {string}', function (persoonAanduiding: string) {
+    logger.info(`Stap: de vanaf datum van de opgave van verhuizing van ${persoonAanduiding}`);
+    
     if(this.expected instanceof VerhuisdIntergemeentelijkEvent) {
         this.expected.setVerhuisdatum(this.command.verhuisdatum);
         return;

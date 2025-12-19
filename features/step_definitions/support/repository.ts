@@ -42,7 +42,7 @@ export async function createPersoon(persoon: Persoon): Promise<void> {
 
     if(persoon.verblijfplaats !== undefined) {
 
-        let statement2 = createLo3PlVerblijfplaatsInsertStatement(persoon);
+        const statement2 = createLo3PlVerblijfplaatsInsertStatement(persoon);
         await PostgresqlManager.getInstance().execute(statement2);
     }
 }
