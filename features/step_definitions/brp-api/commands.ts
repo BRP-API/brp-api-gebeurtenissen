@@ -23,3 +23,27 @@ export class AangifteVanAdreswijzigingCommand extends Command {
         }
     }
 }
+
+export class RegistreerAbonneeCommand extends Command {
+    abonneeNaam?: string;
+
+    constructor(abonneeNaam: string) {
+        super('RegistreerAbonnee');
+
+        this.abonneeNaam = abonneeNaam;
+    }
+}
+
+export class AbonneerOpgebeurtenisTypeVanPersoonCommand extends Command {
+    abonneeNaam: string;
+    gebeurtenisType: string;
+    burgerservicenummer: string;
+
+    constructor(abonneeNaam: string, gebeurtenisType: string, burgerservicenummer: string) {
+        super('AbonneerOpGebeurtenisTypeVanPersoon');
+
+        this.abonneeNaam = abonneeNaam;
+        this.gebeurtenisType = gebeurtenisType;
+        this.burgerservicenummer = burgerservicenummer;
+    }
+}

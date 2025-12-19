@@ -36,6 +36,17 @@ Given('met adresseerbaar object identificatie {string}', function (adresseerbaar
     }
 });
 
+Given('met de functie {string}', function (adresfunctie: string) {
+    const functieMap: {[key: string]: string} = {
+        'woonadres': 'W',
+        'briefadres': 'B'
+    };
+
+    if(this.huidigAanduiding?.isAdres) {
+        (this.context.adressen[this.huidigAanduiding.id] as Adres).adres_functie = functieMap[adresfunctie] || adresfunctie;
+    }
+});
+
 Given('het adres buitenland {string}', function (adresAanduiding: string) {
     if(!this.context.adressen) {
         this.context.adressen = {};

@@ -10,3 +10,7 @@ Given('de verwerkte aangifte van adreswijziging van {string}', function (persoon
 
     this.huidigAanduiding = Aanduiding.command(persoonAanduiding);
 });
+
+Given('er is een {type} gebeurtenis gepubliceerd voor de persoon {string}', async function () {
+    throw new Error('Not implemented yet');
+});
