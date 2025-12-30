@@ -57,6 +57,22 @@ export function generateClientScopeJSON(scopeName: string): any {
     };
 }
 
+async function findClientScopeIdByName(adminToken: string, scopeName: string): Promise<string | undefined> {
+    const response = await fetch(`${oauthConfig.brpApiRealm.adminBaseUrl}/client-scopes`, {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${adminToken}` }
+    });
+
+    if (!response.ok) {
+        logger.error('Failed to list client scopes when resolving existing scope', { status: response.status, statusText: response.statusText });
+        throw new Error(`Failed to list client scopes: ${response.status} ${response.statusText}`);
+    }
+
+    const scopes = await response.json();
+    const found = (scopes || []).find((s: any) => s.name === scopeName);
+    return found?.id;
+}
+
 async function createClientScope(adminToken: string, scopeName: string): Promise<string> {
     const response = await fetch(`${oauthConfig.brpApiRealm.adminBaseUrl}/client-scopes`, {
         method: 'POST',
@@ -66,34 +82,55 @@ async function createClientScope(adminToken: string, scopeName: string): Promise
         },
         body: JSON.stringify(generateClientScopeJSON(scopeName))
     });
-    
+
     logger.debug(`create client scope '${scopeName}'`, { response: response });
 
-    if (!response.ok) {
-        throw new Error(`Failed to create client scope '${scopeName}': ${response.status} ${response.statusText}`);
+    if (response.ok) {
+        return response.headers.get('Location')!.split('/').pop()!;
     }
 
-    return response.headers.get('Location')!.split('/').pop()!;
+    if (response.status === 409) {
+        logger.info(`Client scope '${scopeName}' already exists, fetching existing id`);
+        const existingId = await findClientScopeIdByName(adminToken, scopeName);
+        if (existingId) return existingId;
+    }
+
+    throw new Error(`Failed to create client scope '${scopeName}': ${response.status} ${response.statusText}`);
 }
 
 export function generateClientJSON(clientId: string, clientSecret: string): any {
     return {
-            clientId: clientId,
-            secret: clientSecret,
-            enabled: true,
-            clientAuthenticatorType: 'client-secret',
-            standardFlowEnabled: false,
-            implicitFlowEnabled: false,
-            directAccessGrantsEnabled: false,
-            serviceAccountsEnabled: true,
-            publicClient: false,
-            protocol: 'openid-connect',
-            attributes: {
-                'access.token.lifespan': '300',
-                'oauth2.device.authorization.grant.enabled': 'false',
-                'oidc.ciba.grant.enabled': 'false'
-            }
+        clientId: clientId,
+        secret: clientSecret,
+        enabled: true,
+        clientAuthenticatorType: 'client-secret',
+        standardFlowEnabled: false,
+        implicitFlowEnabled: false,
+        directAccessGrantsEnabled: false,
+        serviceAccountsEnabled: true,
+        publicClient: false,
+        protocol: 'openid-connect',
+        attributes: {
+            'access.token.lifespan': '300',
+            'oauth2.device.authorization.grant.enabled': 'false',
+            'oidc.ciba.grant.enabled': 'false'
         }
+    };
+}
+
+async function findClientIdByClientId(adminToken: string, clientId: string): Promise<string | undefined> {
+    const response = await fetch(`${oauthConfig.brpApiRealm.adminBaseUrl}/clients?clientId=${encodeURIComponent(clientId)}`, {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${adminToken}` }
+    });
+
+    if (!response.ok) {
+        logger.error('Failed to fetch client when resolving existing client', { status: response.status, statusText: response.statusText });
+        throw new Error(`Failed to fetch client for clientId '${clientId}': ${response.status} ${response.statusText}`);
+    }
+
+    const clients = await response.json();
+    return clients[0]?.id;
 }
 
 async function createClient(adminToken: string, clientId: string, clientSecret: string): Promise<string> {
@@ -108,11 +145,17 @@ async function createClient(adminToken: string, clientId: string, clientSecret: 
 
     logger.debug(`create client '${clientId}'`, { response: response });
 
-    if (!response.ok) {
-        throw new Error(`Failed to create client '${clientId}': ${response.status} ${response.statusText}`);
+    if (response.ok) {
+        return response.headers.get('Location')!.split('/').pop()!;
     }
 
-    return response.headers.get('Location')!.split('/').pop()!;
+    if (response.status === 409) {
+        logger.warn(`Client '${clientId}' already exists, fetching existing id`);
+        const existingId = await findClientIdByClientId(adminToken, clientId);
+        if (existingId) return existingId;
+    }
+
+    throw new Error(`Failed to create client '${clientId}': ${response.status} ${response.statusText}`);
 }
 
 export function generateProtocollMapperJSON(oin: string, afnemerID: string, gemeenteCode?: string): any {
@@ -142,7 +185,7 @@ async function addProtocolMapperToClient(adminToken: string, clientUuid: string,
         body: JSON.stringify(generateProtocollMapperJSON(oin, afnemerID, gemeenteCode))
     });
 
-    logger.debug(`add protocol mapper to client '${clientUuid}', oin='${oin}', afnemerID='${afnemerID}', gemeenteCode='${gemeenteCode}'`, { response: response });
+    logger.debug(`add protocol mapper to client '${clientUuid}', oin='${oin}', afnemerID='${afnemerID}', gemeenteCode='${gemeenteCode}'`, { response });
 
     if (!response.ok) {
         throw new Error(`Failed to add protocol mapper to client '${clientUuid}': ${response.status} ${response.statusText}`);
@@ -207,6 +250,11 @@ async function deleteClientScopes(adminToken: string, scopeUuid: string): Promis
             'Authorization': `Bearer ${adminToken}`
         }
     });
+
+    if (response.status === 404) {
+        logger.debug(`Client scope '${scopeUuid}' not found when deleting - is this client scope already deleted?`);
+        return;
+    }
 
     if (!response.ok) {
         throw new Error(`Failed to delete client scope '${scopeUuid}': ${response.status} ${response.statusText}`);

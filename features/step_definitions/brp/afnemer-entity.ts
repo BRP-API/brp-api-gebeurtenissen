@@ -3,13 +3,19 @@ export class Afnemer {
     aanduiding: string;
     
     oin?: string;
-    afnemerId?: string;
+    afnemerId?: string = `${Math.random().toString(36).substring(2, 15)}`;
     gemeenteCode?: string;
 
     clientSecret?: string;
 
     idpId?: string;
     idpScopeId?: string;
+
+    clientSetup: boolean = false;
+
+    setupCompleted() {
+        this.clientSetup = true;
+    }
     
     constructor(aanduiding: string) {
         this.aanduiding = aanduiding;

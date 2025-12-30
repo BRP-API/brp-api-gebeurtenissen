@@ -24,7 +24,10 @@ AfterAll(async function() {
 
 async function createHuidigAanduiding(this: ICustomWorld) {
     if(this.huidigAanduiding?.isAfnemer) {
-        await setupClient(this.context.afnemers[this.huidigAanduiding.id!]);
+        if(!this.context.afnemers[this.huidigAanduiding.id!].clientSetup) {
+            await setupClient(this.context.afnemers[this.huidigAanduiding.id!]);
+            this.context.afnemers[this.huidigAanduiding.id!].setupCompleted();
+        }
         this.huidigAanduiding = null;
     }
     if(this.huidigAanduiding?.isAdres) {
