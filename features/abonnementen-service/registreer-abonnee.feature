@@ -19,6 +19,8 @@ Functionaliteit: Registreer abonnee
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
       Als de afnemer 'Gemeente Den Haag' zich registreert als abonnee 'szw'
       Dan is de response '409 Conflict' met de volgende velden
+      * 'instance' met tekst '/abonnees'
+      * 'title' met tekst 'Abonnee bestaat al'
       * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al als abonnee geregistreerd bent.'
 
     Scenario: Twee afnemers registreren zich met dezelfde abonneenaam
