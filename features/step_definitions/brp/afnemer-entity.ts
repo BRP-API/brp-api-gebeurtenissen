@@ -1,23 +1,23 @@
 export class Afnemer {
-    // wordt ook gebuikt als client_id
-    aanduiding: string;
-    
-    oin?: string;
-    afnemerId?: string = `${Math.random().toString(36).substring(2, 15)}`;
-    gemeenteCode?: string;
+  // wordt ook gebuikt als client_id
+  aanduiding: string;
 
-    clientSecret?: string;
+  oin?: string;
+  afnemerId?: string = `${Math.random().toString(36).substring(2, 15)}`;
+  gemeenteCode?: string;
 
-    idpId?: string;
-    idpScopeId?: string;
+  clientSecret?: string;
 
-    clientSetup: boolean = false;
+  idpId?: string;
+  idpScopeId?: string;
 
-    setupCompleted() {
-        this.clientSetup = true;
-    }
-    
-    constructor(aanduiding: string) {
-        this.aanduiding = aanduiding;
-    }
+  clientSetup: boolean = false;
+
+  setupCompleted() {
+    this.clientSetup = true;
+  }
+
+  constructor(aanduiding: string) {
+    this.aanduiding = aanduiding;
+  }
 }
