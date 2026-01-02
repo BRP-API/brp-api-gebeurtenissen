@@ -1,7 +1,7 @@
 import { Afnemer } from "../brp/afnemer-entity";
 import {getClientAccessToken, setupClient} from "./oauth-helpers";
 import { Command } from "../brp-api/commands";
-import {assert} from "chai";
+import { assert } from "chai";
 
 export async function registreerAbonnee(afnemer?: Afnemer, command?: Command): Promise<any> {
     assert(afnemer, 'Afnemer is vereist');

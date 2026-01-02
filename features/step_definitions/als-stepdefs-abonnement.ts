@@ -1,5 +1,5 @@
 import {When} from '@cucumber/cucumber';
-import {registreerAbonnee} from './support/abonnement-api-helpers';
+import {registreerAbonnee, abonneerOpgebeurtenisTypeVanPersoon} from './support/abonnement-api-helpers';
 import {AbonneerOpgebeurtenisTypeVanPersoonCommand, RegistreerAbonneeCommand} from "./brp-api/commands";
 import {parseResponse} from "./support/response-helper";
 
@@ -26,4 +26,9 @@ When('de abonnee {string} van afnemer {string} zich abonneert op de {string} geb
     const persoon = this.context.personen[persoonAanduiding];
     const command = new AbonneerOpgebeurtenisTypeVanPersoonCommand( abonneeNaam, gebeurtenisType, persoon.burger_service_nr);
     const afnemer = this.context.afnemers[afnemerAanduiding];
+
+    const response = await abonneerOpgebeurtenisTypeVanPersoon(afnemer, command);
+
+    const parsedResponse = await parseResponse(response);
+    this.result = parsedResponse.body || null;
 });

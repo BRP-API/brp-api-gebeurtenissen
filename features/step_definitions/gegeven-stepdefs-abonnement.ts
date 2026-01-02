@@ -1,5 +1,4 @@
 import { Given } from '@cucumber/cucumber';
-import { logger } from './support/logger';
 import { AbonneerOpgebeurtenisTypeVanPersoonCommand, RegistreerAbonneeCommand } from "./brp-api/commands";
 import { abonneerOpgebeurtenisTypeVanPersoon, registreerAbonnee } from "./support/abonnement-api-helpers";
 

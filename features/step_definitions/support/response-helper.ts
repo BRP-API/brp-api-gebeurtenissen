@@ -1,9 +1,9 @@
 /**
- * Normalize a fetch Response into an object
+ * Normalize a fetch Response into a ParsedResponseObject.
  */
-export async function parseResponse(response: Response) {
+export async function parseResponse(response: Response): Promise<ParsedResponseObject> {
     const contentType = response.headers?.get?.('content-type') ?? '';
-    let body: { };
+    let body: unknown;
     if (contentType.includes('application/json')) {
         try {
             body = await response.json();
@@ -19,4 +19,9 @@ export async function parseResponse(response: Response) {
         }
     }
     return { status: response.status, body };
+}
+
+interface ParsedResponseObject {
+    status: number;
+    body: unknown;
 }
