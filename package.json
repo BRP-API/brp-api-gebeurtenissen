@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prettier": "prettier --write .",
+    "prettier:check": "prettier --check .",
     "lint": "eslint features/step_definitions --ext .ts --quiet",
     "prepare": "husky install"
   },
