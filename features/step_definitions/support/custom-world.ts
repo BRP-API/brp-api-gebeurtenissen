@@ -3,6 +3,8 @@ import { Pickle } from '@cucumber/messages';
 import { setupLogger } from './logger';
 import { Aanduiding } from './aanduiding';
 
+const gebeurtenisTypesMap = new Map<string, string>([['verhuisd.intergemeentelijk', 'nl.brp.verhuisd.intergemeentelijk']]);
+
 export interface ICustomWorld extends World {
   tags: string[];
   stepContext: string;
@@ -33,7 +35,9 @@ export class CustomWorld extends World implements ICustomWorld {
     setupLogger(options.parameters?.logger?.level || 'warn');
     this.tags = [];
     this.stepContext = '';
-    this.context = {};
+    this.context = {
+      gebeurtenisTypes: gebeurtenisTypesMap,
+    };
     this.command = {};
     this.expected = {};
     this.result = {};

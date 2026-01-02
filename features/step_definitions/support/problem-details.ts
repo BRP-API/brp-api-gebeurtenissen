@@ -29,3 +29,9 @@ export class ConflictProblemDetails extends ProblemDetails {
     super('https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10', 'Conflict', 409, detail, instance);
   }
 }
+
+export class NotFoundProblemDetails extends ProblemDetails {
+  constructor(detail?: string, instance?: string) {
+    super('https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5', 'Not Found', 404, detail, instance);
+  }
+}

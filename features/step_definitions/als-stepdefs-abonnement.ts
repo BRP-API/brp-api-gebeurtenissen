@@ -24,9 +24,12 @@ When('de afnemer {string} zich registreert als abonnee {string}', async function
 When(
   'de abonnee {string} van afnemer {string} zich abonneert op de {string} gebeurtenissen van {string}',
   async function (abonneeNaam: string, afnemerAanduiding: string, gebeurtenisTypeAanduiding: string, persoonAanduiding: string) {
-    const gebeurtenisType = this.context.gebeurtenisTypes[gebeurtenisTypeAanduiding];
     const persoon = this.context.personen[persoonAanduiding];
-    const command = new AbonneerOpgebeurtenisTypeVanPersoonCommand(abonneeNaam, gebeurtenisType, persoon.burger_service_nr);
+    const command = new AbonneerOpgebeurtenisTypeVanPersoonCommand(
+      abonneeNaam,
+      this.context.gebeurtenisTypes.get(gebeurtenisTypeAanduiding),
+      persoon.burger_service_nr
+    );
     const afnemer = this.context.afnemers[afnemerAanduiding];
 
     const response = await abonneerOpgebeurtenisTypeVanPersoon(afnemer, command);

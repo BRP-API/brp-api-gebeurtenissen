@@ -13,11 +13,11 @@ Given('is geregistreerd als abonnee {string} van BRP API Gebeurtenissen', async 
   const afnemer = this.context.afnemers[this.huidigAanduiding.id];
   const command = new RegistreerAbonneeCommand(abonneeNaam);
 
-  this.context.result = await registreerAbonnee(afnemer, command);
+  await registreerAbonnee(afnemer, command);
 });
 
 Given(
-  'de abonnee {string} is geabonneerd op {string} gebeurtenissen van de persoon {string}',
+  'abonnee {string} is geabonneerd op {string} gebeurtenissen van de persoon {string}',
   async function (abonneeNaam: string, afnemerAanduiding: string, gebeurtenisTypeAanduiding: string, persoonAanduiding: string) {
     this.context.abonnees = this.context.abonnees || {};
     this.context.abonnees[abonneeNaam] = abonneeNaam;
@@ -27,6 +27,21 @@ Given(
     const command = new AbonneerOpgebeurtenisTypeVanPersoonCommand(abonneeNaam, gebeurtenisType, persoon.burger_service_nr);
     const afnemer = this.context.afnemers[afnemerAanduiding];
 
-    this.context.result = await abonneerOpgebeurtenisTypeVanPersoon(afnemer, command);
+    await abonneerOpgebeurtenisTypeVanPersoon(afnemer, command);
+  }
+);
+
+Given(
+  'abonnee {string} van afnemer {string} is geabonneerd op de {string} gebeurtenissen van {string}',
+  async function (abonneeNaam: string, afnemerAanduiding: string, gebeurtenisTypeAanduiding: string, persoonAanduiding: string) {
+    const persoon = this.context.personen[persoonAanduiding];
+    const command = new AbonneerOpgebeurtenisTypeVanPersoonCommand(
+      abonneeNaam,
+      this.context.gebeurtenisTypes.get(gebeurtenisTypeAanduiding),
+      persoon.burger_service_nr
+    );
+    const afnemer = this.context.afnemers[afnemerAanduiding];
+
+    await abonneerOpgebeurtenisTypeVanPersoon(afnemer, command);
   }
 );

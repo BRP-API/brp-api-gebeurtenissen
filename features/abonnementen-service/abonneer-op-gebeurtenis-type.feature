@@ -1,4 +1,5 @@
 # language: nl
+@integratie
 Functionaliteit: Abonneer op gebeurtenistype
   Als abonnee van BRP API Gebeurtenissen
   wil ik mij kunnen abonneren op specifieke gebeurtenissen van personen aan wie ik diensten verleen
@@ -22,7 +23,10 @@ Functionaliteit: Abonneer op gebeurtenistype
       Gegeven de afnemer 'Gemeente Den Haag'
       * is niet geregistreerd als abonnee van BRP API Gebeurtenissen
       Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
-      Dan is de response '404 Not Found'
+      Dan is de response '404 Not Found' met de volgende velden
+      * 'instance' met tekst '/abonnees/mijn/abonnementen'
+      * 'title' met tekst 'Abonnee niet gevonden'
+      * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat de opgegeven abonnee niet gevonden is.'
 
   Regel: Een abonnee mag niet twee keer hetzelfde abonnement nemen
     zodat de abonnee weet dat er echt een abonnement is toegevoegd
@@ -37,6 +41,9 @@ Functionaliteit: Abonneer op gebeurtenistype
       En abonnee 'szw' van afnemer 'Gemeente Den Haag' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is de response '409 Conflict' met de volgende velden
+      * 'instance' met tekst '/abonnees/mijn/abonnementen'
+      * 'title' met tekst 'Abonnement bestaat al'
+      * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat er al een abonnement bestaat voor deze gebeurtenis en persoon.'
 
     Scenario: Twee abonnees van dezelfde afnemer nemen hetzelfde abonnement
       Gegeven de afnemer 'Gemeente Den Haag'
