@@ -3,7 +3,7 @@ export class Afnemer {
   aanduiding: string;
 
   oin?: string;
-  afnemerId?: string = `${Math.random().toString(36).substring(2, 15)}`;
+  afnemerId?: string;
   gemeenteCode?: string;
 
   clientSecret?: string;

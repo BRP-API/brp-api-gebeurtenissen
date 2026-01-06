@@ -13,7 +13,11 @@ Then('heeft het adres {string} de volgende eigenschappen', function (adresAandui
 });
 
 Then('heeft de afnemer {string} de volgende eigenschappen', function (afnemerAanduiding: string, dataTable: DataTable) {
-  expect(this.context.afnemers[afnemerAanduiding]).to.deep.equal(dataTable.hashes()[0]);
+  let afnemer = this.context.afnemers[afnemerAanduiding];
+  
+  delete afnemer.clientSetup; // verwijder clientSetup property tbv object validatie
+
+  expect(afnemer).to.deep.equal(dataTable.hashes()[0]);
 });
 
 Then('heeft de persoon {string} de volgende eigenschappen', function (persoonAanduiding: string, dataTable: DataTable) {
@@ -100,7 +104,6 @@ Then('is de client succesvol aangemaakt in Keycloak voor afnemer {string}', asyn
 
   expect(client.id).to.equal(afnemer.idpId);
   expect(client.clientId).to.equal(afnemer.aanduiding);
-  expect(client.protocolMappers[0].config['claim.value']).to.equal(
-    `["OIN=${afnemer.oin}","afnemerID=${afnemer.afnemerId}"${afnemer.gemeenteCode ? `,"gemeenteCode=${afnemer.gemeenteCode}"` : ''}]`
-  );
+  const gemeenteCodeClaim = afnemer.gemeenteCode ? `,"gemeenteCode=${afnemer.gemeenteCode}"` : '';
+  expect(client.protocolMappers[0].config['claim.value']).to.equal(`["OIN=${afnemer.oin}","afnemerID=${afnemer.afnemerId}"${gemeenteCodeClaim}]`);
 });

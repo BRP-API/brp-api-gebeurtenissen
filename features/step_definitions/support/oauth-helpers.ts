@@ -224,7 +224,7 @@ export async function setupClient(afnemer: Afnemer): Promise<void> {
     afnemer.oin = '000000099000000010000';
   }
   if (!afnemer.afnemerId) {
-    afnemer.afnemerId = '000001';
+    afnemer.afnemerId = Math.random().toString(36).substring(2, 15);
   }
   if (!afnemer.clientSecret) {
     afnemer.clientSecret = 'secret';
