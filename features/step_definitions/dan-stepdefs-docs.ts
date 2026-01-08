@@ -13,8 +13,8 @@ Then('heeft het adres {string} de volgende eigenschappen', function (adresAandui
 });
 
 Then('heeft de afnemer {string} de volgende eigenschappen', function (afnemerAanduiding: string, dataTable: DataTable) {
-  let afnemer = this.context.afnemers[afnemerAanduiding];
-  
+  const afnemer = this.context.afnemers[afnemerAanduiding];
+
   delete afnemer.clientSetup; // verwijder clientSetup property tbv object validatie
 
   expect(afnemer).to.deep.equal(dataTable.hashes()[0]);
