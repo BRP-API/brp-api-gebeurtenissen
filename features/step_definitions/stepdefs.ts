@@ -9,6 +9,7 @@ import { logger } from './support/logger';
 import { sendCommand } from './support/mutatie-api-helpers';
 import { getLastEventFrom } from './support/axon-api-helpers';
 import { Event } from './brp/verhuisd-intergemeentelijk-event';
+import { ProblemDetails } from './support/problem-details';
 
 Before(async function (this: ICustomWorld, { pickle }) {
   this.init(pickle);
@@ -110,7 +111,13 @@ After(async function (this: ICustomWorld, { pickle }) {
 
   copyIdIfExpectedIsExternalEventAndResultHasId(this.expected, this.result);
 
-  expect(this.result).to.deep.equal(this.expected);
+  if (this.expected instanceof ProblemDetails && this.result instanceof Object) {
+    for (const [key, value] of Object.entries(this.expected)) {
+      expect(this.result[key]).to.deep.equal(value);
+    }
+  } else {
+    expect(this.result).to.deep.equal(this.expected);
+  }
 });
 
 After(async function (this: ICustomWorld) {

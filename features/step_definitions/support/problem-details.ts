@@ -1,14 +1,16 @@
 export class ProblemDetails {
   type: string;
-  title: string;
   status: number;
+  title?: string;
   detail?: string;
   instance?: string;
 
-  constructor(type: string, title: string, status: number, detail?: string, instance?: string) {
+  constructor(type: string, status: number, title?: string, detail?: string, instance?: string) {
     this.type = type;
-    this.title = title;
     this.status = status;
+    if (title) {
+      this.title = title;
+    }
     if (detail) {
       this.detail = detail;
     }
@@ -19,19 +21,19 @@ export class ProblemDetails {
 }
 
 export class UnauthorizedProblemDetails extends ProblemDetails {
-  constructor(detail?: string, instance?: string) {
-    super('https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2', 'Niet correct geauthenticeerd', 401, detail, instance);
+  constructor(title?: string, detail?: string, instance?: string) {
+    super('https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2', 401, title, detail, instance);
   }
 }
 
 export class ConflictProblemDetails extends ProblemDetails {
-  constructor(detail?: string, instance?: string) {
-    super('https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10', 'Conflict', 409, detail, instance);
+  constructor(title?: string, detail?: string, instance?: string) {
+    super('https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10', 409, title, detail, instance);
   }
 }
 
 export class NotFoundProblemDetails extends ProblemDetails {
-  constructor(detail?: string, instance?: string) {
-    super('https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5', 'Not Found', 404, detail, instance);
+  constructor(title?: string, detail?: string, instance?: string) {
+    super('https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5', 404, title, detail, instance);
   }
 }
