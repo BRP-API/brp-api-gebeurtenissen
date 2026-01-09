@@ -90,14 +90,14 @@ Functionaliteit: Gebeurtenissen bevragen
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
       Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'WMO'
-      En is de response '403 Forbidden'
+      Dan is de response '403 Forbidden' met de volgende velden
       * heeft het detail veld de tekst 'Uw verzoek kan niet worden uitgevoerd omdat u niet als abonnee geregistreerd bent.'
 
     Scenario: Afnemer is geabonneerd op een gebeurtenis voor een abonnee en vraagt ongelezen gebeurtenissen zonder de abonnee op te geven
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
       Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo'
-      En is de response '400 Bad Request'
+      Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: abonnee.'
       * een 'invalidParams' met de volgende gegevens
         | code     | name    | reason                  |
