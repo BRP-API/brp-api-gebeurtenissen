@@ -76,7 +76,7 @@ components:
             - abonneeNaam
     AbonneeNaam:
       type: string
-      pattern: ^[a-z]{3,50}$
+      pattern: ^[a-z]{2,50}$
       description: De naam van de abonnee
     AbonnementenCommand:
       type: object

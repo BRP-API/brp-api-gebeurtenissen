@@ -12,8 +12,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
-            pattern: ^[a-z]{3,50}$
+            $ref: '../abonnementen-service/openapi.yaml#/components/schemas/AbonneeNaam'
       responses:
         '200':
           description: De oudste ongelezen gebeurtenis is succesvol opgehaald

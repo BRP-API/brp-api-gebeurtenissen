@@ -12,8 +12,7 @@ paths:
           in: query
           required: true
           schema:
-            type: string
-            pattern: ^[a-z]{3,50}$
+            $ref: '#/components/schemas/AbonneeNaam'
       responses:
         '200':
           description: De oudste ongelezen gebeurtenis is succesvol opgehaald
@@ -29,6 +28,10 @@ paths:
           $ref: '#/components/responses/500'
 components:
   schemas:
+    AbonneeNaam:
+      type: string
+      pattern: ^[a-z]{2,50}$
+      description: De naam van de abonnee
     Gebeurtenis:
       type: object
       properties:
