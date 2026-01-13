@@ -7,6 +7,12 @@ paths:
     get: 
       operationId: BevraagGebeurtenis
       summary: Bevragen van de oudste ongelezen gebeurtenis
+      parameters:
+        - name: abonneeNaam
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: De oudste ongelezen gebeurtenis is succesvol opgehaald
