@@ -70,10 +70,6 @@ components:
               $ref: '#/components/schemas/AbonneeNaam'
           required:
             - abonneeNaam
-    AbonneeNaam:
-      type: string
-      pattern: ^[a-z]{2,50}$
-      description: De naam van de abonnee
     AbonnementenCommand:
       type: object
       properties:
@@ -104,6 +100,10 @@ components:
             - abonneeNaam
             - gebeurtenisType
             - burgerservicenummer
+    AbonneeNaam:
+      type: string
+      pattern: ^[a-z]{2,50}$
+      description: De naam van de abonnee
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).

@@ -71,13 +71,9 @@ components:
         - type: object
           properties:
             abonneeNaam:
-              $ref: '#/components/schemas/AbonneeNaam'
+              $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
           required:
             - abonneeNaam
-    AbonneeNaam:
-      type: string
-      pattern: ^[a-z]{2,50}$
-      description: De naam van de abonnee
     AbonnementenCommand:
       type: object
       properties:

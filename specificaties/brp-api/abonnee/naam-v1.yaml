@@ -1,0 +1,10 @@
+openapi: 3.1.0
+info:
+  title: AbonneeNaam type definitie
+  version: 1.0.0
+components:
+  schemas:
+    AbonneeNaam:
+      type: string
+      pattern: ^[a-z]{2,50}$
+      description: De naam van de abonnee
