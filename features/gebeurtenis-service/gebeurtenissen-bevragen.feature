@@ -68,8 +68,7 @@ Functionaliteit: Gebeurtenissen bevragen
       Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'SZW'
       Dan wordt er geen gebeurtenis geleverd
 
-  Regel: Een abonnee krijgt alleen gebeurtenissen waarop hij geabonneerd is
-    De abonnee krijgt alleen een gebeurtenis wanneer hij een abonnement heeft op het type gebeurtenis voor de persoon waarop de gebeurtenis heeft plaatsgevonden
+  Regel: Een abonnee krijgt alleen een gebeurtenis wanneer hij een abonnement heeft op het type gebeurtenis voor de persoon waarop de gebeurtenis heeft plaatsgevonden
 
     Scenario: De abonnee vraagt ongelezen gebeurtenissen en is niet geabonneerd op de gebeurtenis
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
@@ -105,6 +104,8 @@ Functionaliteit: Gebeurtenissen bevragen
       * de vanaf datum van de opgave van verhuizing van 'Jan'
 
   Regel: Een abonnee ontvangt alleen gebeurtenissen die hebben plaatsgevonden na het plaatsen van het abonnement daarop
+    Een abonnee zet een abonnement op het moment dat doelbinding op het ontvangen van de gebeurtenis voor de persoon ontstaat
+    en heeft dus geen doelbinding voor het ontvangen van deze gebeurtenissen voor deze persoon die daarvóór hebben plaatsgevonden.
 
     Scenario: De gebeurtenis heeft plaatsgevonden vóór het abonement is gezet
       Gegeven de aangifte van adreswijziging van 'Jan' is verwerkt
@@ -115,13 +116,13 @@ Functionaliteit: Gebeurtenissen bevragen
 
   Regel: Bij het vragen van niet-gelezen gebeurtenissen is het opgeven van de abonnee verplicht
 
-    Scenario: Afnemer is geabonneerd op een gebeurtenis voor een abonnee en vraagt ongelezen gebeurtenissen zonder de abonnee op te geven
+    Scenario: Afnemer vraagt ongelezen gebeurtenissen zonder de abonnee op te geven
       Als een niet-gelezen gebeurtenis wordt gevraagd door afnemer 'Hengelo'
       Dan is de response '400 Bad Request'
 
-  Regel: Alleen een geregistreerde abonnee mag gebeurtenissen bevragen
+  Regel: Alleen een abonnee mag gebeurtenissen bevragen
 
-    Scenario: Afnemer is geabonneerd op een gebeurtenis voor een abonnee en vraagt ongelezen gebeurtenissen met een niet-geregistreerde abonnee
+    Scenario: Afnemer vraagt ongelezen gebeurtenissen en vult bij abonnee iets anders in dan een abonnee
       Als een niet-gelezen gebeurtenis wordt gevraagd door abonnee 'WMO'
       Dan is de response '403 Forbidden'
 
