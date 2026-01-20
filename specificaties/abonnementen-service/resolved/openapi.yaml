@@ -10,6 +10,7 @@ paths:
       tags:
         - Abonnees
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -32,6 +33,7 @@ paths:
       tags:
         - Abonnees
       requestBody:
+        required: true
         content:
           application/json:
             schema:
