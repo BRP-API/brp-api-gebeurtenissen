@@ -98,9 +98,6 @@ components:
         - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
           properties:
-            abonneeNaam:
-              $ref: '#/components/schemas/AbonneeNaam'
-              description: De naam van de abonnee
             gebeurtenisType:
               type: string
               pattern: ^[a-z/-/.]{1,50}$
@@ -109,7 +106,6 @@ components:
               $ref: '#/components/schemas/Burgerservicenummer'
               description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
           required:
-            - abonneeNaam
             - gebeurtenisType
             - burgerservicenummer
     AbonneeNaam:
