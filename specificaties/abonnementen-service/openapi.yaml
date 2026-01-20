@@ -28,6 +28,12 @@ paths:
         - clientCredentials: []
 
   /abonnees/{abonneeNaam}/abonnementen:
+    parameters:
+      - name: abonneeNaam
+        in: path
+        required: true
+        schema:
+          $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
     post: 
       operationId: AbonneerOpGebeurtenisTypeVanPersoon
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
