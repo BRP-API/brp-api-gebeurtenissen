@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.1.2
 info:
   title: Gebeurtenis Abonnementen API Specificatie
   version: 1.0.0
@@ -23,7 +23,7 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
-  /abonnees/mijn/abonnementen:
+  /abonnees/{abonneeNaam}/abonnementen:
     post:
       operationId: Abonnementen
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
@@ -102,8 +102,15 @@ components:
             - burgerservicenummer
     AbonneeNaam:
       type: string
-      pattern: ^[a-z]{2,50}$
-      description: De naam van de abonnee
+      pattern: ^(?!.*--)[a-z][a-z-]{0,8}[a-z]$
+      description: |
+        De naam van de abonnee. 
+        Moet voldoen aan de volgende regels:
+          - Begint en eindigt met een kleine letter
+          - Bevat minimaal 2 en maximaal 10 tekens
+          - Bevat alleen kleine letters (a-z) en koppeltekens (-)
+          - Bevat geen dubbele koppeltekens (--)
+      example: abonnee
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).

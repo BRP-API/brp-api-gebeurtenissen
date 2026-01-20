@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.1.2
 info:
   title: Gebeurtenis Abonnementen API Specificatie
   version: 1.0.0
@@ -24,7 +24,7 @@ paths:
       security:
         - clientCredentials: []
 
-  /abonnees/mijn/abonnementen:
+  /abonnees/{abonneeNaam}/abonnementen:
     post: 
       operationId: Abonnementen
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
@@ -51,7 +51,6 @@ components:
         clientCredentials:
           tokenUrl: http://identityserver:6000/connect/token
           scopes: {}
-
 
   schemas:
     AbonneeCommand:
@@ -85,14 +84,13 @@ components:
         propertyName: type
         mapping: 
           AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
-
     AbonneerOpGebeurtenisTypeVanPersoonCommand:
       allOf: 
         - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
           properties:
             abonneeNaam:
-              $ref: '#/components/schemas/AbonneeNaam'
+              $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
               description: De naam van de abonnee
             gebeurtenisType:
               type: string
