@@ -7,6 +7,8 @@ paths:
     post:
       operationId: RegistreerAbonnee
       summary: Registreer een geauthenticeerde afnemer als nieuwe abonnee van BRP API Gebeurtenissen
+      tags:
+        - Abonnees
       requestBody:
         content:
           application/json:
@@ -25,8 +27,10 @@ paths:
         - clientCredentials: []
   /abonnees/{abonneeNaam}/abonnementen:
     post:
-      operationId: Abonnementen
+      operationId: AbonneerOpGebeurtenisTypeVanPersoon
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
+      tags:
+        - Abonnees
       requestBody:
         content:
           application/json:
