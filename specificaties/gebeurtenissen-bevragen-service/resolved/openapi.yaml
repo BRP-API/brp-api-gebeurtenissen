@@ -1,15 +1,20 @@
-openapi: 3.1.0
+openapi: 3.1.2
 info:
   title: Gebeurtenissen Bevragen API specificatie
   version: 1.0.0
+servers:
+  - url: https://probeerbrpapi.rvig.nl/api/brp
+    description: BRP APIs probeeromgeving
 paths:
-  /personen/gebeurtenissen:
+  /abonnees/{abonneeNaam}/gebeurtenissen:
     get:
       operationId: BevraagGebeurtenis
       summary: Bevragen van de oudste ongelezen gebeurtenis
+      tags:
+        - Gebeurtenissen
       parameters:
         - name: abonneeNaam
-          in: query
+          in: path
           required: true
           schema:
             $ref: '#/components/schemas/AbonneeNaam'
@@ -19,19 +24,44 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Gebeurtenis'
+                $ref: '#/components/schemas/GebeurtenissenBevragenResponse'
         '401':
           $ref: '#/components/responses/401'
-        '403':
-          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
 components:
+  securitySchemes:
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
+          scopes: {}
   schemas:
+    GebeurtenissenBevragenResponse:
+      type: object
+      properties:
+        gebeurtenissen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gebeurtenis'
+          minItems: 0
+          maxItems: 10
     AbonneeNaam:
       type: string
-      pattern: ^[a-z]{2,50}$
-      description: De naam van de abonnee
+      pattern: ^(?!.*--)[a-z][a-z-]{0,8}[a-z]$
+      description: |
+        De naam van de abonnee. 
+        Moet voldoen aan de volgende regels:
+          - Begint en eindigt met een kleine letter
+          - Bevat minimaal 2 en maximaal 10 tekens
+          - Bevat alleen kleine letters (a-z) en koppeltekens (-)
+          - Bevat geen dubbele koppeltekens (--)
+      example: abonnee
     Gebeurtenis:
       type: object
       properties:
@@ -243,19 +273,19 @@ components:
             detail: The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
             code: authentication
-    '403':
-      description: Forbidden
+    '404':
+      description: Not Found
       content:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
-            title: U bent niet geautoriseerd voor deze operatie.
-            status: 403
-            detail: The server understood the request, but is refusing to fulfill it.
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
+            title: Opgevraagde resource bestaat niet.
+            status: 404
+            detail: The server has not found anything matching the Request-URI.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-            code: autorisation
+            code: notFound
     '500':
       description: Internal Server Error
       content:
