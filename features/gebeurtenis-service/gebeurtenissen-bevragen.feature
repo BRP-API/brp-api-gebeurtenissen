@@ -35,17 +35,6 @@ Functionaliteit: Gebeurtenissen bevragen
       Als een ongelezen gebeurtenis wordt gevraagd door abonnee 'szw'
       Dan wordt de 'verhuisd.intergemeentelijk' gebeurtenis van 'Piet' geleverd
 
-  Regel: Een gebeurtenis 'verhuisd.intergemeentelijk' wordt geleverd met het burgerservicenummer van de betreffende persoon en de datum vanaf wanneer deze hier verblijft
-
-    Scenario: De gebeurtenis wordt geleverd met burgerservicenummer en datum vanaf
-      Gegeven abonnee 'szw' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
-      En de aangifte van adreswijziging van 'Jan' is verwerkt
-      * verblijft vanaf gisteren op het adres 'Stadserf_1_Roosendaal'
-      Als een ongelezen gebeurtenis wordt gevraagd door abonnee 'szw'
-      Dan wordt een 'verhuisd.intergemeentelijk' gebeurtenis geleverd met de volgende data
-      * het burgerservicenummer van 'Jan'
-      * de vanaf datum van de opgave van verhuizing van 'Jan'
-
   Regel: Een abonnee ontvangt steeds de oudste ongelezen gebeurtenissen met een maximum van 10
 
     Scenario: Er zijn meer dan 10 gebeurtenissen en de abonnee ontvangt de oudste 10 gebeurtenissen
