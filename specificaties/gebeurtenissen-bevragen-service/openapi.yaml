@@ -7,10 +7,10 @@ servers:
     description: BRP APIs probeeromgeving
 paths:
   /abonnees/{abonneeNaam}/gebeurtenissen:
-    get: 
+    get:
       operationId: BevraagGebeurtenis
       summary: Bevragen van de oudste ongelezen gebeurtenis
-      tags: 
+      tags:
         - Gebeurtenissen
       parameters:
         - name: abonneeNaam
