@@ -29,8 +29,6 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
-        '409':
-          $ref: '#/components/responses/409'
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -56,8 +54,14 @@ paths:
       responses:
         '201':
           description: Abonnement(en) succesvol aangemaakt.
+        '400':
+          $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -255,19 +259,6 @@ components:
             detail: The server has not found anything matching the Request-URI.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
             code: notFound
-    '409':
-      description: Conflict
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/Foutbericht'
-          example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10
-            title: Conflict
-            status: 409
-            detail: The request could not be completed due to a conflict with the current state of the resource
-            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-            code: conflict
     '500':
       description: Internal Server Error
       content:
