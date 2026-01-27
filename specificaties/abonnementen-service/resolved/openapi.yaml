@@ -1,13 +1,19 @@
-openapi: 3.1.0
+openapi: 3.1.2
 info:
   title: Gebeurtenis Abonnementen API Specificatie
   version: 1.0.0
+servers:
+  - url: https://probeerbrpapi.rvig.nl/api/brp
+    description: BRP APIs probeeromgeving
 paths:
   /abonnees:
     post:
       operationId: RegistreerAbonnee
       summary: Registreer een geauthenticeerde afnemer als nieuwe abonnee van BRP API Gebeurtenissen
+      tags:
+        - Abonnees
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -15,19 +21,32 @@ paths:
       responses:
         '201':
           description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+        '400':
+          $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
-        '409':
-          $ref: '#/components/responses/409'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
-  /abonnees/mijn/abonnementen:
+  /abonnees/{abonneeNaam}/abonnementen:
+    parameters:
+      - name: abonneeNaam
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/AbonneeNaam'
     post:
-      operationId: Abonnementen
+      operationId: AbonneerOpGebeurtenisTypeVanPersoon
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
+      tags:
+        - Abonnees
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -35,8 +54,14 @@ paths:
       responses:
         '201':
           description: Abonnement(en) succesvol aangemaakt.
+        '400':
+          $ref: '#/components/responses/400'
         '401':
           $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -47,7 +72,7 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: http://identityserver:6000/connect/token
+          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
           scopes: {}
   schemas:
     AbonneeCommand:
@@ -70,9 +95,6 @@ components:
               $ref: '#/components/schemas/AbonneeNaam'
           required:
             - abonneeNaam
-    AbonneeNaam:
-      type: string
-      description: De naam van de abonnee
     AbonnementenCommand:
       type: object
       properties:
@@ -89,9 +111,6 @@ components:
         - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
           properties:
-            abonneeNaam:
-              $ref: '#/components/schemas/AbonneeNaam'
-              description: De naam van de abonnee
             gebeurtenisType:
               type: string
               pattern: ^[a-z/-/.]{1,50}$
@@ -100,9 +119,19 @@ components:
               $ref: '#/components/schemas/Burgerservicenummer'
               description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
           required:
-            - abonneeNaam
             - gebeurtenisType
             - burgerservicenummer
+    AbonneeNaam:
+      type: string
+      pattern: ^(?!.*--)[a-z][a-z-]{0,8}[a-z]$
+      description: |
+        De naam van de abonnee. 
+        Moet voldoen aan de volgende regels:
+          - Begint en eindigt met een kleine letter
+          - Bevat minimaal 2 en maximaal 10 tekens
+          - Bevat alleen kleine letters (a-z) en koppeltekens (-)
+          - Bevat geen dubbele koppeltekens (--)
+      example: abonnee
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
@@ -132,6 +161,40 @@ components:
           description: Systeemcode die het type fout aangeeft
           type: string
           pattern: ^[a-zA-Z0-9]{1,25}$
+    InvalidParam:
+      type: object
+      description: Details over fouten in opgegeven parameters
+      properties:
+        type:
+          type: string
+          format: uri
+          example: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
+        name:
+          description: Naam van de parameter
+          type: string
+          pattern: ^[a-zA-Z0-9\._]{1,30}$
+          example: huisnummer
+        code:
+          description: Systeemcode die het type fout aangeeft
+          type: string
+          pattern: ^[a-zA-Z0-9]{1,25}$
+          example: integer
+        reason:
+          description: Beschrijving van de fout op de parameterwaarde
+          type: string
+          pattern: ^[a-zA-Z0-9\., ]{1,80}$
+          example: Waarde is geen geldig getal.
+    BadRequestFoutbericht:
+      allOf:
+        - $ref: '#/components/schemas/Foutbericht'
+        - type: object
+          properties:
+            invalidParams:
+              description: |
+                Foutmelding per fout in een parameter. Alle gevonden fouten worden één keer teruggemeld.
+              type: array
+              items:
+                $ref: '#/components/schemas/InvalidParam'
     Burgerservicenummer:
       type: string
       title: Burgerservicenummer
@@ -139,6 +202,24 @@ components:
         Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
       pattern: ^[0-9]{9}$
   responses:
+    '400':
+      description: Bad Request
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/BadRequestFoutbericht'
+          example:
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+            title: Ten minste één parameter moet worden opgegeven.
+            status: 400
+            detail: The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: paramsRequired
+            invalidParams:
+              - type: https://www.vng.nl/realisatie/api/validaties/integer
+                name: huisnummer
+                code: integer
+                reason: Waarde is geen geldig getal.
     '401':
       description: Unauthorized
       content:
@@ -152,19 +233,32 @@ components:
             detail: The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
             code: authentication
-    '409':
-      description: Conflict
+    '403':
+      description: Forbidden
       content:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10
-            title: Conflict
-            status: 409
-            detail: The request could not be completed due to a conflict with the current state of the resource
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.4
+            title: U bent niet geautoriseerd voor deze operatie.
+            status: 403
+            detail: The server understood the request, but is refusing to fulfill it.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-            code: conflict
+            code: autorisation
+    '404':
+      description: Not Found
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Foutbericht'
+          example:
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5
+            title: Opgevraagde resource bestaat niet.
+            status: 404
+            detail: The server has not found anything matching the Request-URI.
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: notFound
     '500':
       description: Internal Server Error
       content:

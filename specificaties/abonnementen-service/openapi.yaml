@@ -1,13 +1,19 @@
-openapi: 3.1.0
+openapi: 3.1.2
 info:
   title: Gebeurtenis Abonnementen API Specificatie
   version: 1.0.0
+servers:
+  - url: https://probeerbrpapi.rvig.nl/api/brp
+    description: BRP APIs probeeromgeving
 paths:
   /abonnees:
     post:
       operationId: RegistreerAbonnee
       summary: Registreer een geauthenticeerde afnemer als nieuwe abonnee van BRP API Gebeurtenissen
+      tags:
+        - Abonnees
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -15,20 +21,33 @@ paths:
       responses:
         '201':
           description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+        '400':
+          $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
           $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
-        '409':
-          $ref: '../problem-details/409-conflict-response-v1.yaml#/components/responses/409'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
         - clientCredentials: []
 
-  /abonnees/mijn/abonnementen:
+  /abonnees/{abonneeNaam}/abonnementen:
+    parameters:
+      - name: abonneeNaam
+        in: path
+        required: true
+        schema:
+          $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
     post: 
-      operationId: Abonnementen
+      operationId: AbonneerOpGebeurtenisTypeVanPersoon
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
-      requestBody: 
+      tags:
+        - Abonnees
+      requestBody:
+        required: true
         content:
           application/json:
             schema: 
@@ -36,8 +55,14 @@ paths:
       responses: 
         '201':
           description: Abonnement(en) succesvol aangemaakt.
+        '400':
+          $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
           $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
@@ -49,9 +74,8 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: http://identityserver:6000/connect/token
+          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
           scopes: {}
-
 
   schemas:
     AbonneeCommand:
@@ -71,12 +95,9 @@ components:
         - type: object
           properties:
             abonneeNaam:
-              $ref: '#/components/schemas/AbonneeNaam'
+              $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
           required:
             - abonneeNaam
-    AbonneeNaam:
-      type: string
-      description: De naam van de abonnee
     AbonnementenCommand:
       type: object
       properties:
@@ -88,15 +109,11 @@ components:
         propertyName: type
         mapping: 
           AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
-
     AbonneerOpGebeurtenisTypeVanPersoonCommand:
       allOf: 
         - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
           properties:
-            abonneeNaam:
-              $ref: '#/components/schemas/AbonneeNaam'
-              description: De naam van de abonnee
             gebeurtenisType:
               type: string
               pattern: ^[a-z/-/.]{1,50}$
@@ -105,6 +122,5 @@ components:
               $ref: '../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
               description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
           required:
-            - abonneeNaam
             - gebeurtenisType
             - burgerservicenummer

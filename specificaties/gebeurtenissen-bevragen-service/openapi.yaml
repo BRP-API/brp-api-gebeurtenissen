@@ -1,22 +1,59 @@
-openapi: 3.1.0
+openapi: 3.1.2
 info:
   title: Gebeurtenissen Bevragen API specificatie
   version: 1.0.0
+servers:
+  - url: https://probeerbrpapi.rvig.nl/api/brp
+    description: BRP APIs probeeromgeving
 paths:
-  /personen/gebeurtenissen:
-    get: 
+  /abonnees/{abonneeNaam}/gebeurtenissen:
+    get:
       operationId: BevraagGebeurtenis
       summary: Bevragen van de oudste ongelezen gebeurtenis
+      tags:
+        - Gebeurtenissen
+      parameters:
+        - name: abonneeNaam
+          in: path
+          required: true
+          schema:
+            $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
       responses:
         '200':
           description: De oudste ongelezen gebeurtenis is succesvol opgehaald
           content:
             application/json:
               schema:
-                $ref: '../brp-api/gebeurtenissen/gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+                $ref: '#/components/schemas/GebeurtenissenBevragenResponse'
+        '400':
+          $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
           $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
         '403':
           $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+
+components:
+  securitySchemes:
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
+          scopes: {}
+
+  schemas:
+    GebeurtenissenBevragenResponse:
+      type: object
+      properties:
+        gebeurtenissen:
+          type: array
+          items:
+            $ref: '../brp-api/gebeurtenissen/gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+          minItems: 0
+          maxItems: 10
