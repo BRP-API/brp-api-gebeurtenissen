@@ -2,6 +2,8 @@ services:
   mutatie-service:
     image: ghcr.io/brp-api/gebeurtenis-mutatie-service:latest
     container_name: mutatie-service
+    depends_on:
+      - postgres
     ports:
       - "8000:8000"
     environment:

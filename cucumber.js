@@ -73,5 +73,19 @@ module.exports = {
                 level: 'warn'
             }
         }
+    },
+    AbonnementenService: {
+        ...baseConfig,
+        paths: ['features/abonnementen-service/**/*.feature'], // Only run abonnementen features
+        format: [ // output formats and locations
+            'json:./test-reports/cucumber-js/abonnementen-service/test-result.json',
+            'summary:./test-reports/cucumber-js/abonnementen-service/test-result-summary.txt',
+            'summary'
+        ],
+        worldParameters: {
+            logger: {
+                level: 'warn'
+            }
+        }
     }
 };
