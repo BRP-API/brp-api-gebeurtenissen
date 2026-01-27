@@ -73,8 +73,6 @@ components:
           $ref: '#/components/schemas/specversiondef'
         type:
           $ref: '#/components/schemas/typedef'
-        data:
-          $ref: '#/components/schemas/datadef'
       required:
         - id
         - source
@@ -226,10 +224,6 @@ components:
         Describes the type of event related to the originating occurrence.
       type: string
       minLength: 1
-    datadef:
-      description: |
-        The event payload.
-      type: object
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
