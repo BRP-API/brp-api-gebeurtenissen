@@ -25,8 +25,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GebeurtenissenBevragenResponse'
+        '400':
+          $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
           $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
         '404':
           $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
         '500':
