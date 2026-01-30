@@ -1,2 +1,2 @@
-FROM postgres:14.11-alpine
+FROM postgres:17.7-alpine
 COPY scripts/schema.sql docker-entrypoint-initdb.d/schema.sql

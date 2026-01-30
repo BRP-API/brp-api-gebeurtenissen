@@ -1,0 +1,29 @@
+services:
+  axon-server:
+    container_name: axon
+    image: axoniq/axonserver:2025.2.0
+    hostname: axon-server
+    ports:
+      - "8024:8024"
+      - "8124:8124"
+    environment:
+      AXONIQ_AXONSERVER_HOSTNAME: axon-server
+      AXONIQ_AXONSERVER_STANDALONE_DCB: true
+      AXONIQ_AXONSERVER_DEVMODE_ENABLED: true
+    volumes:
+      - data:/axonserver/data
+      - events:/axonserver/events
+    networks:
+      - brp-api-network
+
+volumes:
+  db:
+    driver: local
+  data:
+    driver: local
+  events:
+    driver: local
+
+networks:
+  brp-api-network:
+    name: brp-api-network

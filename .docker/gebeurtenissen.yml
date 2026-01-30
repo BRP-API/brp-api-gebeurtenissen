@@ -1,0 +1,15 @@
+services:
+  gebeurtenissen:
+    image: ghcr.io/brp-api/brp-api-gebeurtenissen:latest
+    container_name: gebeurtenissen
+    ports:
+      - "8888:8888"
+    environment:
+      - AXON_AXONSERVER_SERVERS=axon
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/rvig_haalcentraal_testdata
+    networks:
+      - brp-api-network
+
+networks:
+  brp-api-network:
+    name: brp-api-network

@@ -7,7 +7,7 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin@haalcentraal.nl
       - PGADMIN_DEFAULT_PASSWORD=root
     ports:
-      - 5433:80
+      - "5433:80"
     security_opt:
       - no-new-privileges:true
     networks:
@@ -25,7 +25,7 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - brp-api-network
   
