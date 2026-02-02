@@ -9,8 +9,6 @@ components:
       properties:
         type:
           $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/typedef'
-        data:
-          $ref: '../../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/datadef'
         metadata:
           $ref: 'metadata-v1.yaml#/components/schemas/Metadata'
         time:
