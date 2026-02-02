@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.1.2
 info:
   title: adresseerbaar object identificatie specificatie
   version: 1.0.0
