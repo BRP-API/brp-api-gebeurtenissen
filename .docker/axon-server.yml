@@ -1,0 +1,15 @@
+services:
+  axonserver:
+    image: axoniq/axonserver
+    container_name: axonserver
+    ports:
+      - "8024:8024" # Axon Server dashboard
+      - "8124:8124" # Axon messaging port
+    environment:
+      - AXONIQ_AXONSERVER_STANDALONE=true
+    networks:
+      - brp-api-network
+
+networks:
+  brp-api-network:
+    name: brp-api-network

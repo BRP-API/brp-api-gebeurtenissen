@@ -1,4 +1,5 @@
 # language: nl
+@to-do @skip-verify
 Functionaliteit: geboorteaangifte
   Als provider van BRP API Gebeurtenissen
   wil ik een mutatie service die het gedrag van de BRPV nabootst

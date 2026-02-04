@@ -1,0 +1,18 @@
+services:
+  abonneer-service:
+    image: ghcr.io/brp-api/gebeurtenis-abonnementen-service:latest
+    container_name: abonneer-service
+    depends_on:
+      - keycloak
+      - axonserver
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - AXON_AXONSERVER_SERVERS=axonserver:8124
+    ports:
+      - "8003:8084"
+    networks:
+      - brp-api-network
+
+networks:
+  brp-api-network:
+    name: brp-api-network

@@ -1,0 +1,34 @@
+services:
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@haalcentraal.nl
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - 5433:80
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - brp-api-network
+      
+  postgres:
+    container_name: db
+    image: db
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - 5432:5432
+    networks:
+      - brp-api-network
+  
+networks:
+  brp-api-network:
+    name: brp-api-network

@@ -1,0 +1,16 @@
+services:
+  publiceer-service:
+    image: ghcr.io/brp-api/gebeurtenissen:latest
+    container_name: publiceer-service
+    depends_on:
+      - axonserver
+    ports:
+      - "8001:8080"
+    environment:
+      - AXON_AXONSERVER_SERVERS=axonserver:8124
+    networks:
+      - brp-api-network
+
+networks:
+  brp-api-network:
+    name: brp-api-network

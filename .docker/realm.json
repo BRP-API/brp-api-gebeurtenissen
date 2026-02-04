@@ -1,0 +1,250 @@
+{
+    "id": "brp-api",
+    "realm": "brp-api",
+    "enabled": true,
+    "attributes": {
+        "oauth2TokenIntrospection": "enabled"
+    },
+    "clientScopes": [
+        {
+            "name": "000000099000000080000",
+            "protocol": "openid-connect",
+            "attributes": {
+                "include.in.token.scope": "true",
+                "display.on.consent.screen": "false"
+            }
+        },
+        {
+            "name": "000000099000000090000",
+            "protocol": "openid-connect",
+            "attributes": {
+                "include.in.token.scope": "true",
+                "display.on.consent.screen": "false"
+            }
+        }
+    ],
+    "clients": [
+        {
+            "clientId": "client met volledige autorisatie",
+            "enabled": true,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "standardFlowEnabled": false,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "publicClient": false,
+            "protocol": "openid-connect",
+            "attributes": {
+                "access.token.lifespan": "599",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "oidc.ciba.grant.enabled": "false"
+            },
+            "authorizationServicesEnabled": false,
+            "optionalClientScopes": [
+                "000000099000000080000"
+            ],
+            "protocolMappers": [
+                {
+                    "name": "claims-mapper",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-hardcoded-claim-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "claim.name": "claims",
+                        "claim.value": "[\"OIN=000000099000000080000\",\"afnemerID=000008\"]",
+                        "jsonType.label": "JSON",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true"
+                    }
+                }
+            ]
+        },
+        {
+            "clientId": "client met gemeentecode (eigen gemeente)",
+            "enabled": true,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "standardFlowEnabled": false,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "publicClient": false,
+            "protocol": "openid-connect",
+            "attributes": {
+                "access.token.lifespan": "300",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "oidc.ciba.grant.enabled": "false"
+            },
+            "authorizationServicesEnabled": false,
+            "optionalClientScopes": [
+                "000000099000000080000"
+            ],
+            "protocolMappers": [
+                {
+                    "name": "claims-mapper",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-hardcoded-claim-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "claim.name": "claims",
+                        "claim.value": "[\"OIN=000000099000000080000\",\"afnemerID=000008\",\"gemeenteCode=0800\"]",
+                        "jsonType.label": "JSON",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true"
+                    }
+                }
+            ]
+        },
+        {
+            "clientId": "client met gemeentecode (ander gemeente)",
+            "enabled": true,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "standardFlowEnabled": false,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "publicClient": false,
+            "protocol": "openid-connect",
+            "attributes": {
+                "access.token.lifespan": "300",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "oidc.ciba.grant.enabled": "false"
+            },
+            "authorizationServicesEnabled": false,
+            "optionalClientScopes": [
+                "000000099000000080000"
+            ],
+            "protocolMappers": [
+                {
+                    "name": "claims-mapper",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-hardcoded-claim-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "claim.name": "claims",
+                        "claim.value": "[\"OIN=000000099000000080000\",\"afnemerID=000008\",\"gemeenteCode=0599\"]",
+                        "jsonType.label": "JSON",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true"
+                    }
+                }
+            ]
+        },
+        {
+            "clientId": "client zonder gemeentecode",
+            "enabled": true,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "standardFlowEnabled": false,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "publicClient": false,
+            "protocol": "openid-connect",
+            "attributes": {
+                "access.token.lifespan": "300",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "oidc.ciba.grant.enabled": "false"
+            },
+            "authorizationServicesEnabled": false,
+            "optionalClientScopes": [
+                "000000099000000080000"
+            ],
+            "protocolMappers": [
+                {
+                    "name": "claims-mapper",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-hardcoded-claim-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "claim.name": "claims",
+                        "claim.value": "[\"OIN=000000099000000080000\",\"afnemerID=000008\"]",
+                        "jsonType.label": "JSON",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true"
+                    }
+                }
+            ]
+        },
+        {
+            "clientId": "client met gemeentecode (eigen gemeente, bestaand gezag afnemer)",
+            "enabled": true,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "standardFlowEnabled": false,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "publicClient": false,
+            "protocol": "openid-connect",
+            "attributes": {
+                "access.token.lifespan": "300",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "oidc.ciba.grant.enabled": "false"
+            },
+            "authorizationServicesEnabled": false,
+            "optionalClientScopes": [
+                "000000099000000090000"
+            ],
+            "protocolMappers": [
+                {
+                    "name": "claims-mapper",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-hardcoded-claim-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "claim.name": "claims",
+                        "claim.value": "[\"OIN=000000099000000090000\",\"afnemerID=000009\",\"gemeenteCode=0900\"]",
+                        "jsonType.label": "JSON",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true"
+                    }
+                }
+            ]
+        },
+        {
+            "clientId": "client zonder gemeentecode (bestaand gezag afnemer)",
+            "enabled": true,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "secret",
+            "standardFlowEnabled": false,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": false,
+            "serviceAccountsEnabled": true,
+            "publicClient": false,
+            "protocol": "openid-connect",
+            "attributes": {
+                "access.token.lifespan": "300",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "oidc.ciba.grant.enabled": "false"
+            },
+            "authorizationServicesEnabled": false,
+            "optionalClientScopes": [
+                "000000099000000090000"
+            ],
+            "protocolMappers": [
+                {
+                    "name": "claims-mapper",
+                    "protocol": "openid-connect",
+                    "protocolMapper": "oidc-hardcoded-claim-mapper",
+                    "consentRequired": false,
+                    "config": {
+                        "claim.name": "claims",
+                        "claim.value": "[\"OIN=000000099000000090000\",\"afnemerID=000009\"]",
+                        "jsonType.label": "JSON",
+                        "userinfo.token.claim": "true",
+                        "id.token.claim": "true",
+                        "access.token.claim": "true"
+                    }
+                }
+            ]
+        }
+    ]
+}
