@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.1.2
 info: 
   title: datum type definitie
   description: datum conform ISO-8601 te gebruiken als bijv. peildatum, datumVan en datumTot
