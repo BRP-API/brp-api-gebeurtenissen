@@ -1,4 +1,4 @@
-# ADR 002: BRP API Gebeurtenissen gebruikt Axon Server als Event Store en Event Bus/Message Broker
+# ADR 003: BRP API Gebeurtenissen gebruikt Axon Server als Event Store en Event Bus/Message Broker
 
 ## Status
 Voorstel
