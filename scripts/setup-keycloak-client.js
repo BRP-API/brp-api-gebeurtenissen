@@ -15,7 +15,10 @@ require('ts-node').register({
   transpileOnly: true,
 });
 
+const { PostgresqlManager } = require('../features/step_definitions/support/postgresql-manager.ts');
+const { poolConfig } = require('../features/step_definitions/support/postgresql-config');
 const { setupClient, getClientAccessToken } = require('../features/step_definitions/support/oauth-helpers.ts');
+const { createAutorisatie } = require('../features/step_definitions/support/repository.ts');
 
 function generateClientSecret() {
   const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -43,26 +46,29 @@ async function main() {
     const args = process.argv.slice(2);
 
     if (args.length === 0) {
-      console.error('Fout: clientId en afnemerId moet worden opgegeven.');
-      console.error('Gebruik: node scripts/setup-keycloak-client.js <clientId> <afnemerId> [gemeenteCode]');
-      console.error('Voorbeeld: node scripts/setup-keycloak-client.js \'burgerzaken\' 000001');
-      console.error('Voorbeeld: node scripts/setup-keycloak-client.js \'gemeente amsterdam\' 000001 0363');
+      console.error('Fout: clientId moet worden opgegeven.');
+      console.error('Gebruik: node scripts/setup-keycloak-client.js <clientId> [gemeenteCode]');
+      console.error('Voorbeeld: node scripts/setup-keycloak-client.js \'burgerzaken\'');
+      console.error('Voorbeeld: node scripts/setup-keycloak-client.js \'gemeente amsterdam\' 0363');
       process.exit(1);
     }
 
     const clientId = args[0];
-    const afnemerId = args[1];
-    const gemeenteCode = args[2] || undefined;
+    const gemeenteCode = args[1] || undefined;
 
     const clientSecret = generateClientSecret();
 
     const afnemer = {
       aanduiding: clientId,
-      afnemerId: afnemerId,
-      oin: `000000099000000${afnemerId}`,
-      gemeenteCode: gemeenteCode,
       clientSecret: clientSecret,
+      gemeenteCode: gemeenteCode
     };
+
+    PostgresqlManager.setup(poolConfig);
+    await createAutorisatie(afnemer);
+
+    // afnemer id is automatisch gegenereerd in de createAutorisatie functie, genereer oin op basis van dit id
+    afnemer.oin = `000000099000000${afnemer.afnemerId}`;
 
     console.log('Aanmaken Keycloak client...');
 
@@ -73,10 +79,14 @@ async function main() {
     console.log('Keycloak client succesvol aangemaakt!');
     console.log(`  Client ID: ${afnemer.aanduiding}`);
     console.log(`  Client Secret: ${afnemer.clientSecret}`);
+    console.log(`  Afnemer ID: ${afnemer.afnemerId}`);
     console.log(`  Scope: ${afnemer.oin}`);
   } catch (error) {
     console.error('Fout bij het aanmaken van de Keycloak client:', error.message);
     process.exit(1);
+  }
+  finally {
+    await PostgresqlManager.getInstance().close();
   }
 }
 
