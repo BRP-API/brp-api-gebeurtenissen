@@ -68,7 +68,7 @@ async function main() {
     await createAutorisatie(afnemer);
 
     // afnemer id is automatisch gegenereerd in de createAutorisatie functie, genereer oin op basis van dit id
-    afnemer.oin = `000000099000000${afnemer.afnemerId}`;
+    afnemer.oin = `${afnemer.afnemerId}-00000009900000000000`;
 
     console.log('Aanmaken Keycloak client...');
 
