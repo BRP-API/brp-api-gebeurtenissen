@@ -1,4 +1,5 @@
 # language: nl
+@integratie
 Functionaliteit: Abonneer op gebeurtenistype
   Als abonnee van BRP API Gebeurtenissen
   wil ik mij kunnen abonneren op specifieke gebeurtenissen van personen aan wie ik diensten verleen
@@ -36,7 +37,7 @@ Functionaliteit: Abonneer op gebeurtenistype
       * is geregistreerd als abonnee 'szw' van BRP API Gebeurtenissen
       En abonnee 'szw' van afnemer 'Gemeente Den Haag' is geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '409 Conflict'
 
     Scenario: Twee abonnees van dezelfde afnemer nemen hetzelfde abonnement
       Gegeven de afnemer 'Gemeente Den Haag'

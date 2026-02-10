@@ -1,4 +1,4 @@
-import { BrpApiDatum, VolledigeDatum } from "../brp-api/brp-api-datum";
+import { BrpApiDatum, VolledigeDatum } from '../brp-api/brp-api-datum';
 
 /**
  * Converteer een datum string in dd-mm-yyyy formaat naar yyyymmdd formaat
@@ -7,24 +7,24 @@ import { BrpApiDatum, VolledigeDatum } from "../brp-api/brp-api-datum";
  * @throws Error als de input ongeldig is
  */
 export function toBrpDate(dateString: string): string {
-    if (!dateString || typeof dateString !== 'string') {
-        throw new Error('ongeldig datum string');
-    }
+  if (!dateString || typeof dateString !== 'string') {
+    throw new Error('ongeldig datum string');
+  }
 
-    const dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
-    const match = dateRegex.exec(dateString);
-    
-    if (!match) {
-        throw new Error('ongeldig datum string');
-    }
+  const dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
+  const match = dateRegex.exec(dateString);
 
-    const [, day, month, year] = match;
-    
-    // Voeg voorloopnullen toe aan dag en maand
-    const paddedDay = day.padStart(2, '0');
-    const paddedMonth = month.padStart(2, '0');
+  if (!match) {
+    throw new Error('ongeldig datum string');
+  }
 
-    return `${year}${paddedMonth}${paddedDay}`;
+  const [, day, month, year] = match;
+
+  // Voeg voorloopnullen toe aan dag en maand
+  const paddedDay = day.padStart(2, '0');
+  const paddedMonth = month.padStart(2, '0');
+
+  return `${year}${paddedMonth}${paddedDay}`;
 }
 
 /**
@@ -34,28 +34,28 @@ export function toBrpDate(dateString: string): string {
  * @throws Error als de input ongeldig is
  */
 export function toIsoDate(dateString: string): string {
-    if (!dateString || typeof dateString !== 'string') {
-        throw new Error('ongeldig datum string');
-    }
+  if (!dateString || typeof dateString !== 'string') {
+    throw new Error('ongeldig datum string');
+  }
 
-    const dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
-    const match = dateRegex.exec(dateString);
-    
-    if (!match) {
-        throw new Error('ongeldig datum string');
-    }
+  const dateRegex = /^(\d{1,2})-(\d{1,2})-(\d{4})$/;
+  const match = dateRegex.exec(dateString);
 
-    const [, day, month, year] = match;
-    
-    // Voeg voorloopnullen toe aan dag en maand
-    const paddedDay = day.padStart(2, '0');
-    const paddedMonth = month.padStart(2, '0');
+  if (!match) {
+    throw new Error('ongeldig datum string');
+  }
 
-    return `${year}-${paddedMonth}-${paddedDay}`;
+  const [, day, month, year] = match;
+
+  // Voeg voorloopnullen toe aan dag en maand
+  const paddedDay = day.padStart(2, '0');
+  const paddedMonth = month.padStart(2, '0');
+
+  return `${year}-${paddedMonth}-${paddedDay}`;
 }
 
 function isVolledigeDatum(jaar: string, maand: string, dag: string): boolean {
-    return maand !== '00' && dag !== '00';
+  return maand !== '00' && dag !== '00';
 }
 
 /**
@@ -64,22 +64,27 @@ function isVolledigeDatum(jaar: string, maand: string, dag: string): boolean {
  * @returns BRP API datum
  */
 export function toBrpApiDatum(dateString: string): BrpApiDatum | undefined {
-    const dateRegex = /^(\d{4})(\d{2})(\d{2})$/;
-    const match = dateRegex.exec(dateString);
-    
-    if (!match) {
-        throw new Error('ongeldig datum string');
-    }
+  const dateRegex = /^(\d{4})(\d{2})(\d{2})$/;
+  const match = dateRegex.exec(dateString);
 
-    const [, year, month, day] = match;
+  if (!match) {
+    throw new Error('ongeldig datum string');
+  }
 
-    if (isVolledigeDatum(year, month, day)) {
-        return new VolledigeDatum(Number.parseInt(year), Number.parseInt(month), Number.parseInt(day));
-    }   
+  const [, year, month, day] = match;
 
-    return undefined;
+  if (isVolledigeDatum(year, month, day)) {
+    return new VolledigeDatum(Number.parseInt(year), Number.parseInt(month), Number.parseInt(day));
+  }
+
+  return undefined;
 }
 
 export function toDateOrString(value: string, dateAsDate: boolean): Date | string {
+  if (dateAsDate) {
+    const asDate = toBrpDate(value);
+    return new Date(asDate);
+  } else {
     return value;
+  }
 }

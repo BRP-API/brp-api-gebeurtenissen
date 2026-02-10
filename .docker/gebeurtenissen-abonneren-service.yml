@@ -5,11 +5,16 @@ services:
     depends_on:
       - keycloak
       - axonserver
+      - postgres
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
       - AXON_AXONSERVER_SERVERS=axonserver:8124
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://keycloak:8080/realms/brp-api
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/rvig_haalcentraal_testdata
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
     ports:
-      - "8003:8084"
+      - "8003:8094"
     networks:
       - brp-api-network
 

@@ -1,0 +1,7 @@
+# Ignore everything
+*
+
+# Except features/step_definitions
+!features/
+!features/step_definitions/
+!features/step_definitions/**
