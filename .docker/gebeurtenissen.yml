@@ -7,6 +7,11 @@ services:
     environment:
       - AXON_AXONSERVER_SERVERS=axon
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/rvig_haalcentraal_testdata
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - PROJECTIONS_DATASOURCE_URL=jdbc:postgresql://projecties-db:5432/rvig_brpapi_projecties
+      - PROJECTIONS_DATASOURCE_USERNAME=root
+      - PROJECTIONS_DATASOURCE_PASSWORD=root
     networks:
       - brp-api-network
 

@@ -63,7 +63,7 @@ GET http://localhost:8888/api/brp/abonnees/{{abonneeNaam}}/gebeurtenissen
 Authorization: Bearer {{auth_token}}
 
 ### (Optioneel) Publiceer een aangifte met de mutatie-service
-POST http://localhost:8000/personen/aangiftes
+POST http://localhost:8000/api/brp/personen/aangiftes
 Content-Type: application/json
 Authorization: Bearer {{auth_token}}
 Content-Type: application/json
