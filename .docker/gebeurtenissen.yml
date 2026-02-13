@@ -12,6 +12,8 @@ services:
       - PROJECTIONS_DATASOURCE_URL=jdbc:postgresql://projecties-db:5432/rvig_brpapi_projecties
       - PROJECTIONS_DATASOURCE_USERNAME=root
       - PROJECTIONS_DATASOURCE_PASSWORD=root
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/realms/brp-api
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI=http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs
     networks:
       - brp-api-network
 
