@@ -12,7 +12,7 @@ Afnemers van de BRP API willen op de hoogte worden gesteld van specifieke gebeur
 
 ## Beslissingen
 
-Voor de MVP van BRP API Gebeurtenissen is ervoor gekozen om afnemers te informeren over gebeurtenissen via een HTTP API. Afnemers kunnen met de API controleren of er gebeurtenissen hebben plaatsgevonden waarin zij geïnteresseerd zijn.
+Voor de minimal viable product (MVP) van BRP API Gebeurtenissen is ervoor gekozen om afnemers te informeren over gebeurtenissen via een HTTP API. Afnemers kunnen met de API controleren of er gebeurtenissen hebben plaatsgevonden waarin zij geïnteresseerd zijn.
 
 ## Consequenties
 
@@ -22,8 +22,8 @@ Voordelen:
 - Het is makkelijker om nieuwe functionaliteit toe te voegen aan een HTTP API, zoals het opnieuw kunnen opvragen van gebeurtenissen die al eerder zijn opgevraagd (replay functionaliteit).
 
 Nadelen:
-- Geen real-time notificaties: Een afnemer moet regelmatig verzoeken doen om te weten of er gebeurtenissen hebben plaatsgevonden waarin hij geïnteresseerd is. Als hij (near) real-time de gebeurtenissen wilt ontvangen, dan moet hij gaan pollen, wat kan leiden tot een verhoogde belasting van de API. Dit kan in de toekomst worden opgelost door het implementeren van webhooks of message brokers, maar voor de MVP is gekozen voor een eenvoudiger oplossing met een HTTP API.
-- Wanneer een afnemer zich op veel gebeurtenissen abonneert, maar niet regelmatig controleert of er gebeurtenissen hebben plaatsgevonden waarin hij is geïnteresseerd, dan kan de payload van een verzoek groot worden. Dit kan worden opgelost door paginering te implementeren in de Bevragen API. Dit leidt wel tot extra ontwikkelingsinspanningen.
+- Geen real-time notificaties: Een afnemer moet regelmatig verzoeken doen om te weten of er gebeurtenissen hebben plaatsgevonden waarin hij geïnteresseerd is. Als hij (near) real-time de gebeurtenissen wilt ontvangen, dan moet hij gaan pollen, wat kan leiden tot een verhoogde belasting van de API. Voor de MVP is dit acceptabel omdat er nog geen afnemers zijn die real-time notificaties nodig hebben. Mocht er in de toekomst behoefte hiervoor ontstaan, dan kan dit worden opgelost door het implementeren van webhooks of message brokers.
+- Wanneer een afnemer zich op veel gebeurtenissen abonneert, maar niet regelmatig controleert of er gebeurtenissen hebben plaatsgevonden waarin hij is geïnteresseerd, dan kan de payload van een verzoek groot worden. Dit zal worden opgelost door paginering te implementeren in de Bevragen API. Dit leidt wel tot extra ontwikkelingsinspanningen.
 - Er moet extra functionaliteit worden geïmplementeerd om tijdelijk bij te houden welke gebeurtenissen een afnemer moet ontvangen en welke gebeurtenissen een afnemer al heeft ontvangen. Dit is voor een goede performance van de Bevragen API noodzakelijk. We willen niet bij elk verzoek een complexe query uitvoeren om te bepalen welke gebeurtenissen een afnemer moet ontvangen.
 
 ## Alternatieven
