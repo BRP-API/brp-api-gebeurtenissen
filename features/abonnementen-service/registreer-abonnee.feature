@@ -21,7 +21,7 @@ Functionaliteit: Registreer abonnee
         | Gemeente Amsterdam | jz          |
 
   Regel: Een geldige abonneenaam voldoet aan de volgende criteria:
-          - bevat alleen kleine letters (a-z) en de koppelteken (-)
+          - bevat alleen kleine letters (a-z) en een koppelteken (-)
           - bevat geen dubbele koppeltekens achter elkaar (--)
           - bevat minimaal 2 en maximaal 10 tekens
           - begint en eindigt niet met de koppelteken (-)
