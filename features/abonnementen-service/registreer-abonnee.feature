@@ -24,7 +24,7 @@ Functionaliteit: Registreer abonnee
           - bevat alleen kleine letters (a-z) en een koppelteken (-)
           - bevat geen dubbele koppeltekens achter elkaar (--)
           - bevat minimaal 2 en maximaal 10 tekens
-          - begint en eindigt niet met de koppelteken (-)
+          - begint en eindigt niet met een koppelteken (-)
 
     Abstract Scenario: <titel>
       Als de afnemer 'Gemeente Amsterdam' de abonnee '<abonneeNaam>' registreert
@@ -38,7 +38,7 @@ Functionaliteit: Registreer abonnee
         | De abonneenaam bevat een koppelteken aan het begin | -jz         |
         | De abonneenaam bevat een koppelteken aan het einde | jz-         |
         | De abonneenaam bevat dubbele koppeltekens          | j--z        |
-        | De abonneenaam bevat een ongeldig tekens           | j_z         |
+        | De abonneenaam bevat een ongeldig teken           | j_z         |
 
   Regel: De abonneenaam is uniek binnen de context van een afnemer
 
