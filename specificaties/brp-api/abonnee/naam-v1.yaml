@@ -1,0 +1,17 @@
+openapi: 3.1.2
+info:
+  title: AbonneeNaam type definitie
+  version: 1.0.0
+components:
+  schemas:
+    AbonneeNaam:
+      type: string
+      pattern: '^(?!.*--)[a-z][a-z-]{0,8}[a-z]$'
+      description: |
+        De naam van de abonnee. 
+        Moet voldoen aan de volgende regels:
+          - Begint en eindigt met een kleine letter
+          - Bevat minimaal 2 en maximaal 10 tekens
+          - Bevat alleen kleine letters (a-z) en koppeltekens (-)
+          - Bevat geen dubbele koppeltekens (--)
+      example: abonnee

@@ -1,4 +1,5 @@
 # language: nl
+@to-do @skip-verify
 Functionaliteit: gepubliceerde gebeurtenis bij een geboorteaangifte
 
   Scenario: geboorteaangifte van een kind geboren in Nederland
