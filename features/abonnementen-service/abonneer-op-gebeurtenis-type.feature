@@ -59,7 +59,7 @@ Functionaliteit: Abonneer op een gebeurtenis van een persoon
       En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft een abonnement op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich weer abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is de response '409 Conflict' met de volgende velden
-      * 'detail' met tekst 'U heeft al een abonnement genomen op de opgegeven gebeurtenistype en persoon.'
+      * 'detail' met tekst 'U heeft al een abonnement genomen op opgegeven gebeurtenistype en persoon.'
 
     Scenario: Een andere abonnee heeft een abonnement genomen op de opgegeven gebeurtenistype en persoon
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
