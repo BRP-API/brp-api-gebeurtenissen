@@ -56,17 +56,13 @@ Functionaliteit: Abonneer op een gebeurtenis van een persoon
 
     Scenario: De abonnee heeft al een abonnement genomen op de opgegeven gebeurtenistype en persoon
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
-      En er is een 'AbonnementGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId         | abonneeNaam | gebeurtenistype            | anummer |
-        | Gemeente Den Haag | szw         | verhuisd.intergemeentelijk | Jan     |
-      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft een abonnement op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zich weer abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is de response '409 Conflict' met de volgende velden
       * 'detail' met tekst 'U heeft al een abonnement genomen op de opgegeven gebeurtenistype en persoon.'
 
     Scenario: Een andere abonnee heeft een abonnement genomen op de opgegeven gebeurtenistype en persoon
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
-      En er is een 'AbonnementGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId         | abonneeNaam | gebeurtenistype            | anummer |
-        | Gemeente Den Haag | szw         | verhuisd.intergemeentelijk | Jan     |
+      En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft een abonnement op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Als de abonnee 'jz' van afnemer 'Gemeente Den Haag' zich abonneert op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Dan is er een 'AbonnementGeregistreerd' gebeurtenis gepubliceerd
