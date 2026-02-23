@@ -7,7 +7,11 @@ Functionaliteit: Abonneer op een gebeurtenis van een persoon
   Regel: Een abonnement op een gebeurtenis van een persoon kan alleen worden genomen door een abonnee
   
     Scenario: Een afnemer heeft geen abonnee geregistreerd en probeert een abonnement te nemen op een gebeurtenis van een persoon
-      Als een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wilt nemen
+      Als een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wil nemen
+      Dan is de response '404 Not Found'
+
+    Scenario: Een afnemer geeft een niet-geregistreerde abonnee op bij het nemen van een abonnement op een gebeurtenis van een persoon
+      Als een afnemer met een niet-geregistreerde abonnee een abonnement op een gebeurtenis van een persoon wil nemen
       Dan is de response '404 Not Found'
 
   Regel: Bij het nemen van een abonnement op een gebeurtenis van een persoon moet een geldig gebeurtenistype worden opgegeven. Geldige gebeurtenistypes zijn:
@@ -16,12 +20,17 @@ Functionaliteit: Abonneer op een gebeurtenis van een persoon
     Scenario: De opgegeven gebeurtenistype bestaat niet
       Als een abonnee zich abonneert op een ongeldige gebeurtenis van een persoon
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De opgegeven gebeurtenistype is ongeldig.'
+      * 'detail' met tekst 'Het opgegeven gebeurtenistype is ongeldig.'
 
-  Regel: Bij het nemen van een abonnement op een gebeurtenis van een persoon moet de burgerservicenummer van een in de BRP geregistreerde persoon worden opgegeven
+  Regel: Bij het nemen van een abonnement op een gebeurtenis van een persoon moet het burgerservicenummer van een in de BRP geregistreerde persoon worden opgegeven
 
-    Scenario: De onbekend burgerservicenummer is opgegeven
-      Als een abonnee zich abonneert op een gebeurtenis van een onbekend persoon
+    Scenario: Het opgegeven burgerservicenummer bestaat niet uit 9 cijfers
+      Als een abonnee zich abonneert op een gebeurtenis van een persoon met een ongeldig burgerservicenummer
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'detail' met tekst 'Het opgegeven burgerservicenummer is ongeldig.'
+
+    Scenario: Een onbekend burgerservicenummer is opgegeven
+      Als een abonnee zich abonneert op een gebeurtenis van een onbekende persoon
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'Er bestaat geen persoon met het opgegeven burgerservicenummer.'
 
