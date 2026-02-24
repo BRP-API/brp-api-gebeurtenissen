@@ -27,6 +27,19 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /admin/events:
+    delete:
+      operationId: VerwijderEvents
+      summary: Verwijder alle events
+      responses:
+        '204':
+          description: Events verwijderd
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
 components:
   schemas:
     AangifteCommand:

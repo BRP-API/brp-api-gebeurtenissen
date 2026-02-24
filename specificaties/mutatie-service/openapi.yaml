@@ -29,6 +29,19 @@ paths:
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security: 
         -  clientCredentials: []
+  /admin/events:
+    delete:
+      operationId: VerwijderEvents
+      summary: Verwijder alle events
+      responses:
+        '204':
+          description: Events verwijderd
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
 
 components:
   schemas:
