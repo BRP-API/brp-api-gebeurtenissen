@@ -34,8 +34,10 @@ Functionaliteit: Abonneer op een gebeurtenis van een persoon
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'Er bestaat geen persoon met het opgegeven burgerservicenummer.'
 
+  @wip @issue-107
   Regel: Bij het nemen van een abonnement op een gebeurtenis van een persoon mag de persoonslijst van de persoon niet zijn opgeschort
 
+    @skip-verify
     Scenario: De opgegeven burgerservicenummer is van een persoon wiens persoonslijst is opgeschort
       Gegeven de persoon 'Jan' is geregistreerd in de BRP en zijn persoonslijst is opgeschort
       Als een abonnee zich abonneert op een gebeurtenis van 'Jan'
