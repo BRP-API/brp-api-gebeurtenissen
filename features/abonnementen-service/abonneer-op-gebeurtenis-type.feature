@@ -30,7 +30,7 @@ Functionaliteit: Abonneer op een gebeurtenis van een persoon
       * 'detail' met tekst 'Het opgegeven burgerservicenummer is ongeldig.'
 
     Scenario: Een onbekend burgerservicenummer is opgegeven
-      Als een abonnee zich abonneert op een gebeurtenis van een onbekende persoon
+      Als een abonnee zich abonneert op een gebeurtenis van een persoon die niet is geregistreerd in de BRP
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'Er bestaat geen persoon met het opgegeven burgerservicenummer.'
 
