@@ -4,8 +4,8 @@ info:
   version: 1.0.0
 
 servers: 
-  - url: http://localhost
-    description: Lokale ontwikkelomgeving
+  - url: https://probeerbrpapi.rvig.nl/api/brp
+    description: BRP APIs probeeromgeving
 
 paths:
   /personen/aangiftes:
@@ -69,5 +69,5 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: http://identityserver:6000/token
+          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
           scopes: {}
