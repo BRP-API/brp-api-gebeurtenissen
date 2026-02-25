@@ -86,6 +86,8 @@ components:
         propertyName: type
         mapping:
           nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
+          nl.brp.verhuisd.naar-buitenland: '#/components/schemas/VerhuisdNaarBuitenland'
+          nl.brp.overleden: '#/components/schemas/Overleden'
     Burgerservicenummer:
       type: string
       title: Burgerservicenummer
@@ -207,6 +209,48 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
+    VerblijfplaatsBuitenland:
+      type: object
+      properties:
+        datumVan:
+          $ref: '#/components/schemas/AbstractDatum'
+    VerhuisdNaarBuitenlandData:
+      type: object
+      properties:
+        burgerservicenummer:
+          $ref: '#/components/schemas/Burgerservicenummer'
+        verblijfplaats:
+          $ref: '#/components/schemas/VerblijfplaatsBuitenland'
+    VerhuisdNaarBuitenland:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/VerhuisdNaarBuitenlandData'
+    Overlijden:
+      type: object
+      properties:
+        datum:
+          $ref: '#/components/schemas/AbstractDatum'
+    OverledenData:
+      type: object
+      properties:
+        burgerservicenummer:
+          $ref: '#/components/schemas/Burgerservicenummer'
+        overlijden:
+          $ref: '#/components/schemas/Overlijden'
+    Overleden:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverledenData'
     iddef:
       description: |
         Identifies the event.

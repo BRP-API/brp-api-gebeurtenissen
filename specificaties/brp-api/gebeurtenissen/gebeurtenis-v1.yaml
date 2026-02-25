@@ -24,3 +24,5 @@ components:
         propertyName: type
         mapping:
           nl.brp.verhuisd.intergemeentelijk: 'verhuisd-intergemeentelijk-v1.yaml#/components/schemas/VerhuisdIntergemeentelijk'
+          nl.brp.verhuisd.naar-buitenland: 'verhuisd-naar-buitenland-v1.yaml#/components/schemas/VerhuisdNaarBuitenland'
+          nl.brp.overleden: 'overleden-v1.yaml#/components/schemas/Overleden'
