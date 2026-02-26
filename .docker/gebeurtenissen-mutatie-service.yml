@@ -5,8 +5,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - GEBEURTENIS-PUBLICEREN_BASE-URL=http://publiceer-service:8080/personen/gebeurtenissen
-      - GEBEURTENIS-PUBLICEREN_AUTH=Bearer some-token-value
+      - GEBEURTENIS_URL=http://gebeurtenissen:8888/personen/gebeurtenissen
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/rvig_haalcentraal_testdata
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root

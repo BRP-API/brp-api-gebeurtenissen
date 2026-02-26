@@ -1,0 +1,76 @@
+### Fetch access token
+
+POST http://localhost:8080/realms/brp-api/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type= {{grant_type}} &
+client_id= {{client_id}} &
+client_secret= {{client_secret}} &
+scope= {{scope}}
+
+> {%
+    client.global.set("auth_token", response.body.access_token)
+%}
+
+### Registreer abonnee
+POST http://localhost:8888/api/brp/abonnees
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "type": "RegistreerAbonnee",
+  "abonneeNaam": "{{abonneeNaam}}"
+}
+
+### Abonneer op type gebeurtenis voor een persoon
+POST http://localhost:8888/api/brp/abonnees/{{abonneeNaam}}/abonnementen
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+    "type": "AbonneerOpGebeurtenisTypeVanPersoon",
+    "gebeurtenisType": "{{gebeurtenisType}}",
+    "burgerservicenummer": "{{bsn}}"
+
+}
+
+### Publiceer een gebeurtenis voor persoon met bsn 999997348
+POST http://localhost:8888/personen/gebeurtenissen
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+  "type": "nl.brp.verhuisd.intergemeentelijk",
+  "data": {
+    "c01": {
+      "e0110": "{{anummer}}"
+    },
+    "c08": {
+      "e1030": "{{datumGebeurtenis}}",
+      "e1180": "{{ado}}"
+    }
+  },
+  "metadata": [
+    {
+      "naam": "activiteitId",
+      "waarde": "test-activiteit-123"
+    }
+  ]
+}
+
+### Bevraag gebeurtenissen voor afnemer en abonnee
+GET http://localhost:8888/api/brp/abonnees/{{abonneeNaam}}/gebeurtenissen
+Authorization: Bearer {{auth_token}}
+
+### (Optioneel) Publiceer een aangifte met de mutatie-service
+POST http://localhost:8000/api/brp/personen/aangiftes
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "type": "AangifteVanAdreswijziging",
+  "burgerservicenummer": "{{bsn}}",
+  "adresseerbaarObjectIdentificatie": "{{ado}}",
+  "verhuisdatum": "{{datumAangifte}}"
+}
