@@ -18,6 +18,18 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/AbonneeNaam'
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Cursor'
+          description: Optionele cursor voor paginering. Cursor moet een geldige gebeurtenis-ID zijn.
+        - name: limiet
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Limiet'
+          description: Optioneel maximum aantal gebeurtenissen per pagina. Standaard worden er maximaal 10 gebeurtenissen geleverd.
       responses:
         '200':
           description: De oudste ongelezen gebeurtenis is succesvol opgehaald
@@ -66,6 +78,16 @@ components:
           - Bevat alleen kleine letters (a-z) en koppeltekens (-)
           - Bevat geen dubbele koppeltekens (--)
       example: abonnee
+    Cursor:
+      description: Unieke gebeurtenis-id als cursor voor paginering.
+      type: string
+      example: 123e4567-e89b-12d3-a456-426614174000
+    Limiet:
+      description: Aantal te retourneren gebeurtenissen
+      type: integer
+      minimum: 1
+      maximum: 10
+      example: 3
     Gebeurtenis:
       type: object
       properties:

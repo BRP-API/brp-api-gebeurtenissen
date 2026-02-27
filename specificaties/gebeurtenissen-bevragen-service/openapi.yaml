@@ -18,9 +18,21 @@ paths:
           required: true
           schema:
             $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            $ref: '../brp-api/paginering/paginering-v1.yaml#/components/schemas/Cursor'
+          description: Optionele cursor voor paginering
+        - name: limiet
+          in: query
+          required: false
+          schema:
+            $ref: '../brp-api/paginering/paginering-v1.yaml#/components/schemas/Limiet'
+          description: Optioneel maximum aantal gebeurtenissen per pagina
       responses:
         '200':
-          description: De oudste ongelezen gebeurtenis is succesvol opgehaald
+          description: De gebeurtenis is succesvol opgehaald
           content:
             application/json:
               schema:
