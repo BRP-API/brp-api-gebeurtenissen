@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  projecties-db:
+    image: postgres:17
+    container_name: projecties-db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5440:5432"
+    volumes:
+      - projecties-db-data:/var/lib/postgresql/data
+      - ./scripts/projecties-db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d rvig_brpapi_projecties"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - brp-api-network
+
+volumes:
+  projecties-db-data:
+
+networks:
+  brp-api-network:
+    name: brp-api-network
