@@ -5,10 +5,11 @@ info:
 components:
   schemas:
     Cursor:
-      description: Unieke gebeurtenis-id als cursor voor paginering.
+      description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
       type: string
+      format: uuid
       example: "123e4567-e89b-12d3-a456-426614174000"
-    Limiet:
+    Limit:
       description: Aantal te retourneren gebeurtenissen
       type: integer
       minimum: 1

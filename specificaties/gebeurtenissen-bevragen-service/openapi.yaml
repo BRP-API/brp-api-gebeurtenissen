@@ -23,16 +23,14 @@ paths:
           required: false
           schema:
             $ref: '../brp-api/paginering/paginering-v1.yaml#/components/schemas/Cursor'
-          description: Optionele cursor voor paginering
-        - name: limiet
+        - name: limit
           in: query
           required: false
           schema:
-            $ref: '../brp-api/paginering/paginering-v1.yaml#/components/schemas/Limiet'
-          description: Optioneel maximum aantal gebeurtenissen per pagina
+            $ref: '../brp-api/paginering/paginering-v1.yaml#/components/schemas/Limit'
       responses:
         '200':
-          description: De gebeurtenis is succesvol opgehaald
+          description: De gevraagde aantal gebeurtenissen zijn succesvol opgehaald en geleverd
           content:
             application/json:
               schema:
