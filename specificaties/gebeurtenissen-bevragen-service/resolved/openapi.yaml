@@ -30,7 +30,7 @@ paths:
             $ref: '#/components/schemas/Limit'
       responses:
         '200':
-          description: De gevraagde aantal gebeurtenissen zijn succesvol opgehaald en geleverd
+          description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
           content:
             application/json:
               schema:
