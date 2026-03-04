@@ -33,6 +33,8 @@ readinessProbe:
 
 env:
   GEBEURTENIS_URL: "http://gebeurtenissen:8888/personen/gebeurtenissen"
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/rvig_haalcentraal_testdata"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://brpv-db:5432/rvig_haalcentraal_testdata"
   SPRING_DATASOURCE_USERNAME: "root"
   SPRING_DATASOURCE_PASSWORD: "root"
+  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: "http://keycloak:8080/realms/brp-api"
+  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: "http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs"

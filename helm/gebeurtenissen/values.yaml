@@ -9,7 +9,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 8888
   targetPort: 8888
 
@@ -33,7 +33,7 @@ readinessProbe:
 
 env:
   AXON_AXONSERVER_SERVERS: "axon"
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/rvig_haalcentraal_testdata"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://brpv-db:5432/rvig_haalcentraal_testdata"
   SPRING_DATASOURCE_USERNAME: "root"
   SPRING_DATASOURCE_PASSWORD: "root"
   PROJECTIONS_DATASOURCE_URL: "jdbc:postgresql://projecties-db:5432/rvig_brpapi_projecties"
