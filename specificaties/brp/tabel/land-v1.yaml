@@ -1,0 +1,9 @@
+openapi: 3.1.0
+info:
+  title: Land adres buitenland
+  version: 1.0.0
+components:
+  schemas:
+    LandCode:
+      type: string
+      pattern: ^[0-9]{4}$
