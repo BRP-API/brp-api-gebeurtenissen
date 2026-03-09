@@ -23,9 +23,21 @@ podSecurityContext: {}
 securityContext: {}
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 8000
   targetPort: 8000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: gebeurtenissen-mutatie-service.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
 
 livenessProbe:
   httpGet:
