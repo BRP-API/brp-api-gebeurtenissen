@@ -1,7 +1,7 @@
 # language: nl
 Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
   Als consumer van BRP Gebeurtenissen
-  wil ik ongelezen gebeurtenissen chronologisch kunnen bevragen
+  wil ik bij het bevragen van gebeurtenissen kunnen opgeven welke gebeurtenissen ik wil ontvangen
   zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
 
   Regel: Als er voor de abonnee geen gebeurtenissen zijn, krijgt hij geen gebeurtenissen
