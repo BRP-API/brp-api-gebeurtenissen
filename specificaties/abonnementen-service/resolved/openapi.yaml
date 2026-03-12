@@ -33,6 +33,26 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+    get:
+      operationId: RaadpleegAbonnees
+      summary: Raadpleeg de abonnees van de afnemer
+      tags:
+        - Abonnees
+      responses:
+        '200':
+          description: Lijst van abonnees succesvol opgehaald.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaadpleegAbonneesResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
   /abonnees/{abonneeNaam}/abonnementen:
     parameters:
       - name: abonneeNaam
@@ -75,26 +95,6 @@ components:
           tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
           scopes: {}
   schemas:
-    AbonneeCommand:
-      type: object
-      properties:
-        type:
-          type: string
-      required:
-        - type
-      discriminator:
-        propertyName: type
-        mapping:
-          RegistreerAbonnee: '#/components/schemas/RegistreerAbonneeCommand'
-    RegistreerAbonneeCommand:
-      allOf:
-        - $ref: '#/components/schemas/AbonneeCommand'
-        - type: object
-          properties:
-            abonneeNaam:
-              $ref: '#/components/schemas/AbonneeNaam'
-          required:
-            - abonneeNaam
     AbonnementenCommand:
       type: object
       properties:
@@ -132,6 +132,22 @@ components:
           - Bevat alleen kleine letters (a-z) en koppeltekens (-)
           - Bevat geen dubbele koppeltekens (--)
       example: abonnee
+    Abonnee:
+      type: object
+      properties:
+        naam:
+          $ref: '#/components/schemas/AbonneeNaam'
+          description: De naam van de abonnee, uniek voor een afnemer
+    RaadpleegAbonneesResponse:
+      type: object
+      properties:
+        abonnees:
+          type: array
+          items:
+            $ref: '#/components/schemas/Abonnee'
+          description: Lijst van abonnees van de afnemer
+      required:
+        - abonnees
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
@@ -161,6 +177,13 @@ components:
           description: Systeemcode die het type fout aangeeft
           type: string
           pattern: ^[a-zA-Z0-9]{1,25}$
+    RegistreerAbonneeCommand:
+      type: object
+      properties:
+        abonneeNaam:
+          $ref: '#/components/schemas/AbonneeNaam'
+      required:
+        - abonneeNaam
     InvalidParam:
       type: object
       description: Details over fouten in opgegeven parameters

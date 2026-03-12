@@ -17,7 +17,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RegistreerAbonneeCommand'
+              $ref: '../brp-api/abonnee/registreer-abonnee-command-v1.yaml#/components/schemas/RegistreerAbonneeCommand'
       responses:
         '201':
           description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
@@ -29,6 +29,27 @@ paths:
           $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
         '404':
           $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+
+    get: 
+      operationId: RaadpleegAbonnees
+      summary: Raadpleeg de abonnees van de afnemer
+      tags:
+        - Abonnees
+      responses:
+        '200':
+          description: Lijst van abonnees succesvol opgehaald.
+          content:
+            application/json:
+              schema:
+                $ref: '../brp-api/abonnee/raadpleeg-abonnees-response-v1.yaml#/components/schemas/RaadpleegAbonneesResponse'
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
@@ -78,26 +99,6 @@ components:
           scopes: {}
 
   schemas:
-    AbonneeCommand:
-      type: object
-      properties:
-        type:
-          type: string
-      required:
-        - type
-      discriminator:
-        propertyName: type
-        mapping:
-          RegistreerAbonnee: '#/components/schemas/RegistreerAbonneeCommand'
-    RegistreerAbonneeCommand:
-      allOf:
-        - $ref: '#/components/schemas/AbonneeCommand'
-        - type: object
-          properties:
-            abonneeNaam:
-              $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
-          required:
-            - abonneeNaam
     AbonnementenCommand:
       type: object
       properties:
