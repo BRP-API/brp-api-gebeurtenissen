@@ -1,0 +1,22 @@
+openapi: 3.1.2
+info:
+  title: Abonnement specificatie
+  version: 1.0.0
+components:
+  schemas:
+    Abonnement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unieke identifier van het abonnement
+        type:
+          type: string
+      required:
+        - id
+        - type
+      discriminator: 
+        propertyName: type
+        mapping:
+          AbonnementOpGebeurtenisTypeVanPersoon: './abonnement-op-gebeurtenis-type-van-persoon-v1.yaml#/components/schemas/AbonnementOpGebeurtenisTypeVanPersoon'

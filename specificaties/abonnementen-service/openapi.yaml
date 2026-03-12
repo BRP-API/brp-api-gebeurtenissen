@@ -92,12 +92,35 @@ paths:
         content:
           application/json:
             schema: 
-              $ref: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
+              $ref: '../brp-api/abonnee/abonneer-command-v1.yaml#/components/schemas/AbonneerCommand'
       responses: 
         '201':
           description: Abonnement(en) succesvol aangemaakt.
         '400':
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+
+    get:
+      operationId: RaadpleegAbonnementen
+      summary: Raadpleeg de lijst van abonnementen van een abonnee
+      tags:
+        - Abonnees
+      responses:
+        '200':
+          description: Lijst van abonnementen van de abonnee succesvol opgehaald.
+          content:
+            application/json:
+              schema:
+                $ref: '../brp-api/abonnee/raadpleeg-abonnementen-response-v1.yaml#/components/schemas/RaadpleegAbonnementenResponse'
         '401':
           $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
         '403':
@@ -117,31 +140,3 @@ components:
         clientCredentials:
           tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
           scopes: {}
-
-  schemas:
-    AbonnementenCommand:
-      type: object
-      properties:
-        type:
-          type: string
-      required:
-        - type
-      discriminator: 
-        propertyName: type
-        mapping: 
-          AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
-    AbonneerOpGebeurtenisTypeVanPersoonCommand:
-      allOf: 
-        - $ref: '#/components/schemas/AbonnementenCommand'
-        - type: object
-          properties:
-            gebeurtenisType:
-              type: string
-              pattern: ^[a-z/-/.]{1,50}$
-              description: Het gebeurtenistype waarop de abonnee zich wil abonneren
-            burgerservicenummer:
-              $ref: '../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
-              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
-          required:
-            - gebeurtenisType
-            - burgerservicenummer
