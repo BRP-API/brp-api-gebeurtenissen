@@ -108,6 +108,9 @@ paths:
       summary: Raadpleeg de lijst van abonnementen van een abonnee
       tags:
         - Abonnees
+      parameters:
+        - $ref: '#/components/parameters/CursorQueryParameter'
+        - $ref: '#/components/parameters/LimitQueryParameter'
       responses:
         '200':
           description: Lijst van abonnementen van de abonnee succesvol opgehaald.
@@ -231,6 +234,15 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/InvalidParam'
+    Cursor:
+      type: string
+      format: uuid
+      description: Identifier van een resource
+    Limit:
+      type: integer
+      minimum: 1
+      maximum: 10
+      description: Het aantal resources dat in één response wordt teruggegeven.
     Abonnement:
       type: object
       properties:
@@ -389,3 +401,17 @@ components:
       schema:
         $ref: '#/components/schemas/AbonneeNaam'
         description: De naam van de abonnee
+    CursorQueryParameter:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Cursor'
+      description: Cursor query parameter die gebruikt kan worden voor paginering.
+    LimitQueryParameter:
+      name: limit
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Limit'
+      description: Limit query parameter die gebruikt kan worden voor paginering.

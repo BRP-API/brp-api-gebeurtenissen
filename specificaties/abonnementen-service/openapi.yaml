@@ -114,6 +114,9 @@ paths:
       summary: Raadpleeg de lijst van abonnementen van een abonnee
       tags:
         - Abonnees
+      parameters: 
+        - $ref: '../paginering/cursor-query-parameter-v1.yaml#/components/parameters/CursorQueryParameter'
+        - $ref: '../paginering/limit-query-parameter-v1.yaml#/components/parameters/LimitQueryParameter'
       responses:
         '200':
           description: Lijst van abonnementen van de abonnee succesvol opgehaald.
