@@ -53,13 +53,30 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /abonnees/{abonneeNaam}:
+    parameters:
+      - $ref: '#/components/parameters/AbonneeNaamPathParameter'
+    delete:
+      operationId: DeregistreerAbonnee
+      summary: Ongedaan maken van een bestaande abonnee registratie, inclusief alle abonnementen van de abonnee
+      tags:
+        - Abonnees
+      responses:
+        '204':
+          description: Abonnee succesvol gederegistreerd als abonnee van BRP API Gebeurtenissen.
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
   /abonnees/{abonneeNaam}/abonnementen:
     parameters:
-      - name: abonneeNaam
-        in: path
-        required: true
-        schema:
-          $ref: '#/components/schemas/AbonneeNaam'
+      - $ref: '#/components/parameters/AbonneeNaamPathParameter'
     post:
       operationId: AbonneerOpGebeurtenisTypeVanPersoon
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
@@ -295,3 +312,11 @@ components:
             detail: The server encountered an unexpected condition which prevented it from fulfilling the request.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
             code: serverError
+  parameters:
+    AbonneeNaamPathParameter:
+      name: abonneeNaam
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/AbonneeNaam'
+        description: De naam van de abonnee

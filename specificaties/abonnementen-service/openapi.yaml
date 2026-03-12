@@ -55,13 +55,33 @@ paths:
       security:
         - clientCredentials: []
 
+  /abonnees/{abonneeNaam}:
+    parameters:
+      - $ref: '../brp-api/abonnee/abonnee-naam-path-parameter-v1.yaml#/components/parameters/AbonneeNaamPathParameter'
+
+    delete:
+      operationId: DeregistreerAbonnee
+      summary: Ongedaan maken van een bestaande abonnee registratie, inclusief alle abonnementen van de abonnee
+      tags:
+        - Abonnees
+      responses:
+        '204':
+          description: Abonnee succesvol gederegistreerd als abonnee van BRP API Gebeurtenissen.
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+
   /abonnees/{abonneeNaam}/abonnementen:
     parameters:
-      - name: abonneeNaam
-        in: path
-        required: true
-        schema:
-          $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
+      - $ref: '../brp-api/abonnee/abonnee-naam-path-parameter-v1.yaml#/components/parameters/AbonneeNaamPathParameter'
+
     post: 
       operationId: AbonneerOpGebeurtenisTypeVanPersoon
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
