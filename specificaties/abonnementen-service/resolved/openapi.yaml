@@ -78,8 +78,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/AbonneeNaamPathParameter'
     post:
-      operationId: AbonneerOpGebeurtenisTypeVanPersoon
-      summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
+      operationId: AbonnementenCommands
+      summary: Abonnementen commands uitvoeren voor een bestaande abonnee, zoals het abonneneren op gebeurtenis types van een persoon of opzeggen van abonnementen
       tags:
         - Abonnees
       requestBody:
@@ -87,7 +87,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AbonneerCommand'
+              $ref: '#/components/schemas/AbonnementenCommand'
       responses:
         '201':
           description: Abonnement(en) succesvol aangemaakt.
@@ -297,7 +297,7 @@ components:
           description: Lijst van abonnementen van de abonnee
       required:
         - abonnementen
-    AbonneerCommand:
+    AbonnementenCommand:
       type: object
       properties:
         type:
@@ -308,9 +308,11 @@ components:
         propertyName: type
         mapping:
           AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
+          ZegOpAbonnementOpGebeurtenisTypeVanPersoon: '#/components/schemas/ZegOpAbonnementOpGebeurtenisTypeVanPersoonCommand'
+          ZegOpAbonnementenOpPersoon: '#/components/schemas/ZegOpAbonnementenOpPersoonCommand'
     AbonneerOpGebeurtenisTypeVanPersoonCommand:
       allOf:
-        - $ref: '#/components/schemas/AbonneerCommand'
+        - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
           properties:
             gebeurtenisType:
@@ -321,6 +323,30 @@ components:
               description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
           required:
             - gebeurtenisType
+            - burgerservicenummer
+    ZegOpAbonnementOpGebeurtenisTypeVanPersoonCommand:
+      allOf:
+        - $ref: '#/components/schemas/AbonnementenCommand'
+        - type: object
+          description: Beëindigen van een 'gebeurtenis type van persoon' abonnement van een abonnee.
+          properties:
+            gebeurtenisType:
+              $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+            burgerservicenummer:
+              $ref: '#/components/schemas/Burgerservicenummer'
+          required:
+            - gebeurtenisType
+            - burgerservicenummer
+    ZegOpAbonnementenOpPersoonCommand:
+      allOf:
+        - $ref: '#/components/schemas/AbonnementenCommand'
+        - type: object
+          description: Beëindigen van alle abonnementen op een persoon van een abonnee.
+          properties:
+            burgerservicenummer:
+              $ref: '#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon van wie de abonnee geen gebeurtenissen meer wil ontvangen
+          required:
             - burgerservicenummer
   responses:
     '400':
