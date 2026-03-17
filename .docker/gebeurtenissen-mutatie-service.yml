@@ -9,6 +9,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/rvig_haalcentraal_testdata
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+      - AXON_SERVER_HOST=axon
     networks:
       - brp-api-network
 
