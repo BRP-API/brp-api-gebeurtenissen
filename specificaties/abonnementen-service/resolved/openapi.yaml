@@ -110,7 +110,9 @@ paths:
         - Abonnees
       parameters:
         - $ref: '#/components/parameters/CursorQueryParameter'
+          description: Gebruik dit voor paginering. Vul hier de id van het laatst ontvangen abonnement op om de hieropvolgende abonnementen te ontvangen.
         - $ref: '#/components/parameters/LimitQueryParameter'
+          description: Geeft hier het maximaal aantal abonnementen op dat je per request kan ontvangen. Als je dit weglaat is het maximum 10.
       responses:
         '200':
           description: Lijst van abonnementen van de abonnee succesvol opgehaald.
