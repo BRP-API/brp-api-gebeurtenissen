@@ -96,6 +96,8 @@ paths:
       responses: 
         '201':
           description: Abonnement(en) succesvol aangemaakt.
+        '204':
+          description: Abonnement(en) succesvol opgezegd.
         '400':
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
