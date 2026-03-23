@@ -78,7 +78,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/AbonneeNaamPathParameter'
     post:
-      operationId: AbonneerOpGebeurtenisTypeVanPersoon
+      operationId: AbonneerOpGebeurtenisTypen
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
       tags:
         - Abonnees

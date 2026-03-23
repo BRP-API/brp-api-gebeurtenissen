@@ -83,7 +83,7 @@ paths:
       - $ref: '../brp-api/abonnee/abonnee-naam-path-parameter-v1.yaml#/components/parameters/AbonneeNaamPathParameter'
 
     post: 
-      operationId: AbonneerOpGebeurtenisTypeVanPersoon
+      operationId: AbonneerOpGebeurtenisTypen
       summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
       tags:
         - Abonnees
