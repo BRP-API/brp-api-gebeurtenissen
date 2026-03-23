@@ -1,0 +1,13 @@
+openapi: 3.1.2
+info:
+  title: Registreer abonnee command definitie
+  version: 1.0.0
+components:
+  schemas:
+    RegistreerAbonneeCommand:
+      type: object
+      properties:
+        abonneeNaam:
+          $ref: './naam-v1.yaml#/components/schemas/AbonneeNaam'
+      required:
+        - abonneeNaam
