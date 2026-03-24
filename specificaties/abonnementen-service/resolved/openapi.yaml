@@ -78,7 +78,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/AbonneeNaamPathParameter'
     post:
-      operationId: AbonnementenCommands
+      operationId: VoeruitAbonnementenCommand
       summary: Abonnementen commands uitvoeren voor een bestaande abonnee, zoals het abonneneren op gebeurtenis types van een persoon of opzeggen van abonnementen
       tags:
         - Abonnees
