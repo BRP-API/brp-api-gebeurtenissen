@@ -1,0 +1,17 @@
+openapi: 3.1.2
+info: 
+  title: Zeg op abonnementen op persoon command definitie
+  version: 1.0.0
+components: 
+  schemas:
+    ZegOpAbonnementenOpPersoonCommand:
+      allOf: 
+        - $ref: './abonnementen-command-v1.yaml#/components/schemas/AbonnementenCommand'
+        - type: object
+          description: Beëindigen van alle abonnementen op een persoon van een abonnee.
+          properties:
+            burgerservicenummer:
+              $ref: '../../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon van wie de abonnee geen gebeurtenissen meer wil ontvangen
+          required:
+            - burgerservicenummer

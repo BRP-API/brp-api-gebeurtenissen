@@ -83,8 +83,8 @@ paths:
       - $ref: '../brp-api/abonnee/abonnee-naam-path-parameter-v1.yaml#/components/parameters/AbonneeNaamPathParameter'
 
     post: 
-      operationId: AbonneerOpGebeurtenisTypen
-      summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
+      operationId: VoeruitAbonnementenCommand
+      summary: Abonnementen commands uitvoeren voor een bestaande abonnee, zoals het abonneneren op gebeurtenis types van een persoon of opzeggen van abonnementen
       tags:
         - Abonnees
       requestBody:
@@ -92,10 +92,12 @@ paths:
         content:
           application/json:
             schema: 
-              $ref: '../brp-api/abonnee/abonneer-command-v1.yaml#/components/schemas/AbonneerCommand'
+              $ref: '../brp-api/abonnee/abonnementen-command-v1.yaml#/components/schemas/AbonnementenCommand'
       responses: 
         '201':
           description: Abonnement(en) succesvol aangemaakt.
+        '204':
+          description: Abonnement(en) succesvol opgezegd.
         '400':
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
