@@ -1,0 +1,11 @@
+openapi: 3.1.2
+info: 
+  title: Limit type definitie
+  version: 1.0.0
+components: 
+  schemas:
+    Limit:
+      type: integer
+      minimum: 1
+      maximum: 10
+      description: Het aantal resources dat in één response wordt teruggegeven.

@@ -1,0 +1,16 @@
+openapi: 3.1.2
+info: 
+  title: Raadpleeg abonnementen response definitie
+  version: 1.0.0
+components: 
+  schemas:
+    RaadpleegAbonnementenResponse:
+      type: object
+      properties:
+        abonnementen:
+          type: array
+          items:
+            $ref: './abonnement-v1.yaml#/components/schemas/Abonnement'
+          description: Lijst van abonnementen van de abonnee
+      required:
+        - abonnementen
