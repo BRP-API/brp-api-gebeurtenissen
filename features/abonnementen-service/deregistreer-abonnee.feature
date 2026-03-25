@@ -4,7 +4,7 @@ Functionaliteit: Deregistreer abonnee
   Als afnemer van BRP API Gebeurtenissen
   wil ik een abonnee kunnen deregistreren
 
-  Regel: Alleen een bestaand abonnee kan worden gederegistreerd
+  Regel: Alleen een bestaande abonnee kan worden gederegistreerd
 
     Scenario: Een afnemer deregistreert een bestaande abonnee
       Gegeven er is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
