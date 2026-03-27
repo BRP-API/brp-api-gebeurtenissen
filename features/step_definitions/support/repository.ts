@@ -1,8 +1,10 @@
 import { Adres } from '../brp/adres-entity';
+import { Afnemer } from '../brp/afnemer-entity';
 import { Persoon } from '../brp/persoon-entity';
 import { logger } from './logger';
 import { PostgresqlManager } from './postgresql-manager';
 import { createLo3AdresInsertStatement,
+         createLo3AutorisatieInsertStatement,
          createLo3PlInsertStatement,
          createLo3PlPersoonInsertStatement,
          createLo3PlVerblijfplaatsInsertStatement,
@@ -18,6 +20,15 @@ export async function createAdres(adres: Adres): Promise<void> {
         if(!adres[key as keyof Adres] && result.has(key)) {
             (adres as any)[key] = result.get(key);
         }
+    }
+}
+
+export async function createAutorisatie(afnemer: Afnemer): Promise<void> {
+    const statement = createLo3AutorisatieInsertStatement(afnemer);
+    const result = await PostgresqlManager.getInstance().execute(statement);
+
+    if(!afnemer.afnemerId) {
+        afnemer.afnemerId = result.get('afnemer_code');
     }
 }
 
