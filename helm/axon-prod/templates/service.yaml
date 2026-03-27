@@ -1,0 +1,34 @@
+# ClusterIP service for the Axon Server dashboard / HTTP API
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "axon-prod.fullname" . }}
+  labels:
+    {{- include "axon-prod.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.gui.type }}
+  sessionAffinity: {{ .Values.service.gui.sessionAffinity }}
+  selector:
+    {{- include "axon-prod.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: http
+      port: {{ .Values.service.gui.port }}
+      targetPort: http
+      protocol: TCP
+---
+# Headless service – governs the StatefulSet and exposes the gRPC port
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "axon-prod.grpcServiceName" . }}
+  labels:
+    {{- include "axon-prod.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  selector:
+    {{- include "axon-prod.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: grpc
+      port: {{ .Values.service.grpc.port }}
+      targetPort: grpc
+      protocol: TCP

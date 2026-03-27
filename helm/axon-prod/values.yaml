@@ -1,0 +1,111 @@
+# Default values for axon-prod
+# This is a YAML-formatted file.
+
+replicaCount: 1
+
+image:
+  repository: axoniq/axonserver
+  pullPolicy: IfNotPresent
+  tag: "2025.2.0"
+
+global:
+  secretConfig: {}
+  config:
+    AXONIQ_AXONSERVER_STANDALONE_DCB: "true"
+    AXONIQ_AXONSERVER_DEVMODE_ENABLED: "false"
+
+config: {}
+  # AXONIQ_AXONSERVER_INTERNAL_HOSTNAME: "axon-server-0.axon-server-grpc"
+
+secretConfig: {}
+  # AXONIQ_LICENSE: "..."
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  automount: false
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 1000
+
+securityContext: {}
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  gui:
+    # ClusterIP service voor Axon Server dashboard / HTTP API
+    type: ClusterIP
+    port: 8024
+    sessionAffinity: ClientIP
+  grpc:
+    # Headless service gebruikt als de StatefulSet service (gRPC)
+    port: 8124
+
+ingress:
+  enabled: false
+  className: ""
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  hosts:
+    - host: axon-server.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: "2"
+    memory: 2Gi
+
+livenessProbe:
+  httpGet:
+    path: /actuator/info
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 5
+  timeoutSeconds: 1
+  failureThreshold: 6
+
+readinessProbe:
+  httpGet:
+    path: /actuator/info
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 5
+  timeoutSeconds: 1
+  failureThreshold: 6
+
+persistence:
+  data:
+    size: 10Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: ""
+  events:
+    size: 20Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: ""
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+checksums:
+  - name: config
+    template: env-configmap.yaml
+  - name: secret-config
+    template: env-secret.yaml

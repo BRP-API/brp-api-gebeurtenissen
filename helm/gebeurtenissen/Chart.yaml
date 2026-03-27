@@ -1,0 +1,7 @@
+apiVersion: v2
+name: gebeurtenissen
+description: Helm chart voor BRP API Gebeurtenissen - Gebeurtenissen Service
+type: application
+
+version: 0.1.0
+appVersion: "latest"
