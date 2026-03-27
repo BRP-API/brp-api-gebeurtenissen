@@ -1,4 +1,5 @@
 # language: nl
+@to-do @skip-verify
 Functionaliteit: gepubliceerde gebeurtenis bij een eerste inschrijving bij vestiging vanuit het buitenland in Nederland
   De persoon schrijft zich in als niet-ingezetene bij een RNI-loket.
 

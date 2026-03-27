@@ -1,0 +1,11 @@
+openapi: 3.1.2
+info:
+  title: verblijfplaats buitenland tbv gebeurtenissen specificatie
+  version: 1.0.0
+components:
+  schemas:
+    VerblijfplaatsBuitenland:
+      type: object
+      properties:
+        datumVan:
+          $ref: '../datum/datum-polymorf-v1.yaml#/components/schemas/AbstractDatum'
