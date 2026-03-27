@@ -18,9 +18,19 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/AbonneeNaam'
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Cursor'
+        - name: limit
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Limit'
       responses:
         '200':
-          description: De oudste ongelezen gebeurtenis is succesvol opgehaald
+          description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
           content:
             application/json:
               schema:
@@ -66,6 +76,17 @@ components:
           - Bevat alleen kleine letters (a-z) en koppeltekens (-)
           - Bevat geen dubbele koppeltekens (--)
       example: abonnee
+    Cursor:
+      description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
+      type: string
+      format: uuid
+      example: 123e4567-e89b-12d3-a456-426614174000
+    Limit:
+      description: Aantal te retourneren gebeurtenissen
+      type: integer
+      minimum: 1
+      maximum: 10
+      example: 3
     Gebeurtenis:
       type: object
       properties:
