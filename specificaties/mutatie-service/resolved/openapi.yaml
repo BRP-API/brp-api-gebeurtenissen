@@ -58,6 +58,8 @@ components:
         propertyName: type
         mapping:
           AangifteVanAdreswijziging: '#/components/schemas/AangifteVanAdreswijzigingCommand'
+          AangifteVanVertrekNaarBuitenland: '#/components/schemas/AangifteVanVertrekNaarBuitenlandCommand'
+          AangifteVanOverlijden: '#/components/schemas/AangifteVanOverlijdenCommand'
     AangifteVanAdreswijzigingCommand:
       allOf:
         - $ref: '#/components/schemas/AangifteCommand'
@@ -72,6 +74,43 @@ components:
       required:
         - adresseerbaarObjectIdentificatie
         - verhuisdatum
+    AangifteVanVertrekNaarBuitenlandCommand:
+      allOf:
+        - $ref: '#/components/schemas/AangifteCommand'
+        - type: object
+          properties:
+            regel1:
+              $ref: '#/components/schemas/Regel1'
+            regel2:
+              $ref: '#/components/schemas/Regel2'
+            regel3:
+              $ref: '#/components/schemas/Regel3'
+            landCode:
+              $ref: '#/components/schemas/LandCode'
+              description: Een code, opgenomen in Tabel 34, Landentabel, die het land (buiten Nederland) aangeeft alwaar de ingeschrevene verblijft.
+            datumEmigratie:
+              $ref: '#/components/schemas/Datum'
+              description: De datum wanneer de persoon vertrekt naar het buitenland
+      required:
+        - landCode
+        - datumEmigratie
+    AangifteVanOverlijdenCommand:
+      allOf:
+        - $ref: '#/components/schemas/AangifteCommand'
+        - type: object
+          properties:
+            plaats:
+              type: string
+              description: Een code, opgenomen in Tabel 33, Gemeententabel of een buitenlandse plaats of een plaatsbepaling, die aangeeft waar het overlijden heeft plaatsgevonden.
+              pattern: ^(\d{4}|[a-zA-Z0-9À-ž \'\.\-\(\),]{1,40})$
+            landCode:
+              $ref: '#/components/schemas/LandCode'
+              description: Een code, opgenomen in Tabel 34, Landentabel, die het land aangeeft waar de persoon is overleden.
+            datumOverlijden:
+              $ref: '#/components/schemas/Datum'
+              description: De datum wanneer de persoon is overleden
+      required:
+        - datumOverlijden
     AdresseerbaarObjectIdentificatie:
       type: string
       title: Identificatiecode verblijfplaats
@@ -84,6 +123,24 @@ components:
       example: '1964-09-24'
       description: |
         Datum conform ISO-8601
+    Regel1:
+      type: string
+      maxLength: 40
+      description: |
+        Het eerste deel van een buitenlands adres. Vaak is dit een combinatie van de straat en huisnummer.
+    Regel2:
+      type: string
+      maxLength: 50
+      description: |
+        Het tweede deel van een buitenlands adres. Vaak is dit een combinatie van woonplaats eventueel in combinatie met de postcode.
+    Regel3:
+      type: string
+      maxLength: 35
+      description: |
+        Het derde deel van een buitenlands adres is optioneel. Het gaat om een of meer geografische gebieden van het adres in het buitenland.
+    LandCode:
+      type: string
+      pattern: ^[0-9]{4}$
     Burgerservicenummer:
       type: string
       title: Burgerservicenummer
