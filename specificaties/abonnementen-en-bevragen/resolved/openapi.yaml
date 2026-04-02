@@ -78,8 +78,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/AbonneeNaamPathParameter'
     post:
-      operationId: AbonneerOpGebeurtenisTypeVanPersoon
-      summary: Abonneer de abonnee op één of meerdere gebeurtenistypen
+      operationId: VoeruitAbonnementenCommand
+      summary: Abonnementen commands uitvoeren voor een bestaande abonnee, zoals het abonneneren op gebeurtenis types van een persoon of opzeggen van abonnementen
       tags:
         - Abonnees
       requestBody:
@@ -87,12 +87,41 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
+              $ref: '#/components/schemas/AbonnementenCommand'
       responses:
         '201':
           description: Abonnement(en) succesvol aangemaakt.
+        '204':
+          description: Abonnement(en) succesvol opgezegd.
         '400':
           $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
+    get:
+      operationId: RaadpleegAbonnementen
+      summary: Raadpleeg de lijst van abonnementen van een abonnee
+      tags:
+        - Abonnees
+      parameters:
+        - $ref: '#/components/parameters/CursorQueryParameter'
+          description: Gebruik dit voor paginering. Vul hier de id van het laatst ontvangen abonnement op om de hieropvolgende abonnementen te ontvangen.
+        - $ref: '#/components/parameters/LimitQueryParameter'
+          description: Geeft hier het maximaal aantal abonnementen op dat je per request kan ontvangen. Als je dit weglaat is het maximum 10.
+      responses:
+        '200':
+          description: Lijst van abonnementen van de abonnee succesvol opgehaald.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaadpleegAbonnementenResponse'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -115,9 +144,19 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/AbonneeNaam'
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/schemas-Cursor'
+        - name: limit
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/schemas-Limit'
       responses:
         '200':
-          description: De oudste ongelezen gebeurtenis is succesvol opgehaald
+          description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
           content:
             application/json:
               schema:
@@ -135,49 +174,7 @@ paths:
       security:
         - clientCredentials: []
 components:
-  securitySchemes:
-    clientCredentials:
-      type: oauth2
-      flows:
-        clientCredentials:
-          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
-          scopes: {}
   schemas:
-    AbonnementenCommand:
-      type: object
-      properties:
-        type:
-          type: string
-      required:
-        - type
-      discriminator:
-        propertyName: type
-        mapping:
-          AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
-    AbonneerOpGebeurtenisTypeVanPersoonCommand:
-      allOf:
-        - $ref: '#/components/schemas/AbonnementenCommand'
-        - type: object
-          properties:
-            gebeurtenisType:
-              type: string
-              pattern: ^[a-z/-/.]{1,50}$
-              description: Het gebeurtenistype waarop de abonnee zich wil abonneren
-            burgerservicenummer:
-              $ref: '#/components/schemas/Burgerservicenummer'
-              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
-          required:
-            - gebeurtenisType
-            - burgerservicenummer
-    GebeurtenissenBevragenResponse:
-      type: object
-      properties:
-        gebeurtenissen:
-          type: array
-          items:
-            $ref: '#/components/schemas/Gebeurtenis'
-          minItems: 0
-          maxItems: 10
     AbonneeNaam:
       type: string
       pattern: ^(?!.*--)[a-z][a-z-]{0,8}[a-z]$
@@ -275,12 +272,131 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/InvalidParam'
+    Cursor:
+      type: string
+      format: uuid
+      description: Identifier van een resource
+    Limit:
+      type: integer
+      minimum: 1
+      maximum: 10
+      description: Het aantal resources dat in één response wordt teruggegeven.
+    Abonnement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unieke identifier van het abonnement
+        type:
+          type: string
+      required:
+        - id
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          AbonnementOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonnementOpGebeurtenisTypeVanPersoon'
+    GebeurtenisTypeVanPersoonEnum:
+      type: string
+      pattern: ^[a-z/-/.]{1,50}$
+      enum:
+        - nl.brp.verhuisd.intergemeentelijk
+        - nl.brp.verhuisd.naar-buitenland
+        - nl.brp.overleden
     Burgerservicenummer:
       type: string
       title: Burgerservicenummer
       description: |
         Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
       pattern: ^[0-9]{9}$
+    AbonnementOpGebeurtenisTypeVanPersoon:
+      allOf:
+        - $ref: '#/components/schemas/Abonnement'
+        - type: object
+          properties:
+            gebeurtenisType:
+              $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+              description: Het gebeurtenistype waarop de abonnee zich heeft geabonneerd
+            burgerservicenummer:
+              $ref: '#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type ontvangt
+          required:
+            - id
+            - gebeurtenisType
+            - burgerservicenummer
+    RaadpleegAbonnementenResponse:
+      type: object
+      properties:
+        abonnementen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Abonnement'
+          description: Lijst van abonnementen van de abonnee
+      required:
+        - abonnementen
+    AbonnementenCommand:
+      type: object
+      properties:
+        type:
+          type: string
+      required:
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
+          ZegOpAbonnementOpGebeurtenisTypeVanPersoon: '#/components/schemas/ZegOpAbonnementOpGebeurtenisTypeVanPersoonCommand'
+          ZegOpAbonnementenOpPersoon: '#/components/schemas/ZegOpAbonnementenOpPersoonCommand'
+    AbonneerOpGebeurtenisTypeVanPersoonCommand:
+      allOf:
+        - $ref: '#/components/schemas/AbonnementenCommand'
+        - type: object
+          properties:
+            gebeurtenisType:
+              $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+              description: Het gebeurtenistype waarop de abonnee zich wil abonneren
+            burgerservicenummer:
+              $ref: '#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
+          required:
+            - gebeurtenisType
+            - burgerservicenummer
+    ZegOpAbonnementOpGebeurtenisTypeVanPersoonCommand:
+      allOf:
+        - $ref: '#/components/schemas/AbonnementenCommand'
+        - type: object
+          description: Beëindigen van een 'gebeurtenis type van persoon' abonnement van een abonnee.
+          properties:
+            gebeurtenisType:
+              $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+            burgerservicenummer:
+              $ref: '#/components/schemas/Burgerservicenummer'
+          required:
+            - gebeurtenisType
+            - burgerservicenummer
+    ZegOpAbonnementenOpPersoonCommand:
+      allOf:
+        - $ref: '#/components/schemas/AbonnementenCommand'
+        - type: object
+          description: Beëindigen van alle abonnementen op een persoon van een abonnee.
+          properties:
+            burgerservicenummer:
+              $ref: '#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon van wie de abonnee geen gebeurtenissen meer wil ontvangen
+          required:
+            - burgerservicenummer
+    schemas-Cursor:
+      description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
+      type: string
+      format: uuid
+      example: 123e4567-e89b-12d3-a456-426614174000
+    schemas-Limit:
+      description: Aantal te retourneren gebeurtenissen
+      type: integer
+      minimum: 1
+      maximum: 10
+      example: 3
     Gebeurtenis:
       type: object
       properties:
@@ -481,6 +597,15 @@ components:
         Describes the type of event related to the originating occurrence.
       type: string
       minLength: 1
+    GebeurtenissenBevragenResponse:
+      type: object
+      properties:
+        gebeurtenissen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gebeurtenis'
+          minItems: 0
+          maxItems: 10
   responses:
     '400':
       description: Bad Request
@@ -560,3 +685,17 @@ components:
       schema:
         $ref: '#/components/schemas/AbonneeNaam'
         description: De naam van de abonnee
+    CursorQueryParameter:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Cursor'
+      description: Cursor query parameter die gebruikt kan worden voor paginering.
+    LimitQueryParameter:
+      name: limit
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Limit'
+      description: Limit query parameter die gebruikt kan worden voor paginering.
