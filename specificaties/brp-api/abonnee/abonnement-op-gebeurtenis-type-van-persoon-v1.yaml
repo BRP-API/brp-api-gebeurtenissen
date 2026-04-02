@@ -1,0 +1,21 @@
+openapi: 3.1.2
+info:
+  title: Abonnement Op Gebeurtenistype van Persoon type definitie
+  version: 1.0.0
+components:
+  schemas:
+    AbonnementOpGebeurtenisTypeVanPersoon:
+      allOf:
+        - $ref: 'abonnement-v1.yaml#/components/schemas/Abonnement'
+        - type: object
+          properties:
+            gebeurtenisType:
+              $ref: 'gebeurtenis-type-van-persoon-enum-v1.yaml#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+              description: Het gebeurtenistype waarop de abonnee zich heeft geabonneerd
+            burgerservicenummer:
+              $ref: '../../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type ontvangt
+          required:
+          - id
+          - gebeurtenisType
+          - burgerservicenummer
