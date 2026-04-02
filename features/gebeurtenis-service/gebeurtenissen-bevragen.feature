@@ -140,7 +140,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
     Abstract Scenario: De opgegeven 'limiet' <omschrijving>
       Als maximaal <waarde> gebeurtenissen worden gevraagd door abonnee 'szw'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor.'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: limit.'
       En heeft de response invalidParams met de volgende gegevens
         | code   | name   | reason   |
         | <code> | cursor | <reason> |
