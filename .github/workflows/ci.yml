@@ -17,8 +17,8 @@ jobs:
       KC_BASE_URL: http://localhost:8080
       KC_MASTER_USERNAME: ${{ secrets.KC_MASTER_USERNAME }}
       KC_MASTER_PASSWORD: ${{ secrets.KC_MASTER_PASSWORD }}
-      ABONNEMENT_BASE_URL: http://localhost:8000
-      MUTATIE_BASE_URL: http://localhost:8888
+      ABONNEMENT_BASE_URL: http://localhost:8888
+      MUTATIE_BASE_URL: http://localhost:8000
       AXON_API_BASE_URL: http://localhost:8024
       GEBEURTENISSEN_BASE_URL: http://localhost:8002
 
@@ -84,6 +84,26 @@ jobs:
       - name: Start gebeurtenissen containers
         run: |
           ./scripts/containers-gebeurtenissen-start.sh
+
+      - name: Wait for gebeurtenissen API readiness
+        run: |
+          for i in {1..90}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:8888/api/brp/abonnees" || true)
+
+            if [ "$status" = "401" ] || [ "$status" = "200" ]; then
+              echo "Gebeurtenissen API is ready (HTTP $status)"
+              exit 0
+            fi
+
+            echo "Gebeurtenissen API not ready yet, HTTP status: ${status:-curl_failed}"
+            sleep 2
+          done
+
+          echo "Gebeurtenissen API not ready in time" >&2
+          docker ps
+          docker logs gebeurtenissen || true
+          exit 1
+        shell: bash
 
       - name: Valideer functionele specs
         uses: ./.github/actions/valideer-functionele-specs
