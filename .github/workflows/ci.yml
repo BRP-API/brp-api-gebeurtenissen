@@ -14,6 +14,13 @@ jobs:
     env:
       PG_USER: ${{ secrets.PG_USER }}
       PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+      KC_BASE_URL: http://keycloak:8080
+      KC_MASTER_USERNAME: ${{ secrets.KC_MASTER_USERNAME }}
+      KC_MASTER_PASSWORD: ${{ secrets.KC_MASTER_PASSWORD }}
+      ABONNEMENT_BASE_URL: http://localhost:8000
+      MUTATIE_BASE_URL: http://localhost:8888
+      AXON_API_BASE_URL: http://localhost:8024
+      GEBEURTENISSEN_BASE_URL: http://localhost:8002
 
     permissions:
       contents: read
@@ -36,6 +43,11 @@ jobs:
         uses: ./.github/actions/zet-run-bash-scripts-permission
         with:
           path-bash-file-or-folder: ./scripts/*
+
+      - name: Voeg keycloak toe als host naam
+        uses: ./.github/actions/toevoegen-localhost-naam
+        with:
+          host-name: keycloak
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
