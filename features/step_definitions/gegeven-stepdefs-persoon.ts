@@ -1,6 +1,7 @@
 import { Given } from '@cucumber/cucumber';
 import { Persoon } from './brp/persoon-entity';
 import { Aanduiding } from './support/aanduiding';
+import { PersoonFactory } from './support/persoon-factory';
 
 Given('de persoon {string}', function (persoonAanduiding: string) {
     if(!this.context.personen) {
@@ -22,4 +23,8 @@ Given('met burgerservicenummer {string}', function (burgerservicenummer: string)
         const persoon = this.context.personen[this.huidigAanduiding.id];
         persoon.burger_service_nr = burgerservicenummer;
     }
+});
+
+Given('de persoon {string} is geregistreerd in de BRP', async function (persoonAanduiding: string) {
+    await PersoonFactory.create(this.context, persoonAanduiding);
 });

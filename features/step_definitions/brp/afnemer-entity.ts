@@ -10,6 +10,8 @@ export class Afnemer {
 
     idpId?: string;
     idpScopeId?: string;
+
+    abonnees: string[] = [];
     
     constructor(aanduiding: string) {
         this.aanduiding = aanduiding;

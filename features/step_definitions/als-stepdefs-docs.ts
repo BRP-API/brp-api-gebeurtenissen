@@ -34,6 +34,9 @@ Then('heeft tabel {string} de volgende rij', async function (tabel: string, data
         const result = await PostgresqlManager.getInstance().execute(statement);
 
         const actual = Object.fromEntries(result);
+        if(actual['burger_service_nr']) {
+            actual['burger_service_nr'] = actual['burger_service_nr'].padStart(9, '0');
+        }
 
         expect(stringifyValues(actual)).to.deep.equal(stringifyValues(expected));
     }
