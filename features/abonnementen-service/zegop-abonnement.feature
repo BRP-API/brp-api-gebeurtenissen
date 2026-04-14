@@ -8,23 +8,31 @@ Functionaliteit: Zegop abonnement
       En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft zich geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zijn abonnement op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan' opzegt
       Dan is de response '204 No Content'
-      En is een 'AbonnementOpgezegd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId         | abonneeNaam | gebeurtenistype            | anummer |
-        | Gemeente Den Haag | szw         | verhuisd.intergemeentelijk | Jan     |
 
     Scenario: Een abonnee zegt een niet-bestaand abonnement op
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zijn abonnement op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan' opzegt
       Dan is de response '404 Not Found'
 
-  Regel: Voor een reeds opgezegd abonnement wordt geen 'AbonnementOpgezegd' gebeurtenis gepubliceerd
+  Regel: Een 'AbonnementOpgezegd' gebeurtenis wordt gepubliceerd wanneer een abonnee succesvol een abonnement opzegt
+
+    @skip-verify
+    Scenario: Een abonnee zegt een bestaand abonnement op
+      Gegeven de persoon 'Jan' is geregistreerd in de BRP
+      En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft zich geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zijn abonnement op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan' opzegt
+      Dan is een 'AbonnementOpgezegd' gebeurtenis gepubliceerd met de volgende velden
+        | afnemerId         | abonneeNaam | gebeurtenistype            | anummer |
+        | Gemeente Den Haag | szw         | verhuisd.intergemeentelijk | Jan     |
+
+  Regel: Een reeds opgezegd abonnement kan niet opnieuw worden opgezegd
 
     Scenario: Een abonnee zegt een reeds opgezegd abonnement op
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft zich geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft zijn abonnement op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan' opgezegd
       Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' zijn abonnement op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan' opnieuw opzegt
-      Dan is de response '204 No Content'
+      Dan is de response '404 Not Found'
 
   Regel: Een abonnee kan alle abonnementen op een persoon opzeggen
 
@@ -34,7 +42,17 @@ Functionaliteit: Zegop abonnement
       En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft zich geabonneerd op de 'verhuisd.naar-buitenland' gebeurtenissen van 'Jan'
       Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' alle abonnementen op de gebeurtenissen van 'Jan' opzegt
       Dan is de response '204 No Content'
-      En zijn er twee 'AbonnementOpgezegd' gebeurtenissen gepubliceerd met de volgende velden
+
+  Regel: Een 'AbonnementOpgezegd' gebeurtenis wordt gepubliceerd voor elke abonnement die een abonnee op een persoon heeft wanneer de abonnee alle abonnementen op de persoon opzegt
+
+    @skip-verify
+    Scenario: Een abonnee zegt alle abonnementen op een persoon op
+      Gegeven de persoon 'Jan' is geregistreerd in de BRP
+      En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft zich geabonneerd op de 'verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
+      En de abonnee 'szw' van afnemer 'Gemeente Den Haag' heeft zich geabonneerd op de 'verhuisd.naar-buitenland' gebeurtenissen van 'Jan'
+      Als de abonnee 'szw' van afnemer 'Gemeente Den Haag' alle abonnementen op de gebeurtenissen van 'Jan' opzegt
+      Dan is de response '204 No Content'
+      Dan zijn er twee 'AbonnementOpgezegd' gebeurtenissen gepubliceerd met de volgende velden
         | afnemerId         | abonneeNaam | gebeurtenistype            | anummer |
         | Gemeente Den Haag | szw         | verhuisd.intergemeentelijk | Jan     |
         | Gemeente Den Haag | szw         | verhuisd.naar-buitenland   | Jan     |
