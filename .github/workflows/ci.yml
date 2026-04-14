@@ -56,18 +56,26 @@ jobs:
         run: |
           ./scripts/containers-start.sh
 
-      - name: Wait for Keycloak readiness
+      - name: Wait for Keycloak token endpoint
         run: |
           for i in {1..90}; do
-            status=$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}no-healthcheck{{end}}' keycloak 2>/dev/null || true)
-            if [ "$status" = "healthy" ]; then
-              echo "Keycloak is healthy"
+            response=$(curl -fsS -o /tmp/kc-token.json -w "%{http_code}" \
+              -X POST "${KC_BASE_URL}/realms/brp-api/protocol/openid-connect/token" \
+              -H "Content-Type: application/x-www-form-urlencoded" \
+              --data-urlencode "grant_type=client_credentials" \
+              --data-urlencode "client_id=client met volledige autorisatie" \
+              --data-urlencode "client_secret=secret" || true)
+
+            if [ "$response" = "200" ] && grep -q '"access_token"' /tmp/kc-token.json; then
+              echo "Keycloak brp-api token endpoint is ready"
               exit 0
             fi
-            echo "Current keycloak health status: $status"
+
+            echo "Keycloak not ready yet, HTTP status: ${response:-curl_failed}"
             sleep 2
           done
-          echo "Keycloak not ready in time" >&2
+
+          echo "Keycloak token endpoint not ready in time" >&2
           docker ps
           docker logs keycloak || true
           exit 1
