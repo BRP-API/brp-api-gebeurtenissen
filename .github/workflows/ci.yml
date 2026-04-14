@@ -14,7 +14,7 @@ jobs:
     env:
       PG_USER: ${{ secrets.PG_USER }}
       PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
-      KC_BASE_URL: http://keycloak:8080
+      KC_BASE_URL: http://localhost:8080
       KC_MASTER_USERNAME: ${{ secrets.KC_MASTER_USERNAME }}
       KC_MASTER_PASSWORD: ${{ secrets.KC_MASTER_PASSWORD }}
       ABONNEMENT_BASE_URL: http://localhost:8000
@@ -45,11 +45,6 @@ jobs:
         with:
           path-bash-file-or-folder: ./scripts/*
 
-      - name: Voeg keycloak toe als host naam
-        uses: ./.github/actions/toevoegen-localhost-naam
-        with:
-          host-name: keycloak
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -61,8 +56,16 @@ jobs:
         run: |
           ./scripts/containers-start.sh
 
-      - name: Wait for Axon Server DB restart
-        run: sleep 15s
+      - name: Wait for Keycloak readiness
+        run: |
+          for i in {1..60}; do
+            curl -fsS http://localhost:8080/health/ready && exit 0
+            sleep 2
+          done
+          echo "Keycloak not ready in time" >&2
+          docker ps
+          docker logs keycloak || true
+          exit 1
         shell: bash
 
       - name: Start gebeurtenissen containers
