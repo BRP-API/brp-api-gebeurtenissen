@@ -24,6 +24,7 @@ jobs:
 
     permissions:
       contents: read
+      actions: write
       packages: read
 
     steps:
@@ -61,7 +62,7 @@ jobs:
           ./scripts/containers-start.sh
 
       - name: Wait for Axon Server DB restart
-        run: sleep 5s
+        run: sleep 15s
         shell: bash
 
       - name: Start gebeurtenissen containers
@@ -71,12 +72,21 @@ jobs:
       - name: Valideer functionele specs
         uses: ./.github/actions/valideer-functionele-specs
 
+      - name: Upload test rapportage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Reports
+          path: |
+            test-reports
+            test-data/logs
+
       - name: Stop gebeurtenissen containers
         if: always()
         run: |
           ./scripts/containers-gebeurtenissen-stop.sh
 
-      - name: Stop base containers
+      - name: Stop containers
         if: always()
         run: |
           ./scripts/containers-stop.sh
