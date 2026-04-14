@@ -59,7 +59,12 @@ jobs:
       - name: Wait for Keycloak readiness
         run: |
           for i in {1..90}; do
-            curl -fsS http://localhost:8080/health/ready && exit 0
+            status=$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}no-healthcheck{{end}}' keycloak 2>/dev/null || true)
+            if [ "$status" = "healthy" ]; then
+              echo "Keycloak is healthy"
+              exit 0
+            fi
+            echo "Current keycloak health status: $status"
             sleep 2
           done
           echo "Keycloak not ready in time" >&2
