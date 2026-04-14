@@ -15,6 +15,10 @@ jobs:
       PG_USER: ${{ secrets.PG_USER }}
       PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
 
+    permissions:
+      contents: read
+      packages: read
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,6 +36,13 @@ jobs:
         uses: ./.github/actions/zet-run-bash-scripts-permission
         with:
           path-bash-file-or-folder: ./scripts/*
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Start containers
         run: |
