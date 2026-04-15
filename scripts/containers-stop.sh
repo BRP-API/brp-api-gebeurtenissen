@@ -5,4 +5,6 @@ docker compose \
     -f ./.docker/db.yml \
     -f ./.docker/keycloak.yml \
     -f ./.docker/projecties-db.yml \
-    down
+    -f ./.docker/gebeurtenissen-mutatie-service.yml \
+    -f ./.docker/gebeurtenissen.yml \
+    down --volumes

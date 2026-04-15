@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   projecties-db:
     image: postgres:17
