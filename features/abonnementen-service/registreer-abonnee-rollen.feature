@@ -35,49 +35,50 @@ Functionaliteit: Registreer abonnee rollen
         | client  | nl.brp.verhuisd.intergemeentelijk, nl.brp.verhuisd.naar-buitenland, nl.brp.overleden |
         | relatie | nl.brp.overleden                                                                     |
 
-  Regel: Een afnemer kan de rollen van een geregistreerde abonnee wijzigen door deze te overschrijven
-
-    Scenario: Een afnemer voegt een rol toe aan een geregistreerde abonnee
-      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
-      * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
-      Dan is abonnee 'jz' geregistreerd voor de afnemer 'Gemeente Amsterdam' met de volgende rollen
-        | rol     | gebeurtenistypes                  |
-        | client  | nl.brp.verhuisd.intergemeentelijk |
-        | relatie | nl.brp.overleden                  |
-
-    Scenario: Een afnemer verwijdert een rol van een geregistreerde abonnee
-      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
-      * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
-      Dan is abonnee 'jz' geregistreerd voor de afnemer 'Gemeente Amsterdam' met de volgende rollen
-        | rol    | gebeurtenistypes                  |
-        | client | nl.brp.verhuisd.intergemeentelijk |
+  Regel: Een afnemer kan gebeurtenistypes toevoegen aan een rol van een abonnee
 
     Scenario: Een afnemer voegt een gebeurtenistype toe aan een rol van aan een geregistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
       * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
-      * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.naar-buitenland' toevoegt aan de rol 'client'
       Dan is abonnee 'jz' geregistreerd voor de afnemer 'Gemeente Amsterdam' met de volgende rollen
         | rol     | gebeurtenistypes                                                   |
         | client  | nl.brp.verhuisd.intergemeentelijk, nl.brp.verhuisd.naar-buitenland |
         | relatie | nl.brp.overleden                                                   |
 
+  Regel: Een afnemer kan gebeurtenistypes verwijderen aan een rol van een abonnee
+
     Scenario: Een afnemer verwijdert een gebeurtenistype van een rol van een geregistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk', 'nl.brp.verhuisd.naar-buitenland' en 'nl.brp.overleden'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.overleden'
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.naar-buitenland' verwijdert van de rol 'client'
       Dan is abonnee 'jz' geregistreerd voor de afnemer 'Gemeente Amsterdam' met de volgende rollen
         | rol    | gebeurtenistypes                                    |
         | client | nl.brp.verhuisd.intergemeentelijk, nl.brp.overleden |
+
+  Regel: Een afnemer kan een rol toevoegen aan een abonnee
+
+    Scenario: Een afnemer voegt een rol toe aan een geregistreerde abonnee
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de rol 'relatie' toevoegt
+      * met abonnementen op gebeurtenistypes 'nl.brp.overleden'
+      Dan is abonnee 'jz' geregistreerd voor de afnemer 'Gemeente Amsterdam' met de volgende rollen
+        | rol     | gebeurtenistypes                  |
+        | client  | nl.brp.verhuisd.intergemeentelijk |
+        | relatie | nl.brp.overleden                  |
+
+  Regel: Een afnemer kan een rol verwijderen van een abonnee
+
+    Scenario: Een afnemer verwijdert een rol van een geregistreerde abonnee
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
+      * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de rol 'relatie' verwijdert
+      Dan is abonnee 'jz' geregistreerd voor de afnemer 'Gemeente Amsterdam' met de volgende rollen
+        | rol    | gebeurtenistypes                  |
+        | client | nl.brp.verhuisd.intergemeentelijk |
 
   Regel: Een abonnee moet ten minste één rol hebben
 
@@ -88,7 +89,7 @@ Functionaliteit: Registreer abonnee rollen
     Scenario: Een afnemer probeert de enige rol van een geregistreerde abonnee te verwijderen
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt zonder rol
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de rol 'client' verwijdert
       Dan is de response '400 Bad Request'
 
   Regel: Een rol van een abonnee moet ten minste één gebeurtenistype hebben
@@ -98,12 +99,9 @@ Functionaliteit: Registreer abonnee rollen
       * met rol 'client' zonder abonnementen op gebeurtenistypes
       Dan is de response '400 Bad Request'
 
-    Scenario: Een afnemer probeert de een rol te wijzigen zonder gebeurtenistype
+    Scenario: Een afnemer probeert alle gebeurtenistypes op een rol te verwijderen
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
+      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.intergemeentelijk'
       * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
-      * met rol 'relatie' zonder abonnementen op gebeurtenistypes
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.intergemeentelijk' verwijdert van de rol 'client'
       Dan is de response '400 Bad Request'
-

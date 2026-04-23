@@ -54,6 +54,7 @@ Functionaliteit: Abonneer persoon met een rol
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
       * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.overleden'
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' met de rol 'relatie'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' met de rol 'client'
       Dan is de abonnee 'jz' van afnemer 'Gemeente Amsterdam' geabonneerd op de gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk', 'nl.brp.verhuisd.naar-buitenland' en 'nl.brp.overleden' voor de persoon 'Jan'
 
@@ -69,11 +70,11 @@ Functionaliteit: Abonneer persoon met een rol
     Scenario: Een abonnee is geabonneerd op twee rollen voor dezelfde persoon en zegt één van deze abonnementen op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
-      * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
+      * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.overleden'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' met de rol 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' met de rol 'relatie'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' het abonnement opzegt op de persoon 'Jan' met de rol 'client'
-      Dan is de abonnee 'jz' van afnemer 'Gemeente Amsterdam' geabonneerd op de gebeurtenistypes 'nl.brp.overleden' voor de persoon 'Jan'
+      Dan is de abonnee 'jz' van afnemer 'Gemeente Amsterdam' geabonneerd op de gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.overleden' voor de persoon 'Jan'
 
   Regel: Een abonnee kan alle abonnementen van een persoon opzeggen
 
@@ -92,8 +93,7 @@ Functionaliteit: Abonneer persoon met een rol
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' met de rol 'client'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.naar-buitenland' toevoegt aan de rol 'client'
       Dan is de abonnee 'jz' van afnemer 'Gemeente Amsterdam' geabonneerd op de gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland' voor de persoon 'Jan'
 
   Regel: Wanneer een gebeurtenistype wordt verwijderd van een geregistreerde rol, dan wordt dat gebeurtenistype verwijderd van alle bestaande abonnementen op die rol
@@ -102,8 +102,7 @@ Functionaliteit: Abonneer persoon met een rol
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' met de rol 'client'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.naar-buitenland' verwijdert van de rol 'client'
       Dan is de abonnee 'jz' van afnemer 'Gemeente Amsterdam' geabonneerd op de gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' voor de persoon 'Jan'
 
   Regel: Wanneer een rol wordt verwijderd van een geregistreerde abonnee, dan worden ook alle bestaande abonnementen op deze rol opgezegd
@@ -113,8 +112,7 @@ Functionaliteit: Abonneer persoon met een rol
       * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
       * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' met de rol 'relatie'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de rol 'relatie' verwijdert
       Dan heeft de abonnee 'jz' van afnemer 'Gemeente Amsterdam' geen abonnement op de persoon 'Jan'
 
     Scenario: Een afnemer verwijdert een rol van een geregistreerde abonnee waar al een abonnement op bestaat en de abonnee heeft ook een abonnement voor dezelfde persoon met een andere rol
@@ -123,6 +121,5 @@ Functionaliteit: Abonneer persoon met een rol
       * met rol 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' met de rol 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' met de rol 'relatie'
-      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' wijzigt
-      * met rol 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de rol 'relatie' verwijdert
       Dan is de abonnee 'jz' van afnemer 'Gemeente Amsterdam' geabonneerd op de gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland' voor de persoon 'Jan'
