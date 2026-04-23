@@ -20,6 +20,10 @@ components:
         - source
         - specversion
         - type
+      oneOf:
+        - $ref: 'verhuisd-intergemeentelijk-v1.yaml#/components/schemas/VerhuisdIntergemeentelijk'
+        - $ref: 'verhuisd-naar-buitenland-v1.yaml#/components/schemas/VerhuisdNaarBuitenland'
+        - $ref: 'overleden-v1.yaml#/components/schemas/Overleden'
       discriminator: 
         propertyName: type
         mapping:
