@@ -89,7 +89,7 @@ export function generateClientJSON(clientId: string, clientSecret: string): any 
             publicClient: false,
             protocol: 'openid-connect',
             attributes: {
-                'access.token.lifespan': '300',
+                'access.token.lifespan': '86400',
                 'oauth2.device.authorization.grant.enabled': 'false',
                 'oidc.ciba.grant.enabled': 'false'
             }
