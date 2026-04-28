@@ -15,6 +15,7 @@ Functionaliteit: Registreer abonneegroepen
 
   De afnemer kan na het registreren van een abonnee groepen toevoegen of verwijderen.
   De afnemer kan na het registreren van een abonnee gebeurtenistypes toevoegen of verwijderen aan groepen.
+  De afnemer kan een abonnee deregistreren.
   De afnemer kan na het registreren van een abonnee de abonneenaam niet meer wijzigen.
   De afnemer kan na het registreren van een abonnee een groepsnaam niet meer wijzigen.
 
@@ -92,6 +93,14 @@ Functionaliteit: Registreer abonneegroepen
       * met groep 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' verwijdert
       Dan is de response '400 Bad Request'
+
+  Regel: Een afnemer kan een abonnee deregistreren
+
+    Scenario: Een afnemer deregistreert een abonnee
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      * met groep 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
+      Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' deregistreert
+      Dan is abonnee 'jz' gederegistreerd voor de afnemer 'Gemeente Amsterdam'
 
   Regel: Een groep van een abonnee moet ten minste één gebeurtenistype hebben
 

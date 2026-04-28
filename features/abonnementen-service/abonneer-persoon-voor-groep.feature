@@ -103,7 +103,7 @@ Functionaliteit: Abonneer persoon voor een groep
       * met groep 'relatie' met abonnementen op gebeurtenistypes 'nl.brp.overleden'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'relatie'
-      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' alle abonnement van de persoon 'Jan' opzegt
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen van de persoon 'Jan' opzegt
       Dan ontvangt de abonnee 'jz' van afnemer 'Gemeente Amsterdam' geen gebeurtenissen meer voor de persoon 'Jan'
 
   Regel: Wanneer een gebeurtenistype wordt toegevoegd aan een geregistreerde groep, dan worden alle bestaande abonnementen op die groep uitgebreid met het toegevoegde gebeurtenistype
