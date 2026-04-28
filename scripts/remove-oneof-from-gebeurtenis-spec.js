@@ -74,15 +74,24 @@ const gebeurtenisBlockWithoutOneof = `    Gebeurtenis:
           nl.brp.verhuisd.naar-buitenland: '#/components/schemas/VerhuisdNaarBuitenland'
           nl.brp.overleden: '#/components/schemas/Overleden'`;
 
-function replaceOnce(input, needle, replacement) {
-    const occurrences = input.split(needle).length - 1;
-    return input.replace(needle, replacement);
+function replaceFirstOccurrence(input, current, replacement) {
+    const occurrences = input.split(current).length - 1;
+
+    if (occurrences === 0) {
+        throw new Error('Geen match gevonden. Controleer of het element bestaat in de specificatie.');
+    }
+
+    const transformed = input.replace(current, replacement);
+
+    console.log('Match gevonden en vervangen');
+
+    return transformed;
 }
 
 const source = fs.readFileSync(sourcePath, 'utf8');
 
-let transformed = replaceOnce(source, gebeurtenisBlock, gebeurtenisBlockWithoutOneof);
+let transformed = replaceFirstOccurrence(source, gebeurtenisBlock, gebeurtenisBlockWithoutOneof);
 
 fs.writeFileSync(outputPath, transformed, 'utf8');
 
-console.log(`Wrote ${path.relative(process.cwd(), outputPath)}`);
+console.log(`${path.relative(process.cwd(), outputPath)}`);
