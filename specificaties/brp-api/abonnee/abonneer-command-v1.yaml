@@ -1,0 +1,17 @@
+openapi: 3.1.2
+info: 
+  title: Abonneer command definitie
+  version: 1.0.0
+components: 
+  schemas:
+    AbonneerCommand:
+      type: object
+      properties:
+        type:
+          type: string
+      required:
+        - type
+      discriminator: 
+        propertyName: type
+        mapping: 
+          AbonneerOpGebeurtenisTypeVanPersoon: './abonneer-op-gebeurtenis-type-van-persoon-command-v1.yaml#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'

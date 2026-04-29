@@ -1,0 +1,19 @@
+openapi: 3.1.2
+info:
+  title: Gebeurtenis Abonnementen & Bevragen API Specificatie
+  version: 1.0.0
+servers:
+  - url: https://probeerbrpapi.rvig.nl/api/brp
+    description: BRP APIs probeeromgeving
+paths:
+  /abonnees:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees'
+
+  /abonnees/{abonneeNaam}:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}'
+
+  /abonnees/{abonneeNaam}/abonnementen:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1abonnementen'
+
+  /abonnees/{abonneeNaam}/gebeurtenissen:
+    $ref: '../gebeurtenissen-bevragen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1gebeurtenissen'

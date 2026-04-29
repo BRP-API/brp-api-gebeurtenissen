@@ -47,9 +47,7 @@ Content-Type: application/json
   "type": "nl.brp.verhuisd.intergemeentelijk",
   "data": {
     "c01": {
-      "g01": {
-        "e0110": "1234567890"
-      }
+      "e0110": "1234567890"
     },
     "c08": {
       "e1030": "20230101",
@@ -73,9 +71,7 @@ Content-Type: application/json
   ],
   "data": {
     "c01": {
-      "g01": {
-        "e0110": "1234567891"
-      }
+       "e0110": "1234567891"
     },
     "c08": {
       "e1030": "00000000",

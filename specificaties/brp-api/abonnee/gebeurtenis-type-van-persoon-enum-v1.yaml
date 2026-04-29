@@ -1,0 +1,13 @@
+openapi: 3.1.2
+info: 
+  title: gebeurtenis type van persoon enum definitie
+  version: 1.0.0
+components:
+  schemas:
+    GebeurtenisTypeVanPersoonEnum:
+      type: string
+      pattern: ^[a-z/-/.]{1,50}$
+      enum:
+        - nl.brp.verhuisd.intergemeentelijk
+        - nl.brp.verhuisd.naar-buitenland
+        - nl.brp.overleden

@@ -19,16 +19,16 @@
   },
   "homepage": "https://github.com/BRP-API/brp-api-gebeurtenissen#readme",
   "devDependencies": {
-    "@cucumber/cucumber": "^11.3.0",
-    "@redocly/cli": "^2.14.3",
+    "@cucumber/cucumber": "^12.8.2",
+    "@redocly/cli": "^2.30.2",
     "@types/chai": "^5.2.3",
     "@types/deep-equal-in-any-order": "^1.0.4",
-    "@types/pg": "^8.16.0",
-    "axios": "^1.13.2",
+    "@types/pg": "^8.20.0",
+    "axios": "^1.15.2",
     "chai": "^6.2.2",
-    "deep-equal-in-any-order": "^2.1.0",
-    "dotenv": "^17.2.3",
-    "pg": "^8.16.3",
+    "deep-equal-in-any-order": "^2.2.0",
+    "dotenv": "^17.4.2",
+    "pg": "^8.20.0",
     "ts-node": "^10.9.2",
     "winston": "^3.19.0"
   }

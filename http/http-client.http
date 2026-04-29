@@ -74,3 +74,7 @@ Content-Type: application/json
   "adresseerbaarObjectIdentificatie": "{{ado}}",
   "verhuisdatum": "{{datumAangifte}}"
 }
+
+### Verwijder alle gebeurtenissen in Axon Server (alleen voor testdoeleinden)
+
+DELETE http://localhost:8000/api/brp/admin/events

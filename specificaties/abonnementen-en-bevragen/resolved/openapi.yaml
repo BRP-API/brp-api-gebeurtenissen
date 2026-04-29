@@ -1,6 +1,6 @@
 openapi: 3.1.2
 info:
-  title: Gebeurtenis Abonnementen API Specificatie
+  title: Gebeurtenis Abonnementen & Bevragen API Specificatie
   version: 1.0.0
 servers:
   - url: https://probeerbrpapi.rvig.nl/api/brp
@@ -132,14 +132,48 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /abonnees/{abonneeNaam}/gebeurtenissen:
+    get:
+      operationId: BevraagGebeurtenis
+      summary: Bevragen van de oudste ongelezen gebeurtenis
+      tags:
+        - Gebeurtenissen
+      parameters:
+        - name: abonneeNaam
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/AbonneeNaam'
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/schemas-Cursor'
+        - name: limit
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/schemas-Limit'
+      responses:
+        '200':
+          description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GebeurtenissenBevragenResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
 components:
-  securitySchemes:
-    clientCredentials:
-      type: oauth2
-      flows:
-        clientCredentials:
-          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
-          scopes: {}
   schemas:
     AbonneeNaam:
       type: string
@@ -352,6 +386,226 @@ components:
               description: Het burgerservicenummer (BSN) van de persoon van wie de abonnee geen gebeurtenissen meer wil ontvangen
           required:
             - burgerservicenummer
+    schemas-Cursor:
+      description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
+      type: string
+      format: uuid
+      example: 123e4567-e89b-12d3-a456-426614174000
+    schemas-Limit:
+      description: Aantal te retourneren gebeurtenissen
+      type: integer
+      minimum: 1
+      maximum: 10
+      example: 3
+    Gebeurtenis:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/iddef'
+        source:
+          $ref: '#/components/schemas/sourcedef'
+        specversion:
+          $ref: '#/components/schemas/specversiondef'
+        type:
+          $ref: '#/components/schemas/typedef'
+      required:
+        - id
+        - source
+        - specversion
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
+          nl.brp.verhuisd.naar-buitenland: '#/components/schemas/VerhuisdNaarBuitenland'
+          nl.brp.overleden: '#/components/schemas/Overleden'
+    AbstractDatum:
+      type: object
+      required:
+        - type
+        - langFormaat
+      properties:
+        type:
+          type: string
+        langFormaat:
+          type: string
+          pattern: ^[a-z0-9 ]{1,17}$
+      discriminator:
+        propertyName: type
+        mapping:
+          Datum: '#/components/schemas/VolledigeDatum'
+          DatumOnbekend: '#/components/schemas/DatumOnbekend'
+          JaarDatum: '#/components/schemas/JaarDatum'
+          JaarMaandDatum: '#/components/schemas/JaarMaandDatum'
+      example:
+        type: Datum
+        datum: '2018-07-01'
+        langFormaat: 1 juli 2018
+    VolledigeDatum:
+      description: Datum conform iso8601
+      allOf:
+        - $ref: '#/components/schemas/AbstractDatum'
+        - type: object
+          properties:
+            datum:
+              type: string
+              format: date
+      required:
+        - datum
+      example:
+        type: Datum
+        datum: '2018-07-01'
+        langFormaat: 1 juli 2018
+    DatumOnbekend:
+      description: representatie voor een volledig onbekend datum
+      allOf:
+        - $ref: '#/components/schemas/AbstractDatum'
+        - type: object
+          properties:
+            onbekend:
+              type: boolean
+              default: true
+      required:
+        - onbekend
+      example:
+        type: DatumOnbekend
+        onbekend: true
+        langFormaat: onbekend
+    Jaar:
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 9999
+    JaarDatum:
+      description: representatie voor een datum waarvan maand en dag onbekend zijn
+      allOf:
+        - $ref: '#/components/schemas/AbstractDatum'
+        - type: object
+          properties:
+            jaar:
+              $ref: '#/components/schemas/Jaar'
+      required:
+        - jaar
+      example:
+        type: JaarDatum
+        jaar: 2018
+        langFormaat: 2018
+    Maand:
+      type: integer
+      format: int32
+      minimum: 1
+      maximum: 12
+    JaarMaandDatum:
+      description: representatie voor een datum waarvan de dag onbekend is
+      allOf:
+        - $ref: '#/components/schemas/AbstractDatum'
+        - type: object
+          properties:
+            jaar:
+              $ref: '#/components/schemas/Jaar'
+            maand:
+              $ref: '#/components/schemas/Maand'
+      required:
+        - jaar
+        - maand
+      example:
+        type: JaarMaandDatum
+        jaar: 2018
+        maand: 7
+        langFormaat: juli 2018
+    Adres:
+      type: object
+      properties:
+        datumVan:
+          $ref: '#/components/schemas/AbstractDatum'
+    VerhuisdIntergemeentelijkData:
+      type: object
+      properties:
+        burgerservicenummer:
+          $ref: '#/components/schemas/Burgerservicenummer'
+        verblijfplaats:
+          $ref: '#/components/schemas/Adres'
+    VerhuisdIntergemeentelijk:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/VerhuisdIntergemeentelijkData'
+    VerblijfplaatsBuitenland:
+      type: object
+      properties:
+        datumVan:
+          $ref: '#/components/schemas/AbstractDatum'
+    VerhuisdNaarBuitenlandData:
+      type: object
+      properties:
+        burgerservicenummer:
+          $ref: '#/components/schemas/Burgerservicenummer'
+        verblijfplaats:
+          $ref: '#/components/schemas/VerblijfplaatsBuitenland'
+    VerhuisdNaarBuitenland:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/VerhuisdNaarBuitenlandData'
+    Overlijden:
+      type: object
+      properties:
+        datum:
+          $ref: '#/components/schemas/AbstractDatum'
+    OverledenData:
+      type: object
+      properties:
+        burgerservicenummer:
+          $ref: '#/components/schemas/Burgerservicenummer'
+        overlijden:
+          $ref: '#/components/schemas/Overlijden'
+    Overleden:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverledenData'
+    iddef:
+      description: |
+        Identifies the event.
+      type: string
+      format: uuid
+    sourcedef:
+      description: |
+        Identifies the context in which an event happened.
+      type: string
+      format: uri-reference
+      minLength: 1
+    specversiondef:
+      description: |
+        The version of the CloudEvents specification which the event uses.
+      type: string
+      minLength: 1
+    typedef:
+      description: |
+        Describes the type of event related to the originating occurrence.
+      type: string
+      minLength: 1
+    GebeurtenissenBevragenResponse:
+      type: object
+      properties:
+        gebeurtenissen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Gebeurtenis'
+          minItems: 0
+          maxItems: 10
   responses:
     '400':
       description: Bad Request
