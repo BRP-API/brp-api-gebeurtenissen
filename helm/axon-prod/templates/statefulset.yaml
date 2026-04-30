@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "axon-prod.fullname" . }}
+  name: {{ include "axon-prod.nodeName" . }}
   labels:
     {{- include "axon-prod.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
-  serviceName: {{ include "axon-prod.grpcServiceName" . }}
+  replicas: 1
+  serviceName: {{ include "axon-prod.nodeName" . }}
   selector:
     matchLabels:
       {{- include "axon-prod.selectorLabels" . | nindent 6 }}
@@ -50,15 +50,30 @@ spec:
             - name: http
               containerPort: {{ .Values.service.gui.port }}
               protocol: TCP
-            - name: grpc
-              containerPort: {{ .Values.service.grpc.port }}
+            - name: grpc-client
+              containerPort: {{ .Values.service.grpc.clientPort }}
+              protocol: TCP
+            - name: grpc-internal
+              containerPort: {{ .Values.service.grpc.internalPort }}
               protocol: TCP
           env:
-            # Pod name is used as the stable Axon Server hostname within the StatefulSet.
-            - name: AXONIQ_AXONSERVER_HOSTNAME
+            # Namespace is used to construct in-cluster DNS names.
+            - name: POD_NAMESPACE
               valueFrom:
                 fieldRef:
-                  fieldPath: metadata.name
+                  fieldPath: metadata.namespace
+            - name: AXONIQ_AXONSERVER_NAME
+              value: {{ include "axon-prod.nodeName" . | quote }}
+            - name: AXONIQ_AXONSERVER_HOSTNAME
+              value: {{ include "axon-prod.nodeName" . | quote }}
+            - name: AXONIQ_AXONSERVER_INTERNAL_HOSTNAME
+              value: {{ printf "%s.$(POD_NAMESPACE).svc.cluster.local" (include "axon-prod.nodeName" .) | quote }}
+            - name: AXONIQ_AXONSERVER_AUTOCLUSTER_FIRST
+              value: {{ include "axon-prod.firstNodeFqdn" . | quote }}
+            - name: AXONIQ_AXONSERVER_DOMAIN
+              value: "$(POD_NAMESPACE).svc.cluster.local"
+            - name: AXONIQ_AXONSERVER_INTERNAL_DOMAIN
+              value: "$(POD_NAMESPACE).svc.cluster.local"
           envFrom:
             - configMapRef:
                 name: {{ include "axon-prod.fullname" . }}-env

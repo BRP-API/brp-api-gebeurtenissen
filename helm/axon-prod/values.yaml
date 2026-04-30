@@ -1,18 +1,30 @@
 # Default values for axon-prod
 # This is a YAML-formatted file.
 
+# Singleton StatefulSet mode: each Helm install deploys exactly one Axon Server node.
 replicaCount: 1
 
 image:
   repository: axoniq/axonserver
   pullPolicy: IfNotPresent
-  tag: "2025.2.0"
+  tag: "2026.0.0-nonroot"
 
 global:
   secretConfig: {}
   config:
+    # Cluster defaults (can be overridden via config/secretConfig).
+    AXONIQ_AXONSERVER_STANDALONE: "false"
     AXONIQ_AXONSERVER_STANDALONE_DCB: "true"
+    AXONIQ_AXONSERVER_AUTOCLUSTER_CONTEXTS: "_admin,default"
     AXONIQ_AXONSERVER_DEVMODE_ENABLED: "false"
+
+singleton:
+  # Axon node name for this release, e.g. axonserver-1.
+  # If empty, the release fullname is used.
+  nodeName: ""
+  # First cluster node name, e.g. axonserver-1.
+  # If empty, defaults to singleton.nodeName (or release fullname).
+  firstNodeName: ""
 
 config: {}
   # AXONIQ_AXONSERVER_INTERNAL_HOSTNAME: "axon-server-0.axon-server-grpc"
@@ -48,7 +60,8 @@ service:
     sessionAffinity: ClientIP
   grpc:
     # Headless service gebruikt als de StatefulSet service (gRPC)
-    port: 8124
+    clientPort: 8124
+    internalPort: 8224
 
 ingress:
   enabled: false

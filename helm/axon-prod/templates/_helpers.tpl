@@ -62,10 +62,24 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-Name of the headless gRPC service that governs the StatefulSet.
+Name of this singleton Axon node (StatefulSet and headless service).
 */}}
-{{- define "axon-prod.grpcServiceName" -}}
-{{- printf "%s-grpc" (include "axon-prod.fullname" .) }}
+{{- define "axon-prod.nodeName" -}}
+{{- default (include "axon-prod.fullname" .) .Values.singleton.nodeName }}
+{{- end }}
+
+{{/*
+Name of the first node in the cluster.
+*/}}
+{{- define "axon-prod.firstNodeName" -}}
+{{- default (include "axon-prod.nodeName" .) .Values.singleton.firstNodeName }}
+{{- end }}
+
+{{/*
+Bootstrap host for autocluster-first in singleton StatefulSets.
+*/}}
+{{- define "axon-prod.firstNodeFqdn" -}}
+{{- printf "%s.$(POD_NAMESPACE).svc.cluster.local" (include "axon-prod.firstNodeName" .) }}
 {{- end }}
 
 {{/*

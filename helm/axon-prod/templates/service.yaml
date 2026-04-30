@@ -16,11 +16,11 @@ spec:
       targetPort: http
       protocol: TCP
 ---
-# Headless service – governs the StatefulSet and exposes the gRPC port
+# Headless service – governs the StatefulSet and exposes client/internal gRPC ports
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "axon-prod.grpcServiceName" . }}
+  name: {{ include "axon-prod.nodeName" . }}
   labels:
     {{- include "axon-prod.labels" . | nindent 4 }}
 spec:
@@ -28,7 +28,11 @@ spec:
   selector:
     {{- include "axon-prod.selectorLabels" . | nindent 4 }}
   ports:
-    - name: grpc
-      port: {{ .Values.service.grpc.port }}
-      targetPort: grpc
+    - name: client-grpc
+      port: {{ .Values.service.grpc.clientPort }}
+      targetPort: grpc-client
+      protocol: TCP
+    - name: internal-grpc
+      port: {{ .Values.service.grpc.internalPort }}
+      targetPort: grpc-internal
       protocol: TCP
