@@ -21,9 +21,9 @@ Functionaliteit: Registreer abonnee
         | Gemeente Amsterdam | jz          |
 
   Regel: Een geldige abonneenaam voldoet aan de volgende criteria:
-          - bevat alleen kleine letters (a-z) en een koppelteken (-)
+          - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
           - bevat geen dubbele koppeltekens achter elkaar (--)
-          - bevat minimaal 2 en maximaal 10 tekens
+          - bevat minimaal 2 en maximaal 64 tekens
           - begint en eindigt niet met een koppelteken (-)
 
     Abstract Scenario: <titel>
@@ -33,14 +33,14 @@ Functionaliteit: Registreer abonnee
       * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat de abonneenaam ongeldig is.'
 
       Voorbeelden:
-        | titel                                              | abonneeNaam |
-        | De abonneenaam is te kort                          | a           |
-        | De abonneenaam is te lang                          | abcdefghijk |
-        | De abonneenaam bevat hoofdletters                  | JZ          |
-        | De abonneenaam bevat een koppelteken aan het begin | -jz         |
-        | De abonneenaam bevat een koppelteken aan het einde | jz-         |
-        | De abonneenaam bevat dubbele koppeltekens          | j--z        |
-        | De abonneenaam bevat een ongeldig teken            | j_z         |
+        | titel                                              | abonneeNaam                                                       |
+        | De abonneenaam is te kort                          | a                                                                 |
+        | De abonneenaam is te lang                          | abcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgha |
+        | De abonneenaam bevat hoofdletters                  | JZ                                                                |
+        | De abonneenaam bevat een koppelteken aan het begin | -jz                                                               |
+        | De abonneenaam bevat een koppelteken aan het einde | jz-                                                               |
+        | De abonneenaam bevat dubbele koppeltekens          | j--z                                                              |
+        | De abonneenaam bevat een ongeldig teken            | j_z                                                               |
 
   Regel: De abonneenaam is uniek binnen de context van een afnemer
 
