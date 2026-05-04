@@ -143,15 +143,17 @@ components:
   schemas:
     AbonneeNaam:
       type: string
-      pattern: ^(?!.*--)[a-z][a-z-]{0,8}[a-z]$
+      minLength: 2
+      maxLength: 64
+      pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
       description: |
         De naam van de abonnee. 
-        Moet voldoen aan de volgende regels:
-          - Begint en eindigt met een kleine letter
-          - Bevat minimaal 2 en maximaal 10 tekens
-          - Bevat alleen kleine letters (a-z) en koppeltekens (-)
-          - Bevat geen dubbele koppeltekens (--)
-      example: abonnee
+        Moet voldoen aan de volgende criteria:
+          - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+          - bevat geen dubbele koppeltekens achter elkaar (--)
+          - bevat minimaal 2 en maximaal 64 tekens
+          - begint en eindigt niet met een koppelteken (-)
+      example: abonnee-voorbeeld-001
     Abonnee:
       type: object
       properties:
