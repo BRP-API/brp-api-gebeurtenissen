@@ -6,4 +6,4 @@ docker compose \
     -f ./.docker/keycloak.yml \
     -f ./.docker/gebeurtenissen-mutatie-service.yml \
     -f ./.docker/gebeurtenissen.yml \
-    up -d --build
+    up -d
