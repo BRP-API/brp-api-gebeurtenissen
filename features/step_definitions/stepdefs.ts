@@ -106,6 +106,7 @@ function copyIdIfExpectedIsExternalEventAndResultHasId(expected: any, result: an
 }
 
 function assertProblemDetailsResult(expected: any, actual: any) {
+    expect(actual).to.be.an('object', `Response is geen (ProblemDetails) object. Response: ${JSON.stringify(actual)}`);
     expect(actual).to.have.property('type').that.equals(expected.type);
     expect(actual).to.have.property('status').that.equals(expected.status);
     if(expected.title) {
