@@ -1,13 +1,13 @@
 # language: nl
 Functionaliteit: Registreer abonneegroepen
   Als gemeente wil ik kunnen bepalen voor welke (set) gebeurtenistypen mijn abonnees zich (mogen) abonneren, 
-    zodat ik geen applicatie hoef te maken die controleert dat abonnees alleen abonnementen zetten waar ze geautoriseerd voor zijn
+    zodat ik geen applicatie hoef te maken die controleert dat abonnees alleen abonnementen zetten waar ze geautoriseerd voor zijn.
 
   Als abonnee wil ik me kunnen abonneren op meerdere abonnementen voor dezelfde persoon in één request, 
-    zodat ik niet voor elke persoon meerdere requests hoef te sturen
+    zodat ik niet voor elke persoon meerdere requests hoef te sturen.
 
   Als abonnee wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen, 
-    zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder typen gebeurtenissen kan ontvangen op relaties van cliënten
+    zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder uitgebreide set gebeurtenissen kan ontvangen op relaties van cliënten.
 
   Een abonnee abonneert op een vaste set gebeurtenistypes afhankelijk van de groep die deze personen hebben in het proces dat de abonnee uitvoert.
   Bij een abonnee kunnen er meerdere groepen personen zijn die op dezelfde set gebeurtenistypes worden gevolgd.
