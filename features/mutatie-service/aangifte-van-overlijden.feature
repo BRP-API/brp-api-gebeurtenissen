@@ -52,5 +52,4 @@ Functionaliteit: Aangifte van overlijden
         | datumOverlijden | 2026-02-10 |
         | plaats          |       1911 |
         | landCode        |       6030 |
-      Dan heeft de 'lo3_pl' rij voor 'Jan' datum opschorting bijhouding (67.10) met waarde '20250901'
-      En heeft de 'lo3_pl' rij voor 'Jan' reden opschorting bijhouding (67.20) met waarde 'E'
+      Dan heeft de 'lo3_pl' rij voor 'Jan' opschorting bijhouding met datum '20260210' en reden 'E'
