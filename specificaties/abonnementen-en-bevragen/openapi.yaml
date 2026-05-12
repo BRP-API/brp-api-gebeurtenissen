@@ -17,3 +17,12 @@ paths:
 
   /abonnees/{abonneeNaam}/gebeurtenissen:
     $ref: '../gebeurtenissen-bevragen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1gebeurtenissen'
+
+components:
+  securitySchemes:
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
+          scopes: {}

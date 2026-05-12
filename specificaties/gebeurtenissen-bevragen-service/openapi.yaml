@@ -18,16 +18,10 @@ paths:
           required: true
           schema:
             $ref: '../brp-api/abonnee/naam-v1.yaml#/components/schemas/AbonneeNaam'
-        - name: cursor
-          in: query
-          required: false
-          schema:
-            $ref: '../brp-api/paginering/paginering-v1.yaml#/components/schemas/Cursor'
-        - name: limit
-          in: query
-          required: false
-          schema:
-            $ref: '../brp-api/paginering/paginering-v1.yaml#/components/schemas/Limit'
+        - $ref: '../paginering/cursor-query-parameter-v1.yaml#/components/parameters/CursorQueryParameter'
+          description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
+        - $ref: '../paginering/limit-query-parameter-v1.yaml#/components/parameters/LimitQueryParameter'
+          description: Aantal te retourneren gebeurtenissen
       responses:
         '200':
           description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd

@@ -144,16 +144,10 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/AbonneeNaam'
-        - name: cursor
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/schemas-Cursor'
-        - name: limit
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/schemas-Limit'
+        - $ref: '#/components/parameters/CursorQueryParameter'
+          description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
+        - $ref: '#/components/parameters/LimitQueryParameter'
+          description: Aantal te retourneren gebeurtenissen
       responses:
         '200':
           description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
@@ -174,6 +168,13 @@ paths:
       security:
         - clientCredentials: []
 components:
+  securitySchemes:
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
+          scopes: {}
   schemas:
     AbonneeNaam:
       type: string
@@ -388,17 +389,6 @@ components:
               description: Het burgerservicenummer (BSN) van de persoon van wie de abonnee geen gebeurtenissen meer wil ontvangen
           required:
             - burgerservicenummer
-    schemas-Cursor:
-      description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
-      type: string
-      format: uuid
-      example: 123e4567-e89b-12d3-a456-426614174000
-    schemas-Limit:
-      description: Aantal te retourneren gebeurtenissen
-      type: integer
-      minimum: 1
-      maximum: 10
-      example: 3
     Gebeurtenis:
       type: object
       properties:

@@ -18,16 +18,10 @@ paths:
           required: true
           schema:
             $ref: '#/components/schemas/AbonneeNaam'
-        - name: cursor
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/Cursor'
-        - name: limit
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/Limit'
+        - $ref: '#/components/parameters/CursorQueryParameter'
+          description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
+        - $ref: '#/components/parameters/LimitQueryParameter'
+          description: Aantal te retourneren gebeurtenissen
       responses:
         '200':
           description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
@@ -79,16 +73,14 @@ components:
           - begint en eindigt niet met een koppelteken (-)
       example: abonnee-voorbeeld-001
     Cursor:
-      description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
       type: string
       format: uuid
-      example: 123e4567-e89b-12d3-a456-426614174000
+      description: Identifier van een resource
     Limit:
-      description: Aantal te retourneren gebeurtenissen
       type: integer
       minimum: 1
       maximum: 10
-      example: 3
+      description: Het aantal resources dat in één response wordt teruggegeven.
     Gebeurtenis:
       type: object
       properties:
@@ -358,6 +350,21 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/InvalidParam'
+  parameters:
+    CursorQueryParameter:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Cursor'
+      description: Cursor query parameter die gebruikt kan worden voor paginering.
+    LimitQueryParameter:
+      name: limit
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Limit'
+      description: Limit query parameter die gebruikt kan worden voor paginering.
   responses:
     '400':
       description: Bad Request
