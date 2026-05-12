@@ -7,8 +7,73 @@ const baseConfig = {
 
 module.exports = {
     default: {
-        ...baseConfig,
+        sql : {
+            useDb: true,
+            cleanup: true,
+            deleteIndividualRecords: true,
+            poolConfig: {
+                user: 'root',
+                host: 'host.docker.internal',
+                database: 'rvig_haalcentraal_testdata',
+                password: 'root',
+                port: 5432,
+                allowExitOnIdle: true
+            }
+        },
+        oAuth : {
+            enable: false,
+            accessTokenUrl: 'http://identityserver:6000/connect/token',
+            clients:[
+                {
+                    afnemerID: '000008',
+                    gemeenteCode: '0800',
+                    clientId: 'client met gemeentecode (eigen gemeente)',
+                    clientSecret: 'secret',
+                    scopes: [ '000000099000000080000' ],
+                    resourceServer: 'ResourceServer02'
+                },
+                {
+                    afnemerID: '000008',
+                    gemeenteCode: '0599',
+                    clientId: 'client met gemeentecode (ander gemeente)',
+                    clientSecret: 'secret',
+                    scopes: [ '000000099000000080000' ],
+                    resourceServer: 'ResourceServer02'
+                },
+                {
+                    afnemerID: '000008',
+                    clientId: 'client zonder gemeentecode',
+                    clientSecret: 'secret',
+                    scopes: [ '000000099000000080000' ],
+                    resourceServer: 'ResourceServer02'
+                },
+                {
+                    afnemerID: '000009',
+                    gemeenteCode: '0900',
+                    clientId: 'client met gemeentecode (eigen gemeente, bestaand gezag afnemer)',
+                    clientSecret: 'secret',
+                    scopes: [ '000000099000000090000' ],
+                    resourceServer: 'ResourceServer02'
+                },
+                {
+                    afnemerID: '000009',
+                    clientId: 'client zonder gemeentecode (bestaand gezag afnemer)',
+                    clientSecret: 'secret',
+                    scopes: [ '000000099000000090000' ],
+                    resourceServer: 'ResourceServer02'
+                },
+                {
+                    afnemerID: '720402',
+                    clientId: 'KMAR',
+                    clientSecret: 'secret',
+                    scopes: [ '000000099000000080000' ],
+                    resourceServer: 'ResourceServer02'
+                }
+            ]
+        },
         worldParameters: {
+            apiUrl: 'http://localhost:5040/api/brp',
+            api: 'gebeurtenissen-api',
             logger: {
                 level: 'warn'
             },

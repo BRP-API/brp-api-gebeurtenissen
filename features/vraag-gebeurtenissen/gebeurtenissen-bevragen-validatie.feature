@@ -5,11 +5,9 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
   zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
 
   Achtergrond:
-    Gegeven de persoon 'Jan'
-    En de persoon 'Piet'
-    En de persoon 'Karin'
+    Gegeven de persoon 'Jan' is geregistreerd in de BRP
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-    * met groep 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
 
   Regel: Alleen een abonnee mag gebeurtenissen bevragen
 
@@ -62,8 +60,8 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
         | <code> | cursor | <reason> |
 
       Voorbeelden:
-        | omschrijving    | waarde | code    | reason                          |
-        | is geen getal   | alle   | integer | Waarde is geen geldig getal.    |
-        | is 0            |      0 | minimum | Waarde is lager dan minimum 1.  |
-        | is negatief     |     -3 | minimum | Waarde is lager dan minimum 1.  |
-        | is hoger dan 10 |     11 | maximum | Waarde is hoger dan maximum 10. |
+        | omschrijving         | waarde | code    | reason                          |
+        | is geen getal        | alle   | integer | Waarde is geen geldig getal.    |
+        | is 0                 |      0 | minimum | Waarde is lager dan minimum 1.  |
+        | is negatief          |     -3 | minimum | Waarde is lager dan minimum 1.  |
+        | is hoger dan 10      |     11 | maximum | Waarde is hoger dan maximum 10. |

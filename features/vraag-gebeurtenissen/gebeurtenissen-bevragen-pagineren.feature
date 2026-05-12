@@ -9,11 +9,12 @@ Functionaliteit: Gebeurtenissen bevragen met cursor en limit
   - Hiermee kan de abonnee eerder gelezen gebeurtenissen nogmaals ontvangen vanaf een bepaald punt (de laatste wel goed verwerkte gebeurtenis).
 
   Achtergrond:
-    Gegeven de persoon 'Jan'
-    En de persoon 'Piet'
-    En de persoon 'Karin'
+    Gegeven de persoon 'Jan' is geregistreerd in de BRP
+    En de persoon 'Piet' is geregistreerd in de BRP
+    En de persoon 'Karin' is geregistreerd in de BRP
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-    * met groep 'client' met abonnementen op gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
+    En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
     En abonnee 'jz' heeft zich geabonneerd op gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' van persoon 'Jan'
     En abonnee 'jz' heeft zich geabonneerd op gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' van persoon 'Piet'
     En abonnee 'jz' heeft zich geabonneerd op gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' van persoon 'Karin'
@@ -21,17 +22,17 @@ Functionaliteit: Gebeurtenissen bevragen met cursor en limit
     En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Piet'
     En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Karin'
 
-  Regel: Een abonnee kan gebeurtenissen vragen vanaf de id van een eerder ontvangen gebeurtenis
+  Regel: Een abonnee kan gebeurtenissen vragen na de id van een eerder ontvangen gebeurtenis
     Hiervoor gebruikt de abonnee optionele parameter 'cursor'
 
     Scenario: De abonnee vraagt gebeurtenissen na de opgegeven gebeurtenis id
-      Als gebeurtenissen worden gevraagd door abonnee 'jz' vanaf de gebeurtenis voor 'Jan'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' na de gebeurtenis voor 'Jan'
       Dan worden volgende gebeurtenissen geleverd:
       * de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Piet'
       * de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Karin'
 
     Scenario: De abonnee vraagt gebeurtenissen na de laatste gebeurtenis op
-      Als gebeurtenissen worden gevraagd door abonnee 'jz' vanaf de gebeurtenis voor 'Karin'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' na de gebeurtenis voor 'Karin'
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Standaard worden per request maximaal 10 gebeurtenissen geleverd
@@ -54,3 +55,10 @@ Functionaliteit: Gebeurtenissen bevragen met cursor en limit
       Als maximaal 1 gebeurtenis wordt gevraagd door abonnee 'jz'
       Dan worden volgende gebeurtenissen geleverd:
       * de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan'
+
+  Regel: Een abonnee mag parameters 'cursor' en 'limit' samen gebruiken
+
+    Scenario: De abonnee wil 1 gebeurtenis ontvangen na de opgegeven id
+      Als maximaal 1 gebeurtenis wordt gevraagd door abonnee 'jz' na de gebeurtenis voor 'Jan'
+      Dan worden volgende gebeurtenissen geleverd:
+      * de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Piet'
