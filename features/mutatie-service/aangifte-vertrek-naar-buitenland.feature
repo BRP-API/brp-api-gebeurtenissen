@@ -55,7 +55,4 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
         | regel2         | Rue Wiertz 60             |
         | regel3         | B-1047 Bruxelles          |
         | landCode       |                      5010 |
-      Dan is het 'volg_nr' van de 'lo3_pl_verblijfplaats' rijen van 'Jan' opgehoogd met 1
-      En is een 'lo3_pl_verblijfplaats' rij toegevoegd
-        | pl_id | datum opschorting bijhouding (67.10) | reden opschorting bijhouding (67.20) |
-        | Jan   |                             20260210 | E                                    |
+      Dan heeft de 'lo3_pl' rij voor 'Jan' opschorting bijhouding met datum '20260210' en reden 'E'
