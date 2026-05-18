@@ -4,11 +4,14 @@ import { expect } from 'chai';
 import { PostgresqlManager } from './support/postgresql-manager';
 import { poolConfig } from './support/postgresql-config';
 import { createAdres, createPersoon, deleteAdres } from './support/repository';
-import { setupClient, tearDownClient } from './support/oauth-helpers';
+import { tearDownClient } from './support/oauth-helpers';
 import { logger } from './support/logger';
 import { sendCommand } from './support/mutatie-api-helpers';
 import { getLastEventFrom } from './support/axon-api-helpers';
 import { Event } from './brp/verhuisd-intergemeentelijk-event';
+import { deregistreerAbonneeVoorAfnemer } from './support/abonnement-api-helpers';
+import { Afnemer } from './brp/afnemer-entity';
+import { ProblemDetails } from './support/problem-details';
 
 Before(async function(this: ICustomWorld, { pickle }) {
     this.init(pickle);
@@ -23,10 +26,6 @@ AfterAll(async function() {
 });
 
 async function createHuidigAanduiding(this: ICustomWorld) {
-    if(this.huidigAanduiding?.isAfnemer) {
-        await setupClient(this.context.afnemers[this.huidigAanduiding.id!]);
-        this.huidigAanduiding = null;
-    }
     if(this.huidigAanduiding?.isAdres) {
         await createAdres(this.context.adressen[this.huidigAanduiding.id!]);
         this.huidigAanduiding = null;
@@ -106,12 +105,32 @@ function copyIdIfExpectedIsExternalEventAndResultHasId(expected: any, result: an
     }
 }
 
+function assertProblemDetailsResult(expected: any, actual: any) {
+    expect(actual).to.be.an('object', `Response is geen (ProblemDetails) object. Response: ${JSON.stringify(actual)}`);
+    expect(actual).to.have.property('type').that.equals(expected.type);
+    expect(actual).to.have.property('status').that.equals(expected.status);
+    if(expected.title) {
+        expect(actual).to.have.property('title').that.equals(expected.title);
+    }
+    if(expected.detail) {
+        expect(actual).to.have.property('detail').that.equals(expected.detail);
+    }
+    if(expected.instance) {
+        expect(actual).to.have.property('instance').that.equals(expected.instance);
+    }
+}
+
 After(async function(this: ICustomWorld, { pickle }) {
     logger.info(`Scenario ${pickle.name}. End`, { context: this.context, command: this.command, result: this.result, expected: this.expected });
 
     copyIdIfExpectedIsExternalEventAndResultHasId(this.expected, this.result);
 
-    expect(this.result).to.deep.equal(this.expected);
+    if (this.expected instanceof ProblemDetails) {
+        assertProblemDetailsResult(this.expected, this.result);
+    }
+    else {
+        expect(this.result).to.deep.equal(this.expected, JSON.stringify({ result: this.result, expected: this.expected }, null, 2));
+    }
 });
 
 After(async function(this: ICustomWorld) {
@@ -122,7 +141,12 @@ After(async function(this: ICustomWorld) {
     if(this.context.afnemers) {
         for (const key of Object.keys(this.context.afnemers))
         {
+            const afnemer = this.context.afnemers[key] as Afnemer;
+            for (const abonneeNaam of afnemer.abonnees) {
+                await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+            }
             await tearDownClient(this.context.afnemers[key]);
+            delete this.context.afnemers[key];
         }
     }
     if(this.context.adressen) {

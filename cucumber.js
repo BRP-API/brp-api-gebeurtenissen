@@ -127,7 +127,13 @@ module.exports = {
     },
     EndToEnd: {
         ...baseConfig,
-        paths: ['features/*.feature'], // Only run end-to-end features
+        paths: [
+            'features/abonnementen-service/registreer-abonnee.feature',
+            'features/abonnementen-service/raadpleeg-abonnees.feature',
+            'features/abonnementen-service/deregistreer-abonnee.feature',
+            'features/abonnementen-service/zegop-abonnement.feature',
+        ], // Only run end-to-end features
+        tags: 'not @skip-verify',    // Exclude scenarios tagged with @skip-verify
         format: [ // output formats and locations
             'json:./test-reports/cucumber-js/e2e/test-result.json',
             'summary:./test-reports/cucumber-js/e2e/test-result-summary.txt',

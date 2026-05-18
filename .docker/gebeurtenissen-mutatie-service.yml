@@ -2,6 +2,13 @@ services:
   mutatie-service:
     image: ghcr.io/brp-api/gebeurtenis-mutatie-service:latest
     container_name: mutatie-service
+    depends_on:
+      axon-server:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      gebeurtenissen:
+        condition: service_started
     ports:
       - "8000:8000"
     environment:
