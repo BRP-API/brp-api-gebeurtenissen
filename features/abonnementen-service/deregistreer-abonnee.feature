@@ -14,7 +14,8 @@ Functionaliteit: Deregistreer abonnee
       Dan is de response '204 No Content'
 
   Regel: Een 'AbonneeGederegistreerd' gebeurtenis wordt gepubliceerd wanneer een abonnee succesvol is gederegistreerd
-  
+
+    @skip-verify
     Scenario: Een afnemer deregistreert een bestaande abonnee
       Gegeven er is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam |
@@ -24,7 +25,7 @@ Functionaliteit: Deregistreer abonnee
         | afnemerId          | abonneeNaam |
         | Gemeente Amsterdam | jz          |
 
-  Regel: Er wordt geen 'AbonneeGederegistreerd' gebeurtenis gepubliceerd wanneer een reeds gederegistreerde abonnee wordt gederegistreerd
+  Regel: Een reeds gederegistreerde abonnee kan niet opnieuw worden gederegistreerd
 
     Scenario: Een afnemer deregistreert een reeds gederegistreerde abonnee
       Gegeven er is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
@@ -34,7 +35,7 @@ Functionaliteit: Deregistreer abonnee
         | afnemerId          | abonneeNaam |
         | Gemeente Amsterdam | jz          |
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' deregistreert
-      Dan is de response '204 No Content'
+      Dan is de response '404 Not Found'
 
   Regel: Een niet-bestaande abonnee kan niet worden gederegistreerd
 

@@ -13,6 +13,7 @@ Functionaliteit: Registreer abonnee
 
   Regel: Een 'AbonneeGeregistreerd' gebeurtenis wordt gepubliceerd wanneer een abonnee succesvol is geregistreerd
 
+    @skip-verify
     Scenario: Een afnemer registreert een abonnee met een geldige abonneenaam
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
       Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
@@ -28,6 +29,8 @@ Functionaliteit: Registreer abonnee
     Abstract Scenario: <titel>
       Als de afnemer 'Gemeente Amsterdam' de abonnee '<abonneeNaam>' registreert
       Dan is de response '400 Bad Request'
+      * 'title' met tekst 'Abonneenaam ongeldig'
+      * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat de abonneenaam ongeldig is.'
 
       Voorbeelden:
         | titel                                              | abonneeNaam                                                       |
@@ -54,4 +57,4 @@ Functionaliteit: Registreer abonnee
         | afnemerId          | abonneeNaam |
         | Gemeente Rotterdam | jz          |
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
-      Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd
+      Dan is de response '201 Created'

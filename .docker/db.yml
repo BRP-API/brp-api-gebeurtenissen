@@ -15,19 +15,23 @@ services:
       
   postgres:
     container_name: db
-    image: db
+    image: postgres:17.7-alpine
     restart: always
-    build:
-      context: .
-      dockerfile: ./Dockerfile
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
+    volumes:
+      - ./scripts/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./scripts/projecties-db/schema.sql:/docker-entrypoint-initdb.d/projecties-schema.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U root"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U root"
+        ]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 12
     ports:
       - "5432:5432"
     networks:

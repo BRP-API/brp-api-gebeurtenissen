@@ -58,3 +58,19 @@ export function createObjectFrom(dataTable: DataTable, dateAsDate: boolean = fal
 
     return obj;
 }
+
+export function createObjectArrayFrom(dataTable: DataTable, dateAsDate: boolean = false): any[] {
+    let retval = [];
+
+    for (const row of dataTable.hashes()) {
+        let obj = {};
+
+        for (const propertyName of Object.keys(row)) {
+            setProperty(obj, propertyName, row[propertyName], dateAsDate);
+        }
+
+        retval.push(obj);
+    }
+
+    return retval;
+}

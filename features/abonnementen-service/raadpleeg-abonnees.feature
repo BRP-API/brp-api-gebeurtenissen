@@ -13,7 +13,7 @@ Functionaliteit: Raadpleeg abonnees
         | Gemeente Rotterdam | dbz         |
         | Gemeente Amsterdam | szw         |
       Als de afnemer 'Gemeente Amsterdam' zijn abonnees raadpleegt
-      Dan heeft de response abonees met de volgende velden
+      Dan heeft de response abonnees met de volgende velden
         | naam |
         | jz   |
         | szw  |

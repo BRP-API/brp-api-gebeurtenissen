@@ -25,9 +25,6 @@ Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
     if(this.huidigAanduiding?.isAdres) {
         (this.context.adressen[this.huidigAanduiding.id] as Adres).gemeente_code = gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
     }
-    if(this.huidigAanduiding?.isAfnemer) {
-        (this.context.afnemers[this.huidigAanduiding.id] as Afnemer).gemeenteCode = gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
-    }
 });
 
 Given('met adresseerbaar object identificatie {string}', function (adresseerbaarObjectIdentificatie:string) {

@@ -47,7 +47,7 @@ export async function createPersoon(persoon: Persoon): Promise<void> {
 
     for (const key of persoon.getPropertyNames()) {
         if(!persoon[key as keyof Persoon] && result.has(key)) {
-            (persoon as any)[key] = result.get(key);
+            (persoon as any)[key] = key === 'burger_service_nr' ? String(result.get(key)).padStart(9, '0') : result.get(key);
         }
     }
 
