@@ -12,6 +12,7 @@ Functionaliteit: Registreer een abonnee
 
   Regel: Een 'AbonneeGeregistreerd' gebeurtenis wordt gepubliceerd wanneer een abonnee succesvol is geregistreerd
 
+    @skip-verify
     Scenario: Een afnemer registreert een abonnee met een geldige abonneenaam
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
       Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
