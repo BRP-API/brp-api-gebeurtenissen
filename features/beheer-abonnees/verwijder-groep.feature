@@ -6,12 +6,12 @@ Functionaliteit: Verwijder groep van abonnee
     Scenario: Een afnemer verwijdert een groep van een abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie' toegevoegd
-      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'relatie' verwijdert
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' verwijdert
       Dan is de response '204 No Content'
 
   Regel: Een 'GroepVerwijderd' gebeurtenis wordt gepubliceerd wanneer een groep succesvol is verwijderd van een abonnee
 
+    @skip-verify
     Scenario: Een afnemer verwijdert een groep van een abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
@@ -19,6 +19,7 @@ Functionaliteit: Verwijder groep van abonnee
       Dan is een 'GroepVerwijderd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam | groepNaam |
         | Gemeente Amsterdam | jz          | client    |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
 
   Regel: Er wordt een foutmelding gegeven wanneer de groep niet bestaat
 
@@ -74,6 +75,7 @@ Functionaliteit: Verwijder groep van abonnee
 
   Regel: Een 'GroepVerwijderd' gebeurtenis wordt gepubliceerd voor elke groep van de abonnee wanneer de abonnee succesvol is gederegistreerd
 
+    @skip-verify
     Scenario: Een afnemer deregistreert een abonnee met twee groepen
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
@@ -83,3 +85,4 @@ Functionaliteit: Verwijder groep van abonnee
         | type            | afnemerId          | abonneeNaam | groepNaam |
         | GroepVerwijderd | Gemeente Amsterdam | jz          | client    |
         | GroepVerwijderd | Gemeente Amsterdam | jz          | relatie   |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context

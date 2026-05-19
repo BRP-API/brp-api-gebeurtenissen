@@ -1,7 +1,43 @@
 import { Given } from '@cucumber/cucumber';
 import { AfnemerFactory } from './support/afnemer-factory';
-import { abonneerOpGebeurtenistypeVanPersoon, deregistreerAbonneeVoorAfnemer, registreerAbonneeVoorAfnemer, zegOpAbonnementOpGebeurtenistypeVanPersoon } from './support/abonnement-api-helpers';
+import { 
+    abonneerOpGebeurtenistypeVanPersoon, 
+    deregistreerAbonneeVoorAfnemer, 
+    registreerAbonneeVoorAfnemer,
+    verwijderGroepVanAbonnee,
+    voegGroepToeBijAbonnee,
+    zegOpAbonnementOpGebeurtenistypeVanPersoon } from './support/abonnement-api-helpers';
 import { createObjectArrayFrom, createObjectFrom } from './support/dataTable2Object';
+
+Given('de afnemer {string} heeft de abonnee {string} geregistreerd', async function (afnemerAanduiding: string, abonneeNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+});
+
+Given('de afnemer {string} heeft de abonnee {string} gederegistreerd', async function (afnemerAanduiding: string, abonneeNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} de {string} groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, groepType: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepType, groepNaam);
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} de {string} groep {string}', async function (afnemerAanduiding: string, abonneeNaam: string, groepType: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepType, groepNaam);
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} verwijderd', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await verwijderGroepVanAbonnee(afnemer, abonneeNaam, groepNaam);
+});
 
 Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', function () {
 });

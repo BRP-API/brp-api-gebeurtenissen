@@ -1,4 +1,4 @@
-import { Then } from '@cucumber/cucumber';
+import { Then, defineParameterType } from '@cucumber/cucumber';
 import { ProblemDetails} from './support/problem-details';
 import { createObjectArrayFrom } from './support/dataTable2Object';
 
@@ -10,8 +10,13 @@ Then('{string} met tekst {string}', function (veld: string, waarde: string) {
     this.expected[veld] = waarde;
 });
 
-Then('heeft de response abonnees met de volgende velden', function (dataTable) {
+defineParameterType({
+    name: 'objectNaam',
+    regexp: /(abonnees|groepen|gebeurtenistypes|abonnementen|gebeurtenissen)/
+});
+
+Then('worden volgende {objectNaam} geleverd', function (objectNaam: string, dataTable) {
     this.expected = {
-        abonnees: createObjectArrayFrom(dataTable)
+        [objectNaam]: createObjectArrayFrom(dataTable)
     };
 });

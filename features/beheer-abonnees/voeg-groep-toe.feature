@@ -13,18 +13,20 @@ Functionaliteit: Voeg groep toe aan abonnee
 
   Regel: Een 'GroepToegevoegd' gebeurtenis wordt gepubliceerd wanneer een groep succesvol is toegevoegd aan een abonnee
 
+    @skip-verify
     Scenario: Een afnemer voegt een groep toe aan een geregistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toevoegt
       Dan is een 'GroepToegevoegd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam | groepNaam | groepType               |
         | Gemeente Amsterdam | jz          | client    | GebeurtenissenOpPersoon |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
 
   Regel: Type is verplicht en moet een ondersteund type zijn
 
     Scenario: Een afnemer voegt een groep toe zonder het type groep op te geven
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      Als de afnemer een groep toevoegt zonder type op te geven
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' een groep toevoegt zonder type op te geven
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Type is verplicht'
 
@@ -72,18 +74,20 @@ Functionaliteit: Voeg groep toe aan abonnee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'client' toevoegt
-      Dan is een 'GroepToegevoegd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam | groepNaam | type                    |
-        | Gemeente Amsterdam | szw         | client    | GebeurtenissenOpPersoon |
+      Dan is de response '201 Created'
+      # Dan is een 'GroepToegevoegd' gebeurtenis gepubliceerd met de volgende velden
+      #   | afnemerId          | abonneeNaam | groepNaam | type                    |
+      #   | Gemeente Amsterdam | szw         | client    | GebeurtenissenOpPersoon |
 
     Scenario: De opgegeven groep is al geregistreerd bij een andere afnemer met dezelfde abonneeNaam
       Gegeven de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toevoegt
-      Dan is een 'GroepToegevoegd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam | groepNaam | type                    |
-        | Gemeente Amsterdam | szw         | client    | GebeurtenissenOpPersoon |
+      Dan is de response '201 Created'
+      # Dan is een 'GroepToegevoegd' gebeurtenis gepubliceerd met de volgende velden
+      #   | afnemerId          | abonneeNaam | groepNaam | type                    |
+      #   | Gemeente Amsterdam | szw         | client    | GebeurtenissenOpPersoon |
 
   Regel: Een groep kan alleen worden toegevoegd aan een geregistreerde abonnee
 

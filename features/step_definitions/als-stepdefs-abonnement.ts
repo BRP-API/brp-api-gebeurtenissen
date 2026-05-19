@@ -1,10 +1,15 @@
 import { When } from '@cucumber/cucumber';
-import { abonneerOpGebeurtenistypeVanPersoon,
-         deregistreerAbonneeVoorAfnemer,
-         raadpleegAbonneesVoorAfnemer,
-         registreerAbonneeVoorAfnemer,
-         zegOpAbonnementenOpPersoon,
-         zegOpAbonnementOpGebeurtenistypeVanPersoon } from './support/abonnement-api-helpers';
+import {
+    abonneerOpGebeurtenistypeVanPersoon,
+    deregistreerAbonneeVoorAfnemer,
+    raadpleegAbonneesVoorAfnemer,
+    raadpleegGroepenVanAbonnee,
+    registreerAbonneeVoorAfnemer,
+    verwijderGroepVanAbonnee,
+    voegGroepToeBijAbonnee,
+    zegOpAbonnementenOpPersoon,
+    zegOpAbonnementOpGebeurtenistypeVanPersoon
+} from './support/abonnement-api-helpers';
 import { AfnemerFactory } from './support/afnemer-factory';
 import { PersoonFactory } from './support/persoon-factory';
 import { Persoon } from './brp/persoon-entity';
@@ -13,6 +18,12 @@ When('de afnemer {string} de abonnee {string} registreert', async function (afne
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+});
+
+When('de afnemer {string} een abonnee registreert zonder abonneeNaam', async function (afnemerAanduiding: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await registreerAbonneeVoorAfnemer(afnemer);
 });
 
 When('de afnemer {string} zijn abonnees raadpleegt', async function (afnemerAanduiding: string) {
@@ -25,6 +36,33 @@ When('de afnemer {string} de abonnee {string} deregistreert', async function (af
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+});
+
+When('de afnemer {string} bij de abonnee {string} de {string} groep {string} toevoegt', async function (afnemerAanduiding: string, abonneeNaam: string, groepType: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepType, groepNaam);
+});
+
+When('de afnemer {string} bij de abonnee {string} een groep toevoegt zonder type op te geven', async function (afnemerAanduiding: string, abonneeNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    let groepType;
+    const groepNaam = "test";
+
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepType, groepNaam);
+});
+
+When('de afnemer {string} bij de abonnee {string} de groep {string} verwijdert', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await verwijderGroepVanAbonnee(afnemer, abonneeNaam, groepNaam);
+});
+
+When('de afnemer {string} de groepen van abonnee {string} opvraagt', async function (afnemerAanduiding: string, abonneeNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await raadpleegGroepenVanAbonnee(afnemer, abonneeNaam);
 });
 
 When('een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wil nemen', async function () {

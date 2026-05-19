@@ -15,7 +15,7 @@ Functionaliteit: Vraag welke groepen er zijn bij een abonnee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'relatie'
       Als de afnemer 'Gemeente Amsterdam' de groepen van abonnee 'jz' opvraagt
       Dan worden volgende groepen geleverd
-        | groepnaam    |
+        | naam         |
         | minderjarige |
         | ouder        |
 
@@ -30,7 +30,7 @@ Functionaliteit: Vraag welke groepen er zijn bij een abonnee
       En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie'
       Als de afnemer 'Gemeente Amsterdam' de groepen van abonnee 'jz' opvraagt
       Dan worden volgende groepen geleverd
-        | groepnaam    |
+        | naam         |
         | minderjarige |
         | ouder        |
 

@@ -22,7 +22,6 @@ Functionaliteit: Registreer een abonnee
 
   Regel: Opgeven van een abonneeNaam is verplicht
 
-    @skip-verify
     Scenario: Afnemer probeert een abonnee te registreren zonder een naam op te geven
       Als de afnemer 'Gemeente Amsterdam' een abonnee registreert zonder abonneeNaam
       # Deze Als stap is nog niet geïmplementeerd
@@ -53,7 +52,6 @@ Functionaliteit: Registreer een abonnee
 
   Regel: De abonneenaam is uniek binnen de context van een afnemer
 
-    @skip-verify
     Scenario: De abonneeNaam bestaat al bij de afnemer
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       # Deze Gegeven stap is nog niet geïmplementeerd
@@ -65,8 +63,8 @@ Functionaliteit: Registreer een abonnee
     @skip-verify
     Scenario: De opgegeven abonneenaam is al geregistreerd als abonnee door een andere afnemer
       Gegeven de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
-      # Deze Gegeven stap is nog niet geïmplementeerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
       Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam |
         | Gemeente Amsterdam | jz          |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context

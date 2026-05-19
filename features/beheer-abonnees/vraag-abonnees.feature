@@ -10,11 +10,11 @@ Functionaliteit: Vraag welke abonnees geregistreerd zijn voor een afnemer
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
       En de afnemer 'Gemeente Rotterdam' heeft de abonnee 'ocw' geregistreerd
-      Als de afnemer 'Gemeente Amsterdam' de geregistreerde abonnees opvraagt
+      Als de afnemer 'Gemeente Amsterdam' zijn abonnees raadpleegt
       Dan worden volgende abonnees geleverd
-        | abonneenaam |
-        | jz          |
-        | szw         |
+        | naam |
+        | jz   |
+        | szw  |
 
   Regel: Een afnemer ontvangt niet de gederegistreerde abonnees
 
@@ -23,8 +23,8 @@ Functionaliteit: Vraag welke abonnees geregistreerd zijn voor een afnemer
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'ocw' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' gederegistreerd
-      Als de afnemer 'Gemeente Amsterdam' de geregistreerde abonnees opvraagt
+      Als de afnemer 'Gemeente Amsterdam' zijn abonnees raadpleegt
       Dan worden volgende abonnees geleverd
-        | abonneenaam |
-        | jz          |
-        | ocw         |
+        | naam |
+        | jz   |
+        | ocw  |
