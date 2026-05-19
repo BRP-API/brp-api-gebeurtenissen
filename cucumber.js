@@ -7,6 +7,7 @@ const baseConfig = {
 
 module.exports = {
     default: {
+        ...baseConfig,
         sql : {
             useDb: true,
             cleanup: true,
