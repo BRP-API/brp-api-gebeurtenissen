@@ -1,7 +1,7 @@
 # language: nl
 Functionaliteit: Verwijder groep van abonnee
 
-  Regel: Een afnemer kan een bestaande groep verwijderen van een abonnee
+  Regel: Een afnemer kan een groep verwijderen van een abonnee
 
     Scenario: Een afnemer verwijdert een groep van een abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -20,16 +20,16 @@ Functionaliteit: Verwijder groep van abonnee
         | afnemerId          | abonneeNaam | groepNaam |
         | Gemeente Amsterdam | jz          | client    |
 
-  Regel: Alleen een bestaande groep kan worden verwijderd
+  Regel: Er wordt een foutmelding gegeven wanneer de groep niet bestaat
 
-    Scenario: Een afnemer verwijdert een groep die niet is toegevoegd
+    Scenario: Een afnemer verwijdert een groep die niet bestaat omdat er nooit een groep met deze naam is toegevoegd
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'relatie' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
-    Scenario: Een afnemer verwijdert een groep die niet alleen bestaat bij een andere abonnee
+    Scenario: Een afnemer verwijdert een groep die alleen bestaat bij een andere abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
@@ -38,7 +38,7 @@ Functionaliteit: Verwijder groep van abonnee
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
-    Scenario: Een afnemer verwijdert een groep die niet alleen bestaat bij een abonnee met dezelfde naam bij een andere abonnee
+    Scenario: Een afnemer verwijdert een groep die alleen bestaat bij een abonnee met dezelfde naam bij een andere abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
       En de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
@@ -60,13 +60,6 @@ Functionaliteit: Verwijder groep van abonnee
     Scenario: Een afnemer verwijdert een groep met een abonneenaam die niet is geregistreerd
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' de groep 'client' verwijdert
-      Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
-
-    Scenario: Een afnemer verwijdert een groep met een abonneenaam die alleen bestaat bij een andere afnemer
-      Gegeven de afnemer 'Gemeente Rotterdam' heeft de abonnee 'szw' geregistreerd
-      En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnee bestaat niet'

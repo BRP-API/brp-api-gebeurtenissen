@@ -1,5 +1,5 @@
 # language: nl
-Functionaliteit: Deregistreer abonnee
+Functionaliteit: Deregistreer een abonnee
   Als afnemer van BRP API Gebeurtenissen
   wil ik een abonnee kunnen deregistreren
 

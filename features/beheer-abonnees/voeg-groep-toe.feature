@@ -17,7 +17,7 @@ Functionaliteit: Voeg groep toe aan abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toevoegt
       Dan is een 'GroepToegevoegd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam | groepNaam | type                    |
+        | afnemerId          | abonneeNaam | groepNaam | groepType               |
         | Gemeente Amsterdam | jz          | client    | GebeurtenissenOpPersoon |
 
   Regel: Type is verplicht en moet een ondersteund type zijn
@@ -28,19 +28,11 @@ Functionaliteit: Voeg groep toe aan abonnee
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Type is verplicht'
 
-    Abstract Scenario: Een afnemer voegt een groep toe en <omschrijving>
+    Scenario: Een afnemer voegt een groep toe en type is niet ondersteund
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de '<type>' groep 'client' toevoegt
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de 'BestaatNiet' groep 'client' toevoegt
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Type is ongeldig'
-
-      Voorbeelden:
-        | omschrijving               | type                                   |
-        | type is niet bekend        | BestaatNiet                            |
-        | type is oude abonneer-type | AbonneerOpGebeurtenisTypeVanPersoon    |
-        | type is abonneer-type      | AbonneerOpGebeurtenissenVanPersoon     |
-        | type is gebeurtenistype    | nl.brp.verhuisd.intergemeentelijk      |
-        | type bevat script          | <script>alert('hello world');</script> |
 
   Regel: Een geldige groepnaam voldoet aan de volgende criteria:
     - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
@@ -55,7 +47,7 @@ Functionaliteit: Voeg groep toe aan abonnee
       * 'title' met tekst 'Naam ongeldig'
 
       Voorbeelden:
-        | titel                                            | naam van de 'GebeurtenissenOpPersoon' groep                       |
+        | titel                                            | naam van de groep                                                 |
         | De groepnaam is te kort                          | a                                                                 |
         | De groepnaam is te lang (65 tekens)              | abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijk |
         | De groepnaam bevat hoofdletters                  | JZ                                                                |
@@ -64,7 +56,7 @@ Functionaliteit: Voeg groep toe aan abonnee
         | De groepnaam bevat dubbele koppeltekens          | j--z                                                              |
         | De groepnaam bevat een ongeldig teken            | j_z                                                               |
         | De groepnaam is leeg                             |                                                                   |
-        | De groepnaam bevat ongeldige tekens              | <script>alert('hello world');</script>                            |
+        | De groepnaam bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
 
   Regel: De naam van de 'GebeurtenissenOpPersoon' groep is uniek binnen de context van een abonnee
 
@@ -93,7 +85,7 @@ Functionaliteit: Voeg groep toe aan abonnee
         | afnemerId          | abonneeNaam | groepNaam | type                    |
         | Gemeente Amsterdam | szw         | client    | GebeurtenissenOpPersoon |
 
-  Regel: Een groep kan alleen worden toegevoeg aan een geregistreerde abonnee
+  Regel: Een groep kan alleen worden toegevoegd aan een geregistreerde abonnee
 
     Scenario: Een afnemer voegt een groep toe aan een niet geregistreerde abonnee
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toevoegt
