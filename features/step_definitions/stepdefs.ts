@@ -106,17 +106,17 @@ function copyIdIfExpectedIsExternalEventAndResultHasId(expected: any, result: an
 }
 
 function assertProblemDetailsResult(expected: any, actual: any) {
-    expect(actual).to.be.an('object', `Response is geen (ProblemDetails) object. Response: ${JSON.stringify(actual)}`);
-    expect(actual).to.have.property('type').that.equals(expected.type);
-    expect(actual).to.have.property('status').that.equals(expected.status);
+    expect(actual).to.be.an('object', `Response is geen (ProblemDetails) object. Response: ${JSON.stringify({ actual: actual, expected: expected }, null, 2)}`);
+    expect(actual).to.have.property('type').that.equals(expected.type, JSON.stringify({ actual: actual, expected: expected }, null, 2));
+    expect(actual).to.have.property('status').that.equals(expected.status, JSON.stringify({ actual: actual, expected: expected }, null, 2));
     if(expected.title) {
-        expect(actual).to.have.property('title').that.equals(expected.title);
+        expect(actual).to.have.property('title').that.equals(expected.title, JSON.stringify({ actual: actual, expected: expected }, null, 2));
     }
     if(expected.detail) {
-        expect(actual).to.have.property('detail').that.equals(expected.detail);
+        expect(actual).to.have.property('detail').that.equals(expected.detail, JSON.stringify({ actual: actual, expected: expected }, null, 2));
     }
     if(expected.instance) {
-        expect(actual).to.have.property('instance').that.equals(expected.instance);
+        expect(actual).to.have.property('instance').that.equals(expected.instance, JSON.stringify({ actual: actual, expected: expected }, null, 2));
     }
 }
 
