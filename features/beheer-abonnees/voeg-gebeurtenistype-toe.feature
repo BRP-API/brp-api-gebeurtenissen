@@ -14,6 +14,7 @@ Functionaliteit: Voeg gebeurtenistype toe aan groep
 
   Regel: Een 'GebeurtenistypeToegevoegd' gebeurtenis wordt gepubliceerd wanneer een gebeurtenistype succesvol is toegevoegd aan een groep
 
+    @skip-verify
     Scenario: Een afnemer voegt een gebeurtenistype toe aan een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
@@ -21,6 +22,7 @@ Functionaliteit: Voeg gebeurtenistype toe aan groep
       Dan is een 'GebeurtenistypeToegevoegd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
         | Gemeente Amsterdam | jz          | client    | nl.brp.verhuisd.intergemeentelijk |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
 
   Regel: Alleen een geldig gebeurtenistype kan worden toegevoegd aan een groep
 
@@ -59,9 +61,10 @@ Functionaliteit: Voeg gebeurtenistype toe aan groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'relatie' toevoegt
-      Dan is een 'GebeurtenistypeToegevoegd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
-        | Gemeente Amsterdam | jz          | relatie   | nl.brp.verhuisd.intergemeentelijk |
+      Dan is de response '201 Created'
+      # Dan is een 'GebeurtenistypeToegevoegd' gebeurtenis gepubliceerd met de volgende velden
+      #   | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
+      #   | Gemeente Amsterdam | jz          | relatie   | nl.brp.verhuisd.intergemeentelijk |
 
     Scenario: Het opgegeven gebeurtenistype is al toegevoegd bij een andere abonnee op dezelfde groepnaam
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -70,9 +73,10 @@ Functionaliteit: Voeg gebeurtenistype toe aan groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
-      Dan is een 'GebeurtenistypeToegevoegd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
-        | Gemeente Amsterdam | jz          | client    | nl.brp.verhuisd.intergemeentelijk |
+      Dan is de response '201 Created'
+      # Dan is een 'GebeurtenistypeToegevoegd' gebeurtenis gepubliceerd met de volgende velden
+      #   | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
+      #   | Gemeente Amsterdam | jz          | client    | nl.brp.verhuisd.intergemeentelijk |
 
     Scenario: Het opgegeven gebeurtenistype is al toegevoegd bij een andere afnemer op dezelfde abonneenaam en dezelfde groepnaam
       Gegeven de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
@@ -81,9 +85,10 @@ Functionaliteit: Voeg gebeurtenistype toe aan groep
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
-      Dan is een 'GebeurtenistypeToegevoegd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
-        | Gemeente Amsterdam | jz          | client    | nl.brp.verhuisd.intergemeentelijk |
+      Dan is de response '201 Created'
+      # Dan is een 'GebeurtenistypeToegevoegd' gebeurtenis gepubliceerd met de volgende velden
+      #   | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
+      #   | Gemeente Amsterdam | jz          | client    | nl.brp.verhuisd.intergemeentelijk |
 
   Regel: Een gebeurtenistype kan alleen worden toegevoegd aan een groep van de abonnee
 
@@ -117,7 +122,7 @@ Functionaliteit: Voeg gebeurtenistype toe aan groep
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
-  Regel: Een gebeurtenistype kan alleen worden toegevoeg aan een groep van een geregistreerde abonnee
+  Regel: Een gebeurtenistype kan alleen worden toegevoegd aan een groep van een geregistreerde abonnee
 
      Scenario: Een afnemer voegt een gebeurtenistype toe aan een nog niet geregistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd

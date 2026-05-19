@@ -1,12 +1,14 @@
 import { Given } from '@cucumber/cucumber';
 import { AfnemerFactory } from './support/afnemer-factory';
-import { 
-    abonneerOpGebeurtenistypeVanPersoon, 
-    deregistreerAbonneeVoorAfnemer, 
+import {
+    abonneerOpGebeurtenistypeVanPersoon,
+    deregistreerAbonneeVoorAfnemer,
     registreerAbonneeVoorAfnemer,
     verwijderGroepVanAbonnee,
+    voegGebeurtenistypeToeAanGroep,
     voegGroepToeBijAbonnee,
-    zegOpAbonnementOpGebeurtenistypeVanPersoon } from './support/abonnement-api-helpers';
+    zegOpAbonnementOpGebeurtenistypeVanPersoon
+} from './support/abonnement-api-helpers';
 import { createObjectArrayFrom, createObjectFrom } from './support/dataTable2Object';
 
 Given('de afnemer {string} heeft de abonnee {string} geregistreerd', async function (afnemerAanduiding: string, abonneeNaam: string) {
@@ -39,6 +41,12 @@ Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} verwi
     this.result = await verwijderGroepVanAbonnee(afnemer, abonneeNaam, groepNaam);
 });
 
+Given('de afnemer {string} heeft bij de abonnee {string} het gebeurtenistype {string} aan de groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, gebeurtenistype: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await voegGebeurtenistypeToeAanGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+});
+
 Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', function () {
 });
 
@@ -63,7 +71,7 @@ Given('er is een {string} gebeurtenis gepubliceerd met de volgende velden', asyn
 });
 
 Given('de volgende {string} gebeurtenissen zijn gepubliceerd', async function (gebeurtenisType, dataTable) {
-    if(gebeurtenisType === 'AbonneeGeregistreerd') {
+    if (gebeurtenisType === 'AbonneeGeregistreerd') {
         const gebeurtenissen = createObjectArrayFrom(dataTable);
 
         for (const gebeurtenis of gebeurtenissen) {
@@ -79,7 +87,7 @@ Given('de abonnee {string} van afnemer {string} heeft zich geabonneerd op de {st
 
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    if(!afnemer.abonnees.includes(abonneeNaam)) {
+    if (!afnemer.abonnees.includes(abonneeNaam)) {
         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
     }
 
@@ -91,7 +99,7 @@ Given('de abonnee {string} van afnemer {string} heeft zijn abonnement op de {str
 
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    if(!afnemer.abonnees.includes(abonneeNaam)) {
+    if (!afnemer.abonnees.includes(abonneeNaam)) {
         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
     }
 
@@ -103,7 +111,7 @@ Given('de abonnee {string} van afnemer {string} heeft een abonnement op de {stri
 
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    if(!afnemer.abonnees.includes(abonneeNaam)) {
+    if (!afnemer.abonnees.includes(abonneeNaam)) {
         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
     }
 

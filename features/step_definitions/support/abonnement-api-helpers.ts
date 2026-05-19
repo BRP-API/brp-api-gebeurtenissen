@@ -141,6 +141,27 @@ export async function raadpleegGroepenVanAbonnee(afnemer: Afnemer, abonneeNaam: 
     return await parseResponseBody(response);
 }
 
+export async function voegGebeurtenistypeToeAanGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string, gebeurtenistype: string): Promise<any> {
+    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+
+    var requestBody = {
+        gebeurtenistype: gebeurtenistype
+    };
+
+    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    });
+
+
+    logger.debug(`voegGebeurtenistypeToeAanGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`, { response: response });
+
+    return await parseResponseBody(response);
+}
 
 
 export async function abonneerOpGebeurtenistypeVanPersoon(afnemer: Afnemer, abonneeNaam: string, gebeurtenistype: string, persoon: Persoon): Promise<any> {

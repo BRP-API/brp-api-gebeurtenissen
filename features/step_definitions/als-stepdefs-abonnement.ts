@@ -6,6 +6,7 @@ import {
     raadpleegGroepenVanAbonnee,
     registreerAbonneeVoorAfnemer,
     verwijderGroepVanAbonnee,
+    voegGebeurtenistypeToeAanGroep,
     voegGroepToeBijAbonnee,
     zegOpAbonnementenOpPersoon,
     zegOpAbonnementOpGebeurtenistypeVanPersoon
@@ -63,6 +64,12 @@ When('de afnemer {string} de groepen van abonnee {string} opvraagt', async funct
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await raadpleegGroepenVanAbonnee(afnemer, abonneeNaam);
+});
+
+When('de afnemer {string} bij de abonnee {string} het gebeurtenistype {string} aan de groep {string} toevoegt', async function (afnemerAanduiding: string, abonneeNaam: string, gebeurtenistype: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await voegGebeurtenistypeToeAanGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
 });
 
 When('een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wil nemen', async function () {
