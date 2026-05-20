@@ -35,7 +35,7 @@ async function createHuidigAanduiding(this: ICustomWorld) {
         this.huidigAanduiding = null;
     }
     if(this.huidigAanduiding?.isCommand) {
-        const response = await sendCommand(this.command!);
+        const response = await sendCommand(this.command);
         if(response.status === 201) {
             this.result = await getLastEventFrom(this.context.personen[this.huidigAanduiding.id!].a_nr);
         }
@@ -145,7 +145,7 @@ After(async function(this: ICustomWorld) {
             for (const abonneeNaam of afnemer.abonnees) {
                 await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
             }
-            await tearDownClient(this.context.afnemers[key]);
+            await tearDownClient(afnemer);
             delete this.context.afnemers[key];
         }
     }

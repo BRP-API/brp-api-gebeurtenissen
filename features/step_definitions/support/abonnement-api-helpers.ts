@@ -20,14 +20,7 @@ async function parseResponseBody(response: Response): Promise<any> {
 export async function registreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNaam?: string): Promise<any> {
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    var requestBody;
-    if (abonneeNaam) {
-        requestBody = {
-            abonneeNaam: abonneeNaam
-        }
-    } else {
-        requestBody = {}
-    }
+    let requestBody = abonneeNaam ? { abonneeNaam: abonneeNaam } : {};
 
     const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`, {
         method: 'POST',
@@ -61,10 +54,7 @@ export async function deregistreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNa
     logger.debug(`deregistreerAbonneeVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}'`, { response: response });
 
     if (response.status === 204) {
-        const index = afnemer.abonnees.indexOf(abonneeNaam);
-        if (index > -1) {
-            afnemer.abonnees.splice(index, 1);
-        }
+        afnemer.abonnees = afnemer.abonnees.filter(a => a !== abonneeNaam);
     }
 
     return await parseResponseBody(response);
@@ -88,7 +78,7 @@ export async function raadpleegAbonneesVoorAfnemer(afnemer: Afnemer): Promise<an
 export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: string, groepType?: string, groepNaam?: string): Promise<any> {
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    var requestBody: any = {};
+    let requestBody: any = {};
     if (groepType) {
         requestBody.type = groepType
     }
@@ -136,7 +126,7 @@ export async function raadpleegGroepenVanAbonnee(afnemer: Afnemer, abonneeNaam: 
         }
     });
 
-    logger.debug(`raadpleegAbonneesVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}'`, { response: response });
+    logger.debug(`raadpleegGroepenVanAbonnee afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}'`, { response: response });
 
     return await parseResponseBody(response);
 }
@@ -144,7 +134,7 @@ export async function raadpleegGroepenVanAbonnee(afnemer: Afnemer, abonneeNaam: 
 export async function voegGebeurtenistypeToeAanGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string, gebeurtenistype: string): Promise<any> {
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    var requestBody = {
+    let requestBody = {
         gebeurtenistype: gebeurtenistype
     };
 
