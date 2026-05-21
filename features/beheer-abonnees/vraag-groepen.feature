@@ -8,11 +8,11 @@ Functionaliteit: Vraag welke groepen er zijn bij een abonnee
 
     Scenario: De afnemer heeft groepen in verschillende abonnees
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'minderjarige'
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'ouder'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'minderjarige'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'ouder'
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'client'
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'relatie'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'relatie'
       Als de afnemer 'Gemeente Amsterdam' de groepen van abonnee 'jz' opvraagt
       Dan worden volgende groepen geleverd
         | naam         |
@@ -23,11 +23,11 @@ Functionaliteit: Vraag welke groepen er zijn bij een abonnee
 
     Scenario: De afnemer en een andere afnemer hebben een groep met dezelfde abonneenaam
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'minderjarige'
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'ouder'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'minderjarige'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'ouder'
       En de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
-      En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie'
+      En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de groep 'client'
+      En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de groep 'relatie'
       Als de afnemer 'Gemeente Amsterdam' de groepen van abonnee 'jz' opvraagt
       Dan worden volgende groepen geleverd
         | naam         |
@@ -38,7 +38,7 @@ Functionaliteit: Vraag welke groepen er zijn bij een abonnee
 
     Scenario: De afnemer vraagt groepen van een niet geregistreerde abonnee (en een andere afnemer heeft wel een abonnee met deze naam)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
       En de afnemer 'Gemeente Rotterdam' heeft de abonnee 'szw' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de groepen van abonnee 'szw' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
@@ -46,7 +46,7 @@ Functionaliteit: Vraag welke groepen er zijn bij een abonnee
 
     Scenario: De afnemer vraagt groepen van een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' de groepen van abonnee 'jz' opvraagt
       Dan is de response '404 Not Found' met de volgende velden

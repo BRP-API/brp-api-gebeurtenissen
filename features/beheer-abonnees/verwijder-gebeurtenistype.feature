@@ -5,7 +5,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
     Scenario: Een afnemer verwijdert een gebeurtenistype uit een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijdert
       Dan is de response '204 No Content'
@@ -14,7 +14,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
     Scenario: Een afnemer verwijdert een gebeurtenistype uit een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijdert
       Dan is een 'GebeurtenistypeVerwijderd' gebeurtenis gepubliceerd met de volgende velden
@@ -25,7 +25,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
     Scenario: Een afnemer verwijdert een gebeurtenistype die niet is toegevoegd
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.overleden' uit de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
@@ -33,7 +33,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
     Scenario: Een afnemer verwijdert een reeds verwijderd gebeurtenistype
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijderd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijdert
@@ -50,7 +50,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
     Scenario: Een afnemer verwijdert een gebeurtenistype uit een al verwijderde groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'relatie' verwijdert
@@ -67,7 +67,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
     Scenario: Een afnemer verwijdert een gebeurtenistype uit groep van een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijdert
@@ -78,9 +78,9 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
     Scenario: Een afnemer deregistreert een abonnee met groepen met gebeurtenistypes
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.overleden aan de 'GebeurtenissenOpPersoon' groep 'client' toegevoegdgd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.overleden aan de groep 'client' toegevoegdgd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' verwijdert
       Dan zijn de volgende gebeurtenissen gepubliceerd
         | type                      | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
@@ -91,11 +91,11 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
     Scenario: Een afnemer deregistreert een abonnee met groepen met gebeurtenistypes
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.overleden aan de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.overleden' aan de 'GebeurtenissenOpPersoon' groep 'relatie' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.overleden aan de groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.overleden' aan de groep 'relatie' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' deregistreert
       Dan zijn de volgende gebeurtenissen gepubliceerd
         | type                      | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |

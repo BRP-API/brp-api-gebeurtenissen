@@ -39,19 +39,10 @@ When('de afnemer {string} de abonnee {string} deregistreert', async function (af
     this.result = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
 });
 
-When('de afnemer {string} bij de abonnee {string} de {string} groep {string} toevoegt', async function (afnemerAanduiding: string, abonneeNaam: string, groepType: string, groepNaam: string) {
+When('de afnemer {string} bij de abonnee {string} de groep {string} toevoegt', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepType, groepNaam);
-});
-
-When('de afnemer {string} bij de abonnee {string} een groep toevoegt zonder type op te geven', async function (afnemerAanduiding: string, abonneeNaam: string) {
-    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
-
-    let groepType;
-    const groepNaam = "test";
-
-    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepType, groepNaam);
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
 });
 
 When('de afnemer {string} bij de abonnee {string} de groep {string} verwijdert', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {

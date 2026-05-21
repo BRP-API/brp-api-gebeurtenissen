@@ -75,16 +75,10 @@ export async function raadpleegAbonneesVoorAfnemer(afnemer: Afnemer): Promise<an
     return await parseResponseBody(response);
 }
 
-export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: string, groepType?: string, groepNaam?: string): Promise<any> {
+export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: string, groepNaam?: string): Promise<any> {
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    let requestBody: any = {};
-    if (groepType) {
-        requestBody.type = groepType
-    }
-    if (groepNaam) {
-        requestBody.groep = groepNaam
-    }
+    let requestBody = groepNaam ? { groep: groepNaam } : {};
 
     const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`, {
         method: 'POST',
@@ -96,7 +90,7 @@ export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: stri
     });
 
 
-    logger.debug(`voegGroepToeBijAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepType: '${groepType}', groepNaam: '${groepNaam}'`, { response: response });
+    logger.debug(`voegGroepToeBijAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
 
     return await parseResponseBody(response);
 }

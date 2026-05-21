@@ -23,16 +23,16 @@ Given('de afnemer {string} heeft de abonnee {string} gederegistreerd', async fun
     this.result = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
 });
 
-Given('de afnemer {string} heeft bij de abonnee {string} de {string} groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, groepType: string, groepNaam: string) {
+Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepType, groepNaam);
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
 });
 
-Given('de afnemer {string} heeft bij de abonnee {string} de {string} groep {string}', async function (afnemerAanduiding: string, abonneeNaam: string, groepType: string, groepNaam: string) {
+Given('de afnemer {string} heeft bij de abonnee {string} de groep {string}', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepType, groepNaam);
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
 });
 
 Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} verwijderd', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
