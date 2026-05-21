@@ -8,10 +8,10 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
     Gegeven de persoon 'Jan' is geregistreerd in de BRP
     En de persoon 'Piet' is geregistreerd in de BRP
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'andere'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'andere'
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'client'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client'
 
   Regel: Als er voor de abonnee geen gebeurtenissen zijn, krijgt hij geen gebeurtenissen
 

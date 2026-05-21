@@ -9,7 +9,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: Een abonnee abonneert een persoon voor een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '204 No Content'
@@ -18,7 +18,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: Een abonnee zegt een abonnement van een persoon voor een groep op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is een 'AbonnementOpPersoonOpgezegd' gebeurtenis gepubliceerd met de volgende velden
@@ -29,7 +29,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: Een gebruiker probeert een abonnement op te zeggen met een niet geregistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'bestaat-niet' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
@@ -37,7 +37,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: Een gebruiker probeert een abonnement op te zeggen met een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
@@ -48,8 +48,8 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en heeft wel een abonnement voor deze persoon voor een andere groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'relatie' opzegt
       Dan is de response '409 Conflict' met de volgende velden
@@ -57,7 +57,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en heeft wel een abonnement voor deze groep voor een andere persoon
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Piet' voor de groep 'client' opzegt
       Dan is de response '409 Conflict' met de volgende velden
@@ -65,9 +65,9 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en een andere abonnee heeft wel een abonnement voor deze persoon voor deze groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'szw' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '409 Conflict' met de volgende velden
@@ -83,7 +83,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: De abonnee zegt een abonnement op dat eerder al is opgezegd
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft zijn abonnement op de persoon 'Jan' voor de groep 'client' opgezegt
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'relatie' opzegt
@@ -94,7 +94,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: Een afnemer zegt een abonnement af zonder het type groep op te geven
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt zonder type op te geven
       Dan is de response '400 Bad Request' met de volgende velden
@@ -118,7 +118,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
     Scenario: De abonnee geeft een burgerservicenummer op van 8 cijfers (laat de voorloopnul weg)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon met burgerservicenummer '10755561' voor de groep 'client' opzegt
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Burgerservicenummer ongeldig'

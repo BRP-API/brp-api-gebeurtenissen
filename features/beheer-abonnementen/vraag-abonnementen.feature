@@ -7,15 +7,15 @@ Functionaliteit: Abonneer persoon voor een groep
     Gegeven de persoon 'Jan' is geregistreerd in de BRP
     En de persoon 'Piet' is geregistreerd in de BRP
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
-    En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.overleden'
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
+    En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.overleden'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie'
     En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'client'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client'
     En groep 'client' bij abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
     En de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
-    En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
+    En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de groep 'client'
     En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Rotterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
 
   Regel: Een abonnee ontvangt de eigen abonnementen in volgorde dat de abonnementen gezet zijn

@@ -12,7 +12,7 @@ Functionaliteit: Abonneer persoon voor een groep
     En de persoon 'Piet' is geregistreerd in de BRP
     En de persoon 'Karin' is geregistreerd in de BRP
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
     En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
     En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
     En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'client'

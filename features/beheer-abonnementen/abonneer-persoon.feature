@@ -17,7 +17,7 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een abonnee abonneert een persoon voor een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is de response '201 Created'
@@ -26,7 +26,7 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een abonnee abonneert een persoon voor een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is een 'AbonnementOpPersoonGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
@@ -37,14 +37,14 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een gebruiker probeert zich te abonneren op gebeurtenissen van een persoon met een niet geregistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'bestaat-niet' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnee bestaat niet'
 
     Scenario: Een gebruiker probeert zich te abonneren op gebeurtenissen van een persoon met een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is de response '404 Not Found' met de volgende velden
@@ -54,23 +54,23 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die deze niet toegevoegd heeft
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'bestaat-niet'
       Dan is de response '409 Conflict' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die alleen bij een andere abonnee toegevoegd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'andere' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'andere' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'andere'
       Dan is de response '409 Conflict' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die verwijderd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'andere'
@@ -82,7 +82,7 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een afnemer voegt een abonnement toe zonder het type groep op te geven
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan' en groep 'client' zonder type op te geven
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Type is verplicht'
@@ -105,14 +105,14 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: De abonnee geeft een burgerservicenummer op van 8 cijfers (laat de voorloopnul weg)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon met burgerservicenummer '10755561' voor de groep 'client'
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Burgerservicenummer ongeldig'
 
     Scenario: De abonnee geeft een burgerservicenummer op dat niet in de BRP voorkomt
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon met burgerservicenummer '000009829' voor de groep 'client'
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Burgerservicenummer ongeldig'
@@ -125,7 +125,7 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: De abonnee geeft een groepnaam met ongeldige tekens
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep '!@#$%^&*='
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Groepnaam ongeldig'
@@ -134,7 +134,7 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een abonnee abonneert een persoon voor een groep waarop deze abonnee al een abonnement heeft
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
@@ -145,8 +145,8 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een abonnee abonneert een persoon voor een groep en heeft al een abonnement op dezelfde persoon met een andere groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client' toegevoegd
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'relatie'
       Dan is een 'AbonnementOpPersoonGeregistreerd' gebeurtenis gepubliceerd met de volgende velden

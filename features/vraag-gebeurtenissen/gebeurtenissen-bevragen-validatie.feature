@@ -7,7 +7,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
   Achtergrond:
     Gegeven de persoon 'Jan' is geregistreerd in de BRP
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
 
   Regel: Alleen een abonnee mag gebeurtenissen bevragen
 
