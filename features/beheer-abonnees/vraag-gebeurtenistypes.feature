@@ -9,7 +9,7 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
     Scenario: De abonnee heeft meerdere groepen
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
-      En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
+      En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.verhuisd.naar-buitenland'
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie'
       En groep 'relatie' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.overleden'
       Als de afnemer 'Gemeente Amsterdam' de gebeurtenistypes van groep 'client' van abonnee 'jz' opvraagt
@@ -23,7 +23,7 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
     Scenario: De afnemer heeft meerdere abonnees met een groep met dezelfde naam
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
-      En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
+      En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.verhuisd.naar-buitenland'
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client'
       En groep 'client' bij abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.overleden'
@@ -38,7 +38,7 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
     Scenario: De afnemer en een andere afnemer hebben een abonnee met dezelfde naam en daarin een groep met dezelfde naam
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
-      En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
+      En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.verhuisd.naar-buitenland'
       En de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de groep 'client'
       En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Rotterdam' heeft gebeurtenistype 'nl.brp.overleden'

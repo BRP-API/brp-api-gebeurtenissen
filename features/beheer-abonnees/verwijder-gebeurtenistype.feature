@@ -12,6 +12,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
   Regel: Een 'GebeurtenistypeVerwijderd' gebeurtenis wordt gepubliceerd wanneer een gebeurtenistype succesvol is verwijderd uit een groep
 
+    @skip-verify
     Scenario: Een afnemer verwijdert een gebeurtenistype uit een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
@@ -20,6 +21,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
       Dan is een 'GebeurtenistypeVerwijderd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
         | Gemeente Amsterdam | jz          | client    | nl.brp.verhuisd.intergemeentelijk |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
 
   Regel: Alleen een gebeurtenistype dat in de groep zit kan worden verwijderd
 
@@ -76,6 +78,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
 
   Regel: Een 'GebeurtenistypeVerwijderd' gebeurtenis wordt gepubliceerd voor elk gebeurtenistype van een groep die succesvol is verwijderd
 
+    @skip-verify
     Scenario: Een afnemer deregistreert een abonnee met groepen met gebeurtenistypes
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
@@ -86,9 +89,11 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
         | type                      | afnemerId          | abonneeNaam | groepNaam | gebeurtenisType                   |
         | GebeurtenistypeVerwijderd | Gemeente Amsterdam | jz          | client    | nl.brp.verhuisd.intergemeentelijk |
         | GebeurtenistypeVerwijderd | Gemeente Amsterdam | jz          | client    | nl.brp.overleden                  |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
 
   Regel: Een 'GebeurtenistypeVerwijderd' gebeurtenis wordt gepubliceerd voor elk gebeurtenistype van elke groep van een abonnee die succesvol is gederegistreerd
 
+    @skip-verify
     Scenario: Een afnemer deregistreert een abonnee met groepen met gebeurtenistypes
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
@@ -102,3 +107,4 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
         | GebeurtenistypeVerwijderd | Gemeente Amsterdam | jz          | client    | nl.brp.verhuisd.intergemeentelijk |
         | GebeurtenistypeVerwijderd | Gemeente Amsterdam | jz          | client    | nl.brp.overleden                  |
         | GebeurtenistypeVerwijderd | Gemeente Amsterdam | jz          | relatie   | nl.brp.overleden                  |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context

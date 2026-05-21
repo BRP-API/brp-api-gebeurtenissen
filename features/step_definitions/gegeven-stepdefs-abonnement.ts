@@ -4,6 +4,7 @@ import {
     abonneerOpGebeurtenistypeVanPersoon,
     deregistreerAbonneeVoorAfnemer,
     registreerAbonneeVoorAfnemer,
+    verwijderGebeurtenistypeUitGroep,
     verwijderGroepVanAbonnee,
     voegGebeurtenistypeToeAanGroep,
     voegGroepToeBijAbonnee,
@@ -45,6 +46,21 @@ Given('de afnemer {string} heeft bij de abonnee {string} het gebeurtenistype {st
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await voegGebeurtenistypeToeAanGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+});
+
+Given('groep {string} bij abonnee {string} van afnemer {string} heeft gebeurtenistype(s) {string}', async function (groepNaam: string, abonneeNaam: string, afnemerAanduiding: string, gebeurtenistypes: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+    const gebeurtenistypeLijst = gebeurtenistypes.replace(' en ', ',').replace(' ', '').split(','); // gebeurtenistypes is een lijst gescheiden door een komma of het woord "en", al dan niet omgeven door spaties
+
+    gebeurtenistypeLijst.forEach(async gebeurtenistype => {
+        this.result = await voegGebeurtenistypeToeAanGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+    })
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} het gebeurtenistype {string} uit de groep {string} verwijderd', async function (afnemerAanduiding: string, abonneeNaam: string, gebeurtenistype: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await verwijderGebeurtenistypeUitGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
 });
 
 Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', function () {

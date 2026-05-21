@@ -141,12 +141,40 @@ export async function voegGebeurtenistypeToeAanGroep(afnemer: Afnemer, abonneeNa
         body: JSON.stringify(requestBody)
     });
 
-
     logger.debug(`voegGebeurtenistypeToeAanGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`, { response: response });
 
     return await parseResponseBody(response);
 }
 
+export async function verwijderGebeurtenistypeUitGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string, gebeurtenistype: string): Promise<any> {
+    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+
+    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes/${gebeurtenistype}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
+
+    logger.debug(`verwijderGebeurtenistypeUitGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`, { response: response });
+
+    return await parseResponseBody(response);
+}
+
+export async function raadpleegGebeurtenistypesInGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string): Promise<any> {
+    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+
+    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    });
+
+    logger.debug(`raadpleegGebeurtenistypesInGroep afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
+
+    return await parseResponseBody(response);
+}
 
 export async function abonneerOpGebeurtenistypeVanPersoon(afnemer: Afnemer, abonneeNaam: string, gebeurtenistype: string, persoon: Persoon): Promise<any> {
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
