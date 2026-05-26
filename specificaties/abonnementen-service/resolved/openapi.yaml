@@ -335,7 +335,7 @@ components:
       properties:
         naam:
           $ref: '#/components/schemas/GroepNaam'
-          description: De naam van de groep, uniek voor een abonnees
+          description: De naam van de groep
     RaadpleegGroepenResponse:
       type: object
       properties:
