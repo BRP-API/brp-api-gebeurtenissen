@@ -29,6 +29,8 @@ paths:
           $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
         '404':
           $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '409':
+          $ref: '../problem-details/409-conflict-response-v1.yaml#/components/responses/409'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
@@ -67,6 +69,86 @@ paths:
       responses:
         '204':
           description: Abonnee succesvol gederegistreerd als abonnee van BRP API Gebeurtenissen.
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+
+  /abonnees/{abonneeNaam}/groepen:
+    parameters:
+      - $ref: '../brp-api/abonnee/abonnee-naam-path-parameter-v1.yaml#/components/parameters/AbonneeNaamPathParameter'
+
+    post:
+      operationId: VoegGroepToe
+      summary: Voeg een groep toe aan een geregistreerde abonnee van BRP API Gebeurtenissen
+      tags:
+        - Abonnees
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../brp-api/abonnee/voeg-groep-toe-command-v1.yaml#/components/schemas/VoegGroepToeCommand'
+      responses:
+        '201':
+          description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+        '400':
+          $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '409':
+          $ref: '../problem-details/409-conflict-response-v1.yaml#/components/responses/409'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+
+    get: 
+      operationId: RaadpleegGroepen
+      summary: Raadpleeg de groepen van de abonnee
+      tags:
+        - Abonnees
+      responses:
+        '200':
+          description: Lijst van groepen succesvol opgehaald.
+          content:
+            application/json:
+              schema:
+                $ref: '../brp-api/abonnee/raadpleeg-groepen-response-v1.yaml#/components/schemas/RaadpleegGroepenResponse'
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []
+
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}:
+    parameters:
+      - $ref: '../brp-api/abonnee/abonnee-naam-path-parameter-v1.yaml#/components/parameters/AbonneeNaamPathParameter'
+      - $ref: '../brp-api/abonnee/groep-naam-path-parameter-v1.yaml#/components/parameters/GroepNaamPathParameter'
+
+    delete:
+      operationId: VerwijderGroep
+      summary: Verwijder een groep, inclusief alle abonnementen op de groep
+      tags:
+        - Abonnees
+      responses:
+        '204':
+          description: Groep succesvol verwijderd van de abonnee van BRP API Gebeurtenissen.
         '401':
           $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
         '403':

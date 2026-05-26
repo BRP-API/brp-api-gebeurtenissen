@@ -11,6 +11,12 @@ paths:
 
   /abonnees/{abonneeNaam}:
     $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}'
+  
+  /abonnees/{abonneeNaam}/groepen:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen'
+
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen~1{groepNaam}'
 
   /abonnees/{abonneeNaam}/abonnementen:
     $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1abonnementen'

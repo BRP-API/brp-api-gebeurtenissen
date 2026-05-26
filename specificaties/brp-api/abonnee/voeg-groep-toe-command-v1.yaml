@@ -1,13 +1,13 @@
 openapi: 3.1.2
 info:
-  title: Registreer abonnee command definitie
+  title: Voeg groep toe command definitie
   version: 1.0.0
 components:
   schemas:
-    RegistreerAbonneeCommand:
+    VoegGroepToeCommand:
       type: object
       properties:
         naam:
-          $ref: './naam-v1.yaml#/components/schemas/AbonneeNaam'
+          $ref: './naam-v1.yaml#/components/schemas/GroepNaam'
       required:
         - naam
