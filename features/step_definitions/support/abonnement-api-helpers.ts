@@ -194,7 +194,7 @@ export async function abonneerPersoonOpGroep(afnemer: Afnemer, abonneeNaam: stri
     });
 
     logger.debug(`abonneerPersoonOpGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groep: '${groepNaam}', persoon: '${persoon.burger_service_nr}', type: '${type}'`, { response: response });
-    //logger.info(`/api/brp/abonnees/${abonneeNaam}/abonnementen ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
+    logger.info(`/api/brp/abonnees/${abonneeNaam}/abonnementen ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
 
     return await parseResponseBody(response);
 }

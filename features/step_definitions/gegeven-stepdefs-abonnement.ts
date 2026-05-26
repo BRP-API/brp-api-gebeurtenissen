@@ -73,7 +73,13 @@ Given('de abonnee {string} van afnemer {string} heeft een abonnement op de perso
     this.result = await abonneerPersoonOpGroep(afnemer, abonneeNaam, groepNaam, persoon, "AbonneerPersoonOpGroep");
 });
 
+Given('de abonnee {string} van afnemer {string} heeft zijn abonnement op de persoon {string} voor de groep {string} opgezegt', async function (abonneeNaam: string, afnemerAanduiding: string, persoonAanduiding: string, groepNaam: string) {
+    const persoon = await PersoonFactory.create(this.context, persoonAanduiding);
 
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await abonneerPersoonOpGroep(afnemer, abonneeNaam, groepNaam, persoon, "ZegOpAbonnementVanPersoonOpGroep");
+});
 
 Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', function () {
 });

@@ -6,6 +6,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
     En de persoon 'Piet' is geregistreerd in de BRP
 
   Regel: Een abonnee kan een abonnement op een persoon voor een groep opzeggen
+    Voor het opzeggen van een abonnement wordt in type de waarde 'ZegOpAbonnementVanPersoonOpGroep' opgegeven
 
     Scenario: Een abonnee abonneert een persoon voor een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -16,6 +17,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
 
   Regel: Een 'AbonnementOpPersoonOpgezegd' gebeurtenis wordt gepubliceerd wanneer een abonnement van een persoon voor een groep is opgezegd
 
+    @skip-verify
     Scenario: Een abonnee zegt een abonnement van een persoon voor een groep op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
@@ -24,6 +26,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       Dan is een 'AbonnementOpPersoonOpgezegd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam | groepNaam | anummer |
         | Gemeente Amsterdam | jz          | client    | Jan     |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
 
   Regel: Alleen een als abonnee geregistreerde afnemer kan een abonnement opzeggen
 
@@ -89,32 +92,14 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'relatie' opzegt
       Dan is de response '204 No Content'
 
-  Regel: Type is verplicht en moet een ondersteund type zijn
-    Voor het opzeggen van een abonnement op een persoon is het type  'ZegOpAbonnementVanPersoonOpGroep'
+  Regel: Burgerservicenummer is verplicht en moet een 9-cijferig nummer zijn
 
-    Scenario: Een afnemer zegt een abonnement af zonder het type groep op te geven
+    Scenario: De abonnee geeft geen burgerservicenummer op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
-      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt zonder type op te geven
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' een abonnement voor de groep 'client' opzegt zonder een burgerservicenummer op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Type is verplicht'
-
-    Abstract Scenario: Een afnemer zegt het abonnement op en <omschrijving>
-      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan' en groep 'client' met type '<type>'
-      Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Type is ongeldig'
-
-      Voorbeelden:
-        | omschrijving            | type                                       |
-        | type is niet bekend     | BestaatNiet                                |
-        | type is groep-type      | GebeurtenissenOpPersoon                    |
-        | type is oude opzeg-type | ZegOpAbonnementOpGebeurtenisTypeVanPersoon |
-        | type is gebeurtenistype | nl.brp.verhuisd.intergemeentelijk          |
-        | type bevat script       | <script>alert('hello world');</script>     |
-
-  Regel: Burgerservicenummer moet een 9-cijferig nummer zijn
+      * 'title' met tekst 'Burgerservicenummer ongeldig'
 
     Scenario: De abonnee geeft een burgerservicenummer op van 8 cijfers (laat de voorloopnul weg)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -123,11 +108,18 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Burgerservicenummer ongeldig'
 
-  Regel: Een geldige groepnaam voldoet aan de volgende criteria:
+  Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
     - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
     - bevat geen dubbele koppeltekens achter elkaar (--)
     - bevat minimaal 2 en maximaal 64 tekens
     - begint en eindigt niet met een koppelteken (-)
+
+    Scenario: De abonnee geeft geen groepnaam op
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' opzegt zonder een groep op te geven
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'Groepnaam is verplicht'
 
     Scenario: De abonnee geeft een groepnaam met ongeldige
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd

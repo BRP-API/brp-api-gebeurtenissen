@@ -128,6 +128,41 @@ When('de abonnee {string} van afnemer {string} zich abonneert op de persoon {str
     this.result = await abonneerPersoonOpGroep(afnemer, abonneeNaam, '', persoon, "AbonneerPersoonOpGroep");
 });
 
+When('de abonnee {string} van afnemer {string} zijn abonnement op de persoon {string} voor de groep {string} opzegt', async function (abonneeNaam: string, afnemerAanduiding: string, persoonAanduiding: string, groepNaam: string) {
+    const persoon = await PersoonFactory.create(this.context, persoonAanduiding);
+
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await abonneerPersoonOpGroep(afnemer, abonneeNaam, groepNaam, persoon, "ZegOpAbonnementVanPersoonOpGroep");
+});
+
+When('de abonnee {string} van afnemer {string} een abonnement voor de groep {string} opzegt zonder een burgerservicenummer op te geven', async function (abonneeNaam: string, afnemerAanduiding: string, groepNaam: string) {
+    let persoon = await PersoonFactory.create(this.context, 'Jan');
+    delete persoon.burger_service_nr;
+
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await abonneerPersoonOpGroep(afnemer, abonneeNaam, groepNaam, persoon, "ZegOpAbonnementVanPersoonOpGroep");
+});
+
+When('de abonnee {string} van afnemer {string} zijn abonnement op de persoon met burgerservicenummer {string} voor de groep {string} opzegt', async function (abonneeNaam: string, afnemerAanduiding: string, burgerservicenummer: string, groepNaam: string) {
+    let persoon = await PersoonFactory.create(this.context, 'Jan');
+    persoon.burger_service_nr = burgerservicenummer;
+
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await abonneerPersoonOpGroep(afnemer, abonneeNaam, groepNaam, persoon, "ZegOpAbonnementVanPersoonOpGroep");
+});
+
+When('de abonnee {string} van afnemer {string} zijn abonnement op de persoon {string} opzegt zonder een groep op te geven', async function (abonneeNaam: string, afnemerAanduiding: string, persoonAanduiding: string) {
+    const persoon = await PersoonFactory.create(this.context, persoonAanduiding);
+
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await abonneerPersoonOpGroep(afnemer, abonneeNaam, '', persoon, "ZegOpAbonnementVanPersoonOpGroep");
+});
+
+
 // When('een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wil nemen', async function () {
 //     const persoon = await PersoonFactory.create(this.context, 'Jan');
 
