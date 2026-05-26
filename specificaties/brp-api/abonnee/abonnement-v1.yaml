@@ -19,4 +19,4 @@ components:
       discriminator: 
         propertyName: type
         mapping:
-          AbonnementOpGebeurtenisTypeVanPersoon: './abonnement-op-gebeurtenis-type-van-persoon-v1.yaml#/components/schemas/AbonnementOpGebeurtenisTypeVanPersoon'
+          AbonnementVanPersoonOpGroep: './abonnement-persoon-op-groep-v1.yaml#/components/schemas/AbonnementVanPersoonOpGroep'

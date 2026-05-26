@@ -14,6 +14,5 @@ components:
       discriminator: 
         propertyName: type
         mapping: 
-          AbonneerOpGebeurtenisTypeVanPersoon: './abonneer-op-gebeurtenis-type-van-persoon-command-v1.yaml#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
-          ZegOpAbonnementOpGebeurtenisTypeVanPersoon: './zegop-abonnement-op-gebeurtenis-type-van-persoon-command-v1.yaml#/components/schemas/ZegOpAbonnementOpGebeurtenisTypeVanPersoonCommand'
-          ZegOpAbonnementenOpPersoon: './zegop-abonnementen-op-persoon-command-v1.yaml#/components/schemas/ZegOpAbonnementenOpPersoonCommand'
+          AbonneerPersoonOpGroep: './abonneer-persoon-op-groep-command-v1.yaml#/components/schemas/AbonneerPersoonOpGroepCommand'
+          ZegOpAbonnementVanPersoonOpGroep: './zegop-abonnement-van-persoon-op-groep-command-v1.yaml#/components/schemas/ZegOpAbonnementVanPersoonOpGroepCommand'
