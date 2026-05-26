@@ -247,8 +247,8 @@ paths:
       - $ref: '../brp-api/abonnee/abonnee-naam-path-parameter-v1.yaml#/components/parameters/AbonneeNaamPathParameter'
 
     post: 
-      operationId: VoeruitAbonnementenCommand
-      summary: Abonnementen commands uitvoeren voor een bestaande abonnee, zoals het abonneneren op gebeurtenis types van een persoon of opzeggen van abonnementen
+      operationId: VoerUitAbonnementenCommand
+      summary: Opdrachten voor het abonneren op gebeurtenissen. Hiermee kan je een abonnement nemen of een abonnement opzeggen.
       tags:
         - Abonnees
       requestBody:
@@ -270,6 +270,8 @@ paths:
           $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
         '404':
           $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '409':
+          $ref: '../problem-details/409-conflict-response-v1.yaml#/components/responses/409'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
