@@ -250,7 +250,7 @@ paths:
       operationId: VoerUitAbonnementenCommand
       summary: Opdrachten voor het abonneren op gebeurtenissen. Hiermee kan je een abonnement nemen of een abonnement opzeggen.
       tags:
-        - Abonnees
+        - Abonnementen
       requestBody:
         required: true
         content:
@@ -281,7 +281,7 @@ paths:
       operationId: RaadpleegAbonnementen
       summary: Raadpleeg de lijst van abonnementen van een abonnee
       tags:
-        - Abonnees
+        - Abonnementen
       parameters: 
         - $ref: '../paginering/cursor-query-parameter-v1.yaml#/components/parameters/CursorQueryParameter'
           description: Gebruik dit voor paginering. Vul hier de id van het laatst ontvangen abonnement op om de hieropvolgende abonnementen te ontvangen.

@@ -14,7 +14,7 @@ components:
               description: De groep waarop de abonnee de persoon wil abonneren
             burgerservicenummer:
               $ref: '../../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
-              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen wil ontvangen
           required:
             - groep
             - burgerservicenummer
