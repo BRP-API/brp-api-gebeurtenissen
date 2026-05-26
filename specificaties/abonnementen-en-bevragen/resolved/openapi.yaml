@@ -92,7 +92,7 @@ paths:
               $ref: '#/components/schemas/VoegGroepToeCommand'
       responses:
         '201':
-          description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+          description: Groep succesvol toegevoegd aan de abonnee van BRP API Gebeurtenissen.
         '400':
           $ref: '#/components/responses/400'
         '401':
