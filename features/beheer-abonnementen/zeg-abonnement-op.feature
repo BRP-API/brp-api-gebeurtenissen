@@ -90,7 +90,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       Dan is de response '204 No Content'
 
   Regel: Type is verplicht en moet een ondersteund type zijn
-    Voor het opzeggen van een abonnement op een persoon is het type  'ZegAbonnementOpVanPersoon'
+    Voor het opzeggen van een abonnement op een persoon is het type  'ZegOpAbonnementVanPersoonOpGroep'
 
     Scenario: Een afnemer zegt een abonnement af zonder het type groep op te geven
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
