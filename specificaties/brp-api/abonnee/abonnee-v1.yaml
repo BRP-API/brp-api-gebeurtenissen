@@ -15,4 +15,4 @@ components:
       properties:
         naam:
           $ref: './naam-v1.yaml#/components/schemas/GroepNaam'
-          description: De naam van de groep, uniek voor een abonnees
+          description: De naam van de groep
