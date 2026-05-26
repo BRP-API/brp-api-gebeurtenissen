@@ -151,6 +151,83 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}/gebeurtenistypes:
+    parameters:
+      - $ref: '#/components/parameters/AbonneeNaamPathParameter'
+      - $ref: '#/components/parameters/GroepNaamPathParameter'
+    post:
+      operationId: VoegGebeurtenistypeToeAanGroep
+      summary: Voeg een gebeurtenistype toe aan een groep van een abonnee van BRP API Gebeurtenissen
+      tags:
+        - Abonnees
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoegGebeurtenistypeToeCommand'
+      responses:
+        '201':
+          description: Gebeurtenistype succesvol toegevoegd aan de groep.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
+    get:
+      operationId: RaadpleegGebeurtenistypes
+      summary: Raadpleeg de gebeurtenistypes in de groep
+      tags:
+        - Abonnees
+      responses:
+        '200':
+          description: Lijst van gebeurtenistypes succesvol opgehaald.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaadpleegGebeurtenistypesResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}/gebeurtenistypes/{gebeurtenistype}:
+    parameters:
+      - $ref: '#/components/parameters/AbonneeNaamPathParameter'
+      - $ref: '#/components/parameters/GroepNaamPathParameter'
+      - $ref: '#/components/parameters/GebeurtenistypePathParameter'
+    delete:
+      operationId: VerwijderGebeurtenistype
+      summary: Verwijder een gebeurtenistype uit een groep
+      tags:
+        - Abonnees
+      responses:
+        '204':
+          description: Gebeurtenistype succesvol verwijderd uit de groep.
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
   /abonnees/{abonneeNaam}/abonnementen:
     parameters:
       - $ref: '#/components/parameters/AbonneeNaamPathParameter'
@@ -388,6 +465,30 @@ components:
           $ref: '#/components/schemas/GroepNaam'
       required:
         - naam
+    GebeurtenisTypeVanPersoonEnum:
+      type: string
+      pattern: ^[a-z/-/.]{1,50}$
+      enum:
+        - nl.brp.verhuisd.intergemeentelijk
+        - nl.brp.verhuisd.naar-buitenland
+        - nl.brp.overleden
+    RaadpleegGebeurtenistypesResponse:
+      type: object
+      properties:
+        gebeurtenistypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+          description: Lijst van gebeurtenistypes in de groep
+      required:
+        - gebeurtenistypes
+    VoegGebeurtenistypeToeCommand:
+      type: object
+      properties:
+        gebeurtenistype:
+          $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+      required:
+        - gebeurtenistype
     Cursor:
       type: string
       format: uuid
@@ -413,13 +514,6 @@ components:
         propertyName: type
         mapping:
           AbonnementOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonnementOpGebeurtenisTypeVanPersoon'
-    GebeurtenisTypeVanPersoonEnum:
-      type: string
-      pattern: ^[a-z/-/.]{1,50}$
-      enum:
-        - nl.brp.verhuisd.intergemeentelijk
-        - nl.brp.verhuisd.naar-buitenland
-        - nl.brp.overleden
     Burgerservicenummer:
       type: string
       title: Burgerservicenummer
@@ -810,6 +904,12 @@ components:
       schema:
         $ref: '#/components/schemas/GroepNaam'
         description: De naam van de abonnee
+    GebeurtenistypePathParameter:
+      name: gebeurtenistype
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
     CursorQueryParameter:
       name: cursor
       in: query

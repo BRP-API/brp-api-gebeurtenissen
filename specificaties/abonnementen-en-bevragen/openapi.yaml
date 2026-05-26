@@ -18,11 +18,18 @@ paths:
   /abonnees/{abonneeNaam}/groepen/{groepNaam}:
     $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen~1{groepNaam}'
 
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}/gebeurtenistypes:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen~1{groepNaam}~1gebeurtenistypes'
+
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}/gebeurtenistypes/{gebeurtenistype}:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen~1{groepNaam}~1gebeurtenistypes~1{gebeurtenistype}'
+
   /abonnees/{abonneeNaam}/abonnementen:
     $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1abonnementen'
 
   /abonnees/{abonneeNaam}/gebeurtenissen:
     $ref: '../gebeurtenissen-bevragen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1gebeurtenissen'
+
 
 components:
   securitySchemes:
