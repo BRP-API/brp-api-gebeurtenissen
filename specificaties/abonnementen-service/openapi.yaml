@@ -20,7 +20,7 @@ paths:
               $ref: '../brp-api/abonnee/registreer-abonnee-command-v1.yaml#/components/schemas/RegistreerAbonneeCommand'
       responses:
         '201':
-          description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+          description: Abonnee succesvol geregistreerd.
         '400':
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
@@ -97,7 +97,7 @@ paths:
               $ref: '../brp-api/abonnee/voeg-groep-toe-command-v1.yaml#/components/schemas/VoegGroepToeCommand'
       responses:
         '201':
-          description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+          description: Groep succesvol toegevoegd aan de abonnee van BRP API Gebeurtenissen.
         '400':
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
