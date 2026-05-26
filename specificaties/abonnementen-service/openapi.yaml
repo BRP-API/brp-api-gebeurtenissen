@@ -129,6 +129,8 @@ paths:
           $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
         '403':
           $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
