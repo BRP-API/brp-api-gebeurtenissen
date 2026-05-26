@@ -20,7 +20,7 @@ paths:
               $ref: '../brp-api/abonnee/registreer-abonnee-command-v1.yaml#/components/schemas/RegistreerAbonneeCommand'
       responses:
         '201':
-          description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+          description: Abonnee succesvol geregistreerd.
         '400':
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
