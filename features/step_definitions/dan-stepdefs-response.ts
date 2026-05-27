@@ -1,6 +1,7 @@
 import { Then, defineParameterType } from '@cucumber/cucumber';
 import { ProblemDetails} from './support/problem-details';
-import { createObjectArrayFrom } from './support/dataTable2Object';
+import { createObjectArrayWithPersoonAanduidingenFrom } from './support/dataTable2Object';
+import { Persoon } from './brp/persoon-entity';
 
 Then('is de response {string}( met de volgende velden)', function (status: string) {
     this.expected = ProblemDetails.create(status);
@@ -16,7 +17,9 @@ defineParameterType({
 });
 
 Then('worden volgende {objectNaam} geleverd', function (objectNaam: string, dataTable) {
+    const personen: Record<string, Persoon> = this.context.personen || {};
+
     this.expected = {
-        [objectNaam]: createObjectArrayFrom(dataTable)
+        [objectNaam]: createObjectArrayWithPersoonAanduidingenFrom(dataTable, personen)
     };
 });
