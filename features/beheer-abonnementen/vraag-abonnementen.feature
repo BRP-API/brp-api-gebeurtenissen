@@ -25,34 +25,34 @@ Functionaliteit: Abonneer persoon voor een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'relatie'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Jan                 | client    |
-        | Piet                | relatie   |
+        | burgerservicenummer | groep   |
+        | Jan                 | client  |
+        | Piet                | relatie |
 
     Scenario: Een abonnee heeft abonnementen voor verschillende groepen op dezelfde persoon
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'relatie'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Jan                 | client    |
-        | Jan                 | relatie   |
+        | burgerservicenummer | groep   |
+        | Jan                 | client  |
+        | Jan                 | relatie |
 
     Scenario: Een abonnee en een andere abonnee hebben abonnementen
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'relatie'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Jan                 | client    |
+        | burgerservicenummer | groep  |
+        | Jan                 | client |
 
     Scenario: Een andere afnemer heeft een abonnee met dezelfde naam
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Rotterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'relatie'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Jan                 | client    |
+        | burgerservicenummer | groep  |
+        | Jan                 | client |
 
   Regel: Een abonnee ontvangt alleen actieve abonnementen
     Een abonnement dat is opgezegd wordt niet geleverd
@@ -63,8 +63,8 @@ Functionaliteit: Abonneer persoon voor een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement van de persoon 'Piet' opgezegd voor de groep 'relatie'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Jan                 | client    |
+        | burgerservicenummer | groep  |
+        | Jan                 | client |
 
     Scenario: Een groep is verwijderd waar een abonnement op was
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
@@ -72,8 +72,8 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie' verwijderd
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Jan                 | client    |
+        | burgerservicenummer | groep  |
+        | Jan                 | client |
 
   Regel: De abonnementen kunnen alleen worden gevraagd van een geregistreerde abonnee
 

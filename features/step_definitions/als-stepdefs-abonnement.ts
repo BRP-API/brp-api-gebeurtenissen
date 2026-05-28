@@ -4,6 +4,7 @@ import {
     abonneerPersoonOpGroep,
     deregistreerAbonneeVoorAfnemer,
     raadpleegAbonneesVoorAfnemer,
+    raadpleegAbonnementen,
     raadpleegGebeurtenistypesInGroep,
     raadpleegGroepenVanAbonnee,
     registreerAbonneeVoorAfnemer,
@@ -162,6 +163,11 @@ When('de abonnee {string} van afnemer {string} zijn abonnement op de persoon {st
     this.result = await abonneerPersoonOpGroep(afnemer, abonneeNaam, '', persoon, "ZegOpAbonnementVanPersoonOpGroep");
 });
 
+When('abonnee {string} van afnemer {string} de abonnementen opvraagt', async function (abonneeNaam: string, afnemerAanduiding: string ) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await raadpleegAbonnementen(afnemer, abonneeNaam);
+});
 
 // When('een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wil nemen', async function () {
 //     const persoon = await PersoonFactory.create(this.context, 'Jan');
