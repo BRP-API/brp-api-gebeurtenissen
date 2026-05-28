@@ -88,7 +88,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft zijn abonnement op de persoon 'Jan' voor de groep 'client' opgezegt
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement op de persoon 'Jan' voor de groep 'client' opgezegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'relatie' opzegt
       Dan is de response '204 No Content'
 

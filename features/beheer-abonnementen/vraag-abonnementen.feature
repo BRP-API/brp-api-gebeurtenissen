@@ -60,7 +60,7 @@ Functionaliteit: Abonneer persoon voor een groep
     Scenario: Een abonnement is opgezegd
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'relatie'
-      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement van de persoon 'Piet' opgezegd voor de groep 'relatie'
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement op de persoon 'Piet' voor de groep 'relatie' opgezegd
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
         | burgerservicenummer | groep  |
