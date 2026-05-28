@@ -169,6 +169,32 @@ When('abonnee {string} van afnemer {string} de abonnementen opvraagt', async fun
     this.result = await raadpleegAbonnementen(afnemer, abonneeNaam);
 });
 
+When('abonnee {string} van afnemer {string} de abonnementen opvraagt na het abonnement op {string} voor de groep {string}', async function (abonneeNaam: string, afnemerAanduiding: string, persoonAanduiding: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+    const persoon = this.context.personen[persoonAanduiding];
+
+    this.result = await raadpleegAbonnementen(afnemer, abonneeNaam, undefined, groepNaam, persoon);
+});
+
+When('abonnee {string} van afnemer {string} maximaal {int} abonnement(en) opvraagt', async function (abonneeNaam: string, afnemerAanduiding: string, aantal: bigint) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await raadpleegAbonnementen(afnemer, abonneeNaam, aantal);
+});
+
+When('abonnee {string} van afnemer {string} maximaal {int} abonnement opvraagt na het abonnement op {string} voor de groep {string}', async function (abonneeNaam: string, afnemerAanduiding: string, aantal: bigint, persoonAanduiding: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+    const persoon = this.context.personen[persoonAanduiding];
+
+    this.result = await raadpleegAbonnementen(afnemer, abonneeNaam, aantal, groepNaam, persoon);
+});
+
+When('abonnee {string} van afnemer {string} de abonnementen opvraagt met cursor {string}', async function (abonneeNaam: string, afnemerAanduiding: string, cursor: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await raadpleegAbonnementen(afnemer, abonneeNaam, undefined, undefined, undefined, cursor);
+});
+
 // When('een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wil nemen', async function () {
 //     const persoon = await PersoonFactory.create(this.context, 'Jan');
 

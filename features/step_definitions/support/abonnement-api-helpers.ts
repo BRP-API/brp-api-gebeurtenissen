@@ -202,10 +202,32 @@ export async function abonneerPersoonOpGroep(afnemer: Afnemer, abonneeNaam: stri
     return await parseResponseBody(response);
 }
 
-export async function raadpleegAbonnementen(afnemer: Afnemer, abonneeNaam: string, cursor?: string, limit?: string): Promise<any> {
+export async function raadpleegAbonnementen(afnemer: Afnemer, abonneeNaam: string, limit?: bigint, groepNaam?: string, persoon?: Persoon, cursor?: string): Promise<any> {
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`, {
+    let uriParams = []
+
+    if (persoon && groepNaam) {
+        // haal eerst alle abonnementen op om de uuid van cursor op te zoeken
+        const alleAbonnementen = await raadpleegAbonnementen(afnemer, abonneeNaam);
+        
+        const hetAbonnement = alleAbonnementen.abonnementen.find((abo: any) => abo.burgerservicenummer == persoon.burger_service_nr && abo.groep == groepNaam);
+        if (hetAbonnement) {
+            uriParams.push(`cursor=${hetAbonnement.id}`);
+        }
+    }
+
+    if (cursor) {
+        uriParams.push(`cursor=${cursor}`);
+    }
+
+    if (limit) {
+        uriParams.push(`limit=${limit.toString()}`);
+    }
+
+    const uriParamsString = (uriParams.length > 0) ? '?' + uriParams.join('&') : '';
+
+    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen${uriParamsString}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${accessToken}`
@@ -213,7 +235,7 @@ export async function raadpleegAbonnementen(afnemer: Afnemer, abonneeNaam: strin
     });
 
     logger.debug(`raadpleegAbonnementen afnemer: '${afnemer?.aanduiding}', abonneeNaam: ${abonneeNaam}`, { response: response });
-    logger.info(`/api/brp/abonnees/${abonneeNaam}/abonnementen >>> status: ${response.status}`);
+    logger.info(`/api/brp/abonnees/${abonneeNaam}/abonnementen${uriParamsString} >>> status: ${response.status}`);
 
     return await parseResponseBody(response);
 }

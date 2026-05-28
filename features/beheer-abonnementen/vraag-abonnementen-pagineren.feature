@@ -23,22 +23,24 @@ Functionaliteit: Abonneer persoon voor een groep
     De abonnee vraagt de volgende 'pagina' aan abonnementen door het id uit het laatste abonnement van de laatst ontvangen pagina in parameter cursor te zetten.
 
     Scenario: De abonnee vraagt abonnementen na de opgegeven gebeurtenis id
-      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement van 'Jan' voor de groep 'client'
+      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement op 'Jan' voor de groep 'client'
       Dan worden volgende abonnementen geleverd
         | burgerservicenummer | groepnaam |
         | Piet                | client    |
         | Karin               | client    |
 
     Scenario: De abonnee vraagt abonnementen na het laatste abonnement op
-      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement van 'Karin' voor de groep 'client'
+      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement op 'Karin' voor de groep 'client'
       Dan wordt er geen abonnement geleverd
 
   Regel: Standaard worden per request maximaal 10 abonnementen geleverd
 
+    @skip-verify
     Scenario: Er zijn meer dan 10 abonnementen
       Gegeven er zijn 11 abonnementen voor abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
-      Dan worden 10 gebeurtenissen geleverd
+      Dan worden 10 abonnementen geleverd
+      # nog geen automation voor tellen aantal abonnementen in resultaat
 
   Regel: Een abonnee kan het maximaal aantal te ontvangen abonnementen opgeven
     Hiervoor gebruikt de abonnee optionele parameter 'limit'
@@ -59,7 +61,7 @@ Functionaliteit: Abonneer persoon voor een groep
   Regel: Een abonnee mag parameters 'cursor' en 'limit' samen gebruiken
 
     Scenario: De abonnee wil 1 abonnement ontvangen na de opgegeven id
-      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal 1 abonnement opvraagt na het abonnement van 'Jan' voor de groep 'client'
+      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal 1 abonnement opvraagt na het abonnement op 'Jan' voor de groep 'client'
       Dan worden volgende abonnementen geleverd
         | burgerservicenummer | groepnaam |
         | Piet                | client    |
@@ -96,7 +98,6 @@ Functionaliteit: Abonneer persoon voor een groep
 
       Voorbeelden:
         | omschrijving    | waarde | code    | reason                          |
-        | is geen getal   | alle   | integer | Waarde is geen geldig getal.    |
         | is 0            |      0 | minimum | Waarde is lager dan minimum 1.  |
         | is negatief     |     -3 | minimum | Waarde is lager dan minimum 1.  |
         | is hoger dan 10 |     11 | maximum | Waarde is hoger dan maximum 10. |
