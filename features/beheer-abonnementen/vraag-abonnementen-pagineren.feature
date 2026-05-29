@@ -94,7 +94,7 @@ Functionaliteit: Abonneer persoon voor een groep
       * 'detail' met tekst 'De foutieve parameter(s) zijn: limit.'
       En heeft de response invalidParams met de volgende gegevens
         | code   | name   | reason   |
-        | <code> | cursor | <reason> |
+        | <code> | limit | <reason> |
 
       Voorbeelden:
         | omschrijving    | waarde | code    | reason                          |
