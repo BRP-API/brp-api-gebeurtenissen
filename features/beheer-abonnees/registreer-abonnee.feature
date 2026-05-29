@@ -56,7 +56,7 @@ Functionaliteit: Registreer een abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       # Deze Gegeven stap is nog niet geïmplementeerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '400 BadRequest' met de volgende velden
       * 'title' met tekst 'Abonnee bestaat al'
       * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al een abonnee met de opgegeven naam hebt geregistreerd.'
 

@@ -40,7 +40,7 @@ export class ProblemDetails {
 class BadRequestProblemDetails extends ProblemDetails {
     constructor(title?: string, detail?: string, instance?: string) {
         super(
-            "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1",
+            "https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request",
             400,
             title,
             detail,
@@ -52,7 +52,7 @@ class BadRequestProblemDetails extends ProblemDetails {
 class UnauthorizedProblemDetails extends ProblemDetails {
     constructor(title?: string, detail?: string, instance?: string) {
         super(
-            "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2",
+            "https://www.rfc-editor.org/rfc/rfc9110.html#name-401-unauthorized",
             401,
             title,
             detail,
@@ -64,7 +64,7 @@ class UnauthorizedProblemDetails extends ProblemDetails {
 class NotFoundProblemDetails extends ProblemDetails {
     constructor(title?: string, detail?: string, instance?: string) {
         super(
-            "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.5",
+            "https://www.rfc-editor.org/rfc/rfc9110.html#name-404-not-found",
             404,
             title,
             detail,
@@ -76,7 +76,7 @@ class NotFoundProblemDetails extends ProblemDetails {
 class ConflictProblemDetails extends ProblemDetails {
     constructor(title?: string, detail?: string, instance?: string) {
         super(
-            "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10",
+            "https://www.rfc-editor.org/rfc/rfc9110.html#name-409-conflict",
             409,
             title,
             detail,
