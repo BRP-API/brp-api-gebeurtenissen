@@ -33,7 +33,7 @@ export async function registreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNaam
 
 
     logger.debug(`registreerAbonneeVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}'`, { response: response });
-    logger.info(`/api/brp/abonnees ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
+    logger.info(`POST /api/brp/abonnees ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
 
     if (response.status === 201 && abonneeNaam) {
         afnemer.abonnees.push(abonneeNaam);
@@ -92,7 +92,7 @@ export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: stri
 
 
     logger.debug(`voegGroepToeBijAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
-    logger.info(`/api/brp/abonnees/${abonneeNaam}/groepen ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
+    logger.info(`POST /api/brp/abonnees/${abonneeNaam}/groepen ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
 
     return await parseResponseBody(response);
 }
@@ -144,7 +144,7 @@ export async function voegGebeurtenistypeToeAanGroep(afnemer: Afnemer, abonneeNa
     });
 
     logger.debug(`voegGebeurtenistypeToeAanGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`, { response: response });
-    logger.info(`/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
+    logger.info(`POST /api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
 
     return await parseResponseBody(response);
 }
@@ -197,7 +197,7 @@ export async function abonneerPersoonOpGroep(afnemer: Afnemer, abonneeNaam: stri
     });
 
     logger.debug(`abonneerPersoonOpGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groep: '${groepNaam}', persoon: '${persoon.burger_service_nr}', type: '${type}'`, { response: response });
-    logger.info(`/api/brp/abonnees/${abonneeNaam}/abonnementen ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
+    logger.info(`POST /api/brp/abonnees/${abonneeNaam}/abonnementen ${JSON.stringify(requestBody)} >>> status: ${response.status}`);
 
     return await parseResponseBody(response);
 }
@@ -235,7 +235,7 @@ export async function raadpleegAbonnementen(afnemer: Afnemer, abonneeNaam: strin
     });
 
     logger.debug(`raadpleegAbonnementen afnemer: '${afnemer?.aanduiding}', abonneeNaam: ${abonneeNaam}`, { response: response });
-    logger.info(`/api/brp/abonnees/${abonneeNaam}/abonnementen${uriParamsString} >>> status: ${response.status}`);
+    logger.info(`GET /api/brp/abonnees/${abonneeNaam}/abonnementen${uriParamsString} >>> status: ${response.status}`);
 
     return await parseResponseBody(response);
 }

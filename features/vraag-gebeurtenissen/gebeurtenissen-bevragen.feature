@@ -18,7 +18,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
     Scenario: Er is nog geen gebeurtenis voor de abonnee
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Een abonnee ontvangt alleen gebeurtenissen waar deze op geabonneerd is
@@ -31,21 +31,21 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
 
     Scenario: De abonnee is geabonneerd op een ander gebeurtenistype
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.naar-buitenland' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
     Scenario: De abonnee is geabonneerd op een andere persoon
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Piet'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
     Scenario: Een andere groep van de abonnee bevat het gebeurtenistype
@@ -53,7 +53,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       En groep 'andere' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.naar-buitenland'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.naar-buitenland' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
     Scenario: Een andere abonnee is geabonneerd op de gebeurtenis
@@ -61,7 +61,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.naar-buitenland' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Meerdere abonnees kunnen dezelfde gebeurtenis ontvangen
@@ -72,7 +72,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
 
     Scenario: De abonnee vraagt ongelezen gebeurtenissen en een andere abonnee heeft dezelfde gebeurtenis al ontvangen
@@ -81,8 +81,8 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      En gebeurtenissen zijn gevraagd door abonnee 'jz'
-      Als gebeurtenissen worden gevraagd door abonnee 'szw'
+      En gebeurtenissen zijn gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
+      Als gebeurtenissen worden gevraagd door abonnee 'szw' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
 
   Regel: Een abonnee ontvangt alleen gebeurtenissen die hebben plaatsgevonden na het plaatsen van het abonnement daarop
@@ -91,7 +91,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Een abonnee ontvangt ook gebeurtenissen die hebben plaatsgevonden na het toevoegen van het gebeurtenistype aan de groep waarvoor de persoon geabonneerd is
@@ -99,17 +99,17 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
     Scenario: Een afnemer voegt een gebeurtenistype toe aan een groep waar al een abonnement op bestaat en daarna vindt de gebeurtenis plaats
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.naar-buitenland' toegevoegd aan de groep 'client'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.naar-buitenland' aan de groep 'client' toegevoegd
       En er is een 'nl.brp.verhuisd.naar-buitenland' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.naar-buitenland' gebeurtenis van 'Jan' geleverd
 
     Scenario: Een afnemer voegt een gebeurtenistype toe aan een groep waar al een abonnement op bestaat en daarvoor vond de gebeurtenis plaats
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.naar-buitenland' gebeurtenis gepubliceerd voor persoon 'Jan'
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.naar-buitenland' toegevoegd aan de groep 'client'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.naar-buitenland' aan de groep 'client' toegevoegd
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Een abonnee ontvangt geen gebeurtenissen die hebben plaatsgevonden nadat het abonnement is opgezegd
@@ -117,9 +117,9 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
     Scenario: Het abonnement van de persoon is beëindigd voor de gebeurtenis
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft de abonnementen van de persoon 'Jan' opgezegd
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement op de persoon 'Jan' voor de groep 'client' opgezegd
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Als een abonnee het abonnement opzegt van een persoon op een groep, dan heeft dit geen effect op de abonnementen op de persoon voor een andere groep
@@ -129,9 +129,9 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       En groep 'andere' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'andere'
-      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement van de persoon 'Jan' opgezegd voor de groep 'client'
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement op de persoon 'Jan' voor de groep 'client' opgezegd
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
 
   Regel: Een abonnee ontvangt geen gebeurtenissen die hebben plaatsgevonden nadat de groep is verwijderd waarvoor de persoon geabonneerd is
@@ -141,29 +141,29 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Een abonnee ontvangt geen gebeurtenissen die hebben plaatsgevonden nadat het gebeurtenistype is verwijderd van de groep waarvoor de persoon geabonneerd is
 
     Scenario: Het gebeurtenistype is uit de groep verwijderd voor de gebeurtenis
-      Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
+      Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.verhuisd.naar-buitenland'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' verwijderd uit de groep 'client'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijderd
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Als een afnemer een gebeurtenistype verwijdert uit een groep van een abonnee, dan heeft dit geen effect op abonnementen op de andere groepen
 
     Scenario: Het gebeurtenistype is uit de groep verwijderd en er is ook een abonnement voor de persoon op een andere groep met hetzelfde gebeurtenistype
-      Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.verhuisd.naar-buitenland'
-      En groep 'andere' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.overleden'
+      Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.verhuisd.naar-buitenland'
+      En groep 'andere' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.overleden'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'andere'
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' verwijderd uit de groep 'client'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijderd
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
 
   Regel: Een abonnee ontvangt gebeurtenissen die hebben plaatsgevonden voor het abonnement daarop is beëindigd
@@ -172,24 +172,24 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement van de persoon 'Jan' opgezegd voor de groep 'client'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement op de persoon 'Jan' voor de groep 'client' opgezegd
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
-      
+
     Scenario: Bij de abonnee is de groep verwijderd na de gebeurtenis
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
 
     Scenario: Het gebeurtenistype is uit de groep verwijderd na de gebeurtenis
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' verwijderd uit de groep 'client'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijderd
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
 
   Regel: Een abonnee ontvangt gebeurtenissen op volgorde dat ze gepubliceerd zijn
@@ -200,7 +200,8 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Piet'
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
-      Dan worden gebeurtenissen geleverd in de volgende volgorde:
-      * de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan'
-      * de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Piet'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                   | burgerservicenummer |
+        | nl.brp.verhuisd.intergemeentelijk | Jan                 |
+        | nl.brp.verhuisd.intergemeentelijk | Piet                |
