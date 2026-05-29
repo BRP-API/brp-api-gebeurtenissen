@@ -49,7 +49,7 @@ Functionaliteit: Registreer abonnee
         | afnemerId          | abonneeNaam |
         | Gemeente Amsterdam | jz          |
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '400 BadRequest' met de volgende velden
       * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al een abonnee met de opgegeven naam hebt geregistreerd.'
 
     Scenario: De opgegeven abonneenaam is al geregistreerd als abonnee door een andere afnemer
