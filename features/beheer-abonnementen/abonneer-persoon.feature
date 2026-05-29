@@ -24,6 +24,7 @@ Functionaliteit: Abonneer persoon voor een groep
 
   Regel: Een 'AbonnementOpPersoonGeregistreerd' gebeurtenis wordt gepubliceerd wanneer een gebeurtenistype succesvol is toegevoegd aan een groep
 
+    @skip-verify
     Scenario: Een abonnee abonneert een persoon voor een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
@@ -32,6 +33,7 @@ Functionaliteit: Abonneer persoon voor een groep
       Dan is een 'AbonnementOpPersoonGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam | groepNaam | anummer |
         | Gemeente Amsterdam | jz          | client    | Jan     |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
 
   Regel: Alleen een als abonnee geregistreerde afnemer kan zich abonneren
 
@@ -78,7 +80,7 @@ Functionaliteit: Abonneer persoon voor een groep
       * 'title' met tekst 'Groep bestaat niet'
 
   Regel: Type is verplicht en moet een ondersteund type zijn
-    Voor het toevoegen van een abonnement op een persoon is het type  'AbonneerOpGebeurtenissenVanPersoon'
+    Voor het toevoegen van een abonnement op een persoon is het type  'AbonneerPersoonOpGroep'
 
     Scenario: Een afnemer voegt een abonnement toe zonder het type groep op te geven
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -99,36 +101,50 @@ Functionaliteit: Abonneer persoon voor een groep
         | type is groep-type         | GebeurtenissenOpPersoon                |
         | type is oude abonneer-type | AbonneerOpGebeurtenisTypeVanPersoon    |
         | type is gebeurtenistype    | nl.brp.verhuisd.intergemeentelijk      |
-        | type bevat script          | <script>alert('hello world');</script> |
+        | type bevat script          | <script>alert("hello world");</script> |
 
-  Regel: Burgerservicenummer moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP
+  Regel: Burgerservicenummer is verplicht en moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP
+
+    Scenario: De abonnee geeft geen burgerservicenummer op
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor de groep 'client' zonder een burgerservicenummer op te geven
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'Burgerservicenummer is verplicht'
 
     Scenario: De abonnee geeft een burgerservicenummer op van 8 cijfers (laat de voorloopnul weg)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon met burgerservicenummer '10755561' voor de groep 'client'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Burgerservicenummer ongeldig'
+      * 'title' met tekst 'Burgerservicenummer is ongeldig'
 
     Scenario: De abonnee geeft een burgerservicenummer op dat niet in de BRP voorkomt
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon met burgerservicenummer '000009829' voor de groep 'client'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Burgerservicenummer ongeldig'
+      * 'title' met tekst 'Burgerservicenummer is ongeldig'
 
-  Regel: Een geldige groepnaam voldoet aan de volgende criteria:
+  Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
     - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
     - bevat geen dubbele koppeltekens achter elkaar (--)
     - bevat minimaal 2 en maximaal 64 tekens
     - begint en eindigt niet met een koppelteken (-)
+
+    Scenario: De abonnee geeft geen groepnaam op
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' zonder een groep op te geven
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'Groepnaam is verplicht'
 
     Scenario: De abonnee geeft een groepnaam met ongeldige tekens
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep '!@#$%^&*='
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Groepnaam ongeldig'
+      * 'title' met tekst 'Groepnaam is ongeldig'
 
   Regel: Een abonnee mag niet twee keer hetzelfde abonnement nemen
 
@@ -149,6 +165,8 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'relatie'
-      Dan is een 'AbonnementOpPersoonGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam | groepNaam | anummer |
-        | Gemeente Amsterdam | jz          | relatie   | Jan     |
+      Dan is de response '201 Created'
+      # Dan is een 'AbonnementOpPersoonGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
+      #   | afnemerId          | abonneeNaam | groepNaam | anummer |
+      #   | Gemeente Amsterdam | jz          | relatie   | Jan     |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
