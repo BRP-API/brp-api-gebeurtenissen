@@ -19,17 +19,21 @@ export class ProblemDetails {
         }
     }
 
+    static getStatusCode(status: String): number {
+        return +status.split(' ')[0];
+    }
+
     static create(status: string): ProblemDetails | null {
-        const statuscode = status.split(' ')[0];
+        const statuscode = this.getStatusCode(status)
 
         switch (statuscode) {
-            case '400':
+            case 400:
                 return new BadRequestProblemDetails();
-            case '401':
+            case 401:
                 return new UnauthorizedProblemDetails();
-            case '404':
+            case 404:
                 return new NotFoundProblemDetails();
-            case '409':
+            case 409:
                 return new ConflictProblemDetails();
             default:
                 return null;
@@ -60,7 +64,7 @@ class UnauthorizedProblemDetails extends ProblemDetails {
         );
     }
 }
-    
+
 class NotFoundProblemDetails extends ProblemDetails {
     constructor(title?: string, detail?: string, instance?: string) {
         super(

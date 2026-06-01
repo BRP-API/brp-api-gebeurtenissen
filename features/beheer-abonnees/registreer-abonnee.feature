@@ -8,7 +8,7 @@ Functionaliteit: Registreer een abonnee
 
     Scenario: Een afnemer registreert een abonnee met een geldige abonneenaam
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
-      Dan is de response '201 Created'
+      Dan is de success response '201 Created'
 
   Regel: Een 'AbonneeGeregistreerd' gebeurtenis wordt gepubliceerd wanneer een abonnee succesvol is geregistreerd
 
@@ -24,7 +24,6 @@ Functionaliteit: Registreer een abonnee
 
     Scenario: Afnemer probeert een abonnee te registreren zonder een naam op te geven
       Als de afnemer 'Gemeente Amsterdam' een abonnee registreert zonder abonneeNaam
-      # Deze Als stap is nog niet geïmplementeerd
       Dan is de response '400 Bad Request'
 
   Regel: Een geldige abonneenaam voldoet aan de volgende criteria:
