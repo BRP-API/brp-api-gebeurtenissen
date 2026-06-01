@@ -8,7 +8,7 @@ Functionaliteit: Deregistreer een abonnee
     Scenario: Een afnemer deregistreert een bestaande abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' deregistreert
-      Dan is de success response '204 No Content'
+      Dan is de response '204 No Content'
 
   Regel: Een 'AbonneeGederegistreerd' gebeurtenis wordt gepubliceerd wanneer een abonnee succesvol is gederegistreerd
 

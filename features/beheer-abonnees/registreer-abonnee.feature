@@ -1,14 +1,14 @@
 # language: nl
 Functionaliteit: Registreer een abonnee
-  Als afnemer van BRP API Gebeurtenissen
-  wil ik binnengemeentelijke taakapplicaties kunnen registreren als abonnee
-  zodat de taakapplicatie zelfstandig abonnementen kan beheren en gebeurtenissen op de eigen abonnementen kan opvragen
+Als afnemer van BRP API Gebeurtenissen
+wil ik binnengemeentelijke taakapplicaties kunnen registreren als abonnee
+zodat de taakapplicatie zelfstandig abonnementen kan beheren en gebeurtenissen op de eigen abonnementen kan opvragen
 
   Regel: Een afnemer kan een abonnee registreren
 
     Scenario: Een afnemer registreert een abonnee met een geldige abonneenaam
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
-      Dan is de success response '201 Created'
+      Dan is de response '201 Created'
 
   Regel: Een 'AbonneeGeregistreerd' gebeurtenis wordt gepubliceerd wanneer een abonnee succesvol is geregistreerd
 
@@ -27,10 +27,10 @@ Functionaliteit: Registreer een abonnee
       Dan is de response '400 Bad Request'
 
   Regel: Een geldige abonneenaam voldoet aan de volgende criteria:
-    - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
-    - bevat geen dubbele koppeltekens achter elkaar (--)
-    - bevat minimaal 2 en maximaal 64 tekens
-    - begint en eindigt niet met een koppelteken (-)
+  - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+  - bevat geen dubbele koppeltekens achter elkaar (--)
+  - bevat minimaal 2 en maximaal 64 tekens
+  - begint en eindigt niet met een koppelteken (-)
 
     Abstract Scenario: <titel>
       Als de afnemer 'Gemeente Amsterdam' de abonnee '<abonneeNaam>' registreert

@@ -23,6 +23,10 @@ export class ProblemDetails {
         return +status.split(' ')[0];
     }
 
+    static isSuccessFull(statusCode: number): boolean {
+        return statusCode >= 200 && statusCode < 300
+    }
+
     static create(status: string): ProblemDetails | null {
         const statuscode = this.getStatusCode(status)
 

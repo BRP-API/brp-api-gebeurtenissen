@@ -6,13 +6,10 @@ import {expect} from "chai";
 Then('is de response {string}( met de volgende velden)', function (status: string) {
     this.expected = ProblemDetails.create(status);
     expect(this.responseStatusCode).to.equal(ProblemDetails.getStatusCode(status))
-    expect(this.result.status).to.equal(this.expected.status)
-    expect(this.result.type).to.equal(this.expected.type)
-});
-
-Then('is de success response {string}( met de volgende velden)', function (status: string) {
-    this.expected = null;
-    expect(this.responseStatusCode).to.equal(ProblemDetails.getStatusCode(status))
+    if (!ProblemDetails.isSuccessFull(this.responseStatusCode)) {
+        expect(this.result.status).to.equal(this.expected.status)
+        expect(this.result.type).to.equal(this.expected.type)
+    }
 });
 
 Then('{string} met tekst {string}', function (veld: string, waarde: string) {
