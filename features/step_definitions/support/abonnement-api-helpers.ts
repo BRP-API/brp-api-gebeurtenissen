@@ -214,6 +214,9 @@ export async function raadpleegAbonnementen(afnemer: Afnemer, abonneeNaam: strin
         const hetAbonnement = alleAbonnementen.abonnementen.find((abo: any) => abo.burgerservicenummer == persoon.burger_service_nr && abo.groep == groepNaam);
         if (hetAbonnement) {
             uriParams.push(`cursor=${hetAbonnement.id}`);
+        } else {
+            logger.warn(`Geen abonnement gevonden met burgerservicenummer ${persoon.burger_service_nr} en groep '${groepNaam}'`, alleAbonnementen);
+            return false;
         }
     }
 

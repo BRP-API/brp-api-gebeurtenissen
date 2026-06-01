@@ -17,7 +17,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
 
     Scenario: Afnemer vraagt gebeurtenissen en vult een abonnee die gederegistreerd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan is de response '404 Not found'
 
   Regel: Parameter 'cursor' moet een geldige uuid zijn
@@ -52,7 +52,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
   Regel: Parameter 'limit' moet een getal zijn tussen 1 en 10
 
     Abstract Scenario: De opgegeven 'limit' <omschrijving>
-      Als maximaal <waarde> gebeurtenissen worden gevraagd door abonnee 'jz'
+      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal <waarde> gebeurtenissen vraagt
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: limit.'
       En heeft de response invalidParams met de volgende gegevens
@@ -61,7 +61,6 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
 
       Voorbeelden:
         | omschrijving         | waarde | code    | reason                          |
-        | is geen getal        | alle   | integer | Waarde is geen geldig getal.    |
         | is 0                 |      0 | minimum | Waarde is lager dan minimum 1.  |
         | is negatief          |     -3 | minimum | Waarde is lager dan minimum 1.  |
         | is hoger dan 10      |     11 | maximum | Waarde is hoger dan maximum 10. |

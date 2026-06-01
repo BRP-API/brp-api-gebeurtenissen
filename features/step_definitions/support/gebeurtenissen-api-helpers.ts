@@ -3,7 +3,7 @@ import { Persoon } from "../brp/persoon-entity";
 import { logger } from "./logger";
 import { getClientAccessToken } from "./oauth-helpers";
 
-export async function raadpleegGebeurtenissenVoorAbonnee(afnemer: Afnemer, abonneeNaam: string, limit?: bigint, groepNaam?: string, persoon?: Persoon, cursor?: string): Promise<any> {
+export async function raadpleegGebeurtenissenVoorAbonnee(afnemer: Afnemer, abonneeNaam: string, limit?: bigint, persoon?: Persoon, cursor?: string): Promise<any> {
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
     let uriParams = []
@@ -12,9 +12,12 @@ export async function raadpleegGebeurtenissenVoorAbonnee(afnemer: Afnemer, abonn
         // haal eerst alle gebeurtenissen op om de uuid van cursor op te zoeken
         const alleGebeurtenissen = await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam);
 
-        const deGebeurtenis = alleGebeurtenissen.abonnementen.find((abo: any) => abo.burgerservicenummer == persoon.burger_service_nr);
+        const deGebeurtenis = alleGebeurtenissen.gebeurtenissen.find((geb: any) => geb.burgerservicenummer == persoon.burger_service_nr);
         if (deGebeurtenis) {
             uriParams.push(`cursor=${deGebeurtenis.id}`);
+        } else {
+            logger.warn(`Geen gebeurtenis gevonden met burgerservicenummer ${persoon.burger_service_nr}`, alleGebeurtenissen);
+            return false;
         }
     }
 
