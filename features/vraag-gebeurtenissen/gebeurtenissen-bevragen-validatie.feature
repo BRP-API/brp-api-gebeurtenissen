@@ -60,7 +60,7 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
         | <code> | cursor | <reason> |
 
       Voorbeelden:
-        | omschrijving         | waarde | code    | reason                          |
-        | is 0                 |      0 | minimum | Waarde is lager dan minimum 1.  |
-        | is negatief          |     -3 | minimum | Waarde is lager dan minimum 1.  |
-        | is hoger dan 10      |     11 | maximum | Waarde is hoger dan maximum 10. |
+        | omschrijving    | waarde | code    | reason                          |
+        | is 0            |      0 | minimum | Waarde is lager dan minimum 1.  |
+        | is negatief     |     -3 | minimum | Waarde is lager dan minimum 1.  |
+        | is hoger dan 10 |     11 | maximum | Waarde is hoger dan maximum 10. |
