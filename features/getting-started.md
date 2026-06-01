@@ -20,3 +20,9 @@ uitvoeren van bijv. de scenario op regel 16 in het features/verhuisd.intergemeen
 ```
 npx cucumber-js features/verhuisd.intergemeentelijk.feature:16 -p debug
 ```
+## Opbouw van de features
+De features zijn ingedeeld naar doelgroep voor de functionaliteit. Hierbij onderscheiden we vier doelgroepen:
+- afnemers die abonnees beheren: zie /features/beheer-abonnees
+- abonnees die abonnementen beheren en gebeurtenissen vragen: zie features/beheer-abonnementen en features/vraag-gebeurtenissen
+- testers die op de probeeromgeving wijzigingen en bijbehorende gebeurtenissen willen initiëren: zie /features/mutatie-service
+- BRP-V ontwikkelaars die wijzigingen willen classificeren naar gebeurtenissen: zie /features/classificatie-service en /features/vraag-gebeurtenissen

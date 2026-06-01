@@ -1,7 +1,42 @@
 import { When } from '@cucumber/cucumber';
-import { getOudsteOngelezenGebeurtenisVoorAfnemer } from './support/gebeurtenissen-vragen-api-helpers';
+import { raadpleegGebeurtenissenVoorAbonnee } from './support/gebeurtenissen-api-helpers';
+import { AfnemerFactory } from './support/afnemer-factory';
 
-When('de oudste ongelezen gebeurtenis wordt gevraagd door afnemer {string}', async function (afnemerAanduiding: string) {
-    const gebeurtenis = await getOudsteOngelezenGebeurtenisVoorAfnemer(afnemerAanduiding);
-    this.result = gebeurtenis;
+When('gebeurtenissen worden gevraagd door abonnee {string} van afnemer {string}', async function (abonneeNaam: string, afnemerAanduiding: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam);
+});
+
+When('abonnee {string} van afnemer {string} de gebeurtenissen vraagt na de gebeurtenis voor {string}', async function (abonneeNaam: string, afnemerAanduiding: string, persoonAanduiding: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+    const persoon = this.context.personen[persoonAanduiding];
+
+    this.result = await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam, undefined, persoon);
+});
+
+When('abonnee {string} van afnemer {string} maximaal {int} gebeurtenis(sen) vraagt', async function (abonneeNaam: string, afnemerAanduiding, limit: bigint) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam, limit);
+});
+
+When('abonnee {string} van afnemer {string} maximaal {int} gebeurtenis vraagt na de gebeurtenis voor {string}', async function (abonneeNaam: string, afnemerAanduiding, limit: bigint, persoonAanduiding: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+    const persoon = this.context.personen[persoonAanduiding];
+
+    this.result = await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam, limit, persoon);
+});
+
+When('gebeurtenissen worden gevraagd met een abonneenaam die niet geregistreerd is', async function () {
+    const afnemer = await AfnemerFactory.create(this.context, 'Gemeente Amsterdam');
+    const abonneeNaam = 'bestaat-niet';
+
+    this.result = await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam);
+});
+
+When('gebeurtenissen worden gevraagd door abonnee {string} vanaf gebeurtenis {string}', async function (abonneeNaam: string, cursor) {
+    const afnemer = await AfnemerFactory.create(this.context, 'Gemeente Amsterdam');
+
+    this.result = await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam, undefined, undefined, cursor);
 });

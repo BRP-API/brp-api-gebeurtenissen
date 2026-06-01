@@ -10,3 +10,9 @@ components:
         naam:
           $ref: './naam-v1.yaml#/components/schemas/AbonneeNaam'
           description: De naam van de abonnee, uniek voor een afnemer
+    Groep:
+      type: object
+      properties:
+        naam:
+          $ref: './naam-v1.yaml#/components/schemas/GroepNaam'
+          description: De naam van de groep

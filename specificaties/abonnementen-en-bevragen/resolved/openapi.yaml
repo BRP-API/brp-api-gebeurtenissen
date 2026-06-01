@@ -20,7 +20,7 @@ paths:
               $ref: '#/components/schemas/RegistreerAbonneeCommand'
       responses:
         '201':
-          description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+          description: Abonnee succesvol geregistreerd.
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -29,6 +29,8 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -74,14 +76,166 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /abonnees/{abonneeNaam}/groepen:
+    parameters:
+      - $ref: '#/components/parameters/AbonneeNaamPathParameter'
+    post:
+      operationId: VoegGroepToe
+      summary: Voeg een groep toe aan een geregistreerde abonnee van BRP API Gebeurtenissen
+      tags:
+        - Abonnees
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoegGroepToeCommand'
+      responses:
+        '201':
+          description: Groep succesvol toegevoegd aan de abonnee van BRP API Gebeurtenissen.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
+    get:
+      operationId: RaadpleegGroepen
+      summary: Raadpleeg de groepen van de abonnee
+      tags:
+        - Abonnees
+      responses:
+        '200':
+          description: Lijst van groepen succesvol opgehaald.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaadpleegGroepenResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}:
+    parameters:
+      - $ref: '#/components/parameters/AbonneeNaamPathParameter'
+      - $ref: '#/components/parameters/GroepNaamPathParameter'
+    delete:
+      operationId: VerwijderGroep
+      summary: Verwijder een groep, inclusief alle abonnementen op de groep
+      tags:
+        - Abonnees
+      responses:
+        '204':
+          description: Groep succesvol verwijderd van de abonnee van BRP API Gebeurtenissen.
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}/gebeurtenistypes:
+    parameters:
+      - $ref: '#/components/parameters/AbonneeNaamPathParameter'
+      - $ref: '#/components/parameters/GroepNaamPathParameter'
+    post:
+      operationId: VoegGebeurtenistypeToeAanGroep
+      summary: Voeg een gebeurtenistype toe aan een groep van een abonnee van BRP API Gebeurtenissen
+      tags:
+        - Abonnees
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VoegGebeurtenistypeToeCommand'
+      responses:
+        '201':
+          description: Gebeurtenistype succesvol toegevoegd aan de groep.
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
+    get:
+      operationId: RaadpleegGebeurtenistypes
+      summary: Raadpleeg de gebeurtenistypes in de groep
+      tags:
+        - Abonnees
+      responses:
+        '200':
+          description: Lijst van gebeurtenistypes succesvol opgehaald.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RaadpleegGebeurtenistypesResponse'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}/gebeurtenistypes/{gebeurtenistype}:
+    parameters:
+      - $ref: '#/components/parameters/AbonneeNaamPathParameter'
+      - $ref: '#/components/parameters/GroepNaamPathParameter'
+      - $ref: '#/components/parameters/GebeurtenistypePathParameter'
+    delete:
+      operationId: VerwijderGebeurtenistype
+      summary: Verwijder een gebeurtenistype uit een groep
+      tags:
+        - Abonnees
+      responses:
+        '204':
+          description: Gebeurtenistype succesvol verwijderd uit de groep.
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
   /abonnees/{abonneeNaam}/abonnementen:
     parameters:
       - $ref: '#/components/parameters/AbonneeNaamPathParameter'
     post:
-      operationId: VoeruitAbonnementenCommand
-      summary: Abonnementen commands uitvoeren voor een bestaande abonnee, zoals het abonneneren op gebeurtenis types van een persoon of opzeggen van abonnementen
+      operationId: VoerUitAbonnementenCommand
+      summary: Opdrachten voor het abonneren op gebeurtenissen. Hiermee kan je een abonnement nemen of een abonnement opzeggen.
       tags:
-        - Abonnees
+        - Abonnementen
       requestBody:
         required: true
         content:
@@ -101,6 +255,8 @@ paths:
           $ref: '#/components/responses/403'
         '404':
           $ref: '#/components/responses/404'
+        '409':
+          $ref: '#/components/responses/409'
         '500':
           $ref: '#/components/responses/500'
       security:
@@ -109,7 +265,7 @@ paths:
       operationId: RaadpleegAbonnementen
       summary: Raadpleeg de lijst van abonnementen van een abonnee
       tags:
-        - Abonnees
+        - Abonnementen
       parameters:
         - $ref: '#/components/parameters/CursorQueryParameter'
           description: Gebruik dit voor paginering. Vul hier de id van het laatst ontvangen abonnement op om de hieropvolgende abonnementen te ontvangen.
@@ -135,22 +291,18 @@ paths:
   /abonnees/{abonneeNaam}/gebeurtenissen:
     get:
       operationId: BevraagGebeurtenis
-      summary: Bevragen van de oudste ongelezen gebeurtenis
+      summary: Bevragen van (ongelezen) gebeurtenissen
       tags:
         - Gebeurtenissen
       parameters:
-        - name: abonneeNaam
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/AbonneeNaam'
+        - $ref: '#/components/parameters/AbonneeNaamPathParameter'
         - $ref: '#/components/parameters/CursorQueryParameter'
           description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
         - $ref: '#/components/parameters/LimitQueryParameter'
           description: Aantal te retourneren gebeurtenissen
       responses:
         '200':
-          description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
+          description: De gebeurtenissen zijn succesvol opgehaald en geleverd
           content:
             application/json:
               schema:
@@ -237,10 +389,10 @@ components:
     RegistreerAbonneeCommand:
       type: object
       properties:
-        abonneeNaam:
+        naam:
           $ref: '#/components/schemas/AbonneeNaam'
       required:
-        - abonneeNaam
+        - naam
     InvalidParam:
       type: object
       description: Details over fouten in opgegeven parameters
@@ -275,6 +427,66 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/InvalidParam'
+    GroepNaam:
+      type: string
+      minLength: 2
+      maxLength: 64
+      pattern: ^[a-z0-9]+(?:-[a-z0-9]+)*$
+      description: |
+        De naam van de groep. 
+        Moet voldoen aan de volgende criteria:
+          - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+          - bevat geen dubbele koppeltekens achter elkaar (--)
+          - bevat minimaal 2 en maximaal 64 tekens
+          - begint en eindigt niet met een koppelteken (-)
+      example: groep-voorbeeld-001
+    Groep:
+      type: object
+      properties:
+        naam:
+          $ref: '#/components/schemas/GroepNaam'
+          description: De naam van de groep
+    RaadpleegGroepenResponse:
+      type: object
+      properties:
+        groepen:
+          type: array
+          items:
+            $ref: '#/components/schemas/Groep'
+          description: Lijst van groepen van de abonnee
+      required:
+        - groepen
+    VoegGroepToeCommand:
+      type: object
+      properties:
+        naam:
+          $ref: '#/components/schemas/GroepNaam'
+      required:
+        - naam
+    GebeurtenisTypeVanPersoonEnum:
+      type: string
+      pattern: ^[a-z/-/.]{1,50}$
+      enum:
+        - nl.brp.verhuisd.intergemeentelijk
+        - nl.brp.verhuisd.naar-buitenland
+        - nl.brp.overleden
+    RaadpleegGebeurtenistypesResponse:
+      type: object
+      properties:
+        gebeurtenistypes:
+          type: array
+          items:
+            $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+          description: Lijst van gebeurtenistypes in de groep
+      required:
+        - gebeurtenistypes
+    VoegGebeurtenistypeToeCommand:
+      type: object
+      properties:
+        gebeurtenistype:
+          $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+      required:
+        - gebeurtenistype
     Cursor:
       type: string
       format: uuid
@@ -284,6 +496,12 @@ components:
       minimum: 1
       maximum: 10
       description: Het aantal resources dat in één response wordt teruggegeven.
+    Burgerservicenummer:
+      type: string
+      title: Burgerservicenummer
+      description: |
+        Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
+      pattern: ^[0-9]{9}$
     Abonnement:
       type: object
       properties:
@@ -291,43 +509,16 @@ components:
           type: string
           format: uuid
           description: Unieke identifier van het abonnement
-        type:
-          type: string
+        groep:
+          $ref: '#/components/schemas/GroepNaam'
+          description: De groep met gebeurtenistypes waarop de abonnee een abonnement heeft voor de persoon
+        burgerservicenummer:
+          $ref: '#/components/schemas/Burgerservicenummer'
+          description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen ontvangt
       required:
         - id
-        - type
-      discriminator:
-        propertyName: type
-        mapping:
-          AbonnementOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonnementOpGebeurtenisTypeVanPersoon'
-    GebeurtenisTypeVanPersoonEnum:
-      type: string
-      pattern: ^[a-z/-/.]{1,50}$
-      enum:
-        - nl.brp.verhuisd.intergemeentelijk
-        - nl.brp.verhuisd.naar-buitenland
-        - nl.brp.overleden
-    Burgerservicenummer:
-      type: string
-      title: Burgerservicenummer
-      description: |
-        Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
-      pattern: ^[0-9]{9}$
-    AbonnementOpGebeurtenisTypeVanPersoon:
-      allOf:
-        - $ref: '#/components/schemas/Abonnement'
-        - type: object
-          properties:
-            gebeurtenisType:
-              $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
-              description: Het gebeurtenistype waarop de abonnee zich heeft geabonneerd
-            burgerservicenummer:
-              $ref: '#/components/schemas/Burgerservicenummer'
-              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type ontvangt
-          required:
-            - id
-            - gebeurtenisType
-            - burgerservicenummer
+        - groep
+        - burgerservicenummer
     RaadpleegAbonnementenResponse:
       type: object
       properties:
@@ -348,46 +539,36 @@ components:
       discriminator:
         propertyName: type
         mapping:
-          AbonneerOpGebeurtenisTypeVanPersoon: '#/components/schemas/AbonneerOpGebeurtenisTypeVanPersoonCommand'
-          ZegOpAbonnementOpGebeurtenisTypeVanPersoon: '#/components/schemas/ZegOpAbonnementOpGebeurtenisTypeVanPersoonCommand'
-          ZegOpAbonnementenOpPersoon: '#/components/schemas/ZegOpAbonnementenOpPersoonCommand'
-    AbonneerOpGebeurtenisTypeVanPersoonCommand:
+          AbonneerPersoonOpGroep: '#/components/schemas/AbonneerPersoonOpGroepCommand'
+          ZegOpAbonnementVanPersoonOpGroep: '#/components/schemas/ZegOpAbonnementVanPersoonOpGroepCommand'
+    AbonneerPersoonOpGroepCommand:
       allOf:
         - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
           properties:
-            gebeurtenisType:
-              $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
-              description: Het gebeurtenistype waarop de abonnee zich wil abonneren
+            groep:
+              $ref: '#/components/schemas/GroepNaam'
+              description: De groep waarop de abonnee de persoon wil abonneren
             burgerservicenummer:
               $ref: '#/components/schemas/Burgerservicenummer'
-              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen van het opgegeven type wil ontvangen
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen wil ontvangen
           required:
-            - gebeurtenisType
+            - groep
             - burgerservicenummer
-    ZegOpAbonnementOpGebeurtenisTypeVanPersoonCommand:
+    ZegOpAbonnementVanPersoonOpGroepCommand:
       allOf:
         - $ref: '#/components/schemas/AbonnementenCommand'
         - type: object
-          description: Beëindigen van een 'gebeurtenis type van persoon' abonnement van een abonnee.
+          description: Beëindigen van een abonnement voor een persoon voor een groep
           properties:
-            gebeurtenisType:
-              $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+            groep:
+              $ref: '#/components/schemas/GroepNaam'
+              description: De groep waarop de abonnee de persoon wil abonneren
             burgerservicenummer:
               $ref: '#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee de gebeurtenissen niet meer wil ontvangen
           required:
-            - gebeurtenisType
-            - burgerservicenummer
-    ZegOpAbonnementenOpPersoonCommand:
-      allOf:
-        - $ref: '#/components/schemas/AbonnementenCommand'
-        - type: object
-          description: Beëindigen van alle abonnementen op een persoon van een abonnee.
-          properties:
-            burgerservicenummer:
-              $ref: '#/components/schemas/Burgerservicenummer'
-              description: Het burgerservicenummer (BSN) van de persoon van wie de abonnee geen gebeurtenissen meer wil ontvangen
-          required:
+            - groep
             - burgerservicenummer
     Gebeurtenis:
       type: object
@@ -656,6 +837,19 @@ components:
             detail: The server has not found anything matching the Request-URI.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
             code: notFound
+    '409':
+      description: Conflict
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Foutbericht'
+          example:
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10
+            title: Conflict
+            status: 409
+            detail: The request could not be completed due to a conflict with the current state of the resource
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: conflict
     '500':
       description: Internal Server Error
       content:
@@ -677,6 +871,19 @@ components:
       schema:
         $ref: '#/components/schemas/AbonneeNaam'
         description: De naam van de abonnee
+    GroepNaamPathParameter:
+      name: groepNaam
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/GroepNaam'
+        description: De naam van de abonnee
+    GebeurtenistypePathParameter:
+      name: gebeurtenistype
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/GebeurtenisTypeVanPersoonEnum'
     CursorQueryParameter:
       name: cursor
       in: query
