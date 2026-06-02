@@ -1,0 +1,12 @@
+openapi: 3.1.2
+info: 
+  title: Groep naam query parameter definitie
+  version: 1.0.0
+components:
+  parameters:
+    GroepNaamQueryParameter:
+      name: groep
+      in: query
+      required: false
+      schema:
+        $ref: './naam-v1.yaml#/components/schemas/GroepNaam'
