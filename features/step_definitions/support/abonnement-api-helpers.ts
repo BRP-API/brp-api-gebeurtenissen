@@ -208,6 +208,8 @@ export async function raadpleegAbonnementen(afnemer: Afnemer, abonneeNaam: strin
     let uriParams = []
 
     if (persoon && groepNaam) {
+        // groepNaam in combinatie met persoon betekent dat abonnementen worden gevraagd vanaf het abonnement van deze persoon op deze groep
+
         // haal eerst alle abonnementen op om de uuid van cursor op te zoeken
         const alleAbonnementen = await raadpleegAbonnementen(afnemer, abonneeNaam);
         
@@ -226,6 +228,12 @@ export async function raadpleegAbonnementen(afnemer: Afnemer, abonneeNaam: strin
 
     if (limit) {
         uriParams.push(`limit=${limit.toString()}`);
+    }
+
+    if (groepNaam && !persoon) {
+        // groepNaam zonder persoon betekent dat abonnementen worden gevraagd op deze groep
+        
+        uriParams.push(`groep=${groepNaam}`);
     }
 
     const uriParamsString = (uriParams.length > 0) ? '?' + uriParams.join('&') : '';

@@ -271,6 +271,8 @@ paths:
           description: Gebruik dit voor paginering. Vul hier de id van het laatst ontvangen abonnement op om de hieropvolgende abonnementen te ontvangen.
         - $ref: '#/components/parameters/LimitQueryParameter'
           description: Geeft hier het maximaal aantal abonnementen op dat je per request kan ontvangen. Als je dit weglaat is het maximum 10.
+        - $ref: '#/components/parameters/GroepNaamQueryParameter'
+          description: Gebruik optionele parameter groep om alleen abonnementen op deze groep te ontvangen.
       responses:
         '200':
           description: Lijst van abonnementen van de abonnee succesvol opgehaald.
@@ -658,3 +660,9 @@ components:
       schema:
         $ref: '#/components/schemas/Limit'
       description: Limit query parameter die gebruikt kan worden voor paginering.
+    GroepNaamQueryParameter:
+      name: groep
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/GroepNaam'
