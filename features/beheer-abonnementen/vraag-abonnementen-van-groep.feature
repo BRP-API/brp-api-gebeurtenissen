@@ -11,15 +11,15 @@ Functionaliteit: Abonneer persoon voor een groep
     En de persoon 'Piet' is geregistreerd in de BRP
     En de persoon 'Karin' is geregistreerd in de BRP
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
-    En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk' en 'nl.brp.overleden'
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'relatie'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
+    En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.overleden'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie'
     En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
-    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'client'
+    En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client'
     En groep 'client' bij abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
     En de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
-    En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'client'
+    En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de groep 'client'
     En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Rotterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
 
   Regel: Een abonnee kan de abonnementen op een bepaalde groep opgeven
@@ -54,17 +54,16 @@ Functionaliteit: Abonneer persoon voor een groep
       * 'title' met tekst 'Groep bestaat niet'
 
     Scenario: Een abonnee vraagt abonnementen voor een groep die alleen bij een andere abonnee toegevoegd is
-      Gegeven de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de 'GebeurtenissenOpPersoon' groep 'andere'
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'andere'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt voor groep 'andere'
       Dan is de response '409 Conflict' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
     Scenario: Een abonnee vraagt abonnementen voor een groep die alleen bij een andere afnemer toegevoegd is
-      Gegeven de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de 'GebeurtenissenOpPersoon' groep 'andere'
+      Gegeven de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de groep 'andere'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt voor groep 'andere'
       Dan is de response '409 Conflict' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
-
 
     Scenario: Een abonnee vraagt abonnementen voor een groep die verwijderd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd

@@ -195,6 +195,12 @@ When('abonnee {string} van afnemer {string} de abonnementen opvraagt met cursor 
     this.result = await raadpleegAbonnementen(afnemer, abonneeNaam, undefined, undefined, undefined, cursor);
 });
 
+When('abonnee {string} van afnemer {string} de abonnementen opvraagt voor groep {string}', async function (abonneeNaam: string, afnemerAanduiding: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await raadpleegAbonnementen(afnemer, abonneeNaam, undefined, groepNaam);
+});
+
 // When('een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wil nemen', async function () {
 //     const persoon = await PersoonFactory.create(this.context, 'Jan');
 
