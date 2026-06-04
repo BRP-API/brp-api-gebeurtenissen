@@ -26,4 +26,5 @@ Then('worden volgende {objectNaam} geleverd', function (objectNaam: string, data
     this.expected = {
         [objectNaam]: createObjectArrayFrom(dataTable)
     };
+    expect(this.result[objectNaam]).to.deep.equal(this.expected[objectNaam])
 });
