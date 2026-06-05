@@ -11,17 +11,21 @@ import {
     zegOpAbonnementOpGebeurtenistypeVanPersoon
 } from './support/abonnement-api-helpers';
 import { createObjectArrayFrom, createObjectFrom } from './support/dataTable2Object';
+import { expect } from "chai";
+import { HttpStatusCode } from "axios";
 
 Given('de afnemer {string} heeft de abonnee {string} geregistreerd', async function (afnemerAanduiding: string, abonneeNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
 });
 
 Given('de afnemer {string} heeft de abonnee {string} gederegistreerd', async function (afnemerAanduiding: string, abonneeNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent);
 });
 
 Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
@@ -77,9 +81,11 @@ Given('er is een {string} gebeurtenis gepubliceerd met de volgende velden', asyn
     switch (gebeurtenisType) {
         case 'AbonneeGeregistreerd':
             this.result = await registreerAbonneeVoorAfnemer(afnemer, gebeurtenis.abonneeNaam);
+            expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
             break;
         case 'AbonneeGederegistreerd':
             this.result = await deregistreerAbonneeVoorAfnemer(afnemer, gebeurtenis.abonneeNaam);
+            expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent);
             break;
         default:
             throw new Error(`Onbekend gebeurtenisType: ${gebeurtenisType}`);

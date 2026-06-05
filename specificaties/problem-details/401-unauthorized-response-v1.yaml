@@ -14,7 +14,7 @@ components:
           schema:
             $ref: 'fout-bericht-v1.yaml#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-401-unauthorized
             title: Niet correct geauthenticeerd.
             status: 401
             detail: The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.
