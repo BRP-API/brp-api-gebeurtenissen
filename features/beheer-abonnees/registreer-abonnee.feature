@@ -24,7 +24,6 @@ Functionaliteit: Registreer een abonnee
 
     Scenario: Afnemer probeert een abonnee te registreren zonder een naam op te geven
       Als de afnemer 'Gemeente Amsterdam' een abonnee registreert zonder abonneeNaam
-      # Deze Als stap is nog niet geïmplementeerd
       Dan is de response '400 Bad Request'
 
   Regel: Een geldige abonneenaam voldoet aan de volgende criteria:

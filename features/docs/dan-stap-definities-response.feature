@@ -4,7 +4,7 @@
 Functionaliteit: Response dan stap definities
 
   Scenario: Dan is de response '409 Conflict'
-    Gegeven de response
+    Gegeven de response met '409 Conflict'
     """
     {
       "type": "https://www.rfc-editor.org/rfc/rfc9110.html#name-409-conflict",

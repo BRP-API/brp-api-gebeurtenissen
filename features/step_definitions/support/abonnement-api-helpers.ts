@@ -38,7 +38,10 @@ export async function registreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNaam
         afnemer.abonnees.push(abonneeNaam);
     }
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function deregistreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNaam: string): Promise<any> {
@@ -57,7 +60,10 @@ export async function deregistreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNa
         afnemer.abonnees = afnemer.abonnees.filter(a => a !== abonneeNaam);
     }
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function raadpleegAbonneesVoorAfnemer(afnemer: Afnemer): Promise<any> {
