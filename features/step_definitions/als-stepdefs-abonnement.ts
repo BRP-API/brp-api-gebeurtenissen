@@ -1,4 +1,4 @@
-import {When} from '@cucumber/cucumber';
+import { When } from '@cucumber/cucumber';
 import {
     abonneerOpGebeurtenistypeVanPersoon,
     deregistreerAbonneeVoorAfnemer,
@@ -13,24 +13,24 @@ import {
     zegOpAbonnementenOpPersoon,
     zegOpAbonnementOpGebeurtenistypeVanPersoon
 } from './support/abonnement-api-helpers';
-import {AfnemerFactory} from './support/afnemer-factory';
-import {PersoonFactory} from './support/persoon-factory';
-import {Persoon} from './brp/persoon-entity';
+import { AfnemerFactory } from './support/afnemer-factory';
+import { PersoonFactory } from './support/persoon-factory';
+import { Persoon } from './brp/persoon-entity';
 
 When('de afnemer {string} de abonnee {string} registreert', async function (afnemerAanduiding: string, abonneeNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     const response = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    this.result = response.body
-    this.responseStatusCode = response.statusCode
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
 });
 
 When('de afnemer {string} een abonnee registreert zonder abonneeNaam', async function (afnemerAanduiding: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     const response = await registreerAbonneeVoorAfnemer(afnemer);
-    this.result = response.body
-    this.responseStatusCode = response.statusCode
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
 });
 
 When('de afnemer {string} zijn abonnees raadpleegt', async function (afnemerAanduiding: string) {
@@ -43,8 +43,8 @@ When('de afnemer {string} de abonnee {string} deregistreert', async function (af
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     const response = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    this.result = response.body
-    this.responseStatusCode = response.statusCode
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
 });
 
 When('de afnemer {string} bij de abonnee {string} de groep {string} toevoegt', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {

@@ -1,5 +1,5 @@
 import { Given } from '@cucumber/cucumber';
-import {ProblemDetails} from "./support/problem-details";
+import { ProblemDetails } from "./support/problem-details";
 
 Given('heeft id {string}', function (id:string) {
     if(this.huidigAanduiding?.isAdres) {
@@ -19,6 +19,6 @@ Given('de geleverde gebeurtenis', function (docString: string) {
 });
 
 Given('de response met {string}', function (status: string, docString: string) {
-    this.responseStatusCode = ProblemDetails.getStatusCode(status)
+    this.responseStatusCode = ProblemDetails.getStatusCode(status);
     this.result = JSON.parse(docString);
 });

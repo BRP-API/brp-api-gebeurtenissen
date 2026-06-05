@@ -41,7 +41,7 @@ export async function registreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNaam
     return {
         statusCode: response.status,
         body: await parseResponseBody(response)
-    }
+    };
 }
 
 export async function deregistreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNaam: string): Promise<any> {
@@ -63,7 +63,7 @@ export async function deregistreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNa
     return {
         statusCode: response.status,
         body: await parseResponseBody(response)
-    }
+    };
 }
 
 export async function raadpleegAbonneesVoorAfnemer(afnemer: Afnemer): Promise<any> {

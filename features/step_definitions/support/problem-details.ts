@@ -28,7 +28,7 @@ export class ProblemDetails {
     }
 
     static create(status: string): ProblemDetails | null {
-        const statuscode = this.getStatusCode(status)
+        const statuscode = this.getStatusCode(status);
 
         switch (statuscode) {
             case 400:
