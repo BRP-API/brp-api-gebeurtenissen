@@ -2,9 +2,16 @@ import { Then, defineParameterType } from '@cucumber/cucumber';
 import { ProblemDetails } from './support/problem-details';
 import { createObjectArrayWithPersoonAanduidingenFrom, createObjectArrayFrom } from './support/dataTable2Object';
 import { Persoon } from './brp/persoon-entity';
+import { expect } from "chai";
+
 
 Then('is de response {string}( met de volgende velden)', function (status: string) {
     this.expected = ProblemDetails.create(status);
+    expect(this.responseStatusCode).to.equal(ProblemDetails.getStatusCode(status))
+    if (!ProblemDetails.isSuccessFull(this.responseStatusCode)) {
+        expect(this.result.status).to.equal(this.expected.status);
+        expect(this.result.type).to.equal(this.expected.type);
+    }
 });
 
 Then('heeft de response invalidParams met de volgende gegevens', function (dataTable) {
@@ -17,6 +24,7 @@ Then('heeft de response invalidParams met de volgende gegevens', function (dataT
 
 Then('{string} met tekst {string}', function (veld: string, waarde: string) {
     this.expected[veld] = waarde;
+    expect(this.result[veld]).to.equal(this.expected[veld]);
 });
 
 defineParameterType({
@@ -30,10 +38,14 @@ Then('worden volgende {objectNaam} geleverd', function (objectNaam: string, data
     this.expected = {
         [objectNaam]: createObjectArrayWithPersoonAanduidingenFrom(dataTable, personen)
     };
+
+    expect(this.result[objectNaam]).to.deep.equal(this.expected[objectNaam]);
 });
 
 Then('wordt er geen abonnement geleverd', function () {
     this.expected = {
         ['abonnementen']: []
     };
+
+    expect(this.result['abonnementen']).to.deep.equal(this.expected['abonnementen']);
 });

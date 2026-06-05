@@ -14,7 +14,7 @@ components:
           schema:
             $ref: 'fout-bericht-v1.yaml#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+            type: https://www.rfc-editor.org/rfc/rfc9110.html
             title: Too many request
             status: 429
             detail: The user has sent too many requests in a given amount of time (rate limiting).

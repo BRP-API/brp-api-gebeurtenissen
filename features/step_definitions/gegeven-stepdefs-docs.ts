@@ -1,4 +1,5 @@
 import { Given } from '@cucumber/cucumber';
+import { ProblemDetails } from "./support/problem-details";
 
 Given('heeft id {string}', function (id:string) {
     if(this.huidigAanduiding?.isAdres) {
@@ -8,7 +9,7 @@ Given('heeft id {string}', function (id:string) {
         this.context.personen[this.huidigAanduiding.id].pl_id = id;
     }
 });
-    
+
 Given('de gepubliceerde gebeurtenis', function (docString: string) {
     this.result = JSON.parse(docString);
 });
@@ -17,6 +18,7 @@ Given('de geleverde gebeurtenis', function (docString: string) {
     this.result = JSON.parse(docString);
 });
 
-Given('de response', function (docString: string) {
+Given('de response met {string}', function (status: string, docString: string) {
+    this.responseStatusCode = ProblemDetails.getStatusCode(status);
     this.result = JSON.parse(docString);
 });
