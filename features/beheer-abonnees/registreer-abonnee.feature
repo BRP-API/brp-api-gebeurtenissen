@@ -53,7 +53,6 @@ Functionaliteit: Registreer een abonnee
 
     Scenario: De abonneeNaam bestaat al bij de afnemer
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      # Deze Gegeven stap is nog niet geïmplementeerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
       Dan is de response '409 Conflict' met de volgende velden
       * 'title' met tekst 'Abonnee bestaat al'
