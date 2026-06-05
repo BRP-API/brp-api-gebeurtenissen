@@ -23,7 +23,7 @@ export async function registreerAbonneeVoorAfnemer(
 ): Promise<any> {
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-  const requestBody = abonneeNaam ? {abonneeNaam: abonneeNaam} : {};
+  const requestBody = abonneeNaam ? {naam: abonneeNaam} : {};
 
   const response = await fetch(
     `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`,
