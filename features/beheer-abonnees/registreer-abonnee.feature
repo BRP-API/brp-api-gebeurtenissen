@@ -1,11 +1,10 @@
 # language: nl
-Functionaliteit: Registreer abonnee
+Functionaliteit: Registreer een abonnee
   Als afnemer van BRP API Gebeurtenissen
-  wil ik mijn interne afnemers (applicaties, processen) als abonnee kunnen registreren
-  zodat ik de voor hen relevante gebeurtenissen niet zelf hoef te distribueren
-  zodat mijn interne afnemers zelf abonnementen kunnen beheren
+  wil ik binnengemeentelijke taakapplicaties kunnen registreren als abonnee
+  zodat de taakapplicatie zelfstandig abonnementen kan beheren en gebeurtenissen op de eigen abonnementen kan opvragen
 
-  Regel: Om een abonnee te kunnen registreren, moet een geldige abonneenaam worden opgegeven
+  Regel: Een afnemer kan een abonnee registreren
 
     Scenario: Een afnemer registreert een abonnee met een geldige abonneenaam
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
@@ -19,42 +18,51 @@ Functionaliteit: Registreer abonnee
       Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
         | afnemerId          | abonneeNaam |
         | Gemeente Amsterdam | jz          |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
+
+  Regel: Opgeven van een abonneeNaam is verplicht
+
+    Scenario: Afnemer probeert een abonnee te registreren zonder een naam op te geven
+      Als de afnemer 'Gemeente Amsterdam' een abonnee registreert zonder abonneeNaam
+      Dan is de response '400 Bad Request'
 
   Regel: Een geldige abonneenaam voldoet aan de volgende criteria:
-          - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
-          - bevat geen dubbele koppeltekens achter elkaar (--)
-          - bevat minimaal 2 en maximaal 64 tekens
-          - begint en eindigt niet met een koppelteken (-)
+    - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+    - bevat geen dubbele koppeltekens achter elkaar (--)
+    - bevat minimaal 2 en maximaal 64 tekens
+    - begint en eindigt niet met een koppelteken (-)
 
     Abstract Scenario: <titel>
       Als de afnemer 'Gemeente Amsterdam' de abonnee '<abonneeNaam>' registreert
-      Dan is de response '400 Bad Request'
+      Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Abonneenaam ongeldig'
-      * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat de abonneenaam ongeldig is.'
 
       Voorbeelden:
         | titel                                              | abonneeNaam                                                       |
         | De abonneenaam is te kort                          | a                                                                 |
-        | De abonneenaam is te lang                          | abcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefghabcdefgha |
+        | De abonneenaam is te lang (65 tekens)              | abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijk |
         | De abonneenaam bevat hoofdletters                  | JZ                                                                |
         | De abonneenaam bevat een koppelteken aan het begin | -jz                                                               |
         | De abonneenaam bevat een koppelteken aan het einde | jz-                                                               |
         | De abonneenaam bevat dubbele koppeltekens          | j--z                                                              |
         | De abonneenaam bevat een ongeldig teken            | j_z                                                               |
+        | De abonneenaam is leeg                             |                                                                   |
+        | De abonneenaam bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
 
   Regel: De abonneenaam is uniek binnen de context van een afnemer
 
-    Scenario: De opgegeven abonneenaam is al geregistreerd als abonnee door dezelfde afnemer
-      Gegeven er is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam |
-        | Gemeente Amsterdam | jz          |
+    Scenario: De abonneeNaam bestaat al bij de afnemer
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
       Dan is de response '409 Conflict' met de volgende velden
+      * 'title' met tekst 'Abonnee bestaat al'
       * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al een abonnee met de opgegeven naam hebt geregistreerd.'
 
+    @skip-verify
     Scenario: De opgegeven abonneenaam is al geregistreerd als abonnee door een andere afnemer
-      Gegeven er is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam |
-        | Gemeente Rotterdam | jz          |
+      Gegeven de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
-      Dan is de response '201 Created'
+      Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
+        | afnemerId          | abonneeNaam |
+        | Gemeente Amsterdam | jz          |
+      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context

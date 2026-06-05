@@ -20,7 +20,7 @@ paths:
               $ref: '../brp-api/abonnee/registreer-abonnee-command-v1.yaml#/components/schemas/RegistreerAbonneeCommand'
       responses:
         '201':
-          description: Afnemer succesvol geregistreerd als abonnee van BRP API Gebeurtenissen.
+          description: Abonnee succesvol geregistreerd.
         '400':
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '401':
@@ -29,6 +29,8 @@ paths:
           $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
         '404':
           $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '409':
+          $ref: '../problem-details/409-conflict-response-v1.yaml#/components/responses/409'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:

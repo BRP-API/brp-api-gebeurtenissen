@@ -1,7 +1,71 @@
 import { Given } from '@cucumber/cucumber';
 import { AfnemerFactory } from './support/afnemer-factory';
-import { abonneerOpGebeurtenistypeVanPersoon, deregistreerAbonneeVoorAfnemer, registreerAbonneeVoorAfnemer, zegOpAbonnementOpGebeurtenistypeVanPersoon } from './support/abonnement-api-helpers';
+import {
+    abonneerOpGebeurtenistypeVanPersoon,
+    deregistreerAbonneeVoorAfnemer,
+    registreerAbonneeVoorAfnemer,
+    verwijderGebeurtenistypeUitGroep,
+    verwijderGroepVanAbonnee,
+    voegGebeurtenistypeToeAanGroep,
+    voegGroepToeBijAbonnee,
+    zegOpAbonnementOpGebeurtenistypeVanPersoon
+} from './support/abonnement-api-helpers';
 import { createObjectArrayFrom, createObjectFrom } from './support/dataTable2Object';
+import { expect } from "chai";
+import { HttpStatusCode } from "axios";
+
+Given('de afnemer {string} heeft de abonnee {string} geregistreerd', async function (afnemerAanduiding: string, abonneeNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
+});
+
+Given('de afnemer {string} heeft de abonnee {string} gederegistreerd', async function (afnemerAanduiding: string, abonneeNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent);
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} de groep {string}', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} verwijderd', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await verwijderGroepVanAbonnee(afnemer, abonneeNaam, groepNaam);
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} het gebeurtenistype {string} aan de groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, gebeurtenistype: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await voegGebeurtenistypeToeAanGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+});
+
+Given('groep {string} bij abonnee {string} van afnemer {string} heeft gebeurtenistype(s) {string}', async function (groepNaam: string, abonneeNaam: string, afnemerAanduiding: string, gebeurtenistypes: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+    const gebeurtenistypeLijst = gebeurtenistypes.replace(' en ', ',').replace(' ', '').split(','); // gebeurtenistypes is een lijst gescheiden door een komma of het woord "en", al dan niet omgeven door spaties
+
+    gebeurtenistypeLijst.forEach(async gebeurtenistype => {
+        this.result = await voegGebeurtenistypeToeAanGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+    })
+});
+
+Given('de afnemer {string} heeft bij de abonnee {string} het gebeurtenistype {string} uit de groep {string} verwijderd', async function (afnemerAanduiding: string, abonneeNaam: string, gebeurtenistype: string, groepNaam: string) {
+    const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
+
+    this.result = await verwijderGebeurtenistypeUitGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+});
 
 Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', function () {
 });
@@ -17,9 +81,11 @@ Given('er is een {string} gebeurtenis gepubliceerd met de volgende velden', asyn
     switch (gebeurtenisType) {
         case 'AbonneeGeregistreerd':
             this.result = await registreerAbonneeVoorAfnemer(afnemer, gebeurtenis.abonneeNaam);
+            expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
             break;
         case 'AbonneeGederegistreerd':
             this.result = await deregistreerAbonneeVoorAfnemer(afnemer, gebeurtenis.abonneeNaam);
+            expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent);
             break;
         default:
             throw new Error(`Onbekend gebeurtenisType: ${gebeurtenisType}`);
@@ -27,7 +93,7 @@ Given('er is een {string} gebeurtenis gepubliceerd met de volgende velden', asyn
 });
 
 Given('de volgende {string} gebeurtenissen zijn gepubliceerd', async function (gebeurtenisType, dataTable) {
-    if(gebeurtenisType === 'AbonneeGeregistreerd') {
+    if (gebeurtenisType === 'AbonneeGeregistreerd') {
         const gebeurtenissen = createObjectArrayFrom(dataTable);
 
         for (const gebeurtenis of gebeurtenissen) {
@@ -43,7 +109,7 @@ Given('de abonnee {string} van afnemer {string} heeft zich geabonneerd op de {st
 
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    if(!afnemer.abonnees.includes(abonneeNaam)) {
+    if (!afnemer.abonnees.includes(abonneeNaam)) {
         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
     }
 
@@ -55,7 +121,7 @@ Given('de abonnee {string} van afnemer {string} heeft zijn abonnement op de {str
 
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    if(!afnemer.abonnees.includes(abonneeNaam)) {
+    if (!afnemer.abonnees.includes(abonneeNaam)) {
         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
     }
 
@@ -67,7 +133,7 @@ Given('de abonnee {string} van afnemer {string} heeft een abonnement op de {stri
 
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
-    if(!afnemer.abonnees.includes(abonneeNaam)) {
+    if (!afnemer.abonnees.includes(abonneeNaam)) {
         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
     }
 
