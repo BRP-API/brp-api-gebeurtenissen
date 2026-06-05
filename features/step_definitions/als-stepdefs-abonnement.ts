@@ -32,7 +32,7 @@ When(
 );
 
 When(
-  'de afnemer {string} een abonnee registreert zonder abonneeNaam',
+  'de afnemer {string} een abonnee registreert zonder een naam voor de abonnee op te geven',
   async function (afnemerAanduiding: string) {
     const afnemer = await AfnemerFactory.create(
       this.context,

@@ -12,7 +12,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - GEBEURTENIS_URL=http://gebeurtenissen:8888/personen/gebeurtenissen
+      - GEBEURTENIS_URL=http://gebeurtenissen-middleman:8080/personen/gebeurtenissen
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/rvig_haalcentraal_testdata
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
@@ -20,6 +20,14 @@ services:
       - PROJECTIONS_DATASOURCE_USERNAME=root
       - PROJECTIONS_DATASOURCE_PASSWORD=root
       - AXON_SERVER_HOST=axon
+    networks:
+      - brp-api-network
+  gebeurtenissen-middleman:
+    image: wiremock/wiremock:3.9.1
+    container_name: gebeurtenissen-middleman
+    ports:
+      - "8889:8080"
+    command: [ "--record-mappings", "--verbose", "--proxy-all=http://gebeurtenissen:8888", "--preserve-host-header=false" ]
     networks:
       - brp-api-network
 

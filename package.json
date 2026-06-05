@@ -41,6 +41,8 @@
     "winston": "^3.19.0"
   },
   "dependencies": {
-    "gts": "^7.0.0"
+    "eventsource": "^4.1.0",
+    "gts": "^7.0.0",
+    "wiremock-captain": "^4.1.3"
   }
 }

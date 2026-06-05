@@ -43,11 +43,13 @@ function setProperty(
   if (propertyValue === undefined || propertyValue === '') {
     return;
   }
-
+  const cleanedPropertyName = propertyName
+    .replace(/\s*\(.*?\)\s*/g, ' ')
+    .trim();
   if (propertyName.includes('.')) {
-    setNestedPropertyValue(obj, propertyName, propertyValue, dateAsDate);
+    setNestedPropertyValue(obj, cleanedPropertyName, propertyValue, dateAsDate);
   } else {
-    setPropertyValue(obj, propertyName, propertyValue, dateAsDate);
+    setPropertyValue(obj, cleanedPropertyName, propertyValue, dateAsDate);
   }
 }
 
@@ -104,4 +106,22 @@ export function createObjectArrayFrom(
   }
 
   return retval;
+}
+
+export function convertNumericStrings(obj: any) {
+  const result: any = {};
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (
+      typeof value === 'string' &&
+      value.trim() !== '' &&
+      !isNaN(Number(value))
+    ) {
+      result[key] = Number(value);
+    } else {
+      result[key] = value;
+    }
+  }
+
+  return result;
 }
