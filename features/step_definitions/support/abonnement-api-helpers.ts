@@ -78,7 +78,10 @@ export async function raadpleegAbonneesVoorAfnemer(afnemer: Afnemer): Promise<an
 
     logger.debug(`raadpleegAbonneesVoorAfnemer afnemer: '${afnemer?.aanduiding}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: string, groepNaam?: string): Promise<any> {
@@ -98,7 +101,10 @@ export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: stri
 
     logger.debug(`voegGroepToeBijAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function verwijderGroepVanAbonnee(afnemer: Afnemer, abonneeNaam: string, groepNaam?: string): Promise<any> {
@@ -113,7 +119,10 @@ export async function verwijderGroepVanAbonnee(afnemer: Afnemer, abonneeNaam: st
 
     logger.debug(`verwijderGroepVanAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function raadpleegGroepenVanAbonnee(afnemer: Afnemer, abonneeNaam: string): Promise<any> {
@@ -128,7 +137,10 @@ export async function raadpleegGroepenVanAbonnee(afnemer: Afnemer, abonneeNaam: 
 
     logger.debug(`raadpleegGroepenVanAbonnee afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function voegGebeurtenistypeToeAanGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string, gebeurtenistype: string): Promise<any> {
@@ -149,7 +161,10 @@ export async function voegGebeurtenistypeToeAanGroep(afnemer: Afnemer, abonneeNa
 
     logger.debug(`voegGebeurtenistypeToeAanGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function verwijderGebeurtenistypeUitGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string, gebeurtenistype: string): Promise<any> {
@@ -164,7 +179,10 @@ export async function verwijderGebeurtenistypeUitGroep(afnemer: Afnemer, abonnee
 
     logger.debug(`verwijderGebeurtenistypeUitGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function raadpleegGebeurtenistypesInGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string): Promise<any> {
@@ -179,7 +197,10 @@ export async function raadpleegGebeurtenistypesInGroep(afnemer: Afnemer, abonnee
 
     logger.debug(`raadpleegGebeurtenistypesInGroep afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function abonneerOpGebeurtenistypeVanPersoon(afnemer: Afnemer, abonneeNaam: string, gebeurtenistype: string, persoon: Persoon): Promise<any> {
@@ -200,7 +221,10 @@ export async function abonneerOpGebeurtenistypeVanPersoon(afnemer: Afnemer, abon
 
     logger.debug(`abonneerOpGebeurtenistypeVanPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', gebeurtenistype: '${gebeurtenistype}', persoon: '${persoon.burger_service_nr}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(afnemer: Afnemer, abonneeNaam: string, gebeurtenistype: string, persoon: Persoon): Promise<any> {
@@ -221,7 +245,10 @@ export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(afnemer: Afneme
 
     logger.debug(`zegOpAbonnementOpGebeurtenistypeVanPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', gebeurtenistype: '${gebeurtenistype}', persoon: '${persoon.burger_service_nr}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
 export async function zegOpAbonnementenOpPersoon(afnemer: Afnemer, abonneeNaam: string, persoon: Persoon): Promise<any> {
@@ -241,5 +268,8 @@ export async function zegOpAbonnementenOpPersoon(afnemer: Afnemer, abonneeNaam: 
 
     logger.debug(`zegOpAbonnementenOpPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', persoon: '${persoon.burger_service_nr}'`, { response: response });
 
-    return await parseResponseBody(response);
+    return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }

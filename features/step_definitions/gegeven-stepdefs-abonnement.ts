@@ -18,38 +18,42 @@ Given('de afnemer {string} heeft de abonnee {string} geregistreerd', async funct
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
 });
 
 Given('de afnemer {string} heeft de abonnee {string} gederegistreerd', async function (afnemerAanduiding: string, abonneeNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent, 'http statuscode is niet correct');
 });
 
 Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
 });
 
 Given('de afnemer {string} heeft bij de abonnee {string} de groep {string}', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
 });
 
 Given('de afnemer {string} heeft bij de abonnee {string} de groep {string} verwijderd', async function (afnemerAanduiding: string, abonneeNaam: string, groepNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await verwijderGroepVanAbonnee(afnemer, abonneeNaam, groepNaam);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent, 'http statuscode is niet correct');
 });
 
 Given('de afnemer {string} heeft bij de abonnee {string} het gebeurtenistype {string} aan de groep {string} toegevoegd', async function (afnemerAanduiding: string, abonneeNaam: string, gebeurtenistype: string, groepNaam: string) {
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await voegGebeurtenistypeToeAanGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
 });
 
 Given('groep {string} bij abonnee {string} van afnemer {string} heeft gebeurtenistype(s) {string}', async function (groepNaam: string, abonneeNaam: string, afnemerAanduiding: string, gebeurtenistypes: string) {
@@ -58,6 +62,7 @@ Given('groep {string} bij abonnee {string} van afnemer {string} heeft gebeurteni
 
     gebeurtenistypeLijst.forEach(async gebeurtenistype => {
         this.result = await voegGebeurtenistypeToeAanGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+        expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
     })
 });
 
@@ -65,6 +70,7 @@ Given('de afnemer {string} heeft bij de abonnee {string} het gebeurtenistype {st
     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
 
     this.result = await verwijderGebeurtenistypeUitGroep(afnemer, abonneeNaam, groepNaam, gebeurtenistype);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent, 'http statuscode is niet correct');
 });
 
 Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', function () {
@@ -81,11 +87,11 @@ Given('er is een {string} gebeurtenis gepubliceerd met de volgende velden', asyn
     switch (gebeurtenisType) {
         case 'AbonneeGeregistreerd':
             this.result = await registreerAbonneeVoorAfnemer(afnemer, gebeurtenis.abonneeNaam);
-            expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
+            expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
             break;
         case 'AbonneeGederegistreerd':
             this.result = await deregistreerAbonneeVoorAfnemer(afnemer, gebeurtenis.abonneeNaam);
-            expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent);
+            expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent, 'http statuscode is niet correct');
             break;
         default:
             throw new Error(`Onbekend gebeurtenisType: ${gebeurtenisType}`);
