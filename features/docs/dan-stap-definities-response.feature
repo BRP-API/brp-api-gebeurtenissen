@@ -4,10 +4,10 @@
 Functionaliteit: Response dan stap definities
 
   Scenario: Dan is de response '409 Conflict'
-    Gegeven de response
+    Gegeven de response met '409 Conflict'
     """
     {
-      "type": "https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.10",
+      "type": "https://www.rfc-editor.org/rfc/rfc9110.html#name-409-conflict",
       "title": "Conflict",
       "status": 409,
       "detail": "Uw verzoek kan niet worden uitgevoerd omdat u al als abonnee geregistreerd bent.",
