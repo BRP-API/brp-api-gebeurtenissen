@@ -43,6 +43,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint project
+        run: npm run lint
+
       - name: Zet run permissions op script folder
         uses: ./.github/actions/zet-run-bash-scripts-permission
         with:

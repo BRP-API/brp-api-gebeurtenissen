@@ -12,4 +12,12 @@ if (hasIgnoresFile) {
   customConfig = [{ignores}];
 }
 
-module.exports = [...customConfig, ...require('gts')];
+module.exports = [
+  ...customConfig,
+  ...require('gts'),
+  {
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+];

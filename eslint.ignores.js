@@ -1,1 +1,1 @@
-module.exports = ['build/', "**/cucumber.js", "scripts/*.js"]
+module.exports = ['build/', '**/cucumber.js', 'scripts/*.js'];
