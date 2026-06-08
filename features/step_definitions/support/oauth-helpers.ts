@@ -21,7 +21,7 @@ async function getAccessToken(
     );
   }
 
-  const data = await response.json();
+  const data: any = await response.json();
 
   return data.access_token;
 }
@@ -328,6 +328,6 @@ export async function fetchClientVoorAfnemer(afnemer: Afnemer): Promise<any> {
     );
   }
 
-  const clients = await response.json();
+  const clients: any = await response.json();
   return clients[0];
 }

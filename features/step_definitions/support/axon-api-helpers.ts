@@ -14,7 +14,7 @@ export async function getLastEventFrom(aggregateId: string): Promise<any> {
     },
   );
 
-  const data = await response.json();
+  const data: any = await response.json();
 
   const lastEvent = data[data.length - 1];
 
