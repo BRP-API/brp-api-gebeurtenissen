@@ -21,7 +21,7 @@ Functionaliteit: Bepaal gebeurtenissen bij wijzigingen identificatienummers en a
     - OF de persoonslijst wordt afgevoerd en een andere persoonslijst met hetzelfde A-nummer heeft een ander burgerservicenummer
 
   Ad B. persoonslijst is afgevoerd
-    Dit gaat over de situatie van onterecht opgevoerde persoonslijst (situatie 3. hierboven
+    Dit gaat over de situatie van onterecht opgevoerde persoonslijst (situatie 3. hierboven).
     Dit is het geval wanneer:
     - opschorting bijhouding met reden 'F' (fout) is gevuld
     - EN er bestaat geen andere persoonslijst met hetzelfde A-nummer
@@ -39,12 +39,9 @@ Functionaliteit: Bepaal gebeurtenissen bij wijzigingen identificatienummers en a
       * met 'A-nummer' is '9000000001'
       Als besluit wijziging BSN voor 'Jan' is verwerkt
       * met 'burgerservicenummer' is gewijzigd van '000000012' naar '000000024'
-      * met 'datum ingang geldigheid' van de wijziging is 'vandaag'
-      Dan is een 'burgerservicenummer.gewijzigd' gebeurtenis gepubliceerd met de volgende data
-        | categorie | element | omschrijving              | waarde    |
-        | c01       | e0120   | nieuw burgerservicenummer | 000000024 |
-        | c51       | e0120   | oud burgerservicenummer   | 000000012 |
-        | c01       | e8510   | datum ingang geldigheid   | vandaag   |
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                      | burgerservicenummer | nieuwBurgerservicenummer |
+        | nl.brp.burgerservicenummer.gewijzigd |           000000012 |                000000024 |
 
   Regel: Als volgend A-nummer op de persoonslijst wordt gevuld en de persoonslijst met dat volgende A-nummer heeft een ander burgerservicenummer, dan heeft de gebeurtenis 'burgerservicenummer.gewijzigd' plaatsgevonden
 
@@ -52,49 +49,39 @@ Functionaliteit: Bepaal gebeurtenissen bij wijzigingen identificatienummers en a
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000012'
       * met 'A-nummer' is '9000000001'
-      En de persoon 'Jan' is op een tweede persoonslijst geregistreerd in de BRP
+      En de persoon 'tweede persoonslijst van Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000024'
       * met 'A-nummer' is '9000000002'
-      Als de dubbelinschrijving met verschillende A-nummers is opgelost met de tweede persoonslijst voor 'Jan' als overbodige persoonslijst
-      * met 'Volgend A-nummer' is gewijzigd van '' naar '9000000001'
-      * met 'datum ingang geldigheid' van de wijziging is 'gisteren'
-      Dan is een 'burgerservicenummer.gewijzigd' gebeurtenis gepubliceerd met de volgende data
-        | categorie | element | omschrijving              | waarde     |
-        | c01       | e0110   | A-nummer                  | 9000000002 |
-        | c01       | e0120   | Nieuw burgerservicenummer |  000000012 |
-        | c51       | e0120   | Oud burgerservicenummer   |  000000024 |
-        | c01       | e8510   | Datum ingang geldigheid   | gisteren   |
+      Als de dubbelinschrijving met verschillende A-nummers is opgelost met 'tweede persoonslijst van Jan' als overbodige persoonslijst
+      * met 'Volgend A-nummer' is gevuld met '9000000001'
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                      | burgerservicenummer | nieuwBurgerservicenummer |
+        | nl.brp.burgerservicenummer.gewijzigd |           000000024 |                000000012 |
 
     Scenario: Bij het oplossen van dubbelinschrijving met verschillend A-nummer en zelfde burgerservicenummer wordt de A-nummer verwijzing opgenomen op de overbodige persoonslijst
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000012'
       * met 'A-nummer' is '9000000001'
-      En de persoon 'Jan' is op een tweede persoonslijst geregistreerd in de BRP
+      En de persoon 'tweede persoonslijst van Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000012'
       * met 'A-nummer' is '9000000002'
-      Als de dubbelinschrijving met verschillende A-nummers is opgelost met de tweede persoonslijst voor 'Jan' als overbodige persoonslijst
-      * met 'Volgend A-nummer' is gewijzigd van '' naar '9000000001'
-      * met 'datum ingang geldigheid' van de wijziging is 'gisteren'
+      Als de dubbelinschrijving met verschillende A-nummers is opgelost met 'tweede persoonslijst van Jan' als overbodige persoonslijst
+      * met 'Volgend A-nummer' is gevuld met '9000000001'
       Dan is er geen gebeurtenis gepubliceerd voor 'Jan'
 
     Scenario: Bij het oplossen van dubbelinschrijving met verschillend A-nummer en verschillend burgerservicenummer wordt de A-nummer verwijzing en afvoeren van de persoonslijst in één keer verwerkt
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000012'
       * met 'A-nummer' is '9000000001'
-      En de persoon 'Jan' is op een tweede persoonslijst geregistreerd in de BRP
+      En de persoon 'tweede persoonslijst van Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000024'
       * met 'A-nummer' is '9000000002'
-      Als de dubbelinschrijving met verschillende A-nummers is opgelost met de tweede persoonslijst voor 'Jan' als overbodige persoonslijst
-      * met 'Volgend A-nummer' is gewijzigd van '' naar '9000000001'
-      * met 'datum ingang geldigheid' van de wijziging is 'gisteren'
-      * met 'Reden opschorting bijhouding' is gewijzigd van '' naar 'F'
-      * met 'Datum opschorting bijhouding' van de wijziging is 'vandaag'
-      Dan is een 'burgerservicenummer.gewijzigd' gebeurtenis gepubliceerd met de volgende data
-        | categorie | element | omschrijving              | waarde     |
-        | c01       | e0110   | A-nummer                  | 9000000002 |
-        | c01       | e0120   | Nieuw burgerservicenummer |  000000012 |
-        | c01       | e8510   | Datum ingang geldigheid   | gisteren   |
-        | c51       | e0120   | Oud burgerservicenummer   |  000000024 |
+      Als de dubbelinschrijving met verschillende A-nummers is opgelost met 'tweede persoonslijst van Jan' als overbodige persoonslijst
+      * met 'Volgend A-nummer' is gevuld met '9000000001'
+      * met 'Reden opschorting bijhouding' is gevuld met 'F'
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                      | burgerservicenummer | nieuwBurgerservicenummer |
+        | nl.brp.burgerservicenummer.gewijzigd |           000000024 |                000000012 |
 
   Regel: Als de persoonslijst wordt afgevoerd en er is een andere persoonslijst met hetzelfde A-nummer en een ander burgerservicenummer, dan heeft de gebeurtenis 'burgerservicenummer.gewijzigd' plaatsgevonden
 
@@ -102,18 +89,14 @@ Functionaliteit: Bepaal gebeurtenissen bij wijzigingen identificatienummers en a
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000012'
       * met 'A-nummer' is '9000000001'
-      En de persoon 'Jan' is op een tweede persoonslijst geregistreerd in de BRP
+      En de persoon 'tweede persoonslijst van Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000024'
       * met 'A-nummer' is '9000000001'
-      Als de dubbelinschrijving met verschillende A-nummers is opgelost met de tweede persoonslijst voor 'Jan' als overbodige persoonslijst
-      * met 'Reden opschorting bijhouding' is gewijzigd van '' naar 'F'
-      * met 'Datum opschorting bijhouding' van de wijziging is 'vandaag'
-      Dan is een 'burgerservicenummer.gewijzigd' gebeurtenis gepubliceerd met de volgende data
-        | categorie | element | omschrijving              | waarde     |
-        | c01       | e0110   | A-nummer                  | 9000000001 |
-        | c01       | e0120   | Nieuw burgerservicenummer |  000000012 |
-        | c01       | e8510   | Datum ingang geldigheid   | vandaag    |
-        | c51       | e0120   | Oud burgerservicenummer   |  000000024 |
+      Als de dubbelinschrijving met verschillende A-nummers is opgelost met 'tweede persoonslijst van Jan' als overbodige persoonslijst
+      * met 'Reden opschorting bijhouding' is gevuld met 'F'
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                      | burgerservicenummer | nieuwBurgerservicenummer |
+        | nl.brp.burgerservicenummer.gewijzigd |           000000024 |                000000012 |
 
   Regel: Als de persoonslijst wordt afgevoerd en er is geen andere persoonslijst voor dezelfde persoon, dan heeft de gebeurtenis 'persoonslijst.afgevoerd' plaatsgevonden
     Dit is het geval wanneer aan elk van de volgende condities wordt voldaan:
@@ -127,23 +110,18 @@ Functionaliteit: Bepaal gebeurtenissen bij wijzigingen identificatienummers en a
       * met 'burgerservicenummer' is '000000012'
       * met 'A-nummer' is '9000000001'
       Als de ten onrechte opgenomen persoonslijst voor 'Jan' is afgevoerd
-      * met 'Reden opschorting bijhouding' is gewijzigd van '' naar 'F'
-      * met 'Datum opschorting bijhouding' is gewijzigd van '' naar 'vandaag'
-      Dan is een 'persoonslijst.afgevoerd' gebeurtenis gepubliceerd met de volgende data
-        | categorie | element | omschrijving                 | waarde     |
-        | c01       | e0110   | A-nummer                     | 9000000001 |
-        | c01       | e0120   | Burgerservicenummer          |  000000012 |
-        | c07       | e6710   | Datum opschorting bijhouding | vandaag    |
+      * met 'Reden opschorting bijhouding' is gevuld met 'F'
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                | burgerservicenummer |
+        | nl.brp.persoonslijst.afgevoerd |           000000012 |
 
     Scenario: Een opgeschorte persoonslijst is afgevoerd
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000012'
       * met 'A-nummer' is '9000000001'
+      En 'Jan' is 2 jaar geleden geëmigreerd naar Duitsland
       Als de ten onrechte opgenomen persoonslijst voor 'Jan' is afgevoerd
       * met 'Reden opschorting bijhouding' is gewijzigd van 'E' naar 'F'
-      * met 'Datum opschorting bijhouding' is gewijzigd van 'vorig jaar naar 'vandaag'
-      Dan is een 'persoonslijst.afgevoerd' gebeurtenis gepubliceerd met de volgende data
-        | categorie | element | omschrijving                 | waarde     |
-        | c01       | e0110   | A-nummer                     | 9000000001 |
-        | c01       | e0120   | Burgerservicenummer          |  000000012 |
-        | c07       | e6710   | Datum opschorting bijhouding | vandaag    |
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                | burgerservicenummer |
+        | nl.brp.persoonslijst.afgevoerd |           000000012 |
