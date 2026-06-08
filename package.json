@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint"
   },
   "repository": {
     "type": "git",
@@ -30,6 +37,12 @@
     "dotenv": "^17.4.2",
     "pg": "^8.20.0",
     "ts-node": "^10.9.2",
-    "winston": "^3.19.0"
+    "winston": "^3.19.0",
+    "gts": "^7.0.0",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.7.5"
+  },
+  "dependencies": {
+    "gts": "^7.0.0"
   }
 }
