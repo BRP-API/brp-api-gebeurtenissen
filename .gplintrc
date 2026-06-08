@@ -1,0 +1,64 @@
+{
+  "allow-all-caps": [
+    "error",
+    {
+      "Global": false,
+      "Description": false,
+      "ExampleHeader": true,
+      "ExampleBody": true
+    }
+  ],
+  "allow-all-lowercase": [
+    "error",
+    {
+      "Global": false,
+      "Description": true,
+      "Step": true,
+      "ExampleHeader": true,
+      "ExampleBody": true
+    }
+  ],
+  "file-name": [
+    "warn",
+    {
+      "style": "kebab-case",
+      "allowAcronyms": true
+    }
+  ],
+  "keywords-in-logical-order": [
+    "error",
+    {
+      "detectMissingKeywords": false
+    }
+  ],
+  "no-superfluous-tags": "warn",
+  "no-unnamed-features": "error",
+  "no-unnamed-scenarios": "error",
+  "no-unused-variables": "warn",
+  "indentation": [
+    "error",
+    {
+      "Feature": 0,
+      "Background": 2,
+      "Scenario": 2,
+      "Step": 4,
+      "Examples": 4,
+      "example": 6,
+      "given": 4,
+      "when": 4,
+      "then": 4,
+      "and": 4,
+      "but": 4,
+      "feature tag": 0,
+      "scenario tag": 2,
+      "examples tag": 2
+    }
+  ],
+  "table-align": [
+    "error",
+    {
+      "steps": true,
+      "examples": true
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 # language: nl
-Functionaliteit: 'verhuisd.intergemeentelijk' gebeurtenis
+Functionaliteit: Test 'verhuisd.intergemeentelijk' gebeurtenis
 
-Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd.intergemeentelijk' gebeurtenis plaatsgevonden. 
+Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd.intergemeentelijk' gebeurtenis plaatsgevonden.
   De gebeurtenis 'verhuisd.intergemeentelijk' betekent dat de persoon is verhuisd van een Nederlandse gemeente naar een andere Nederlandse gemeente.
 
   Achtergrond:
@@ -46,7 +46,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       * verblijft vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
       * schrijft zich in vanaf '1-9-2025' in op het briefadres 'Stadserf_1_Roosendaal'
-      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd     
+      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
 
     Scenario: De persoon heeft aangifte van adreswijziging gedaan van een briefadres naar een woonadres in een andere gemeente
       Gegeven de persoon 'Cees'
@@ -64,7 +64,7 @@ Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd
       Als de intergemeentelijke infrastructurele wijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2025' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Enschede'
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
- 
+
   Regel: Wanneer bij aangifte van een adreswijziging geen (correct) BAG adresseerbaar object is geregistreerd, is er geen gebeurtenis 'verhuisd.intergemeentelijk'
 
     Scenario: De persoon verhuist naar een adres met locatiebeschrijving
