@@ -1,17 +1,23 @@
 {
-  "allow-all-caps": ["error", {
-    "Global": false,
-    "Description": false,
-    "ExampleHeader": true,
-    "ExampleBody": true
-  }],
-  "allow-all-lowercase": ["error", {
-    "Global": false,
-    "Description": true,
-    "Step": true,
-    "ExampleHeader": true,
-    "ExampleBody": true
-  }],
+  "allow-all-caps": [
+    "error",
+    {
+      "Global": false,
+      "Description": false,
+      "ExampleHeader": true,
+      "ExampleBody": true
+    }
+  ],
+  "allow-all-lowercase": [
+    "error",
+    {
+      "Global": false,
+      "Description": true,
+      "Step": true,
+      "ExampleHeader": true,
+      "ExampleBody": true
+    }
+  ],
   "file-name": [
     "warn",
     {
@@ -19,7 +25,12 @@
       "allowAcronyms": true
     }
   ],
-  "keywords-in-logical-order": ["error", {"detectMissingKeywords":false}],
+  "keywords-in-logical-order": [
+    "error",
+    {
+      "detectMissingKeywords": false
+    }
+  ],
   "no-superfluous-tags": "warn",
   "no-unnamed-features": "error",
   "no-unnamed-scenarios": "error",
@@ -41,6 +52,13 @@
       "feature tag": 0,
       "scenario tag": 2,
       "examples tag": 2
+    }
+  ],
+  "table-align": [
+    "error",
+    {
+      "steps": true,
+      "examples": true
     }
   ]
 }
