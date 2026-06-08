@@ -32,22 +32,22 @@ Functionaliteit: Registreer een abonnee
     - bevat minimaal 2 en maximaal 64 tekens
     - begint en eindigt niet met een koppelteken (-)
 
-    Abstract Scenario: <titel>
+    Abstract Scenario: De <titel>
       Als de afnemer 'Gemeente Amsterdam' de abonnee '<abonneeNaam>' registreert
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Abonneenaam ongeldig'
 
       Voorbeelden:
-        | titel                                              | abonneeNaam                                                       |
-        | De abonneenaam is te kort                          | a                                                                 |
-        | De abonneenaam is te lang (65 tekens)              | abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijk |
-        | De abonneenaam bevat hoofdletters                  | JZ                                                                |
-        | De abonneenaam bevat een koppelteken aan het begin | -jz                                                               |
-        | De abonneenaam bevat een koppelteken aan het einde | jz-                                                               |
-        | De abonneenaam bevat dubbele koppeltekens          | j--z                                                              |
-        | De abonneenaam bevat een ongeldig teken            | j_z                                                               |
-        | De abonneenaam is leeg                             |                                                                   |
-        | De abonneenaam bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
+        | titel                                           | abonneeNaam                                                       |
+        | abonneenaam is te kort                          | a                                                                 |
+        | abonneenaam is te lang (65 tekens)              | abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijk |
+        | abonneenaam bevat hoofdletters                  | JZ                                                                |
+        | abonneenaam bevat een koppelteken aan het begin | -jz                                                               |
+        | abonneenaam bevat een koppelteken aan het einde | jz-                                                               |
+        | abonneenaam bevat dubbele koppeltekens          | j--z                                                              |
+        | abonneenaam bevat een ongeldig teken            | j_z                                                               |
+        | abonneenaam is leeg                             |                                                                   |
+        | abonneenaam bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
 
   Regel: De abonneenaam is uniek binnen de context van een afnemer
 

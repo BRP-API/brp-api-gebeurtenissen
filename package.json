@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "gts lint",
+    "gherkin-lint": "gplint features",
     "clean": "gts clean",
     "fix": "gts fix"
   },
@@ -26,17 +27,18 @@
     "@redocly/cli": "^2.30.2",
     "@types/chai": "^5.2.3",
     "@types/deep-equal-in-any-order": "^1.0.4",
+    "@types/node": "^22.7.5",
     "@types/pg": "^8.20.0",
     "axios": "^1.15.2",
     "chai": "^6.2.2",
     "deep-equal-in-any-order": "^2.2.0",
     "dotenv": "^17.4.2",
+    "gplint": "^2.5.2",
+    "gts": "^7.0.0",
     "pg": "^8.20.0",
     "ts-node": "^10.9.2",
-    "winston": "^3.19.0",
-    "gts": "^7.0.0",
     "typescript": "^5.6.3",
-    "@types/node": "^22.7.5"
+    "winston": "^3.19.0"
   },
   "dependencies": {
     "gts": "^7.0.0"

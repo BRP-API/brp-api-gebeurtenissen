@@ -1,5 +1,5 @@
 # language: nl
-Functionaliteit: gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een aangifte van adreswijziging naar een andere gemeente
+Functionaliteit: Gepubliceerde gebeurtenis 'verhuisd.intergemeentelijk' bij een aangifte van adreswijziging naar een andere gemeente
   Als afdeling WGS Vroegsignalering van de gemeente wil ik het weten wanneer mijn client is verhuisd van mijn eigen gemeente naar een andere gemeente,
   zodat ik het dossier kan overdragen aan de nieuwe gemeente en het dossier kan sluiten.
 

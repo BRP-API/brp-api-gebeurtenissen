@@ -1,7 +1,7 @@
 # language: nl
 
 @stap-documentatie @mutatie-service
-Functionaliteit: als stap definities
+Functionaliteit: Als stap definities
 
   Scenario: Als aangifte van adreswijziging van '[persoon indicatie]' is verwerkt
     Gegeven het adres 'A1'

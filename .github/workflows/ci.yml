@@ -43,8 +43,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint project
+      - name: Lint step definitions
         run: npm run lint
+
+      - name: Lint feature files
+        run: npm run gherkin-lint
 
       - name: Zet run permissions op script folder
         uses: ./.github/actions/zet-run-bash-scripts-permission
