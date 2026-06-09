@@ -23,7 +23,7 @@ Functionaliteit: Registreer een abonnee
   Regel: Opgeven van een abonneeNaam is verplicht
 
     Scenario: Afnemer probeert een abonnee te registreren zonder een naam op te geven
-      Als de afnemer 'Gemeente Amsterdam' een abonnee registreert zonder abonneeNaam
+      Als de afnemer 'Gemeente Amsterdam' een abonnee registreert zonder een naam voor de abonnee op te geven
       Dan is de response '400 Bad Request'
 
   Regel: Een geldige abonneenaam voldoet aan de volgende criteria:
