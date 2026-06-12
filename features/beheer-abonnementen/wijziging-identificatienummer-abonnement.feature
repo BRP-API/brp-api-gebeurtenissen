@@ -21,9 +21,8 @@ Functionaliteit: Vraag abonnementen wanneer een of de identificatienummer(s) van
       En het burgerservicenummer van 'Piet' is gewijzigd van '000000012' naar '000000036'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groep  |
-        |           000000012 | client |
-        |           000000024 | client |
+        | burgerservicenummer | groep  | vorigBurgerservicenummer |
+        |           000000024 | client |                000000012 |
 
     Scenario: Dubbelinschrijving met verschillende A-nummers en verschillende burgerservicenummers is opgelost en er was een abonnement op de overbodig geworden persoonslijst
       Gegeven de persoon 'tweede persoonslijst van Jan' is geregistreerd in de BRP
@@ -33,25 +32,23 @@ Functionaliteit: Vraag abonnementen wanneer een of de identificatienummer(s) van
       * met 'Volgend A-nummer' is gevuld met '9000000002'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groep  |
-        |           000000012 | client |
-        |           000000024 | client |
+        | burgerservicenummer | groep  | vorigBurgerservicenummer |
+        |           000000024 | client |                000000012 |
 
     Scenario: Dubbelinschrijving met hetzelfde A-nummer en verschillende burgerservicenummers is opgelost en er was een abonnement op de overbodig geworden persoonslijst
       Gegeven de persoon 'tweede persoonslijst van Jan' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000024'
-      * met 'A-nummer' is '9000000002'
+      * met 'A-nummer' is '9000000001'
       En de dubbelinschrijving met hetzelfde A-nummer is opgelost met 'Jan' als overbodige persoonslijst
       * met 'Reden opschorting bijhouding' is gevuld met 'F'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groep  |
-        |           000000012 | client |
-        |           000000024 | client |
+        | burgerservicenummer | groep  | vorigBurgerservicenummer |
+        |           000000024 | client |                000000012 |
 
   Regel: Na een A-nummerwijziging behouden de abonnees hun abonnement op deze persoon
 
-    Scenario: Het A-nummer van een persoon is gewijzigd
+    Scenario: Het A-nummer van een persoon is gewijzigd, omdat twee verschillende personen hetzelfde A-nummer hadden
       Gegeven de persoon 'Piet' is geregistreerd in de BRP
       * met 'burgerservicenummer' is '000000024'
       * met 'A-nummer' is '9000000001'
