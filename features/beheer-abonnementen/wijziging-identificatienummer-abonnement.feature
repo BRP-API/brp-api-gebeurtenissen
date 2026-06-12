@@ -71,3 +71,22 @@ Functionaliteit: Vraag abonnementen wanneer een of de identificatienummer(s) van
       Dan worden volgende abonnementen geleverd
         | burgerservicenummer | groep  |
         |           000000012 | client |
+
+  Regel: Na een burgerservicenummerwijziging kan het abonnement alleen worden beëindigd met het nieuwe burgerservicenummer
+
+    Scenario: Het burgerservicenummer van de persoon is gewijzigd en daarna beëindigt de abonnee het abonnement met het nieuwe burgerservicenummer
+      Gegeven het burgerservicenummer van 'Jan' is gewijzigd van '000000012' naar '000000024'
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon met burgerservicenummer '000000024' voor de groep 'client' opzegt
+      Dan is de response '204 No Content'
+
+    Scenario: Het burgerservicenummer van de persoon is gewijzigd en daarna wil de abonnee het abonnement beëindigen met het oude burgerservicenummer
+      Gegeven het burgerservicenummer van 'Jan' is gewijzigd van '000000012' naar '000000024'
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon met burgerservicenummer '000000012' voor de groep 'client' opzegt
+      Dan is de response '409 Conflict' met de volgende velden
+      * 'title' met tekst 'Abonnement bestaat niet'
+
+    Scenario: Het burgerservicenummer van de persoon is gewijzigd en na het beëindigen van het abonnement vraagt de abonnee de abonnementen op
+      Gegeven het burgerservicenummer van 'Jan' is gewijzigd van '000000012' naar '000000024'
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon met burgerservicenummer '000000024' voor de groep 'client' opzegt
+      En abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
+      Dan wordt er geen abonnement geleverd
