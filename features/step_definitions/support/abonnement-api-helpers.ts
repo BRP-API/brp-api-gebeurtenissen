@@ -87,7 +87,7 @@ export async function raadpleegAbonneesVoorAfnemer(afnemer: Afnemer): Promise<an
 export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: string, groepNaam?: string): Promise<any> {
     const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    let requestBody = groepNaam ? { groep: groepNaam } : {};
+    let requestBody = groepNaam ? { naam: groepNaam } : {};
 
     const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`, {
         method: 'POST',
