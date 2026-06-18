@@ -116,7 +116,7 @@ export async function voegGroepToeBijAbonnee(
 ): Promise<any> {
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-  const requestBody = groepNaam ? {groep: groepNaam} : {};
+  const requestBody = groepNaam ? { naam: groepNaam } : {};
 
   const response = await fetch(
     `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`,
