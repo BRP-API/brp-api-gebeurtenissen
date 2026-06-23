@@ -1,10 +1,10 @@
 import {Then} from '@cucumber/cucumber';
-import {CloudEvent} from './support/cloud-events';
-import {setNestedProperty} from './support/object-utils';
-import {Aanduiding} from './support/aanduiding';
-import {VerhuisdIntergemeentelijkEvent} from './brp/verhuisd-intergemeentelijk-event';
-import {AangifteVanAdreswijzigingCommand} from './brp-api/commands';
-import {Persoon} from './brp/persoon-entity';
+import {CloudEvent} from './support/cloud-events.js';
+import {setNestedProperty} from './support/object-utils.js';
+import {Aanduiding} from './support/aanduiding.js';
+import {VerhuisdIntergemeentelijkEvent} from './brp/verhuisd-intergemeentelijk-event.js';
+import {AangifteVanAdreswijzigingCommand} from './brp-api/commands.js';
+import {Persoon} from './brp/persoon-entity.js';
 import {logger} from './support/logger';
 
 Then('zijn er geen gebeurtenissen gepubliceerd', () => {});

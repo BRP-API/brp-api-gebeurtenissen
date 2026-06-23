@@ -1,7 +1,7 @@
 import {setWorldConstructor, World, IWorldOptions} from '@cucumber/cucumber';
 import {Pickle} from '@cucumber/messages';
-import {setupLogger} from './logger';
-import {Aanduiding} from './aanduiding';
+import {setupLogger} from './logger.js';
+import {Aanduiding} from './aanduiding.js';
 
 export interface ICustomWorld extends World {
   tags: string[];

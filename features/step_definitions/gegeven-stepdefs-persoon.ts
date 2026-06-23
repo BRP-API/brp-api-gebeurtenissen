@@ -1,7 +1,7 @@
 import {Given} from '@cucumber/cucumber';
-import {Persoon} from './brp/persoon-entity';
-import {Aanduiding} from './support/aanduiding';
-import {PersoonFactory} from './support/persoon-factory';
+import {Persoon} from './brp/persoon-entity.js';
+import {Aanduiding} from './support/aanduiding.js';
+import {PersoonFactory} from './support/persoon-factory.js';
 
 Given('de persoon {string}', function (persoonAanduiding: string) {
   if (!this.context.personen) {

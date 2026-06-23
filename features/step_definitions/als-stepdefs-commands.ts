@@ -1,6 +1,6 @@
 import {When} from '@cucumber/cucumber';
-import {Aanduiding} from './support/aanduiding';
-import {AangifteVanAdreswijzigingCommand} from './brp-api/commands';
+import {Aanduiding} from './support/aanduiding.js';
+import {AangifteVanAdreswijzigingCommand} from './brp-api/commands.js';
 
 When(
   'de aangifte van adreswijziging van {string} is verwerkt',

@@ -1,5 +1,5 @@
 import {Command} from '../brp-api/commands';
-import {logger} from './logger';
+import {logger} from './logger.js';
 
 export async function sendCommand(command: Command): Promise<Response> {
   const response = await fetch(

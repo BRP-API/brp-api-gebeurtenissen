@@ -1,6 +1,6 @@
 import {Adres} from '../brp/adres-entity';
-import {Afnemer} from '../brp/afnemer-entity';
-import {Persoon} from '../brp/persoon-entity';
+import {Afnemer} from '../brp/afnemer-entity.js';
+import {Persoon} from '../brp/persoon-entity.js';
 
 export class SqlStatement {
   statementText: string;

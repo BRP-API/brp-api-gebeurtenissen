@@ -1,6 +1,6 @@
 import {Then, defineParameterType} from '@cucumber/cucumber';
-import {ProblemDetails} from './support/problem-details';
-import {createObjectArrayFrom} from './support/dataTable2Object';
+import {ProblemDetails} from './support/problem-details.js';
+import {createObjectArrayFrom} from './support/dataTable2Object.js';
 import {expect} from 'chai';
 
 Then(
