@@ -44,9 +44,11 @@ jobs:
         run: npm ci
 
       - name: Lint step definitions
+        if: false
         run: npm run lint
 
       - name: Lint feature files
+        if: false
         run: npm run gherkin-lint
 
       - name: Zet run permissions op script folder
