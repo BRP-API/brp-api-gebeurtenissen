@@ -53,12 +53,5 @@
       "scenario tag": 2,
       "examples tag": 2
     }
-  ],
-  "table-align": [
-    "error",
-    {
-      "steps": true,
-      "examples": true
-    }
   ]
 }
