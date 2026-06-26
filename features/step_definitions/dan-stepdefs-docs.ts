@@ -4,14 +4,14 @@ import {
   createInsertStatements,
   createLo3AdresInsertStatement,
   SqlStatement,
-} from './support/sql-statements-factory';
-import {createObjectFrom} from './support/dataTable2Object';
+} from './support/sql-statements-factory.js';
+import {createObjectFrom} from './support/dataTable2Object.js';
 import {
   fetchClientVoorAfnemer,
   generateClientJSON,
   generateClientScopeJSON,
   generateProtocollMapperJSON,
-} from './support/oauth-helpers';
+} from './support/oauth-helpers.js';
 
 Then(
   'heeft het adres {string} geen eigenschappen',

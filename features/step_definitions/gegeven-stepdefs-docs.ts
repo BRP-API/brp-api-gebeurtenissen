@@ -1,5 +1,5 @@
 import {Given} from '@cucumber/cucumber';
-import {ProblemDetails} from './support/problem-details';
+import {ProblemDetails} from './support/problem-details.js';
 
 Given('heeft id {string}', function (id: string) {
   if (this.huidigAanduiding?.isAdres) {

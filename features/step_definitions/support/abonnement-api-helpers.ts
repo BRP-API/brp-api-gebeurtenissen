@@ -1,7 +1,7 @@
-import {Afnemer} from '../brp/afnemer-entity';
-import {Persoon} from '../brp/persoon-entity';
-import {logger} from './logger';
-import {getClientAccessToken} from './oauth-helpers';
+import {Afnemer} from '../brp/afnemer-entity.js';
+import {Persoon} from '../brp/persoon-entity.js';
+import {logger} from './logger.js';
+import {getClientAccessToken} from './oauth-helpers.js';
 
 async function parseResponseBody(response: Response): Promise<any> {
   const responseText = await response.text();

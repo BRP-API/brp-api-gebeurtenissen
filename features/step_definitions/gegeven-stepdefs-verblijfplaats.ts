@@ -1,7 +1,7 @@
 import {Given} from '@cucumber/cucumber';
-import {toIsoDate} from './support/date-utils';
-import {Adres} from './brp/adres-entity';
-import {AdresBuitenland} from './brp/adres-buitenland-entity';
+import {toIsoDate} from './support/date-utils.js';
+import {Adres} from './brp/adres-entity.js';
+import {AdresBuitenland} from './brp/adres-buitenland-entity.js';
 
 function handleVerhuizing(persoon: any, adres: any, datum: string) {
   if (adres instanceof Adres) {

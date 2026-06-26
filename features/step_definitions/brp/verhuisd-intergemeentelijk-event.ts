@@ -1,6 +1,6 @@
-import {Adres} from './adres-entity';
-import {Persoon} from './persoon-entity';
-import {toBrpApiDatum} from '../support/date-utils';
+import {Adres} from './adres-entity.js';
+import {Persoon} from './persoon-entity.js';
+import {toBrpApiDatum} from '../support/date-utils.js';
 
 class VerhuisdIntergemeentelijkAdresData {
   adresseerbaarObjectIdentificatie?: string;
