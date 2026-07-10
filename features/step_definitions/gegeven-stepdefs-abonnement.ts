@@ -1,5 +1,5 @@
-import { Given } from '@cucumber/cucumber';
-import { AfnemerFactory } from './support/afnemer-factory';
+import {Given} from '@cucumber/cucumber';
+import {AfnemerFactory} from './support/afnemer-factory';
 import {
   abonneerOpGebeurtenistypeVanPersoon,
   deregistreerAbonneeVoorAfnemer,
@@ -14,8 +14,8 @@ import {
   createObjectArrayFrom,
   createObjectFrom,
 } from './support/dataTable2Object';
-import { expect } from 'chai';
-import { HttpStatusCode } from 'axios';
+import {expect} from 'chai';
+import {HttpStatusCode} from 'axios';
 
 Given(
   'de afnemer {string} heeft de abonnee {string} geregistreerd',
@@ -197,9 +197,9 @@ Given(
   },
 );
 
-Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', () => { });
+Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
 
-Given('is geregistreerd als abonnee van BRP API Gebeurtenissen', () => { });
+Given('is geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
 
 Given(
   'er is een {string} gebeurtenis gepubliceerd met de volgende velden',

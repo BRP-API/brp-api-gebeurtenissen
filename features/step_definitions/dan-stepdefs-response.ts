@@ -23,16 +23,13 @@ Then(
   },
 );
 
-Then(
-  '{string} met tekst {string}',
-  function (veld: string, waarde: string) {
-    this.expected[veld] = waarde;
-    expect(this.result[veld]).to.equal(
-      this.expected[veld],
-      `${veld} is niet correct`,
-    );
-  },
-);
+Then('{string} met tekst {string}', function (veld: string, waarde: string) {
+  this.expected[veld] = waarde;
+  expect(this.result[veld]).to.equal(
+    this.expected[veld],
+    `${veld} is niet correct`,
+  );
+});
 
 defineParameterType({
   name: 'objectNaam',
