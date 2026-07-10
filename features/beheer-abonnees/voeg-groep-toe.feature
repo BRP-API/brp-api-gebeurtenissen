@@ -28,27 +28,27 @@ Functionaliteit: Voeg groep toe aan abonnee
     - bevat minimaal 2 en maximaal 64 tekens
     - begint en eindigt niet met een koppelteken (-)
 
-    Abstract Scenario: <titel>
+    Abstract Scenario: De groepnaam <titel>
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep '<naam van de groep>' toevoegt
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Naam ongeldig'
 
       Voorbeelden:
-        | titel                                            | naam van de groep                                                 |
-        | De groepnaam is te kort                          | a                                                                 |
-        | De groepnaam is te lang (65 tekens)              | abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijk |
-        | De groepnaam bevat hoofdletters                  | JZ                                                                |
-        | De groepnaam bevat een koppelteken aan het begin | -jz                                                               |
-        | De groepnaam bevat een koppelteken aan het einde | jz-                                                               |
-        | De groepnaam bevat dubbele koppeltekens          | j--z                                                              |
-        | De groepnaam bevat een ongeldig teken            | j_z                                                               |
-        | De groepnaam is leeg                             |                                                                   |
-        | De groepnaam bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
+        | titel                               | naam van de groep                                                 |
+        | is te kort                          | a                                                                 |
+        | is te lang (65 tekens)              | abcdefghijklmnopqrstuvwxyz-abcdefghijklmnopqrstuvwxyz-abcdefghijk |
+        | bevat hoofdletters                  | JZ                                                                |
+        | bevat een koppelteken aan het begin | -jz                                                               |
+        | bevat een koppelteken aan het einde | jz-                                                               |
+        | bevat dubbele koppeltekens          | j--z                                                              |
+        | bevat een ongeldig teken            | j_z                                                               |
+        | is leeg                             |                                                                   |
+        | bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
 
   Regel: De naam van de groep is uniek binnen de context van een abonnee
 
-    Scenario: de groep bestaat al bij de abonnee
+    Scenario: De groep bestaat al bij de abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' toevoegt
