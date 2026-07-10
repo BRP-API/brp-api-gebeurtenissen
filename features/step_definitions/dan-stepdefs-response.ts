@@ -11,10 +11,16 @@ Then(
       ProblemDetails.getStatusCode(status),
     );
     if (!ProblemDetails.isSuccessFull(this.responseStatusCode)) {
-      expect(this.result.status).to.equal(this.expected.status, 'http statuscode is niet correct');
-      expect(this.result.type).to.equal(this.expected.type, 'type is niet correct');
+      expect(this.result.status).to.equal(
+        this.expected.status, 
+        'http statuscode is niet correct'
+      );
+      expect(this.result.type).to.equal(
+        this.expected.type, 
+        'type is niet correct'
+      );
     }
-  },
+  }
 );
 
 Then('{string} met tekst {string}', function (veld: string, waarde: string) {
@@ -33,6 +39,9 @@ Then(
     this.expected = {
       [objectNaam]: createObjectArrayFrom(dataTable),
     };
-    expect(this.result[objectNaam]).to.deep.equal(this.expected[objectNaam], `${objectNaam} is niet correct`);
-  },
+    expect(this.result[objectNaam]).to.deep.equal(
+      this.expected[objectNaam], 
+      `${objectNaam} is niet correct`
+    );
+  }
 );

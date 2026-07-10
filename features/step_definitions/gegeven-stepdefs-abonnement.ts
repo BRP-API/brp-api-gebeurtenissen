@@ -1,5 +1,5 @@
-import {Given} from '@cucumber/cucumber';
-import {AfnemerFactory} from './support/afnemer-factory';
+import { Given } from '@cucumber/cucumber';
+import { AfnemerFactory } from './support/afnemer-factory';
 import {
   abonneerOpGebeurtenistypeVanPersoon,
   deregistreerAbonneeVoorAfnemer,
@@ -14,8 +14,8 @@ import {
   createObjectArrayFrom,
   createObjectFrom,
 } from './support/dataTable2Object';
-import {expect} from 'chai';
-import {HttpStatusCode} from 'axios';
+import { expect } from 'chai';
+import { HttpStatusCode } from 'axios';
 
 Given(
   'de afnemer {string} heeft de abonnee {string} geregistreerd',
@@ -26,8 +26,11 @@ Given(
     );
 
     this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
-  },
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct'
+    );
+  }
 );
 
 Given(
@@ -39,8 +42,11 @@ Given(
     );
 
     this.result = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent, 'http statuscode is niet correct');
-  },
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.NoContent,
+      'http statuscode is niet correct'
+    );
+  }
 );
 
 Given(
@@ -56,8 +62,11 @@ Given(
     );
 
     this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
-    expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
-},
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created, 
+      'http statuscode is niet correct'
+    );
+  }
 );
 
 Given(
@@ -73,8 +82,11 @@ Given(
     );
 
     this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
-    expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
-},
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created, 
+      'http statuscode is niet correct'
+    );
+  }
 );
 
 Given(
@@ -94,8 +106,11 @@ Given(
       abonneeNaam,
       groepNaam,
     );
-    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent, 'http statuscode is niet correct');
-  },
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.NoContent, 
+      'http statuscode is niet correct'
+    );
+  }
 );
 
 Given(
@@ -117,9 +132,11 @@ Given(
       groepNaam,
       gebeurtenistype,
     );
-    expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
-
-  },
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created, 
+      'http statuscode is niet correct'
+    );
+  }
 );
 
 Given(
@@ -146,9 +163,12 @@ Given(
         groepNaam,
         gebeurtenistype,
       );
-      expect(this.result.statusCode).to.equal(HttpStatusCode.Created, 'http statuscode is niet correct');
+      expect(this.result.statusCode).to.equal(
+        HttpStatusCode.Created, 
+        'http statuscode is niet correct'
+      );
     });
-  },
+  }
 );
 
 Given(
@@ -170,13 +190,16 @@ Given(
       groepNaam,
       gebeurtenistype,
     );
-    expect(this.result.statusCode).to.equal(HttpStatusCode.NoContent, 'http statuscode is niet correct');
-  },
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.NoContent, 
+      'http statuscode is niet correct'
+    );
+  }
 );
 
-Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
+Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', () => { });
 
-Given('is geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
+Given('is geregistreerd als abonnee van BRP API Gebeurtenissen', () => { });
 
 Given(
   'er is een {string} gebeurtenis gepubliceerd met de volgende velden',
