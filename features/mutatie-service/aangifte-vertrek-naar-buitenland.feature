@@ -28,7 +28,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
         | burgerservicenummer     | Jan        |
         | verblijfplaats.datumVan | 2026-02-10 |
 
-  Regel: Wanneer een aangifte van adreswijziging is verwerkt, worden de gewijzigde gegevens geleverd bij opvragen van betreffende de persoonsgegevens
+  Regel: Wanneer een aangifte van vertrek naar buitenland is verwerkt, worden de gewijzigde gegevens geleverd bij opvragen van betreffende de persoonsgegevens
     - gemeente van inschrijving en datum inschrijving in gemeente worden overgenomen van het vorige adres
     - de datum vertrek en de gegevens van het buitenlandse adres worden overgenomen van de aangifte
     - reden opschorting bijhouding is emigratie
