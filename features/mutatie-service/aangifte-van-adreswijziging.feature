@@ -17,12 +17,12 @@ Functionaliteit: Wijzigen van het adres binnen Nederland
     * met huisnummer '1'
     * met postcode '4701NK'
     En de persoon 'Jan' is geregistreerd in de BRP
-    * verblijft sinds 1-9-2025 op adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+    * verblijft vanaf '1-9-2025' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
 
   Regel: Als een aangifte adreswijziging is gedaan naar een andere Nederlandse gemeente dan waar de persoon nu verblijft, dan heeft de gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
 
     Scenario: Aangifte van adreswijziging naar een briefadres in andere gemeente in Nederland
-      Gegeven de abonnee 'jz' van afnemer 'Gemeente Hengelo' heeft een abonnement op nl.brp.verhuisd.intergemeentelijk gebeurtenissen van 'Jan'
+      Gegeven de abonnee 'jz' van afnemer 'Gemeente Hengelo' heeft een abonnement op 'nl.brp.verhuisd.intergemeentelijk' gebeurtenissen van 'Jan'
       En de aangifte van adreswijziging van 'Jan' is verwerkt
       * heeft vanaf '10-2-2026' het briefadres 'Stadserf_1_Roosendaal'
       Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Hengelo'
