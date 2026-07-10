@@ -10,46 +10,70 @@ Functionaliteit: Aangifte van overlijden
   Regel: Als een aangifte van overlijden is gedaan, dan heeft de gebeurtenis 'overleden' plaatsgevonden
 
     Scenario: Aangifte van overlijden
-      Als de aangifte van overlijden van 'Jan' is verwerkt met de volgende gegevens
+      Gegeven de abonnee 'jz' van afnemer 'Gemeente Hengelo' heeft een abonnement op nl.brp.overleden gebeurtenissen van 'Jan'
+      En de aangifte van overlijden van 'Jan' is verwerkt met de volgende gegevens
         | naam            | waarde     |
         | datumOverlijden | 2026-02-10 |
         | plaats          |       1911 |
         | landCode        |       6030 |
-      Dan is een 'overleden' gebeurtenis gepubliceerd met de volgende data
-      * het A-nummer van 'Jan'
-      * de datum overlijden van de opgave van overlijden van 'Jan'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Hengelo'
+      Dan wordt een gebeurtenis 'nl.brp.overleden' met de volgende gegevens geleverd
+        | naam                | waarde     |
+        | burgerservicenummer | Jan        |
+        | overlijden.datum    | 2026-02-10 |
 
-  Regel: Wanneer een aangifte van overlijden is verwerkt, is de wijziging opgeslagen in categorie Overlijden van de BRP-V
-
-    Scenario: Aangifte van overlijden
-      Als de aangifte van overlijden van 'Jan' is verwerkt met de volgende gegevens
-        | naam            | waarde     |
-        | datumOverlijden | 2026-02-10 |
-        | plaats          |       1911 |
-        | landCode        |       6030 |
-      Dan is een 'lo3_pl_overlijden' rij toegevoegd
-        | pl_id | volg_nr | datum overlijden (08.10) | plaats overlijden (08.20) | land overlijden (08.30) | ingangsdatum geldigheid (85.10) |
-        | Jan   |       0 |                 20260210 |                      1911 |                    6030 |                        20260210 |
-
-  Regel: Wanneer een aangifte van overlijden is verwerkt en opschorting bijhouding is nu leeg is, wordt Opschorting bijhouding opgeslagen in categorie Inschrijving van de BRP-V waarbij
+  Regel: Wanneer een aangifte van overlijden is verwerkt, worden de gewijzigde gegevens geleverd bij opvragen van betreffende de persoonsgegevens
+    - de datum, plaats en land worden overgenomen van de aangifte
     - reden opschorting bijhouding is overlijden
-    - datum opschorting bijhouding is gelijk aan de datum overlijden
-    - overige gegevens van de inschrijving blijven ongewijzigd
+    - datum opschorting bijhouding is gelijk aan de datum overlijden van de aangifte
 
     Scenario: Aangifte van overlijden
-      Als de aangifte van overlijden van 'Jan' is verwerkt met de volgende gegevens
+      Gegeven de aangifte van overlijden van 'Jan' is verwerkt met de volgende gegevens
         | naam            | waarde     |
         | datumOverlijden | 2026-02-10 |
         | plaats          |       1911 |
         | landCode        |       6030 |
-      Dan heeft de 'lo3_pl' rij voor 'Jan' datum opschorting bijhouding (67.10) met waarde '20260210'
-      En heeft de 'lo3_pl' rij voor 'Jan' reden opschorting bijhouding (67.20) met waarde 'O'
+      Als 'overlijden' wordt gevraagd van 'Jan'
+      Dan heeft 'Jan' de volgende 'overlijden' gegevens
+        | naam                | waarde           |
+        | datum.type          | Datum            |
+        | datum.datum         |       2026-02-10 |
+        | datum.langFormaat   | 10 februari 2026 |
+        | plaats.code         |             1911 |
+        | plaats.omschrijving | Hollands Kroon   |
+        | land.code           |             6030 |
+        | land.omschrijving   | Nederland        |
+      En heeft 'Jan' de volgende 'opschortingBijhouding' gegevens
+        | naam               | waarde           |
+        | reden.code         | O                |
+        | reden.omschrijving | Overlijden       |
+        | datum.type         | Datum            |
+        | datum.datum        |       2026-02-10 |
+        | datum.langFormaat  | 10 februari 2026 |
+
+  Regel: Wanneer een aangifte van overlijden is verwerkt en opschorting bijhouding was al gevuld, dan is Opschorting bijhouding niet gewijzigd
 
     Scenario: Aangifte van overlijden voor een persoon die eerder geëmigreerd is
       Gegeven 'Jan' is op 1-9-2025 geëmigreerd naar Duitsland
-      Als de aangifte van overlijden van 'Jan' is verwerkt met de volgende gegevens
+      En de aangifte van overlijden van 'Jan' is verwerkt met de volgende gegevens
         | naam            | waarde     |
         | datumOverlijden | 2026-02-10 |
         | plaats          |       1911 |
         | landCode        |       6030 |
-      Dan heeft de 'lo3_pl' rij voor 'Jan' opschorting bijhouding met datum '20260210' en reden 'E'
+      Als 'overlijden' wordt gevraagd van 'Jan'
+      Dan heeft 'Jan' de volgende 'overlijden' gegevens
+        | naam                | waarde           |
+        | datum.type          | Datum            |
+        | datum.datum         |       2026-02-10 |
+        | datum.langFormaat   | 10 februari 2026 |
+        | plaats.code         |             1911 |
+        | plaats.omschrijving | Hollands Kroon   |
+        | land.code           |             6030 |
+        | land.omschrijving   | Nederland        |
+      En heeft 'Jan' de volgende 'opschortingBijhouding' gegevens
+        | naam               | waarde           |
+        | reden.code         | E                |
+        | reden.omschrijving | Emigratie        |
+        | datum.type         | Datum            |
+        | datum.datum        |       2025-09-01 |
+        | datum.langFormaat  | 1 september 2025 |
