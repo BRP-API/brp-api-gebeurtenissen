@@ -1,245 +1,392 @@
-import { Afnemer } from "../brp/afnemer-entity";
-import { Persoon } from "../brp/persoon-entity";
-import { logger } from "./logger";
-import { getClientAccessToken } from "./oauth-helpers";
+import {Afnemer} from '../brp/afnemer-entity';
+import {Persoon} from '../brp/persoon-entity';
+import {logger} from './logger';
+import {getClientAccessToken} from './oauth-helpers';
 
 async function parseResponseBody(response: Response): Promise<any> {
-    const responseText = await response.text();
+  const responseText = await response.text();
 
-    if (!responseText) {
-        return null;
-    }
+  if (!responseText) {
+    return null;
+  }
 
-    try {
-        return JSON.parse(responseText);
-    } catch {
-        return responseText;
-    }
+  try {
+    return JSON.parse(responseText);
+  } catch {
+    return responseText;
+  }
 }
 
-export async function registreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNaam?: string): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+export async function registreerAbonneeVoorAfnemer(
+  afnemer: Afnemer,
+  abonneeNaam?: string,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    let requestBody = abonneeNaam ? { abonneeNaam: abonneeNaam } : {};
+  const requestBody = abonneeNaam ? {naam: abonneeNaam} : {};
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestBody)
-    });
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    },
+  );
 
+  logger.debug(
+    `registreerAbonneeVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}'`,
+    {response: response},
+  );
 
-    logger.debug(`registreerAbonneeVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}'`, { response: response });
+  if (response.status === 201 && abonneeNaam) {
+    afnemer.abonnees.push(abonneeNaam);
+  }
 
-    if (response.status === 201 && abonneeNaam) {
-        afnemer.abonnees.push(abonneeNaam);
-    }
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
+}
 
-    return {
+export async function deregistreerAbonneeVoorAfnemer(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
+
+  logger.debug(
+    `deregistreerAbonneeVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}'`,
+    {response: response},
+  );
+
+  if (response.status === 204) {
+    afnemer.abonnees = afnemer.abonnees.filter(a => a !== abonneeNaam);
+  }
+
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
+}
+
+export async function raadpleegAbonneesVoorAfnemer(
+  afnemer: Afnemer,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
+
+  logger.debug(
+    `raadpleegAbonneesVoorAfnemer afnemer: '${afnemer?.aanduiding}'`,
+    {response: response},
+  );
+
+  return {
         statusCode: response.status,
         body: await parseResponseBody(response)
     };
 }
 
-export async function deregistreerAbonneeVoorAfnemer(afnemer: Afnemer, abonneeNaam: string): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+export async function voegGroepToeBijAbonnee(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  groepNaam?: string,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    });
+  const requestBody = groepNaam ? { naam: groepNaam } : {};
 
-    logger.debug(`deregistreerAbonneeVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}'`, { response: response });
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    },
+  );
 
-    if (response.status === 204) {
-        afnemer.abonnees = afnemer.abonnees.filter(a => a !== abonneeNaam);
-    }
+  logger.debug(
+    `voegGroepToeBijAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`,
+    {response: response},
+  );
 
-    return {
+  return {
         statusCode: response.status,
         body: await parseResponseBody(response)
     };
 }
 
-export async function raadpleegAbonneesVoorAfnemer(afnemer: Afnemer): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+export async function verwijderGroepVanAbonnee(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  groepNaam?: string,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    });
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
 
-    logger.debug(`raadpleegAbonneesVoorAfnemer afnemer: '${afnemer?.aanduiding}'`, { response: response });
+  logger.debug(
+    `verwijderGroepVanAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`,
+    {response: response},
+  );
 
-    return await parseResponseBody(response);
-}
-
-export async function voegGroepToeBijAbonnee(afnemer: Afnemer, abonneeNaam: string, groepNaam?: string): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
-
-    let requestBody = groepNaam ? { groep: groepNaam } : {};
-
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestBody)
-    });
-
-
-    logger.debug(`voegGroepToeBijAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
-
-    return await parseResponseBody(response);
-}
-
-export async function verwijderGroepVanAbonnee(afnemer: Afnemer, abonneeNaam: string, groepNaam?: string): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
-
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    });
-
-    logger.debug(`verwijderGroepVanAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
-
-    return await parseResponseBody(response);
-}
-
-export async function raadpleegGroepenVanAbonnee(afnemer: Afnemer, abonneeNaam: string): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
-
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    });
-
-    logger.debug(`raadpleegGroepenVanAbonnee afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}'`, { response: response });
-
-    return await parseResponseBody(response);
-}
-
-export async function voegGebeurtenistypeToeAanGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string, gebeurtenistype: string): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
-
-    let requestBody = {
-        gebeurtenistype: gebeurtenistype
+  return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
     };
-
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestBody)
-    });
-
-    logger.debug(`voegGebeurtenistypeToeAanGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`, { response: response });
-
-    return await parseResponseBody(response);
 }
 
-export async function verwijderGebeurtenistypeUitGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string, gebeurtenistype: string): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+export async function raadpleegGroepenVanAbonnee(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes/${gebeurtenistype}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    });
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
 
-    logger.debug(`verwijderGebeurtenistypeUitGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`, { response: response });
+  logger.debug(
+    `raadpleegGroepenVanAbonnee afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}'`,
+    {response: response},
+  );
 
-    return await parseResponseBody(response);
+  return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
-export async function raadpleegGebeurtenistypesInGroep(afnemer: Afnemer, abonneeNaam: string, groepNaam: string): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+export async function voegGebeurtenistypeToeAanGroep(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  groepNaam: string,
+  gebeurtenistype: string,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
-        }
-    });
+  const requestBody = {
+    gebeurtenistype: gebeurtenistype,
+  };
 
-    logger.debug(`raadpleegGebeurtenistypesInGroep afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}', groepNaam: '${groepNaam}'`, { response: response });
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    },
+  );
 
-    return await parseResponseBody(response);
+  logger.debug(
+    `voegGebeurtenistypeToeAanGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`,
+    {response: response},
+  );
+
+  return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
-export async function abonneerOpGebeurtenistypeVanPersoon(afnemer: Afnemer, abonneeNaam: string, gebeurtenistype: string, persoon: Persoon): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+export async function verwijderGebeurtenistypeUitGroep(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  groepNaam: string,
+  gebeurtenistype: string,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            type: "AbonneerOpGebeurtenisTypeVanPersoon",
-            gebeurtenisType: gebeurtenistype,
-            burgerservicenummer: persoon.burger_service_nr
-        })
-    });
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes/${gebeurtenistype}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
 
-    logger.debug(`abonneerOpGebeurtenistypeVanPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', gebeurtenistype: '${gebeurtenistype}', persoon: '${persoon.burger_service_nr}'`, { response: response });
+  logger.debug(
+    `verwijderGebeurtenistypeUitGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`,
+    {response: response},
+  );
 
-    return await parseResponseBody(response);
+  return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
-export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(afnemer: Afnemer, abonneeNaam: string, gebeurtenistype: string, persoon: Persoon): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+export async function raadpleegGebeurtenistypesInGroep(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  groepNaam: string,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            type: "ZegOpAbonnementOpGebeurtenisTypeVanPersoon",
-            gebeurtenisType: gebeurtenistype,
-            burgerservicenummer: persoon.burger_service_nr
-        })
-    });
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    },
+  );
 
-    logger.debug(`zegOpAbonnementOpGebeurtenistypeVanPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', gebeurtenistype: '${gebeurtenistype}', persoon: '${persoon.burger_service_nr}'`, { response: response });
+  logger.debug(
+    `raadpleegGebeurtenistypesInGroep afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}', groepNaam: '${groepNaam}'`,
+    {response: response},
+  );
 
-    return await parseResponseBody(response);
+  return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
 
-export async function zegOpAbonnementenOpPersoon(afnemer: Afnemer, abonneeNaam: string, persoon: Persoon): Promise<any> {
-    const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+export async function abonneerOpGebeurtenistypeVanPersoon(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  gebeurtenistype: string,
+  persoon: Persoon,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-    const response = await fetch(`${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            type: "ZegOpAbonnementenOpPersoon",
-            burgerservicenummer: persoon.burger_service_nr
-        })
-    });
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: 'AbonneerOpGebeurtenisTypeVanPersoon',
+        gebeurtenisType: gebeurtenistype,
+        burgerservicenummer: persoon.burger_service_nr,
+      }),
+    },
+  );
 
-    logger.debug(`zegOpAbonnementenOpPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', persoon: '${persoon.burger_service_nr}'`, { response: response });
+  logger.debug(
+    `abonneerOpGebeurtenistypeVanPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', gebeurtenistype: '${gebeurtenistype}', persoon: '${persoon.burger_service_nr}'`,
+    {response: response},
+  );
 
-    return await parseResponseBody(response);
+  return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
+}
+
+export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  gebeurtenistype: string,
+  persoon: Persoon,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: 'ZegOpAbonnementOpGebeurtenisTypeVanPersoon',
+        gebeurtenisType: gebeurtenistype,
+        burgerservicenummer: persoon.burger_service_nr,
+      }),
+    },
+  );
+
+  logger.debug(
+    `zegOpAbonnementOpGebeurtenistypeVanPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', gebeurtenistype: '${gebeurtenistype}', persoon: '${persoon.burger_service_nr}'`,
+    {response: response},
+  );
+
+  return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
+}
+
+export async function zegOpAbonnementenOpPersoon(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  persoon: Persoon,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+
+  const response = await fetch(
+    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        type: 'ZegOpAbonnementenOpPersoon',
+        burgerservicenummer: persoon.burger_service_nr,
+      }),
+    },
+  );
+
+  logger.debug(
+    `zegOpAbonnementenOpPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', persoon: '${persoon.burger_service_nr}'`,
+    {response: response},
+  );
+
+  return {
+        statusCode: response.status,
+        body: await parseResponseBody(response)
+    };
 }
