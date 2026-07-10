@@ -1,5 +1,5 @@
 # language: nl
-Functionaliteit: gepubliceerde gebeurtenis bij een verhuizing
+Functionaliteit: Gepubliceerde gebeurtenis bij een verhuizing
 
   @to-do @skip-verify
   Scenario: Verhuizing binnen dezelfde gemeente aangegeven
