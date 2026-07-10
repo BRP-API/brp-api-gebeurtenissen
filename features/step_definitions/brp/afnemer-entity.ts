@@ -1,19 +1,19 @@
 export class Afnemer {
-    // wordt ook gebuikt als client_id
-    aanduiding: string;
-    
-    oin?: string;
-    afnemerId?: string;
-    gemeenteCode?: string;
+  // wordt ook gebuikt als client_id
+  aanduiding: string;
 
-    clientSecret?: string;
+  oin?: string;
+  afnemerId?: string;
+  gemeenteCode?: string;
 
-    idpId?: string;
-    idpScopeId?: string;
+  clientSecret?: string;
 
-    abonnees: string[] = [];
-    
-    constructor(aanduiding: string) {
-        this.aanduiding = aanduiding;
-    }
+  idpId?: string;
+  idpScopeId?: string;
+
+  abonnees: string[] = [];
+
+  constructor(aanduiding: string) {
+    this.aanduiding = aanduiding;
+  }
 }
