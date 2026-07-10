@@ -1,7 +1,7 @@
-import { Then, defineParameterType } from '@cucumber/cucumber';
-import { ProblemDetails } from './support/problem-details';
-import { createObjectArrayFrom } from './support/dataTable2Object';
-import { expect } from 'chai';
+import {Then, defineParameterType} from '@cucumber/cucumber';
+import {ProblemDetails} from './support/problem-details';
+import {createObjectArrayFrom} from './support/dataTable2Object';
+import {expect} from 'chai';
 
 Then(
   'is de response {string}( met de volgende velden)',
