@@ -1,7 +1,7 @@
-import {Then, defineParameterType} from '@cucumber/cucumber';
-import {ProblemDetails} from './support/problem-details';
-import {createObjectArrayFrom} from './support/dataTable2Object';
-import {expect} from 'chai';
+import { Then, defineParameterType } from '@cucumber/cucumber';
+import { ProblemDetails } from './support/problem-details';
+import { createObjectArrayFrom } from './support/dataTable2Object';
+import { expect } from 'chai';
 
 Then(
   'is de response {string}( met de volgende velden)',
@@ -12,21 +12,27 @@ Then(
     );
     if (!ProblemDetails.isSuccessFull(this.responseStatusCode)) {
       expect(this.result.status).to.equal(
-        this.expected.status, 
-        'http statuscode is niet correct'
+        this.expected.status,
+        'http statuscode is niet correct',
       );
       expect(this.result.type).to.equal(
-        this.expected.type, 
-        'type is niet correct'
+        this.expected.type,
+        'type is niet correct',
       );
     }
-  }
+  },
 );
 
-Then('{string} met tekst {string}', function (veld: string, waarde: string) {
-  this.expected[veld] = waarde;
-  expect(this.result[veld]).to.equal(this.expected[veld], `${veld} is niet correct`);
-});
+Then(
+  '{string} met tekst {string}',
+  function (veld: string, waarde: string) {
+    this.expected[veld] = waarde;
+    expect(this.result[veld]).to.equal(
+      this.expected[veld],
+      `${veld} is niet correct`,
+    );
+  },
+);
 
 defineParameterType({
   name: 'objectNaam',
@@ -40,8 +46,8 @@ Then(
       [objectNaam]: createObjectArrayFrom(dataTable),
     };
     expect(this.result[objectNaam]).to.deep.equal(
-      this.expected[objectNaam], 
-      `${objectNaam} is niet correct`
+      this.expected[objectNaam],
+      `${objectNaam} is niet correct`,
     );
-  }
+  },
 );

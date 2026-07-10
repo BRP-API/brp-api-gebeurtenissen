@@ -1,7 +1,7 @@
-import {Afnemer} from '../brp/afnemer-entity';
-import {Persoon} from '../brp/persoon-entity';
-import {logger} from './logger';
-import {getClientAccessToken} from './oauth-helpers';
+import { Afnemer } from '../brp/afnemer-entity';
+import { Persoon } from '../brp/persoon-entity';
+import { logger } from './logger';
+import { getClientAccessToken } from './oauth-helpers';
 
 async function parseResponseBody(response: Response): Promise<any> {
   const responseText = await response.text();
@@ -23,7 +23,7 @@ export async function registreerAbonneeVoorAfnemer(
 ): Promise<any> {
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-  const requestBody = abonneeNaam ? {naam: abonneeNaam} : {};
+  const requestBody = abonneeNaam ? { naam: abonneeNaam } : {};
 
   const response = await fetch(
     `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`,
@@ -39,7 +39,7 @@ export async function registreerAbonneeVoorAfnemer(
 
   logger.debug(
     `registreerAbonneeVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}'`,
-    {response: response},
+    { response: response },
   );
 
   if (response.status === 201 && abonneeNaam) {
@@ -70,7 +70,7 @@ export async function deregistreerAbonneeVoorAfnemer(
 
   logger.debug(
     `deregistreerAbonneeVoorAfnemer afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}'`,
-    {response: response},
+    { response: response },
   );
 
   if (response.status === 204) {
@@ -100,13 +100,13 @@ export async function raadpleegAbonneesVoorAfnemer(
 
   logger.debug(
     `raadpleegAbonneesVoorAfnemer afnemer: '${afnemer?.aanduiding}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function voegGroepToeBijAbonnee(
@@ -132,13 +132,13 @@ export async function voegGroepToeBijAbonnee(
 
   logger.debug(
     `voegGroepToeBijAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function verwijderGroepVanAbonnee(
@@ -160,13 +160,13 @@ export async function verwijderGroepVanAbonnee(
 
   logger.debug(
     `verwijderGroepVanAbonnee afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function raadpleegGroepenVanAbonnee(
@@ -187,13 +187,13 @@ export async function raadpleegGroepenVanAbonnee(
 
   logger.debug(
     `raadpleegGroepenVanAbonnee afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function voegGebeurtenistypeToeAanGroep(
@@ -222,13 +222,13 @@ export async function voegGebeurtenistypeToeAanGroep(
 
   logger.debug(
     `voegGebeurtenistypeToeAanGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function verwijderGebeurtenistypeUitGroep(
@@ -251,13 +251,13 @@ export async function verwijderGebeurtenistypeUitGroep(
 
   logger.debug(
     `verwijderGebeurtenistypeUitGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function raadpleegGebeurtenistypesInGroep(
@@ -279,13 +279,13 @@ export async function raadpleegGebeurtenistypesInGroep(
 
   logger.debug(
     `raadpleegGebeurtenistypesInGroep afnemer: '${afnemer?.aanduiding}', abonneeNaam: '${abonneeNaam}', groepNaam: '${groepNaam}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function abonneerOpGebeurtenistypeVanPersoon(
@@ -314,13 +314,13 @@ export async function abonneerOpGebeurtenistypeVanPersoon(
 
   logger.debug(
     `abonneerOpGebeurtenistypeVanPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', gebeurtenistype: '${gebeurtenistype}', persoon: '${persoon.burger_service_nr}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(
@@ -349,13 +349,13 @@ export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(
 
   logger.debug(
     `zegOpAbonnementOpGebeurtenistypeVanPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', gebeurtenistype: '${gebeurtenistype}', persoon: '${persoon.burger_service_nr}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
 
 export async function zegOpAbonnementenOpPersoon(
@@ -382,11 +382,11 @@ export async function zegOpAbonnementenOpPersoon(
 
   logger.debug(
     `zegOpAbonnementenOpPersoon afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', persoon: '${persoon.burger_service_nr}'`,
-    {response: response},
+    { response: response },
   );
 
   return {
-        statusCode: response.status,
-        body: await parseResponseBody(response)
-    };
+    statusCode: response.status,
+    body: await parseResponseBody(response)
+  };
 }
