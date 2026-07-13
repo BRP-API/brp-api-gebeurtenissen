@@ -165,7 +165,6 @@ Given(
         groepNaam,
         gebeurtenistype,
       );
-
       expect(this.result.statusCode).to.equal(
         HttpStatusCode.Created,
         'http statuscode is niet correct',

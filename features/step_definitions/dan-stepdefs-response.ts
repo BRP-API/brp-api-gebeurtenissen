@@ -11,6 +11,7 @@ Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
     this.expected = ProblemDetails.create(status);
+
     expect(this.responseStatusCode).to.equal(
       ProblemDetails.getStatusCode(status),
     );
@@ -40,7 +41,7 @@ Then(
 
 Then('{string} met tekst {string}', function (veld: string, waarde: string) {
   this.expected[veld] = waarde;
-  expect(this.result[veld]).to.equal(
+  expect(this.result.body[veld]).to.equal(
     this.expected[veld],
     `${veld} is niet correct`,
   );
@@ -62,8 +63,10 @@ Then(
         personen,
       ),
     };
-
-    expect(this.result[objectNaam]).to.deep.equal(this.expected[objectNaam]);
+    expect(this.result[objectNaam]).to.deep.equal(
+      this.expected[objectNaam],
+      `${objectNaam} is niet correct`,
+    );
   },
 );
 

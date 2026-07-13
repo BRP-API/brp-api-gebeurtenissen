@@ -124,14 +124,14 @@ Functionaliteit: Voeg gebeurtenistype toe aan groep
 
   Regel: Een gebeurtenistype kan alleen worden toegevoegd aan een groep van een geregistreerde abonnee
 
-     Scenario: Een afnemer voegt een gebeurtenistype toe aan een nog niet geregistreerde abonnee
+    Scenario: Een afnemer voegt een gebeurtenistype toe aan een nog niet geregistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnee bestaat niet'
 
-     Scenario: Een afnemer voegt een gebeurtenistype toe aan een gederegistreerde abonnee
+    Scenario: Een afnemer voegt een gebeurtenistype toe aan een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
