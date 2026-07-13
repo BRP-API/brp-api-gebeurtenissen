@@ -4,16 +4,18 @@ info:
   version: 1.0.0
 components: 
   schemas:
-    ZegOpAbonnementOpGebeurtenisTypeVanPersoonCommand:
+    ZegOpAbonnementVanPersoonOpGroepCommand:
       allOf: 
         - $ref: './abonnementen-command-v1.yaml#/components/schemas/AbonnementenCommand'
         - type: object
-          description: Beëindigen van een 'gebeurtenis type van persoon' abonnement van een abonnee.
+          description: Beëindigen van een abonnement voor een persoon voor een groep
           properties:
-            gebeurtenisType:
-              $ref: 'gebeurtenis-type-van-persoon-enum-v1.yaml#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+            groep:
+              $ref: 'naam-v1.yaml#/components/schemas/GroepNaam'
+              description: De groep waarop de abonnee de persoon wil abonneren
             burgerservicenummer:
               $ref: '../../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee de gebeurtenissen niet meer wil ontvangen
           required:
-            - gebeurtenisType
+            - groep
             - burgerservicenummer
