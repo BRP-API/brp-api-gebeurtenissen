@@ -83,14 +83,14 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
 
   Regel: De gebeurtenistypes kunnen alleen worden gevraagd van een groep van een geregistreerde abonnee
 
-     Scenario: Een afnemer vraagt gebeurtenistypes van een nog niet geregistreerde abonnee
+    Scenario: Een afnemer vraagt gebeurtenistypes van een nog niet geregistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' de gebeurtenistypes van groep 'client' van abonnee 'szw' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnee bestaat niet'
 
-     Scenario: Een afnemer vraagt gebeurtenistypes van een gederegistreerde abonnee
+    Scenario: Een afnemer vraagt gebeurtenistypes van een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'

@@ -1,14 +1,14 @@
-import { Then } from '@cucumber/cucumber';
-import { CloudEvent } from './support/cloud-events';
-import { setNestedProperty } from './support/object-utils';
-import { Aanduiding } from './support/aanduiding';
-import { VerhuisdIntergemeentelijkEvent } from './brp/verhuisd-intergemeentelijk-event';
-import { AangifteVanAdreswijzigingCommand } from './brp-api/commands';
-import { Persoon } from './brp/persoon-entity';
-import { PersoonFactory } from './support/persoon-factory';
-import { createObjectArrayFrom } from './support/dataTable2Object';
-import { maakGebeurtenis } from './support/gebeurtenissen-api-helpers';
-import { logger } from './support/logger';
+import {Then} from '@cucumber/cucumber';
+import {CloudEvent} from './support/cloud-events';
+import {setNestedProperty} from './support/object-utils';
+//import {Aanduiding} from './support/aanduiding';
+import {VerhuisdIntergemeentelijkEvent} from './brp/verhuisd-intergemeentelijk-event';
+//import {AangifteVanAdreswijzigingCommand} from './brp-api/commands';
+//import {Persoon} from './brp/persoon-entity';
+import {PersoonFactory} from './support/persoon-factory';
+import {createObjectArrayFrom} from './support/dataTable2Object';
+import {maakGebeurtenis} from './support/gebeurtenissen-api-helpers';
+import {logger} from './support/logger';
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',
@@ -63,29 +63,39 @@ Then(
         this.context.personen[aanduidingPersoon].burger_service_nr,
       );
     }
-});
+  },
+);
 
 Then('wordt er geen gebeurtenis geleverd', function () {
-    this.expected = {
-        ['gebeurtenissen']: []
-    };
+  this.expected = {
+    ['gebeurtenissen']: [],
+  };
 });
 
-Then('wordt de {string} gebeurtenis van {string} geleverd', async function (gebeurtenistype: string, persoonAanduiding: string) {
-    const persoon = await PersoonFactory.create(this.context, persoonAanduiding);
-    
-    this.expected.gebeurtenissen = [maakGebeurtenis(gebeurtenistype, persoon) ]
-});
+Then(
+  'wordt de {string} gebeurtenis van {string} geleverd',
+  async function (gebeurtenistype: string, persoonAanduiding: string) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    this.expected.gebeurtenissen = [maakGebeurtenis(gebeurtenistype, persoon)];
+  },
+);
 
 Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
-    const gebeurtenissen = createObjectArrayFrom(dataTable);
+  const gebeurtenissen = createObjectArrayFrom(dataTable);
 
-    this.expected.gebeurtenissen = []
+  this.expected.gebeurtenissen = [];
 
-    for (const gebeurtenis of gebeurtenissen) {
-        const persoon = await PersoonFactory.create(this.context, gebeurtenis['burgerservicenummer']);
-        this.expected.gebeurtenissen.push(maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon));
-    }
+  for (const gebeurtenis of gebeurtenissen) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      gebeurtenis['burgerservicenummer'],
+    );
+    this.expected.gebeurtenissen.push(
+      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon),
+    );
+  }
 });
-
-
