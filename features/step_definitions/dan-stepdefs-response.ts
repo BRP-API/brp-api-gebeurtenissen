@@ -7,15 +7,17 @@ Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
     this.expected = ProblemDetails.create(status);
-    expect(this.responseStatusCode).to.equal(
+    const expectedStatus = this.expected.status;
+
+    expect(expectedStatus).to.equal(
       ProblemDetails.getStatusCode(status),
     );
-    if (!ProblemDetails.isSuccessFull(this.responseStatusCode)) {
-      expect(this.result.status).to.equal(
-        this.expected.status,
+    if (!ProblemDetails.isSuccessFull(expectedStatus)) {
+      expect(this.result.body.status).to.equal(
+        expectedStatus,
         'http statuscode is niet correct',
       );
-      expect(this.result.type).to.equal(
+      expect(this.result.body.type).to.equal(
         this.expected.type,
         'type is niet correct',
       );
@@ -25,7 +27,7 @@ Then(
 
 Then('{string} met tekst {string}', function (veld: string, waarde: string) {
   this.expected[veld] = waarde;
-  expect(this.result[veld]).to.equal(
+  expect(this.result.body[veld]).to.equal(
     this.expected[veld],
     `${veld} is niet correct`,
   );
