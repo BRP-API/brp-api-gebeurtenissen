@@ -1,6 +1,6 @@
-import { DataTable } from '@cucumber/cucumber';
-import { toDateOrString } from './date-utils';
-import { Persoon } from '../brp/persoon-entity';
+import {DataTable} from '@cucumber/cucumber';
+import {toDateOrString} from './date-utils';
+import {Persoon} from '../brp/persoon-entity';
 
 function setPropertyValue(
   obj: any,
@@ -109,16 +109,20 @@ export function createObjectArrayFrom(
 
 // Zet een datatable om naar een array van objecten, waarbij het 'burgerservicenummer' veld wordt vervangen door het daadwerkelijke burgerservicenummer van de persoon in de context
 // Het burgerservicenummer veld moet de aanduiding bevatten naar een persoon in de context
-export function createObjectArrayWithPersoonAanduidingenFrom(dataTable: DataTable, personen: Record<string, Persoon>, dateAsDate: boolean = false): any[] {
-    return createObjectArrayFrom(dataTable, dateAsDate).map(obj => {
-        for (const key in obj) {
-            if (key === 'burgerservicenummer') {
-                const persoon = personen[obj[key]];
-                if (persoon) {
-                    obj[key] = persoon.burger_service_nr;
-                }
-            }
+export function createObjectArrayWithPersoonAanduidingenFrom(
+  dataTable: DataTable,
+  personen: Record<string, Persoon>,
+  dateAsDate: boolean = false,
+): any[] {
+  return createObjectArrayFrom(dataTable, dateAsDate).map(obj => {
+    for (const key in obj) {
+      if (key === 'burgerservicenummer') {
+        const persoon = personen[obj[key]];
+        if (persoon) {
+          obj[key] = persoon.burger_service_nr;
         }
-        return obj;
-    });
+      }
+    }
+    return obj;
+  });
 }
