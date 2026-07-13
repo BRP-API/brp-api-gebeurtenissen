@@ -9,9 +9,7 @@ Then(
     this.expected = ProblemDetails.create(status);
     const expectedStatus = this.expected.status;
 
-    expect(expectedStatus).to.equal(
-      ProblemDetails.getStatusCode(status),
-    );
+    expect(expectedStatus).to.equal(ProblemDetails.getStatusCode(status));
     if (!ProblemDetails.isSuccessFull(expectedStatus)) {
       expect(this.result.body.status).to.equal(
         expectedStatus,
