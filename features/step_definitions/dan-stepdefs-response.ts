@@ -6,11 +6,23 @@ import {expect} from 'chai';
 Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
-    this.expected = ProblemDetails.create(status);
-    const expectedStatus = this.expected.status;
+    const expectedStatus = Number(status.split(' ')[0])
+    if (expectedStatus === 201) {
+      this.expected = {
+        statusCode: 201,
+        body: null,
+      }
+    }
+    if (expectedStatus === 204) {
+      this.expected = {
+        statusCode: 204,
+        body: null,
+      }
+    }
 
-    expect(expectedStatus).to.equal(ProblemDetails.getStatusCode(status));
     if (!ProblemDetails.isSuccessFull(expectedStatus)) {
+      this.expected = ProblemDetails.create(status);
+
       expect(this.result.body.status).to.equal(
         expectedStatus,
         'http statuscode is niet correct',
