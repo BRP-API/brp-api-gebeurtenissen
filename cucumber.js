@@ -93,7 +93,8 @@ module.exports = {
         ...baseConfig,
         paths: [
             'features/beheer-abonnees/*',
-            'features/beheer-abonnementen/*'
+            'features/beheer-abonnementen/*',
+            'features/vraag-gebeurtenissen/*'
         ], // Only run end-to-end features
         tags: 'not @skip-verify',    // Exclude scenarios tagged with @skip-verify
         format: [ // output formats and locations
