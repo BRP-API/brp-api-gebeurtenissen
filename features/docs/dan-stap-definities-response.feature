@@ -17,3 +17,28 @@ Functionaliteit: Response dan stap definities
     Dan is de response '409 Conflict' met de volgende velden
     * 'detail' met tekst 'Uw verzoek kan niet worden uitgevoerd omdat u al als abonnee geregistreerd bent.'
     * 'instance' met tekst '/abonnees'
+
+  Scenario: Dan worden de volgende abonnementen geleverd
+    Gegeven de persoon 'Jan'
+    * met burgerservicenummer '123456789'
+    En de persoon 'Piet'
+    * met burgerservicenummer '987654321'
+    En de response
+    """
+    {
+        "abonnementen": [
+        {
+          "burgerservicenummer": "123456789",
+          "groepnaam": "client"
+        },
+        {
+          "burgerservicenummer": "987654321",
+          "groepnaam": "relatie"
+        }
+      ]
+    }
+    """
+    Dan worden volgende abonnementen geleverd
+      | burgerservicenummer | groepnaam |
+      | Jan                 | client    |
+      | Piet                | relatie   |

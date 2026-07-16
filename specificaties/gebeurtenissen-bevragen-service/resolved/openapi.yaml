@@ -9,22 +9,18 @@ paths:
   /abonnees/{abonneeNaam}/gebeurtenissen:
     get:
       operationId: BevraagGebeurtenis
-      summary: Bevragen van de oudste ongelezen gebeurtenis
+      summary: Bevragen van (ongelezen) gebeurtenissen
       tags:
         - Gebeurtenissen
       parameters:
-        - name: abonneeNaam
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/AbonneeNaam'
+        - $ref: '#/components/parameters/AbonneeNaamPathParameter'
         - $ref: '#/components/parameters/CursorQueryParameter'
           description: Geef de id van de laatst ontvangen gebeurtenis op om de volgende ongelezen gebeurtenissen te ontvangen. Cursor moet een geldige id van een gebeurtenis zijn.
         - $ref: '#/components/parameters/LimitQueryParameter'
           description: Aantal te retourneren gebeurtenissen
       responses:
         '200':
-          description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
+          description: De gebeurtenissen zijn succesvol opgehaald en geleverd
           content:
             application/json:
               schema:
@@ -351,6 +347,13 @@ components:
               items:
                 $ref: '#/components/schemas/InvalidParam'
   parameters:
+    AbonneeNaamPathParameter:
+      name: abonneeNaam
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/AbonneeNaam'
+        description: De naam van de abonnee
     CursorQueryParameter:
       name: cursor
       in: query
