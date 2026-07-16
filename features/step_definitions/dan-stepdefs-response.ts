@@ -1,6 +1,6 @@
 import {Then, defineParameterType} from '@cucumber/cucumber';
 import {ProblemDetails} from './support/problem-details';
-import {createObjectArrayFrom} from './support/dataTable2Object';
+import {createArrayFrom, createObjectArrayFrom} from './support/dataTable2Object';
 import {expect} from 'chai';
 
 Then(
@@ -45,7 +45,7 @@ Then('{string} met tekst {string}', function (veld: string, waarde: string) {
 
 defineParameterType({
   name: 'objectNaam',
-  regexp: /(abonnees|groepen|gebeurtenistypes|abonnementen|gebeurtenissen)/,
+  regexp: /(abonnees|groepen|abonnementen|gebeurtenissen)/,
 });
 
 Then(
@@ -60,6 +60,22 @@ Then(
     expect(this.result.body[objectNaam]).to.deep.equal(
       this.expected.body[objectNaam],
       `${objectNaam} is niet correct`,
+    );
+  },
+);
+
+Then(
+  'worden volgende gebeurtenistypes geleverd',
+  function (dataTable) {
+    this.expected = {
+      "statusCode": 200,
+      "body": {
+        "gebeurtenistypes": createArrayFrom(dataTable)
+      },
+    };
+    expect(this.result.body.gebeurtenistypes).to.deep.equal(
+      this.expected.body.gebeurtenistypes,
+      `gebeurtenistypes is niet correct`,
     );
   },
 );
