@@ -119,6 +119,8 @@ AfterStep(function (this: ICustomWorld, {pickleStep}) {
         logger.warn(`onbekende stap type: ${JSON.stringify(pickleStep)}`);
       }
   }
+
+  logger.debug(this.context);
 });
 
 function copyIdIfExpectedIsExternalEventAndResultHasId(

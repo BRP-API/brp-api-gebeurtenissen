@@ -73,6 +73,21 @@ export function createLo3AdresInsertStatement(adres: Adres): SqlStatement {
   return new SqlStatement(statementText, values);
 }
 
+export function createLo3AdresUpdateStatement(
+  adres: Adres,
+  changedColummn: string,
+  newValue: string
+): SqlStatement {
+  const values: any[] = [];
+
+  values.push(newValue);
+  values.push(adres.adres_id);
+
+  const statementText = `UPDATE public.lo3_adres SET ${changedColummn}=$1 WHERE adres_id=$2`;
+
+  return new SqlStatement(statementText, values);
+}
+
 export function createLo3AutorisatieInsertStatement(
   afnemer: Afnemer,
 ): SqlStatement {

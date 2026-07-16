@@ -260,6 +260,62 @@ Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
 Given('is geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
 
 Given(
+  'de abonnee {string} van afnemer {string} heeft een abonnement op {string} gebeurtenissen van {string}',
+  async function (
+    abonneeNaam,
+    afnemerAanduiding,
+    gebeurtenistype,
+    persoonAanduiding,
+  ) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
+
+    const groepNaam = 'standaardGroep';
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
+
+    this.result = await voegGebeurtenistypeToeAanGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      gebeurtenistype,
+    );
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
+
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    this.result = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      persoon,
+      'AbonneerPersoonOpGroep',
+    );
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
+  },
+);
+
+Given(
   'er is een {string} gebeurtenis gepubliceerd met de volgende velden',
   async function (gebeurtenisType, dataTable) {
     const gebeurtenis = createObjectFrom(dataTable);

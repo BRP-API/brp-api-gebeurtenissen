@@ -2,13 +2,15 @@ import {Given} from '@cucumber/cucumber';
 import {Adres} from './brp/adres-entity';
 import {Aanduiding} from './support/aanduiding';
 import {AdresBuitenland} from './brp/adres-buitenland-entity';
+import {AdresFactory} from './support/adres-factory';
 
 Given('het adres {string}', function (adresAanduiding: string) {
-  if (!this.context.adressen) {
-    this.context.adressen = {};
-  }
-  this.context.adressen[adresAanduiding] = new Adres();
-  this.huidigAanduiding = Aanduiding.adres(adresAanduiding);
+  // if (!this.context.adressen) {
+  //   this.context.adressen = {};
+  // }
+  // this.context.adressen[adresAanduiding] = new Adres();
+  //this.huidigAanduiding = Aanduiding.adres(adresAanduiding);
+  AdresFactory.create(this.context, adresAanduiding);
 });
 
 Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
@@ -21,20 +23,31 @@ Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
     Utrecht: '0344',
   };
 
-  if (this.huidigAanduiding?.isAdres) {
-    (this.context.adressen[this.huidigAanduiding.id] as Adres).gemeente_code =
-      gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
-  }
+  // if (this.huidigAanduiding?.isAdres) {
+  //   (this.context.adressen[this.huidigAanduiding.id] as Adres).gemeente_code =
+  //     gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
+  // }
+
+  AdresFactory.update(
+    this.context,
+    'gemeente_code',
+    gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving,
+  );
 });
 
 Given(
   'met adresseerbaar object identificatie {string}',
   function (adresseerbaarObjectIdentificatie: string) {
-    if (this.huidigAanduiding?.isAdres) {
-      (
-        this.context.adressen[this.huidigAanduiding.id] as Adres
-      ).verblijf_plaats_ident_code = adresseerbaarObjectIdentificatie;
-    }
+    // if (this.huidigAanduiding?.isAdres) {
+    //   (
+    //     this.context.adressen[this.huidigAanduiding.id] as Adres
+    //   ).verblijf_plaats_ident_code = adresseerbaarObjectIdentificatie;
+    // }
+    AdresFactory.update(
+      this.context,
+      'verblijf_plaats_ident_code',
+      adresseerbaarObjectIdentificatie,
+    );
   },
 );
 

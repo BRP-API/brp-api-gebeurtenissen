@@ -5,6 +5,7 @@ import {logger} from './logger';
 import {PostgresqlManager} from './postgresql-manager';
 import {
   createLo3AdresInsertStatement,
+  createLo3AdresUpdateStatement,
   createLo3AutorisatieInsertStatement,
   createLo3PlInsertStatement,
   createLo3PlPersoonInsertStatement,
@@ -23,6 +24,17 @@ export async function createAdres(adres: Adres): Promise<void> {
       (adres as any)[key] = result.get(key);
     }
   }
+}
+
+export async function updateAdres(
+  adres: Adres,
+  property: string,
+  value: string,
+): Promise<void> {
+  const statement = createLo3AdresUpdateStatement(adres, property, value);
+  const result = await PostgresqlManager.getInstance().execute(statement);
+
+  logger.debug('updateAdres', {statement: statement, result: result});
 }
 
 export async function createAutorisatie(afnemer: Afnemer): Promise<void> {
