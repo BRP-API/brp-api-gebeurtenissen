@@ -125,6 +125,7 @@ export function convertNumericStrings(obj: any) {
   }
 
   return result;
+}
 
 // Zet een datatable om naar een array van objecten, waarbij het 'burgerservicenummer' veld wordt vervangen door het daadwerkelijke burgerservicenummer van de persoon in de context
 // Het burgerservicenummer veld moet de aanduiding bevatten naar een persoon in de context
