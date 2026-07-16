@@ -1,7 +1,10 @@
 import {Given} from '@cucumber/cucumber';
-import {toIsoDate} from './support/date-utils';
+import {toBrpDate, toIsoDate} from './support/date-utils';
 import {Adres} from './brp/adres-entity';
 import {AdresBuitenland} from './brp/adres-buitenland-entity';
+import {Persoon} from './brp/persoon-entity';
+import {VerblijfplaatsBinnenland} from './brp/verblijfplaats-entity';
+import {createVerblijfPlaatsVoorPersoon} from './support/repository';
 
 function handleVerhuizing(persoon: any, adres: any, datum: string) {
   if (adres instanceof Adres) {
@@ -58,5 +61,23 @@ Given(
         handleAangifteVanVertrekCommand(this.command, adres, datum);
       }
     }
+  },
+);
+
+Given(
+  '{string} verblijft sinds {string} op adres {string}',
+  async function (
+    persoonAanduiding: string,
+    datum: string,
+    adresAanduiding: string,
+  ) {
+    const persoon: Persoon = this.context.personen[persoonAanduiding];
+    const adres: Adres = this.context.adressen[adresAanduiding];
+
+    persoon.verblijfplaats = new VerblijfplaatsBinnenland(
+      adres,
+      toBrpDate(datum),
+    );
+    await createVerblijfPlaatsVoorPersoon(persoon);
   },
 );

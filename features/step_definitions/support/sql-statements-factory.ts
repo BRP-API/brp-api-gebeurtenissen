@@ -194,3 +194,35 @@ export function createLo3AdresDeleteStatement(adres: Adres): SqlStatement {
   const statementText = 'DELETE FROM public.lo3_adres WHERE adres_id = $1';
   return new SqlStatement(statementText, [adres.adres_id]);
 }
+
+export function selectFieldFromTableForPlid(
+  table: string,
+  field: string,
+  plid: number,
+): SqlStatement {
+  const statementText = `SELECT ${field}
+                         FROM public.${table}
+                         WHERE pl_id = $1`;
+  return new SqlStatement(statementText, [plid]);
+}
+
+export function selectAllFromTableForPlidAndVolgNr(
+  table: string,
+  plid: number,
+  volgNr: number,
+): SqlStatement {
+  const statementText = `SELECT *
+                         FROM public.${table}
+                         WHERE pl_id = $1 AND volg_nr = $2`;
+  return new SqlStatement(statementText, [plid, volgNr]);
+}
+
+export function selectAllFromTableForPlid(
+  table: string,
+  plid: number,
+): SqlStatement {
+  const statementText = `SELECT *
+                         FROM public.${table}
+                         WHERE pl_id = $1`;
+  return new SqlStatement(statementText, [plid]);
+}

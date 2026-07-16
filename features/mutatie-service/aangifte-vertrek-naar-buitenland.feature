@@ -1,8 +1,8 @@
 # language: nl
 @mutatie-service
 Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
- Dit betreft het doorgeven van een aangifte van vertrek naar het buitenland.
- In de mutatie-service gebeurt dit met aangifte type 'AangifteVanVertrekNaarBuitenland'
+  Dit betreft het doorgeven van een aangifte van vertrek naar het buitenland.
+  In de mutatie-service gebeurt dit met aangifte type 'AangifteVanVertrekNaarBuitenland'
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
@@ -17,7 +17,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Hengelo' heeft een abonnement op 'nl.brp.verhuisd.naar-buitenland' gebeurtenissen van 'Jan'
       En de aangifte van vertrek naar buitenland van 'Jan' is verwerkt met de volgende gegevens
         | naam           | waarde                    |
-        | datumEmigratie |                2026-02-10 |
+        | datumEmigratie | 2026-02-10                |
         | regel1         | Paul-Henri Spaak Building |
         | regel2         | Rue Wiertz 60             |
         | regel3         | B-1047 Bruxelles          |
@@ -38,7 +38,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
     Scenario: Aangifte van vertrek naar buitenland wijzigt verblijfplaats en vult opschorting bijhouding
       Gegeven de aangifte van vertrek naar buitenland van 'Jan' is verwerkt met de volgende gegevens
         | naam           | waarde                    |
-        | datumEmigratie |                2026-02-10 |
+        | datumEmigratie | 2026-02-10                |
         | regel1         | Paul-Henri Spaak Building |
         | regel2         | Rue Wiertz 60             |
         | regel3         | B-1047 Bruxelles          |
@@ -78,7 +78,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
     Scenario: Aangifte van vertrek naar buitenland voegt buitenlandse adres toe aan verblijfplaatshistorie
       Gegeven de aangifte van vertrek naar buitenland van 'Jan' is verwerkt met de volgende gegevens
         | naam           | waarde                    |
-        | datumEmigratie |                2026-02-10 |
+        | datumEmigratie | 2026-02-10                |
         | regel1         | Paul-Henri Spaak Building |
         | regel2         | Rue Wiertz 60             |
         | regel3         | B-1047 Bruxelles          |
