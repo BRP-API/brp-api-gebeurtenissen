@@ -52,10 +52,13 @@ Then(
   'worden volgende {objectNaam} geleverd',
   function (objectNaam: string, dataTable) {
     this.expected = {
-      [objectNaam]: createObjectArrayFrom(dataTable),
+      "statusCode": 200,
+      "body": {
+        [objectNaam]: createObjectArrayFrom(dataTable)
+      },
     };
-    expect(this.result[objectNaam]).to.deep.equal(
-      this.expected[objectNaam],
+    expect(this.result.body[objectNaam]).to.deep.equal(
+      this.expected.body[objectNaam],
       `${objectNaam} is niet correct`,
     );
   },
