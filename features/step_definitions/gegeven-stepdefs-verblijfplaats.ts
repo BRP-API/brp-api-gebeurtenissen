@@ -5,6 +5,8 @@ import {AdresBuitenland} from './brp/adres-buitenland-entity';
 import {Persoon} from './brp/persoon-entity';
 import {VerblijfplaatsBinnenland} from './brp/verblijfplaats-entity';
 import {createVerblijfPlaatsVoorPersoon} from './support/repository';
+import {PersoonFactory} from './support/persoon-factory';
+import {logger} from './support/logger';
 
 function handleVerhuizing(persoon: any, adres: any, datum: string) {
   if (adres instanceof Adres) {
@@ -46,21 +48,25 @@ function handleAangifteVanVertrekCommand(
 
 Given(
   'verblijft vanaf {string} op het adres {string}',
-  function (datum: string, adresAanduiding: string) {
-    if (this.huidigAanduiding?.isPersoon) {
-      const persoon = this.context.personen[this.huidigAanduiding.id];
-      const adres = this.context.adressen[adresAanduiding];
+  async function (datum: string, adresAanduiding: string) {
+    // if (this.huidigAanduiding?.isPersoon) {
+    //   const persoon = this.context.personen[this.huidigAanduiding.id];
+    //   const adres = this.context.adressen[adresAanduiding];
 
-      handleVerhuizing(persoon, adres, datum);
-    } else if (this.huidigAanduiding?.isCommand) {
-      if (this.command.type === 'AangifteVanAdreswijziging') {
-        const adres = this.context.adressen[adresAanduiding] as Adres;
-        handleAangifteVanAdreswijzigingCommand(this.command, adres, datum);
-      } else if (this.command.type === 'AangifteVanVertrek') {
-        const adres = this.context.adressen[adresAanduiding] as AdresBuitenland;
-        handleAangifteVanVertrekCommand(this.command, adres, datum);
-      }
-    }
+    //   handleVerhuizing(persoon, adres, datum);
+    // } else if (this.huidigAanduiding?.isCommand) {
+    //   if (this.command.type === 'AangifteVanAdreswijziging') {
+    //     const adres = this.context.adressen[adresAanduiding] as Adres;
+    //     handleAangifteVanAdreswijzigingCommand(this.command, adres, datum);
+    //   } else if (this.command.type === 'AangifteVanVertrek') {
+    //     const adres = this.context.adressen[adresAanduiding] as AdresBuitenland;
+    //     handleAangifteVanVertrekCommand(this.command, adres, datum);
+    //   }
+    // }
+    const persoon = this.context.personen[this.context.actuelePersoon];
+    const adres = this.context.adressen[adresAanduiding];
+
+    await PersoonFactory.verhuisNaarAdres(persoon, adres, toBrpDate(datum));
   },
 );
 

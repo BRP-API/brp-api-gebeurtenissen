@@ -9,7 +9,12 @@ import {ICustomWorld} from './support/custom-world';
 import {expect} from 'chai';
 import {PostgresqlManager} from './support/postgresql-manager';
 import {poolConfig} from './support/postgresql-config';
-import {createAdres, createPersoon, deleteAdres} from './support/repository';
+import {
+  createAdres,
+  createPersoon,
+  deleteAdres,
+  deletePersoon,
+} from './support/repository';
 import {tearDownClient} from './support/oauth-helpers';
 import {logger} from './support/logger';
 import {sendCommand} from './support/mutatie-api-helpers';
@@ -219,6 +224,12 @@ After(async function (this: ICustomWorld) {
   if (this.context.adressen) {
     for (const key of Object.keys(this.context.adressen)) {
       await deleteAdres(this.context.adressen[key]);
+    }
+  }
+
+  if (this.context.personen) {
+    for (const key of Object.keys(this.context.personen)) {
+      await deletePersoon(this.context.personen[key]);
     }
   }
 });

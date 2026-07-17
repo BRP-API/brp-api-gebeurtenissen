@@ -278,7 +278,7 @@ Given(
       'http statuscode is niet correct',
     );
 
-    const groepNaam = 'standaardGroep';
+    const groepNaam = 'standaard-groep';
     this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
     expect(this.result.statusCode).to.equal(
       HttpStatusCode.Created,

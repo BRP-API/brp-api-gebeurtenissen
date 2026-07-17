@@ -1,7 +1,7 @@
 import {Adres} from '../brp/adres-entity';
 import {Afnemer} from '../brp/afnemer-entity';
 import {Persoon} from '../brp/persoon-entity';
-import {logger} from './logger';
+//import {logger} from './logger';
 import {PostgresqlManager} from './postgresql-manager';
 import {
   createLo3AdresInsertStatement,
@@ -10,20 +10,23 @@ import {
   createLo3PlInsertStatement,
   createLo3PlPersoonInsertStatement,
   createLo3PlVerblijfplaatsInsertStatement,
+  createLo3PlVerblijfplaatsOpAdresInsertStatement,
+  createLo3PlVerblijfplaatsVolgnummerUpdateStatement,
   createLo3AdresDeleteStatement,
+  createLo3PersoonDeleteStatements,
 } from './sql-statements-factory';
 
-export async function createAdres(adres: Adres): Promise<void> {
+export async function createAdres(adres: Adres): Promise<Adres> {
   const statement = createLo3AdresInsertStatement(adres);
   const result = await PostgresqlManager.getInstance().execute(statement);
-
-  logger.debug('createAdres', {adres: adres, result: result});
 
   for (const key of adres.getPropertyNames()) {
     if (!adres[key as keyof Adres] && result.has(key)) {
       (adres as any)[key] = result.get(key);
     }
   }
+
+  return adres;
 }
 
 export async function updateAdres(
@@ -32,9 +35,7 @@ export async function updateAdres(
   value: string,
 ): Promise<void> {
   const statement = createLo3AdresUpdateStatement(adres, property, value);
-  const result = await PostgresqlManager.getInstance().execute(statement);
-
-  logger.debug('updateAdres', {statement: statement, result: result});
+  await PostgresqlManager.getInstance().execute(statement);
 }
 
 export async function createAutorisatie(afnemer: Afnemer): Promise<void> {
@@ -80,7 +81,42 @@ export async function createVerblijfPlaatsVoorPersoon(
   await PostgresqlManager.getInstance().execute(sqlStatement);
 }
 
+export async function createVerblijfPlaatsVoorPersoonOpAdres(
+  persoon: Persoon,
+  adres: Adres,
+  datumVan: string,
+): Promise<void> {
+  const updateSqlStatement =
+    createLo3PlVerblijfplaatsVolgnummerUpdateStatement(persoon);
+  await PostgresqlManager.getInstance().execute(updateSqlStatement);
+
+  const sqlStatement = createLo3PlVerblijfplaatsOpAdresInsertStatement(
+    persoon,
+    adres,
+    datumVan,
+  );
+  await PostgresqlManager.getInstance().execute(sqlStatement);
+}
+
+export async function maakHuidigeVerblijfplaatsHistorisch(
+  persoon: Persoon,
+  adres: Adres,
+  datumVan: string,
+): Promise<void> {
+  const sqlStatement =
+    createLo3PlVerblijfplaatsVolgnummerUpdateStatement(persoon);
+  await PostgresqlManager.getInstance().execute(sqlStatement);
+}
+
 export async function deleteAdres(adres: Adres): Promise<void> {
   const statement = createLo3AdresDeleteStatement(adres);
   await PostgresqlManager.getInstance().execute(statement);
+}
+
+export async function deletePersoon(persoon: Persoon): Promise<void> {
+  const statements = createLo3PersoonDeleteStatements(persoon);
+
+  for (const statement of statements) {
+    await PostgresqlManager.getInstance().execute(statement);
+  }
 }

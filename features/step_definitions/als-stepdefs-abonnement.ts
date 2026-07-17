@@ -85,7 +85,9 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+    const response = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -101,11 +103,13 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await verwijderGroepVanAbonnee(
+    const response = await verwijderGroepVanAbonnee(
       afnemer,
       abonneeNaam,
       groepNaam,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -134,12 +138,14 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await voegGebeurtenistypeToeAanGroep(
+    const response = await voegGebeurtenistypeToeAanGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       gebeurtenistype,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -156,12 +162,14 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await verwijderGebeurtenistypeUitGroep(
+    const response = await verwijderGebeurtenistypeUitGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       gebeurtenistype,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -177,11 +185,13 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegGebeurtenistypesInGroep(
+    const response = await raadpleegGebeurtenistypesInGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -203,13 +213,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       persoon,
       'AbonneerPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -231,12 +243,14 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       persoon,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -259,13 +273,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       persoon,
       type,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -285,13 +301,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       persoon,
       'AbonneerPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -310,13 +328,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       persoon,
       'AbonneerPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -337,13 +357,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       '',
       persoon,
       'AbonneerPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -365,13 +387,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       persoon,
       'ZegOpAbonnementVanPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -390,13 +414,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       persoon,
       'ZegOpAbonnementVanPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -416,13 +442,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       persoon,
       'ZegOpAbonnementVanPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -443,13 +471,15 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await abonneerPersoonOpGroep(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
       '',
       persoon,
       'ZegOpAbonnementVanPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 

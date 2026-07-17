@@ -227,6 +227,9 @@ export async function voegGebeurtenistypeToeAanGroep(
     `voegGebeurtenistypeToeAanGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', groepNaam: '${groepNaam}', gebeurtenistype: '${gebeurtenistype}'`,
     {response: response},
   );
+  logger.info(
+    `/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes ${JSON.stringify(requestBody)} >>> status: ${response.status}`,
+  );
 
   return {
     statusCode: response.status,

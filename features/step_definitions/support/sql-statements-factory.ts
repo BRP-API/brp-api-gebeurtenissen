@@ -1,6 +1,7 @@
 import {Adres} from '../brp/adres-entity';
 import {Afnemer} from '../brp/afnemer-entity';
 import {Persoon} from '../brp/persoon-entity';
+//import {logger} from './logger';
 
 export class SqlStatement {
   statementText: string;
@@ -52,6 +53,36 @@ function extendSqlStatementValuesPartForVerblijfplaatsIdentificatieCode(
   return valuesPart;
 }
 
+function extendSqlStatementValuesPartForPostcode(
+  adres: Adres,
+  valuesPart: string,
+  values: string[],
+) {
+  if (valuesPart.length > 0) {
+    valuesPart += ',';
+  }
+
+  valuesPart += `$${values.length + 1}`;
+  values.push(adres.postcode);
+
+  return valuesPart;
+}
+
+function extendSqlStatementValuesPartForHuisnummer(
+  adres: Adres,
+  valuesPart: string,
+  values: string[],
+) {
+  if (valuesPart.length > 0) {
+    valuesPart += ',';
+  }
+
+  valuesPart += `$${values.length + 1}`;
+  values.push(String(adres.huis_nr));
+
+  return valuesPart;
+}
+
 export function createLo3AdresInsertStatement(adres: Adres): SqlStatement {
   const values: string[] = [];
 
@@ -66,8 +97,19 @@ export function createLo3AdresInsertStatement(adres: Adres): SqlStatement {
     valuesPart,
     values,
   );
+  valuesPart = extendSqlStatementValuesPartForPostcode(
+    adres,
+    valuesPart,
+    values,
+  );
+  valuesPart = extendSqlStatementValuesPartForHuisnummer(
+    adres,
+    valuesPart,
+    values,
+  );
 
-  const insertPart = 'adres_id,gemeente_code,verblijf_plaats_ident_code';
+  const insertPart =
+    'adres_id,gemeente_code,verblijf_plaats_ident_code,postcode,huis_nr';
   const statementText = `INSERT INTO public.lo3_adres(${insertPart}) VALUES(${valuesPart}) RETURNING *`;
 
   return new SqlStatement(statementText, values);
@@ -76,7 +118,7 @@ export function createLo3AdresInsertStatement(adres: Adres): SqlStatement {
 export function createLo3AdresUpdateStatement(
   adres: Adres,
   changedColummn: string,
-  newValue: string
+  newValue: string,
 ): SqlStatement {
   const values: any[] = [];
 
@@ -180,6 +222,37 @@ export function createLo3PlVerblijfplaatsInsertStatement(
   );
 }
 
+export function createLo3PlVerblijfplaatsOpAdresInsertStatement(
+  persoon: Persoon,
+  adres: Adres,
+  datumVan: string,
+): SqlStatement {
+  if (
+    adres === undefined ||
+    adres.adres_id === undefined ||
+    adres.gemeente_code === undefined
+  ) {
+    throw new Error('Er is geen adres');
+  }
+
+  const columns =
+    'pl_id, volg_nr, inschrijving_gemeente_code, adres_id, inschrijving_datum, adres_functie, adreshouding_start_datum, geldigheid_start_datum, opneming_datum';
+
+  return new SqlStatement(
+    `INSERT INTO public.lo3_pl_verblijfplaats (${columns}) VALUES($1, 0, $2, $3, $4, 'W', $4, $4, $4)`,
+    [persoon.pl_id, adres.gemeente_code, adres.adres_id, datumVan],
+  );
+}
+
+export function createLo3PlVerblijfplaatsVolgnummerUpdateStatement(
+  persoon: Persoon,
+): SqlStatement {
+  return new SqlStatement(
+    `UPDATE public.lo3_pl_verblijfplaats SET volg_nr=volg_nr+1 WHERE pl_id=$1`,
+    [persoon.pl_id],
+  );
+}
+
 export function createInsertStatements(persoon: Persoon): SqlStatement[] {
   const statements: SqlStatement[] = [
     createLo3PlInsertStatement(persoon),
@@ -208,6 +281,22 @@ export function createSelectStatement(
 export function createLo3AdresDeleteStatement(adres: Adres): SqlStatement {
   const statementText = 'DELETE FROM public.lo3_adres WHERE adres_id = $1';
   return new SqlStatement(statementText, [adres.adres_id]);
+}
+
+export function createLo3PersoonDeleteStatements(persoon: Persoon): Array<SqlStatement> {
+  const statements = [
+    new SqlStatement('DELETE FROM public.lo3_pl_verblijfplaats WHERE pl_id = $1', [
+      persoon.pl_id,
+    ]),
+    new SqlStatement('DELETE FROM public.lo3_pl_persoon WHERE pl_id = $1', [
+      persoon.pl_id,
+    ]),
+    new SqlStatement('DELETE FROM public.lo3_pl WHERE pl_id = $1', [
+      persoon.pl_id,
+    ]),
+  ];
+
+  return statements;
 }
 
 export function selectFieldFromTableForPlid(

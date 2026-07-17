@@ -31,6 +31,6 @@ export class Adres {
   }
 
   randomHuisnummer(): bigint {
-    return BigInt(Math.floor(Math.random() * 9999));
+    return BigInt(Math.floor(Math.random() * 20));
   }
 }

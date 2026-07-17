@@ -3,17 +3,13 @@ import {Adres} from './brp/adres-entity';
 import {Aanduiding} from './support/aanduiding';
 import {AdresBuitenland} from './brp/adres-buitenland-entity';
 import {AdresFactory} from './support/adres-factory';
+//import {logger} from './support/logger';
 
-Given('het adres {string}', function (adresAanduiding: string) {
-  // if (!this.context.adressen) {
-  //   this.context.adressen = {};
-  // }
-  // this.context.adressen[adresAanduiding] = new Adres();
-  //this.huidigAanduiding = Aanduiding.adres(adresAanduiding);
-  AdresFactory.create(this.context, adresAanduiding);
+Given('het adres {string}', async function (adresAanduiding: string) {
+  await AdresFactory.create(this.context, adresAanduiding);
 });
 
-Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
+Given('in gemeente {string}', async function (gemeenteOmschrijving: string) {
   const gemeenteCodeMap: {[key: string]: string} = {
     Amsterdam: '0363',
     'Den Haag': '0518',
@@ -23,12 +19,7 @@ Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
     Utrecht: '0344',
   };
 
-  // if (this.huidigAanduiding?.isAdres) {
-  //   (this.context.adressen[this.huidigAanduiding.id] as Adres).gemeente_code =
-  //     gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
-  // }
-
-  AdresFactory.update(
+  await AdresFactory.update(
     this.context,
     'gemeente_code',
     gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving,
@@ -37,13 +28,8 @@ Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
 
 Given(
   'met adresseerbaar object identificatie {string}',
-  function (adresseerbaarObjectIdentificatie: string) {
-    // if (this.huidigAanduiding?.isAdres) {
-    //   (
-    //     this.context.adressen[this.huidigAanduiding.id] as Adres
-    //   ).verblijf_plaats_ident_code = adresseerbaarObjectIdentificatie;
-    // }
-    AdresFactory.update(
+  async function (adresseerbaarObjectIdentificatie: string) {
+    await AdresFactory.update(
       this.context,
       'verblijf_plaats_ident_code',
       adresseerbaarObjectIdentificatie,
