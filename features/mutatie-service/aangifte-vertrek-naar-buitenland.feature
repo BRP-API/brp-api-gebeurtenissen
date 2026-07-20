@@ -7,6 +7,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     * in gemeente 'Hengelo'
+    * met adres 'Burg van der Dussenplein 1' en postcode '7551EB'
     * met adresseerbaar object identificatie '0164010000047847'
     En de persoon 'Jan' is geregistreerd in de BRP
     * verblijft vanaf '1-9-2025' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
@@ -94,7 +95,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
         | datumVan.datum                       |                2026-02-10 |
         | datumVan.langFormaat                 |          10 februari 2026 |
         | gemeenteVanInschrijving.code         |                      0164 |
-        | gemeenteVanInschrijving.omschrijving | Hengelo                   |
+        | gemeenteVanInschrijving.omschrijving | Hengelo (O)               |
         | verblijfadres.land.code              |                      5010 |
         | verblijfadres.land.omschrijving      | België                    |
         | verblijfadres.regel1                 | Paul-Henri Spaak Building |
@@ -102,23 +103,30 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
         | verblijfadres.regel3                 | B-1047 Bruxelles          |
         | adressering.land.code                |                      5010 |
         | adressering.land.omschrijving        | België                    |
-        | adressering.regel1                   | Paul-Henri Spaak Building |
-        | adressering.regel2                   | Rue Wiertz 60             |
-        | adressering.regel3                   | B-1047 Bruxelles          |
+        | adressering.adresregel1              | Paul-Henri Spaak Building |
+        | adressering.adresregel2              | Rue Wiertz 60             |
+        | adressering.adresregel3              | B-1047 Bruxelles          |
       En heeft de response een verblijfplaats voorkomen met de volgende gegevens
-        | naam                                 | waarde           |
-        | type                                 | Adres            |
-        | datumVan.type                        | Datum            |
-        | datumVan.datum                       |       2025-09-01 |
-        | datumVan.langFormaat                 | 1 september 2025 |
-        | datumTot.type                        | Datum            |
-        | datumTot.datum                       |       2026-02-10 |
-        | datumTot.langFormaat                 | 10 februari 2026 |
-        | functieAdres.code                    | W                |
-        | functieAdres.omschrijving            | woonadres        |
-        | adresseerbaarObjectIdentificatie     | 0164010000047847 |
-        | gemeenteVanInschrijving.code         |             0164 |
-        | gemeenteVanInschrijving.omschrijving | Hengelo          |
+        | naam                                 | waarde                     |
+        | type                                 | Adres                      |
+        | datumVan.type                        | Datum                      |
+        | datumVan.datum                       |                 2025-09-01 |
+        | datumVan.langFormaat                 |           1 september 2025 |
+        | datumTot.type                        | Datum                      |
+        | datumTot.datum                       |                 2026-02-10 |
+        | datumTot.langFormaat                 |           10 februari 2026 |
+        | functieAdres.code                    | W                          |
+        | functieAdres.omschrijving            | woonadres                  |
+        | verblijfadres.officieleStraatnaam    | Burg van der Dussenplein   |
+        | verblijfadres.korteStraatnaam        | Burg van der Dussenplein   |
+        | verblijfadres.huisnummer             |                          1 |
+        | verblijfadres.postcode               |                     7551EB |
+        | verblijfadres.woonplaats             | Hengelo                    |
+        | adresseerbaarObjectIdentificatie     |           0164010000047847 |
+        | gemeenteVanInschrijving.code         |                       0164 |
+        | gemeenteVanInschrijving.omschrijving | Hengelo (O)                |
+        | adressering.adresregel1              | Burg van der Dussenplein 1 |
+        | adressering.adresregel2              |           7551 EB  HENGELO |
       En heeft de response de volgende gegevens
         | naam                                     | waarde           |
         | opschortingBijhouding.reden.code         | E                |

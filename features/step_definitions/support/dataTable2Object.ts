@@ -8,7 +8,11 @@ function setPropertyValue(
   propertyValue: string,
   dateAsDate: boolean,
 ) {
-  obj[propertyName] = toDateOrString(propertyValue, dateAsDate);
+  if (propertyName === 'huisnummer') {
+    obj[propertyName] = parseInt(propertyValue);
+  } else {
+    obj[propertyName] = toDateOrString(propertyValue, dateAsDate);
+  }
 }
 
 function setNestedPropertyValue(

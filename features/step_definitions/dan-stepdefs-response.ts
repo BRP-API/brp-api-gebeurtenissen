@@ -88,8 +88,31 @@ Then(
     // dit werkt alleen bij vragen (en ontvangen) van exact 1 persoon in de response
 
     if (this.expected === undefined || this.expected.personen === undefined) {
-      this.expected.personen = [{}]
+      this.expected.personen = [{}];
     }
     this.expected.personen[0][propertyNaam] = createObjectFrom(dataTable);
   },
 );
+
+Then(
+  'heeft de response een verblijfplaats voorkomen met de volgende gegevens',
+  function (dataTable) {
+    if (
+      this.expected === undefined ||
+      this.expected.verblijfplaatsen === undefined
+    ) {
+      this.expected.verblijfplaatsen = [];
+    }
+    this.expected.verblijfplaatsen.push(createObjectFrom(dataTable));
+  },
+);
+
+Then('heeft de response de volgende gegevens', function (dataTable) {
+  if (
+    this.expected === undefined
+  ) {
+    this.expected = {};
+  }
+
+  this.expected = Object.assign(this.expected, createObjectFrom(dataTable));
+});

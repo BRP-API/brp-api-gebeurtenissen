@@ -3,6 +3,7 @@ import {Adres} from './brp/adres-entity';
 import {Aanduiding} from './support/aanduiding';
 import {AdresBuitenland} from './brp/adres-buitenland-entity';
 import {AdresFactory} from './support/adres-factory';
+import {expect} from 'chai';
 //import {logger} from './support/logger';
 
 Given('het adres {string}', async function (adresAanduiding: string) {
@@ -24,7 +25,34 @@ Given('in gemeente {string}', async function (gemeenteOmschrijving: string) {
     'gemeente_code',
     gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving,
   );
+
+  await AdresFactory.update(
+    this.context,
+    'woon_plaats_naam',
+    gemeenteOmschrijving,
+  );
 });
+
+Given(
+  'met adres {string} en postcode {string}',
+  async function (adresregel1, postcode) {
+    const adresParts = /([a-zA-Z\.\- ]+) (\d+)/.exec(adresregel1) || [];
+
+    expect(adresParts.length).to.be.gte(
+      2,
+      'Adres moet straat en huisnummer bevatten',
+    );
+
+    await AdresFactory.update(
+      this.context,
+      'straat_naam',
+      adresParts[1].substring(0, 24),
+    );
+    await AdresFactory.update(this.context, 'open_ruimte_naam', adresParts[1]);
+    await AdresFactory.update(this.context, 'huis_nr', adresParts[2]);
+    await AdresFactory.update(this.context, 'postcode', postcode);
+  },
+);
 
 Given(
   'met adresseerbaar object identificatie {string}',
