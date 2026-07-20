@@ -17,7 +17,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Hengelo' heeft een abonnement op 'nl.brp.verhuisd.naar-buitenland' gebeurtenissen van 'Jan'
       En de aangifte van vertrek naar buitenland van 'Jan' is verwerkt met de volgende gegevens
         | naam           | waarde                    |
-        | datumEmigratie | 2026-02-10                |
+        | datumEmigratie |                2026-02-10 |
         | regel1         | Paul-Henri Spaak Building |
         | regel2         | Rue Wiertz 60             |
         | regel3         | B-1047 Bruxelles          |
@@ -31,14 +31,17 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
   Regel: Wanneer een aangifte van vertrek naar buitenland is verwerkt, worden de gewijzigde gegevens geleverd bij opvragen van betreffende de persoonsgegevens
     - gemeente van inschrijving en datum inschrijving in gemeente worden overgenomen van het vorige adres
     - de datum vertrek en de gegevens van het buitenlandse adres worden overgenomen van de aangifte
+    - datum ingang geldigheid is gelijk aan de datum vertrek
+    - omschrijving aangifte adreshouding is ingeschrevene (I)
+    - overige gegevens in de nieuwe verblijfplaats zijn leeg (zoals adres, adreshouding en functie adres)
     - reden opschorting bijhouding is emigratie
     - datum opschorting bijhouding is gelijk aan de datum emigratie van de aangifte
-    - overige gegevens van de inschrijving blijven ongewijzigd
+    - overige gegevens van de inschrijving blijven ongewijzigd (zoals bijv. indicatie geheim en datum eerste inschrijving in de GBA/BRP)
 
     Scenario: Aangifte van vertrek naar buitenland wijzigt verblijfplaats en vult opschorting bijhouding
       Gegeven de aangifte van vertrek naar buitenland van 'Jan' is verwerkt met de volgende gegevens
         | naam           | waarde                    |
-        | datumEmigratie | 2026-02-10                |
+        | datumEmigratie |                2026-02-10 |
         | regel1         | Paul-Henri Spaak Building |
         | regel2         | Rue Wiertz 60             |
         | regel3         | B-1047 Bruxelles          |
@@ -59,9 +62,9 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
         | datumIngangGeldigheid.datum       |                2026-02-10 |
         | datumIngangGeldigheid.langFormaat |          10 februari 2026 |
       En heeft 'Jan' de volgende 'gemeenteVanInschrijving' gegevens
-        | naam         | waarde  |
-        | code         |    0164 |
-        | omschrijving | Hengelo |
+        | naam         | waarde      |
+        | code         |        0164 |
+        | omschrijving | Hengelo (O) |
       En heeft 'Jan' de volgende 'datumInschrijvingInGemeente' gegevens
         | naam        | waarde           |
         | type        | Datum            |
@@ -70,7 +73,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
       En heeft 'Jan' de volgende 'opschortingBijhouding' gegevens
         | naam               | waarde           |
         | reden.code         | E                |
-        | reden.omschrijving | Emigratie        |
+        | reden.omschrijving | emigratie        |
         | datum.type         | Datum            |
         | datum.datum        |       2026-02-10 |
         | datum.langFormaat  | 10 februari 2026 |
@@ -78,7 +81,7 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
     Scenario: Aangifte van vertrek naar buitenland voegt buitenlandse adres toe aan verblijfplaatshistorie
       Gegeven de aangifte van vertrek naar buitenland van 'Jan' is verwerkt met de volgende gegevens
         | naam           | waarde                    |
-        | datumEmigratie | 2026-02-10                |
+        | datumEmigratie |                2026-02-10 |
         | regel1         | Paul-Henri Spaak Building |
         | regel2         | Rue Wiertz 60             |
         | regel3         | B-1047 Bruxelles          |
