@@ -224,6 +224,10 @@ Given(
       persoon,
       'AbonneerPersoonOpGroep',
     );
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
   },
 );
 
@@ -251,6 +255,10 @@ Given(
       groepNaam,
       persoon,
       'ZegOpAbonnementVanPersoonOpGroep',
+    );
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.NoContent,
+      'http statuscode is niet correct',
     );
   },
 );
@@ -367,6 +375,10 @@ Given(
         this.result = await registreerAbonneeVoorAfnemer(
           afnemer,
           gebeurtenis.abonneeNaam,
+        );
+        expect(this.result.statusCode).to.equal(
+          HttpStatusCode.NoContent,
+          'http statuscode is niet correct',
         );
       }
     }
