@@ -15,20 +15,6 @@ export class AdresFactory {
     if (!adres) {
       adres = new Adres();
 
-      const adresParts =
-        /([a-zA-Z_]+)_(\d+)(_\d{4}[A-Z]{2})?_([a-zA-Z_]+)/.exec(aanduiding) ||
-        [];
-
-      if (adresParts !== null && adresParts.length > 4) {
-        adres.straat_naam = adresParts[1].replaceAll('_', ' ').substring(0, 24);
-        adres.open_ruimte_naam = adresParts[1].replaceAll('_', ' ');
-        adres.huis_nr = adresParts[2];
-        if (adresParts[3] !== undefined) {
-          adres.postcode = adresParts[3].substring(1);
-        }
-        adres.woon_plaats_naam = adresParts[4];
-      }
-
       context.adressen[aanduiding] = adres;
       adres = await createAdres(adres);
     }
