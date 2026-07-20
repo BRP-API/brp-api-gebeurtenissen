@@ -236,10 +236,10 @@ export function createLo3PlVerblijfplaatsOpAdresInsertStatement(
   }
 
   const columns =
-    'pl_id, volg_nr, inschrijving_gemeente_code, adres_id, inschrijving_datum, adres_functie, adreshouding_start_datum, geldigheid_start_datum, opneming_datum';
+    'pl_id, volg_nr, inschrijving_gemeente_code, adres_id, inschrijving_datum, adres_functie, adreshouding_start_datum, aangifte_adreshouding_oms, geldigheid_start_datum, opneming_datum';
 
   return new SqlStatement(
-    `INSERT INTO public.lo3_pl_verblijfplaats (${columns}) VALUES($1, 0, $2, $3, $4, 'W', $4, $4, $4)`,
+    `INSERT INTO public.lo3_pl_verblijfplaats (${columns}) VALUES($1, 0, $2, $3, $4, 'W', $4, 'I', $4, $4)`,
     [persoon.pl_id, adres.gemeente_code, adres.adres_id, datumVan],
   );
 }

@@ -3,6 +3,7 @@ import {ProblemDetails} from './support/problem-details';
 import {
   createObjectArrayWithPersoonAanduidingenFrom,
   createObjectArrayFrom,
+  createObjectFrom,
 } from './support/dataTable2Object';
 import {Persoon} from './brp/persoon-entity';
 import {expect} from 'chai';
@@ -79,3 +80,16 @@ Then('wordt er geen abonnement geleverd', function () {
     this.expected['abonnementen'],
   );
 });
+
+Then(
+  'heeft {string} de volgende {string} gegevens',
+  function (persoonaanduiding, propertyNaam, dataTable) {
+    // dit betreft gegevens van een persoon zoals die uit de personen API komt.
+    // dit werkt alleen bij vragen (en ontvangen) van exact 1 persoon in de response
+
+    if (this.expected === undefined || this.expected.personen === undefined) {
+      this.expected.personen = [{}]
+    }
+    this.expected.personen[0][propertyNaam] = createObjectFrom(dataTable);
+  },
+);

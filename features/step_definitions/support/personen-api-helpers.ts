@@ -27,7 +27,7 @@ export async function raadpleegMetBurgerservicenummer(
   const requestBody = {
     type: 'RaadpleegMetBurgerservicenummer',
     fields: fields,
-    raadpleegMetBurgerservicenummer: persoon.burger_service_nr,
+    burgerservicenummer: [persoon.burger_service_nr],
   };
 
   const response = await fetch(
