@@ -1,4 +1,4 @@
-import {DataTable, When} from '@cucumber/cucumber';
+import {DataTable, When, defineParameterType} from '@cucumber/cucumber';
 import {Aanduiding} from './support/aanduiding';
 import {
   AangifteVanAdreswijzigingCommand,
@@ -8,6 +8,7 @@ import {createObjectFrom} from './support/dataTable2Object';
 import {sendCommand} from './support/mutatie-api-helpers';
 import {expect} from 'chai';
 import {HttpStatusCode} from 'axios';
+import {toIsoDate} from './support/date-utils';
 
 When(
   'de aangifte van adreswijziging van {string} is verwerkt',
@@ -42,6 +43,25 @@ When(
       dataTableObject.regel1,
       dataTableObject.regel2,
       dataTableObject.regel3,
+    );
+    const response = await sendCommand(this.command);
+    expect(response.status).to.equal(HttpStatusCode.Created);
+  },
+);
+
+defineParameterType({
+  name: 'functie-adres',
+  regexp: /woonadres|briefadres/,
+  transformer: s => s.substring(0, 1).toUpperCase(),
+});
+
+When(
+  'de aangifte van adreswijziging van {string} vanaf {string} naar het (woon)(brief)adres {string} is verwerkt',
+  async function (persoonAanduiding, datumAanvang, adresAanduiding) {
+    this.command = new AangifteVanAdreswijzigingCommand(
+      this.context.personen[persoonAanduiding].burger_service_nr,
+      this.context.adressen[adresAanduiding].verblijf_plaats_ident_code,
+      toIsoDate(datumAanvang),
     );
     const response = await sendCommand(this.command);
     expect(response.status).to.equal(HttpStatusCode.Created);

@@ -7,7 +7,9 @@ Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     * in gemeente 'Hengelo'
-    * met adres 'Burg van der Dussenplein 1' en postcode '7551EB'
+    * met straat 'Burg van der Dussenplein'
+    * met huisnummer 1
+    * met postcode '7551EB'
     * met adresseerbaar object identificatie '0164010000047847'
     En de persoon 'Jan' is geregistreerd in de BRP
     * verblijft vanaf '1-9-2025' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'

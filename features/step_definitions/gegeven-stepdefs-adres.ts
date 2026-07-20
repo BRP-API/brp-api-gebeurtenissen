@@ -33,26 +33,22 @@ Given('in gemeente {string}', async function (gemeenteOmschrijving: string) {
   );
 });
 
-Given(
-  'met adres {string} en postcode {string}',
-  async function (adresregel1, postcode) {
-    const adresParts = /([a-zA-Z\.\- ]+) (\d+)/.exec(adresregel1) || [];
+Given('met straat {string}', async function (straat: string) {
+  await AdresFactory.update(
+    this.context,
+    'straat_naam',
+    straat.substring(0, 24),
+  );
+  await AdresFactory.update(this.context, 'open_ruimte_naam', straat);
+});
 
-    expect(adresParts.length).to.be.gte(
-      2,
-      'Adres moet straat en huisnummer bevatten',
-    );
+Given('met huisnummer {int}', async function (huisnummer: bigint) {
+  await AdresFactory.update(this.context, 'huis_nr', String(huisnummer));
+});
 
-    await AdresFactory.update(
-      this.context,
-      'straat_naam',
-      adresParts[1].substring(0, 24),
-    );
-    await AdresFactory.update(this.context, 'open_ruimte_naam', adresParts[1]);
-    await AdresFactory.update(this.context, 'huis_nr', adresParts[2]);
-    await AdresFactory.update(this.context, 'postcode', postcode);
-  },
-);
+Given('met postcode {string}', async function (postcode) {
+  await AdresFactory.update(this.context, 'postcode', postcode);
+});
 
 Given(
   'met adresseerbaar object identificatie {string}',

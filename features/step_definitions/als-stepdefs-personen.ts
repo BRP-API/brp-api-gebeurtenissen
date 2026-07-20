@@ -27,6 +27,12 @@ When(
 
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
+
+    if (this.expected === undefined) {
+      this.expected = {};
+    }
+
+    this.expected.type = 'RaadpleegMetBurgerservicenummer';
   },
 );
 
