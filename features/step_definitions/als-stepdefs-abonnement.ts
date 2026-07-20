@@ -27,9 +27,9 @@ When(
 
     const response = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
     this.result = {
-      "statusCode": response.statusCode,
-      "body": response.body,
-    }
+      statusCode: response.statusCode,
+      body: response.body,
+    };
   },
 );
 
@@ -43,9 +43,9 @@ When(
 
     const response = await registreerAbonneeVoorAfnemer(afnemer);
     this.result = {
-      "statusCode": response.statusCode,
-      "body": response.body,
-    }
+      statusCode: response.statusCode,
+      body: response.body,
+    };
   },
 );
 
@@ -71,9 +71,9 @@ When(
 
     const response = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
     this.result = {
-      "statusCode": response.statusCode,
-      "body": response.body,
-    }
+      statusCode: response.statusCode,
+      body: response.body,
+    };
   },
 );
 

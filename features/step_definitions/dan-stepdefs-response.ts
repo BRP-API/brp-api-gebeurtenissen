@@ -1,23 +1,26 @@
 import {Then, defineParameterType} from '@cucumber/cucumber';
 import {ProblemDetails} from './support/problem-details';
-import {createArrayFrom, createObjectArrayFrom} from './support/dataTable2Object';
+import {
+  createArrayFrom,
+  createObjectArrayFrom,
+} from './support/dataTable2Object';
 import {expect} from 'chai';
 
 Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
-    const expectedStatus = Number(status.split(' ')[0])
+    const expectedStatus = Number(status.split(' ')[0]);
     if (expectedStatus === 201) {
       this.expected = {
         statusCode: 201,
         body: null,
-      }
+      };
     }
     if (expectedStatus === 204) {
       this.expected = {
         statusCode: 204,
         body: null,
-      }
+      };
     }
 
     if (!ProblemDetails.isSuccessFull(expectedStatus)) {
@@ -52,9 +55,9 @@ Then(
   'worden volgende {objectNaam} geleverd',
   function (objectNaam: string, dataTable) {
     this.expected = {
-      "statusCode": 200,
-      "body": {
-        [objectNaam]: createObjectArrayFrom(dataTable)
+      statusCode: 200,
+      body: {
+        [objectNaam]: createObjectArrayFrom(dataTable),
       },
     };
     expect(this.result.body[objectNaam]).to.deep.equal(
@@ -64,18 +67,15 @@ Then(
   },
 );
 
-Then(
-  'worden volgende gebeurtenistypes geleverd',
-  function (dataTable) {
-    this.expected = {
-      "statusCode": 200,
-      "body": {
-        "gebeurtenistypes": createArrayFrom(dataTable)
-      },
-    };
-    expect(this.result.body.gebeurtenistypes).to.deep.equal(
-      this.expected.body.gebeurtenistypes,
-      `gebeurtenistypes is niet correct`,
-    );
-  },
-);
+Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {
+  this.expected = {
+    statusCode: 200,
+    body: {
+      gebeurtenistypes: createArrayFrom(dataTable),
+    },
+  };
+  expect(this.result.body.gebeurtenistypes).to.deep.equal(
+    this.expected.body.gebeurtenistypes,
+    'gebeurtenistypes is niet correct',
+  );
+});

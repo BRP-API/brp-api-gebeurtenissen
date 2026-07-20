@@ -106,17 +106,14 @@ export function createObjectArrayFrom(
   return retval;
 }
 
-export function createArrayFrom(
-  dataTable: DataTable,
-): any[] {
+export function createArrayFrom(dataTable: DataTable): any[] {
   const retval: string[] = [];
 
   for (const row of dataTable.hashes()) {
     for (const propertyName of Object.keys(row)) {
-      retval.push(row[propertyName])
+      retval.push(row[propertyName]);
     }
   }
 
   return retval;
 }
-
