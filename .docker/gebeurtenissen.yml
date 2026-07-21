@@ -10,7 +10,7 @@ services:
       keycloak:
         condition: service_healthy
     ports:
-      - "8888:8888"
+      - "8002:8002"
     environment:
       - AXON_AXONSERVER_SERVERS=axon
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/rvig_haalcentraal_testdata
