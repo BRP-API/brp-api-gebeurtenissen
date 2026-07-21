@@ -98,15 +98,15 @@ export async function createVerblijfPlaatsVoorPersoonOpAdres(
   await PostgresqlManager.getInstance().execute(sqlStatement);
 }
 
-export async function maakHuidigeVerblijfplaatsHistorisch(
-  persoon: Persoon,
-  adres: Adres,
-  datumVan: string,
-): Promise<void> {
-  const sqlStatement =
-    createLo3PlVerblijfplaatsVolgnummerUpdateStatement(persoon);
-  await PostgresqlManager.getInstance().execute(sqlStatement);
-}
+// export async function maakHuidigeVerblijfplaatsHistorisch(
+//   persoon: Persoon,
+//   adres: Adres,
+//   datumVan: string,
+// ): Promise<void> {
+//   const sqlStatement =
+//     createLo3PlVerblijfplaatsVolgnummerUpdateStatement(persoon);
+//   await PostgresqlManager.getInstance().execute(sqlStatement);
+// }
 
 export async function deleteAdres(adres: Adres): Promise<void> {
   const statement = createLo3AdresDeleteStatement(adres);

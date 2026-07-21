@@ -1,4 +1,4 @@
-import {DataTable, Then} from '@cucumber/cucumber';
+// import {DataTable, Then} from '@cucumber/cucumber';
 import {CloudEvent} from './support/cloud-events';
 import {setNestedProperty} from './support/object-utils';
 //import {Aanduiding} from './support/aanduiding';

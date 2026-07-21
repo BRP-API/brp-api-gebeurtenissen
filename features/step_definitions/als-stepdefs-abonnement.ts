@@ -85,7 +85,11 @@ When(
       afnemerAanduiding,
     );
 
-    const response = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+    const response = await voegGroepToeBijAbonnee(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+    );
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },

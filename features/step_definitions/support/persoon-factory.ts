@@ -25,7 +25,11 @@ export class PersoonFactory {
     return persoon;
   }
 
-  static async verhuisNaarAdres(persoon: Persoon, adres: Adres, datumVan: string): Promise<void> {
+  static async verhuisNaarAdres(
+    persoon: Persoon,
+    adres: Adres,
+    datumVan: string,
+  ): Promise<void> {
     await createVerblijfPlaatsVoorPersoonOpAdres(persoon, adres, datumVan);
   }
 }

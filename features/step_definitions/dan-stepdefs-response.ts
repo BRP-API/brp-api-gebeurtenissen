@@ -108,9 +108,7 @@ Then(
 );
 
 Then('heeft de response de volgende gegevens', function (dataTable) {
-  if (
-    this.expected === undefined
-  ) {
+  if (this.expected === undefined) {
     this.expected = {};
   }
 
