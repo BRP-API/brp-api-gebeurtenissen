@@ -28,3 +28,21 @@ Functionaliteit: Vraag welke abonnees geregistreerd zijn voor een afnemer
         | naam |
         | jz   |
         | ocw  |
+
+  Regel: Alleen gemeenten zijn geautoriseerd voor het beheren van abonnees
+
+    Scenario: Een gemeente als afnemer mag abonnees vragen
+      Gegeven de geauthenticeerde consumer 'Arnhem' is een gemeente
+      En de afnemer 'Arnhem' heeft de abonnee 'jz' geregistreerd
+      Als de afnemer 'Arnhem' zijn abonnees raadpleegt
+      Dan worden volgende abonnees geleverd
+        | naam |
+        | jz   |
+
+    Scenario: Een niet-gemeentelijke afnemer mag geen abonnees vragen
+      Gegeven de geauthenticeerde consumer 'Niet-gemeente' is geen gemeente
+      Als de afnemer 'Arnhem' zijn abonnees raadpleegt
+      Dan is de response '403 Unauthorized' met de volgende velden
+      * 'title' met tekst 'U bent niet geautoriseerd voor deze vraag'
+      * 'detail' met tekst 'Alleen gemeenten mogen de gebeurtenissen API gebruiken.'
+      * 'code' met tekst 'unauthorized'

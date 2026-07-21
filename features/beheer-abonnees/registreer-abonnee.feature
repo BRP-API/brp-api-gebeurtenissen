@@ -66,3 +66,18 @@ Functionaliteit: Registreer een abonnee
         | afnemerId          | abonneeNaam |
         | Gemeente Amsterdam | jz          |
       # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
+
+  Regel: Alleen gemeenten zijn geautoriseerd voor het beheren van abonnees
+
+    Scenario: Een gemeente als afnemer mag een abonnee registreren
+      Gegeven de geauthenticeerde consumer 'Arnhem' is een gemeente
+      Als de afnemer 'Arnhem' de abonnee 'jz' registreert
+      Dan is de response '201 Created'
+
+    Scenario: Een niet-gemeentelijke afnemer mag geen abonnee registreren
+      Gegeven de geauthenticeerde consumer 'Niet-gemeente' is geen gemeente
+      Als de afnemer 'Niet-gemeente' de abonnee 'jz' registreert
+      Dan is de response '403 Unauthorized' met de volgende velden
+      * 'title' met tekst 'U bent niet geautoriseerd voor deze vraag'
+      * 'detail' met tekst 'Alleen gemeenten mogen de gebeurtenissen API gebruiken.'
+      * 'code' met tekst 'unauthorized'
