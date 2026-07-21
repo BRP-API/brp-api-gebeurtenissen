@@ -36,7 +36,7 @@ module.exports = {
             ]
         },
         worldParameters: {
-            apiUrl: 'http://localhost:8888/api/brp',
+            apiUrl: 'http://localhost:8002/api/brp',
             api: 'gebeurtenissen-api',
             logger: {
                 level: 'warn'

@@ -26,7 +26,7 @@ export async function registreerAbonneeVoorAfnemer(
   const requestBody = abonneeNaam ? {naam: abonneeNaam} : {};
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees`,
     {
       method: 'POST',
       headers: {
@@ -59,7 +59,7 @@ export async function deregistreerAbonneeVoorAfnemer(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}`,
     {
       method: 'DELETE',
       headers: {
@@ -89,7 +89,7 @@ export async function raadpleegAbonneesVoorAfnemer(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees`,
     {
       method: 'GET',
       headers: {
@@ -103,7 +103,10 @@ export async function raadpleegAbonneesVoorAfnemer(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function voegGroepToeBijAbonnee(
@@ -113,10 +116,10 @@ export async function voegGroepToeBijAbonnee(
 ): Promise<any> {
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-  const requestBody = groepNaam ? {groep: groepNaam} : {};
+  const requestBody = groepNaam ? {naam: groepNaam} : {};
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`,
     {
       method: 'POST',
       headers: {
@@ -132,7 +135,10 @@ export async function voegGroepToeBijAbonnee(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function verwijderGroepVanAbonnee(
@@ -143,7 +149,7 @@ export async function verwijderGroepVanAbonnee(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}`,
     {
       method: 'DELETE',
       headers: {
@@ -157,7 +163,10 @@ export async function verwijderGroepVanAbonnee(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function raadpleegGroepenVanAbonnee(
@@ -167,7 +176,7 @@ export async function raadpleegGroepenVanAbonnee(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`,
     {
       method: 'GET',
       headers: {
@@ -181,7 +190,10 @@ export async function raadpleegGroepenVanAbonnee(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function voegGebeurtenistypeToeAanGroep(
@@ -197,7 +209,7 @@ export async function voegGebeurtenistypeToeAanGroep(
   };
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`,
     {
       method: 'POST',
       headers: {
@@ -213,7 +225,10 @@ export async function voegGebeurtenistypeToeAanGroep(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function verwijderGebeurtenistypeUitGroep(
@@ -225,7 +240,7 @@ export async function verwijderGebeurtenistypeUitGroep(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes/${gebeurtenistype}`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes/${gebeurtenistype}`,
     {
       method: 'DELETE',
       headers: {
@@ -239,7 +254,10 @@ export async function verwijderGebeurtenistypeUitGroep(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function raadpleegGebeurtenistypesInGroep(
@@ -250,7 +268,7 @@ export async function raadpleegGebeurtenistypesInGroep(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen/${groepNaam}/gebeurtenistypes`,
     {
       method: 'GET',
       headers: {
@@ -264,7 +282,10 @@ export async function raadpleegGebeurtenistypesInGroep(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function abonneerOpGebeurtenistypeVanPersoon(
@@ -276,7 +297,7 @@ export async function abonneerOpGebeurtenistypeVanPersoon(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
     {
       method: 'POST',
       headers: {
@@ -296,7 +317,10 @@ export async function abonneerOpGebeurtenistypeVanPersoon(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(
@@ -308,7 +332,7 @@ export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
     {
       method: 'POST',
       headers: {
@@ -328,7 +352,10 @@ export async function zegOpAbonnementOpGebeurtenistypeVanPersoon(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }
 
 export async function zegOpAbonnementenOpPersoon(
@@ -339,7 +366,7 @@ export async function zegOpAbonnementenOpPersoon(
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const response = await fetch(
-    `${process.env.ABONNEMENT_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
     {
       method: 'POST',
       headers: {
@@ -358,5 +385,8 @@ export async function zegOpAbonnementenOpPersoon(
     {response: response},
   );
 
-  return await parseResponseBody(response);
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
 }

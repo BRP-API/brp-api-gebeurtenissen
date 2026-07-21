@@ -20,7 +20,6 @@ jobs:
       KC_BASE_URL: http://localhost:8080
       KC_MASTER_USERNAME: ${{ secrets.KC_MASTER_USERNAME }}
       KC_MASTER_PASSWORD: ${{ secrets.KC_MASTER_PASSWORD }}
-      ABONNEMENT_BASE_URL: http://localhost:8888
       MUTATIE_BASE_URL: http://localhost:8000
       AXON_API_BASE_URL: http://localhost:8024
       GEBEURTENISSEN_BASE_URL: http://localhost:8002
@@ -68,7 +67,7 @@ jobs:
       - name: Wait for gebeurtenissen API readiness
         run: |
           for i in {1..90}; do
-            response=$(curl -s "http://localhost:8888/actuator/health/readiness" || true)
+            response=$(curl -s "http://localhost:8002/actuator/health/readiness" || true)
 
             if [ "$response" = '{"status":"UP"}' ]; then
               echo "Gebeurtenissen API is ready"
