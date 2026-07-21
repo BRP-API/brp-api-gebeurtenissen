@@ -125,20 +125,22 @@ function assertProblemDetailsResult(expected: any, actual: any) {
     'object',
     `Response is geen (ProblemDetails) object. Response: ${JSON.stringify({actual: actual, expected: expected}, null, 2)}`,
   );
-  expect(actual)
+
+  const body = actual.body;
+  expect(body)
     .to.have.property('type')
     .that.equals(
       expected.type,
       JSON.stringify({actual: actual, expected: expected}, null, 2),
     );
-  expect(actual)
+  expect(body)
     .to.have.property('status')
     .that.equals(
       expected.status,
       JSON.stringify({actual: actual, expected: expected}, null, 2),
     );
   if (expected.title) {
-    expect(actual)
+    expect(body)
       .to.have.property('title')
       .that.equals(
         expected.title,
@@ -146,7 +148,7 @@ function assertProblemDetailsResult(expected: any, actual: any) {
       );
   }
   if (expected.detail) {
-    expect(actual)
+    expect(body)
       .to.have.property('detail')
       .that.equals(
         expected.detail,
@@ -154,7 +156,7 @@ function assertProblemDetailsResult(expected: any, actual: any) {
       );
   }
   if (expected.instance) {
-    expect(actual)
+    expect(body)
       .to.have.property('instance')
       .that.equals(
         expected.instance,

@@ -1,21 +1,36 @@
 import {Then, defineParameterType} from '@cucumber/cucumber';
 import {ProblemDetails} from './support/problem-details';
-import {createObjectArrayFrom} from './support/dataTable2Object';
+import {
+  createArrayFrom,
+  createObjectArrayFrom,
+} from './support/dataTable2Object';
 import {expect} from 'chai';
 
 Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
-    this.expected = ProblemDetails.create(status);
-    expect(this.responseStatusCode).to.equal(
-      ProblemDetails.getStatusCode(status),
-    );
-    if (!ProblemDetails.isSuccessFull(this.responseStatusCode)) {
-      expect(this.result.status).to.equal(
-        this.expected.status,
+    const expectedStatus = Number(status.split(' ')[0]);
+    if (expectedStatus === 201) {
+      this.expected = {
+        statusCode: 201,
+        body: null,
+      };
+    }
+    if (expectedStatus === 204) {
+      this.expected = {
+        statusCode: 204,
+        body: null,
+      };
+    }
+
+    if (!ProblemDetails.isSuccessFull(expectedStatus)) {
+      this.expected = ProblemDetails.create(status);
+
+      expect(this.result.body.status).to.equal(
+        expectedStatus,
         'http statuscode is niet correct',
       );
-      expect(this.result.type).to.equal(
+      expect(this.result.body.type).to.equal(
         this.expected.type,
         'type is niet correct',
       );
@@ -25,7 +40,7 @@ Then(
 
 Then('{string} met tekst {string}', function (veld: string, waarde: string) {
   this.expected[veld] = waarde;
-  expect(this.result[veld]).to.equal(
+  expect(this.result.body[veld]).to.equal(
     this.expected[veld],
     `${veld} is niet correct`,
   );
@@ -33,18 +48,34 @@ Then('{string} met tekst {string}', function (veld: string, waarde: string) {
 
 defineParameterType({
   name: 'objectNaam',
-  regexp: /(abonnees|groepen|gebeurtenistypes|abonnementen|gebeurtenissen)/,
+  regexp: /(abonnees|groepen|abonnementen|gebeurtenissen)/,
 });
 
 Then(
   'worden volgende {objectNaam} geleverd',
   function (objectNaam: string, dataTable) {
     this.expected = {
-      [objectNaam]: createObjectArrayFrom(dataTable),
+      statusCode: 200,
+      body: {
+        [objectNaam]: createObjectArrayFrom(dataTable),
+      },
     };
-    expect(this.result[objectNaam]).to.deep.equal(
-      this.expected[objectNaam],
+    expect(this.result.body[objectNaam]).to.deep.equal(
+      this.expected.body[objectNaam],
       `${objectNaam} is niet correct`,
     );
   },
 );
+
+Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {
+  this.expected = {
+    statusCode: 200,
+    body: {
+      gebeurtenistypes: createArrayFrom(dataTable),
+    },
+  };
+  expect(this.result.body.gebeurtenistypes).to.deep.equal(
+    this.expected.body.gebeurtenistypes,
+    'gebeurtenistypes is niet correct',
+  );
+});
