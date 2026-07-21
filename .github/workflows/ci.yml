@@ -67,7 +67,7 @@ jobs:
       - name: Wait for gebeurtenissen API readiness
         run: |
           for i in {1..90}; do
-            response=$(curl -s "http://localhost:8888/actuator/health/readiness" || true)
+            response=$(curl -s "http://localhost:8002/actuator/health/readiness" || true)
 
             if [ "$response" = '{"status":"UP"}' ]; then
               echo "Gebeurtenissen API is ready"
