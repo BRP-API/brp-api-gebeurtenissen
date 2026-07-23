@@ -5,7 +5,6 @@ import {
   createObjectArrayWithPersoonAanduidingenFrom,
   createObjectArrayFrom,
   createObjectFrom,
-  createArrayFrom,
 } from './support/dataTable2Object';
 import {Persoon} from './brp/persoon-entity';
 import {expect} from 'chai';
@@ -15,26 +14,28 @@ Then(
   function (status: string) {
     const expectedStatus = Number(status.split(' ')[0]);
     if (expectedStatus === 201) {
-      this.expected = {
-        statusCode: 201,
-        body: null,
-      };
+      expect(this.responseStatusCode).to.equal(
+        expectedStatus,
+        'http statuscode is niet correct',
+      );
+      this.expected = null;
     }
     if (expectedStatus === 204) {
-      this.expected = {
-        statusCode: 204,
-        body: null,
-      };
+      expect(this.responseStatusCode).to.equal(
+        expectedStatus,
+        'http statuscode is niet correct',
+      );
+      this.expected = null;
     }
 
     if (!ProblemDetails.isSuccessFull(expectedStatus)) {
       this.expected = ProblemDetails.create(status);
 
-      expect(this.result.body.status).to.equal(
+      expect(this.result.status).to.equal(
         expectedStatus,
         'http statuscode is niet correct',
       );
-      expect(this.result.body.type).to.equal(
+      expect(this.result.type).to.equal(
         this.expected.type,
         'type is niet correct',
       );
@@ -77,8 +78,8 @@ Then(
         personen,
       ),
     };
-    expect(this.result.body[objectNaam]).to.deep.equal(
-      this.expected.body[objectNaam],
+    expect(this.result[objectNaam]).to.deep.equal(
+      this.expected[objectNaam],
       `${objectNaam} is niet correct`,
     );
   },
@@ -86,13 +87,10 @@ Then(
 
 Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {
   this.expected = {
-    statusCode: 200,
-    body: {
-      gebeurtenistypes: createArrayFrom(dataTable),
-    },
+    gebeurtenistypes: createArrayFrom(dataTable),
   };
-  expect(this.result.body.gebeurtenistypes).to.deep.equal(
-    this.expected.body.gebeurtenistypes,
+  expect(this.result.gebeurtenistypes).to.deep.equal(
+    this.expected.gebeurtenistypes,
     'gebeurtenistypes is niet correct',
   );
 });

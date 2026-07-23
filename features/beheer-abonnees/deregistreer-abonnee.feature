@@ -32,6 +32,7 @@ Functionaliteit: Deregistreer een abonnee
         | Gemeente Amsterdam | jz          |
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' deregistreert
       Dan is de response '404 Not Found'
+      * 'title' met tekst 'Abonnee bestaat niet'
 
   Regel: Een niet-bestaande abonnee kan niet worden gederegistreerd
 
