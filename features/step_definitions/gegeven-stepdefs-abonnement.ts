@@ -158,7 +158,7 @@ Given(
       .replace(' ', '')
       .split(','); // gebeurtenistypes is een lijst gescheiden door een komma of het woord 'en', al dan niet omgeven door spaties
 
-    gebeurtenistypeLijst.forEach(async gebeurtenistype => {
+    for (const gebeurtenistype of gebeurtenistypeLijst) {
       this.result = await voegGebeurtenistypeToeAanGroep(
         afnemer,
         abonneeNaam,
@@ -169,7 +169,7 @@ Given(
         HttpStatusCode.Created,
         'http statuscode is niet correct',
       );
-    });
+    }
   },
 );
 

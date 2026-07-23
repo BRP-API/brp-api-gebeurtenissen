@@ -1,6 +1,7 @@
 import {Then, defineParameterType, DataTable} from '@cucumber/cucumber';
 import {ProblemDetails} from './support/problem-details';
 import {
+  createArrayFrom,
   createObjectArrayWithPersoonAanduidingenFrom,
   createObjectArrayFrom,
 } from './support/dataTable2Object';
@@ -10,17 +11,28 @@ import {expect} from 'chai';
 Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
-    this.expected = ProblemDetails.create(status);
+    const expectedStatus = Number(status.split(' ')[0]);
+    if (expectedStatus === 201) {
+      this.expected = {
+        statusCode: 201,
+        body: null,
+      };
+    }
+    if (expectedStatus === 204) {
+      this.expected = {
+        statusCode: 204,
+        body: null,
+      };
+    }
 
-    expect(this.responseStatusCode).to.equal(
-      ProblemDetails.getStatusCode(status),
-    );
-    if (!ProblemDetails.isSuccessFull(this.responseStatusCode)) {
-      expect(this.result.status).to.equal(
-        this.expected.status,
+    if (!ProblemDetails.isSuccessFull(expectedStatus)) {
+      this.expected = ProblemDetails.create(status);
+
+      expect(this.result.body.status).to.equal(
+        expectedStatus,
         'http statuscode is niet correct',
       );
-      expect(this.result.type).to.equal(
+      expect(this.result.body.type).to.equal(
         this.expected.type,
         'type is niet correct',
       );
@@ -49,7 +61,7 @@ Then('{string} met tekst {string}', function (veld: string, waarde: string) {
 
 defineParameterType({
   name: 'objectNaam',
-  regexp: /(abonnees|groepen|gebeurtenistypes|abonnementen|gebeurtenissen)/,
+  regexp: /(abonnees|groepen|abonnementen|gebeurtenissen)/,
 });
 
 Then(
@@ -63,19 +75,22 @@ Then(
         personen,
       ),
     };
-    expect(this.result[objectNaam]).to.deep.equal(
-      this.expected[objectNaam],
+    expect(this.result.body[objectNaam]).to.deep.equal(
+      this.expected.body[objectNaam],
       `${objectNaam} is niet correct`,
     );
   },
 );
 
-Then('wordt er geen abonnement geleverd', function () {
+Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {
   this.expected = {
-    ['abonnementen']: [],
+    statusCode: 200,
+    body: {
+      gebeurtenistypes: createArrayFrom(dataTable),
+    },
   };
-
-  expect(this.result['abonnementen']).to.deep.equal(
-    this.expected['abonnementen'],
+  expect(this.result.body.gebeurtenistypes).to.deep.equal(
+    this.expected.body.gebeurtenistypes,
+    'gebeurtenistypes is niet correct',
   );
 });
