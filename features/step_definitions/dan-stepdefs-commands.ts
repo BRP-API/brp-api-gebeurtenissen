@@ -1,9 +1,6 @@
 import {Then} from '@cucumber/cucumber';
 import {getFirstEventMatching} from './support/axon-api-helpers';
 import {expect} from 'chai';
-// import {WiremockManager} from './support/wiremock-manager';
-// import {logger} from './support/logger';
-// import {fromIsoDate, toBrpDate} from './support/date-utils';
 
 const CLOUD_EVENT_PREFIX = 'nl.brp.';
 
@@ -24,16 +21,3 @@ Then(
     this.axonEvent = event;
   },
 );
-
-// deze niet gebruiken of herschrijven, zodat niet naar de gepubliceerde gebeurtenis wordt gekeken, maar naar geleverde gebeurtenis aan gebruiker
-// Then(
-//   'de datum emigratie van de opgave van vertrek van {string}',
-//   async function (aanduidingPersoon: string) {
-//     logger.debug('data emigratie', aanduidingPersoon);
-//     const datumEmigratie = this.command.datumEmigratie;
-//     const lastRequestBody = await WiremockManager.getLastRequestBody();
-//     expect(lastRequestBody.data.c08.e1320).to.deep.equal(
-//       toBrpDate(fromIsoDate(datumEmigratie)),
-//     );
-//   },
-// );

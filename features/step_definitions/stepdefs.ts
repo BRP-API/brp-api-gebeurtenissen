@@ -23,28 +23,14 @@ import {Event} from './brp/verhuisd-intergemeentelijk-event';
 import {deregistreerAbonneeVoorAfnemer} from './support/abonnement-api-helpers';
 import {Afnemer} from './brp/afnemer-entity';
 import {ProblemDetails} from './support/problem-details';
-// import {WiremockManager} from './support/wiremock-manager';
 
 Before(async function (this: ICustomWorld, {pickle}) {
   this.init(pickle);
 
   PostgresqlManager.setup(poolConfig);
 
-  // await WiremockManager.setup(
-  //   process.env.WIREMOCK_BASE_URL || 'http://localhost:8889',
-  // );
-
   logger.debug(`Scenario: ${pickle.name}. Start`);
 });
-
-// After(async () => {
-//   try {
-//     await WiremockManager.getInstance().reset();
-//   } catch (e) {
-//     logger.error('Error resetting Wiremock:', e);
-//     throw e;
-//   }
-// });
 
 AfterAll(async () => {
   await PostgresqlManager.getInstance().close();

@@ -1,6 +1,5 @@
 import {When} from '@cucumber/cucumber';
 import {
-  //abonneerOpGebeurtenistypeVanPersoon,
   abonneerPersoonOpGroep,
   deregistreerAbonneeVoorAfnemer,
   raadpleegAbonneesVoorAfnemer,
@@ -12,8 +11,6 @@ import {
   verwijderGroepVanAbonnee,
   voegGebeurtenistypeToeAanGroep,
   voegGroepToeBijAbonnee,
-  // zegOpAbonnementenOpPersoon,
-  // zegOpAbonnementOpGebeurtenistypeVanPersoon
 } from './support/abonnement-api-helpers';
 import {AfnemerFactory} from './support/afnemer-factory';
 import {PersoonFactory} from './support/persoon-factory';

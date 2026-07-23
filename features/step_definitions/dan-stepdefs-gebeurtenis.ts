@@ -1,27 +1,11 @@
 import {Then} from '@cucumber/cucumber';
 import {CloudEvent} from './support/cloud-events';
 import {setNestedProperty} from './support/object-utils';
-//import {Aanduiding} from './support/aanduiding';
 import {VerhuisdIntergemeentelijkEvent} from './brp/verhuisd-intergemeentelijk-event';
-//import {AangifteVanAdreswijzigingCommand} from './brp-api/commands';
-//import {Persoon} from './brp/persoon-entity';
 import {PersoonFactory} from './support/persoon-factory';
 import {createObjectArrayFrom} from './support/dataTable2Object';
 import {maakGebeurtenis} from './support/gebeurtenissen-api-helpers';
 import {logger} from './support/logger';
-// import {WiremockManager} from './support/wiremock-manager';
-// import {expect} from 'chai';
-// import {PostgresqlManager} from './support/postgresql-manager';
-// import {
-//   selectAllFromTableForPlid,
-//   selectAllFromTableForPlidAndVolgNr,
-//   selectFieldFromTableForPlid,
-// } from './support/sql-statements-factory';
-// import {registerCustomAssertions} from './support/custom-assertions/custom-assertions';
-// import {
-//   convertNumericStrings,
-//   createObjectFrom,
-// } from './support/dataTable2Object';
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',
@@ -39,16 +23,6 @@ Then(
     setNestedProperty(this.expected, `data.${veld}`, aanduidingAfnemer);
   },
 );
-
-// deze niet gebruiken of herschrijven, zodat niet naar de gepubliceerde gebeurtenis wordt gekeken, maar naar geleverde gebeurtenis aan gebruiker
-// Then('het A-nummer van {string}', async function (aanduidingPersoon: string) {
-//   const anummer = this.context.personen[aanduidingPersoon].a_nr;
-//   if (this.expected instanceof VerhuisdIntergemeentelijkEvent) {
-//     this.expected.setAnummer(anummer);
-//   }
-//   const lastRequestBody = await WiremockManager.getLastRequestBody();
-//   expect(lastRequestBody.data.c01.e0110).equal(anummer);
-// });
 
 Then(
   'de vanaf datum van de opgave van verhuizing van {string}',

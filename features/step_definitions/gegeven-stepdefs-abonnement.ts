@@ -384,39 +384,3 @@ Given(
     }
   },
 );
-
-// Given('de abonnee {string} van afnemer {string} heeft zich geabonneerd op de {string} gebeurtenissen van {string}', async function (abonneeNaam, afnemerAanduiding, gebeurtenistype, persoonAanduiding) {
-//     const persoon = this.context.personen[persoonAanduiding];
-
-//     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
-
-//     if (!afnemer.abonnees.includes(abonneeNaam)) {
-//         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-//     }
-
-//     this.result = await abonneerOpGebeurtenistypeVanPersoon(afnemer, abonneeNaam, `nl.brp.${gebeurtenistype}`, persoon);
-// });
-
-// Given('de abonnee {string} van afnemer {string} heeft zijn abonnement op de {string} gebeurtenissen van {string} opgezegd', async function (abonneeNaam, afnemerAanduiding, gebeurtenistype, persoonAanduiding) {
-//     const persoon = this.context.personen[persoonAanduiding];
-
-//     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
-
-//     if (!afnemer.abonnees.includes(abonneeNaam)) {
-//         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-//     }
-
-//     this.result = await zegOpAbonnementOpGebeurtenistypeVanPersoon(afnemer, abonneeNaam, `nl.brp.${gebeurtenistype}`, persoon);
-// });
-
-// Given('de abonnee {string} van afnemer {string} heeft een abonnement op de {string} gebeurtenissen van {string}', async function (abonneeNaam: string, afnemerAanduiding: string, gebeurtenistype: string, persoonAanduiding: string) {
-//     const persoon = this.context.personen[persoonAanduiding];
-
-//     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
-
-//     if (!afnemer.abonnees.includes(abonneeNaam)) {
-//         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-//     }
-
-//     this.result = await abonneerOpGebeurtenistypeVanPersoon(afnemer, abonneeNaam, `nl.brp.${gebeurtenistype}`, persoon);
-// });

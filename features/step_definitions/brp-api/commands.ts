@@ -1,5 +1,3 @@
-// import {logger} from '../support/logger';
-
 export class Command {
   type: string;
 
