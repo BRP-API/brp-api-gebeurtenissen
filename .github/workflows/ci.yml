@@ -24,7 +24,7 @@ jobs:
       MUTATIE_BASE_URL: http://localhost:8000
       AXON_API_BASE_URL: http://localhost:8024
       GEBEURTENISSEN_BASE_URL: http://localhost:8002
-      WIREMOCK_BASE_URL: http://localhost:8889
+      #WIREMOCK_BASE_URL: http://localhost:8889
 
     permissions:
       contents: read
