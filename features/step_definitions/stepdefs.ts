@@ -133,7 +133,7 @@ function assertProblemDetailsResult(expected: any, actual: any) {
     `Response is geen (ProblemDetails) object. Response: ${JSON.stringify({actual: actual, expected: expected}, null, 2)}`,
   );
 
-  const body = actual.body;
+  const body = actual;
   expect(body)
     .to.have.property('type')
     .that.equals(

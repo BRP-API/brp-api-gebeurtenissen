@@ -52,7 +52,9 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegAbonneesVoorAfnemer(afnemer);
+    const response = await raadpleegAbonneesVoorAfnemer(afnemer);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -122,7 +124,9 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegGroepenVanAbonnee(afnemer, abonneeNaam);
+    const response = await raadpleegGroepenVanAbonnee(afnemer, abonneeNaam);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -492,7 +496,9 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegAbonnementen(afnemer, abonneeNaam);
+    const response = await raadpleegAbonnementen(afnemer, abonneeNaam);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -511,13 +517,15 @@ When(
 
     const persoon = this.context.personen[persoonAanduiding];
 
-    this.result = await raadpleegAbonnementen(
+    const response = await raadpleegAbonnementen(
       afnemer,
       abonneeNaam,
       undefined,
       groepNaam,
       persoon,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -533,7 +541,9 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegAbonnementen(afnemer, abonneeNaam, aantal);
+    const response = await raadpleegAbonnementen(afnemer, abonneeNaam, aantal);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -553,13 +563,15 @@ When(
 
     const persoon = this.context.personen[persoonAanduiding];
 
-    this.result = await raadpleegAbonnementen(
+    const response = await raadpleegAbonnementen(
       afnemer,
       abonneeNaam,
       aantal,
       groepNaam,
       persoon,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -575,7 +587,7 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegAbonnementen(
+    const response = await raadpleegAbonnementen(
       afnemer,
       abonneeNaam,
       undefined,
@@ -583,5 +595,7 @@ When(
       undefined,
       cursor,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );

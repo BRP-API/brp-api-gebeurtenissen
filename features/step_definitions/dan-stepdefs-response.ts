@@ -4,6 +4,7 @@ import {
   createObjectArrayWithPersoonAanduidingenFrom,
   createObjectArrayFrom,
   createObjectFrom,
+  createArrayFrom,
 } from './support/dataTable2Object';
 import {Persoon} from './brp/persoon-entity';
 import {expect} from 'chai';
@@ -42,7 +43,7 @@ Then(
 
 Then('{string} met tekst {string}', function (veld: string, waarde: string) {
   this.expected[veld] = waarde;
-  expect(this.result.body[veld]).to.equal(
+  expect(this.result[veld]).to.equal(
     this.expected[veld],
     `${veld} is niet correct`,
   );
