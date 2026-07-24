@@ -14,7 +14,7 @@ components:
           schema:
             $ref: 'fout-bericht-v1.yaml#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.7
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-406-not-acceptable
             title: Gevraagde contenttype wordt niet ondersteund.
             status: 406
             detail: The resource identified by the request is only capable of generating response entities which have content characteristics not acceptable according to thr accept headers sent in the request

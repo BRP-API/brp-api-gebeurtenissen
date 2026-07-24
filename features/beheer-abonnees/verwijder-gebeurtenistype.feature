@@ -64,7 +64,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
     Scenario: Een afnemer verwijdert een gebeurtenistype met een groep die niet is toegevoegd
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' het gebeurtenistype 'nl.brp.overleden' uit de groep 'client' verwijdert
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnee bestaat niet'
 
     Scenario: Een afnemer verwijdert een gebeurtenistype uit groep van een gederegistreerde abonnee

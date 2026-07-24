@@ -3,3 +3,8 @@ node_modules/
 test-reports/
 
 .env
+
+.idea
+.vscode
+cucumber.json
+.ai
