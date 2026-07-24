@@ -13,18 +13,15 @@ Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
     const expectedStatus = Number(status.split(' ')[0]);
+    expect(this.responseStatusCode).to.equal(
+      expectedStatus,
+      'http statuscode is niet correct',
+    );
+
     if (expectedStatus === 201) {
-      expect(this.responseStatusCode).to.equal(
-        expectedStatus,
-        'http statuscode is niet correct',
-      );
       this.expected = null;
     }
     if (expectedStatus === 204) {
-      expect(this.responseStatusCode).to.equal(
-        expectedStatus,
-        'http statuscode is niet correct',
-      );
       this.expected = null;
     }
 
@@ -39,6 +36,9 @@ Then(
         this.expected.type,
         'type is niet correct',
       );
+      expect(this.result).to.have.property('instance').that.is.a('string');
+      expect(this.result).to.have.property('title').that.is.a('string');
+      expect(this.result).to.have.property('code').that.is.a('string');
     }
   },
 );
