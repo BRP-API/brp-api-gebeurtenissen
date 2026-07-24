@@ -34,6 +34,45 @@ export class PostgresqlManager {
   }
 
   async execute(sqlStatement: SqlStatement): Promise<Map<string, any>> {
+    return this.executeAndMap(sqlStatement, result => {
+      // Convert each row to a Map with only columns that have values
+      const resultMap: Map<string, any> = new Map<string, any>();
+      if (result.rows.length > 0) {
+        for (const [column, value] of Object.entries(result.rows[0])) {
+          // Only add columns that have a value (not null, undefined, or empty string)
+          if (value !== null && value !== undefined && value !== '') {
+            resultMap.set(column, value);
+          }
+        }
+      }
+      return resultMap;
+    });
+  }
+
+  async listExecute(
+    sqlStatement: SqlStatement,
+  ): Promise<Array<Map<string, any>>> {
+    return this.executeAndMap(sqlStatement, result => {
+      // Convert each row to a Map with only columns that have values
+      const resultList: Array<Map<string, any>> = [];
+      for (const row of result.rows) {
+        const resultMap: Map<string, any> = new Map<string, any>();
+        resultList.push(resultMap);
+        for (const [column, value] of Object.entries(row)) {
+          // Only add columns that have a value (not null, undefined, or empty string)
+          if (value !== null && value !== undefined && value !== '') {
+            resultMap.set(column, value);
+          }
+        }
+      }
+      return resultList;
+    });
+  }
+
+  async executeAndMap<T>(
+    sqlStatement: SqlStatement,
+    mappingFunction: (result: QueryResult) => T,
+  ): Promise<T> {
     logger.debug('PostgresqlManager.execute', {sqlStatement: sqlStatement});
 
     const client: PoolClient = await this.pool.connect();
@@ -45,22 +84,14 @@ export class PostgresqlManager {
       );
 
       // Convert each row to a Map with only columns that have values
-      const resultMap: Map<string, any> = new Map<string, any>();
-      if (result.rows.length > 0) {
-        for (const [column, value] of Object.entries(result.rows[0])) {
-          // Only add columns that have a value (not null, undefined, or empty string)
-          if (value !== null && value !== undefined && value !== '') {
-            resultMap.set(column, value);
-          }
-        }
-      }
+      const mappingResult = mappingFunction(result);
 
       logger.debug('PostgresqlManager.execute success', {
         sqlStatement: sqlStatement,
-        result: JSON.stringify(Object.fromEntries(resultMap)),
+        result: JSON.stringify(mappingResult),
       });
 
-      return resultMap;
+      return mappingResult;
     } catch (error) {
       logger.error('PostgresqlManager.execute error', {
         sqlStatement: sqlStatement,

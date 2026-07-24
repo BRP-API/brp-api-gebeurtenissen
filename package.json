@@ -41,6 +41,7 @@
     "winston": "^3.19.0"
   },
   "dependencies": {
+    "eventsource": "^4.1.0",
     "gts": "^7.0.0"
   }
 }

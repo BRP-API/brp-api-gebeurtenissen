@@ -224,6 +224,10 @@ Given(
       persoon,
       'AbonneerPersoonOpGroep',
     );
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
   },
 );
 
@@ -252,12 +256,72 @@ Given(
       persoon,
       'ZegOpAbonnementVanPersoonOpGroep',
     );
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.NoContent,
+      'http statuscode is niet correct',
+    );
   },
 );
 
 Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
 
 Given('is geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
+
+Given(
+  'de abonnee {string} van afnemer {string} heeft een abonnement op {string} gebeurtenissen van {string}',
+  async function (
+    abonneeNaam,
+    afnemerAanduiding,
+    gebeurtenistype,
+    persoonAanduiding,
+  ) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
+
+    const groepNaam = 'standaard-groep';
+    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
+
+    this.result = await voegGebeurtenistypeToeAanGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      gebeurtenistype,
+    );
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
+
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    this.result = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      persoon,
+      'AbonneerPersoonOpGroep',
+    );
+    expect(this.result.statusCode).to.equal(
+      HttpStatusCode.Created,
+      'http statuscode is niet correct',
+    );
+  },
+);
 
 Given(
   'er is een {string} gebeurtenis gepubliceerd met de volgende velden',
@@ -312,43 +376,11 @@ Given(
           afnemer,
           gebeurtenis.abonneeNaam,
         );
+        expect(this.result.statusCode).to.equal(
+          HttpStatusCode.NoContent,
+          'http statuscode is niet correct',
+        );
       }
     }
   },
 );
-
-// Given('de abonnee {string} van afnemer {string} heeft zich geabonneerd op de {string} gebeurtenissen van {string}', async function (abonneeNaam, afnemerAanduiding, gebeurtenistype, persoonAanduiding) {
-//     const persoon = this.context.personen[persoonAanduiding];
-
-//     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
-
-//     if (!afnemer.abonnees.includes(abonneeNaam)) {
-//         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-//     }
-
-//     this.result = await abonneerOpGebeurtenistypeVanPersoon(afnemer, abonneeNaam, `nl.brp.${gebeurtenistype}`, persoon);
-// });
-
-// Given('de abonnee {string} van afnemer {string} heeft zijn abonnement op de {string} gebeurtenissen van {string} opgezegd', async function (abonneeNaam, afnemerAanduiding, gebeurtenistype, persoonAanduiding) {
-//     const persoon = this.context.personen[persoonAanduiding];
-
-//     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
-
-//     if (!afnemer.abonnees.includes(abonneeNaam)) {
-//         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-//     }
-
-//     this.result = await zegOpAbonnementOpGebeurtenistypeVanPersoon(afnemer, abonneeNaam, `nl.brp.${gebeurtenistype}`, persoon);
-// });
-
-// Given('de abonnee {string} van afnemer {string} heeft een abonnement op de {string} gebeurtenissen van {string}', async function (abonneeNaam: string, afnemerAanduiding: string, gebeurtenistype: string, persoonAanduiding: string) {
-//     const persoon = this.context.personen[persoonAanduiding];
-
-//     const afnemer = await AfnemerFactory.create(this.context, afnemerAanduiding);
-
-//     if (!afnemer.abonnees.includes(abonneeNaam)) {
-//         await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-//     }
-
-//     this.result = await abonneerOpGebeurtenistypeVanPersoon(afnemer, abonneeNaam, `nl.brp.${gebeurtenistype}`, persoon);
-// });

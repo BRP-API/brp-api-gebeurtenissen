@@ -1,6 +1,7 @@
 import {Adres} from '../brp/adres-entity';
 import {Afnemer} from '../brp/afnemer-entity';
 import {Persoon} from '../brp/persoon-entity';
+//import {logger} from './logger';
 
 export class SqlStatement {
   statementText: string;
@@ -12,63 +13,55 @@ export class SqlStatement {
   }
 }
 
-function extendSqlStatementValuesPartForAdresId() {
-  return '(SELECT COALESCE(MAX(adres_id), 0)+1 FROM public.lo3_adres)';
-}
-
-function extendSqlStatementValuesPartForGemeentecode(
-  adres: Adres,
-  valuesPart: string,
-  values: string[],
-) {
-  if (valuesPart.length > 0) {
-    valuesPart += ',';
-  }
-  if (adres.gemeente_code === undefined) {
-    valuesPart +=
-      '(SELECT COALESCE(MAX(gemeente_code), 0)+1 FROM public.lo3_adres)';
-  } else {
-    valuesPart += `$${values.length + 1}`;
-    values.push(adres.gemeente_code);
-  }
-  return valuesPart;
-}
-
-function extendSqlStatementValuesPartForVerblijfplaatsIdentificatieCode(
-  adres: Adres,
-  valuesPart: string,
-  values: string[],
-) {
-  if (valuesPart.length > 0) {
-    valuesPart += ',';
-  }
-  if (adres.verblijf_plaats_ident_code === undefined) {
-    valuesPart +=
-      "(SELECT LPAD((COALESCE(MAX(gemeente_code), 0)+1)::text, 4, '0') || '000000000001' FROM public.lo3_adres)";
-  } else {
-    valuesPart += `$${values.length + 1}`;
-    values.push(adres.verblijf_plaats_ident_code);
-  }
-  return valuesPart;
-}
-
 export function createLo3AdresInsertStatement(adres: Adres): SqlStatement {
   const values: string[] = [];
 
-  let valuesPart = extendSqlStatementValuesPartForAdresId();
-  valuesPart = extendSqlStatementValuesPartForGemeentecode(
-    adres,
-    valuesPart,
-    values,
-  );
-  valuesPart = extendSqlStatementValuesPartForVerblijfplaatsIdentificatieCode(
-    adres,
-    valuesPart,
-    values,
-  );
+  const valuesList = [];
+  const columnsList = [];
 
-  const insertPart = 'adres_id,gemeente_code,verblijf_plaats_ident_code';
-  const statementText = `INSERT INTO public.lo3_adres(${insertPart}) VALUES(${valuesPart}) RETURNING *`;
+  for (const property in adres) {
+    columnsList.push(property);
+    valuesList.push(`$${values.length + 1}`);
+    values.push(adres.getValue(property as keyof Adres));
+  }
+
+  if (adres.adres_id === undefined) {
+    columnsList.push('adres_id');
+    valuesList.push(
+      '(SELECT COALESCE(MAX(adres_id), 0)+1 FROM public.lo3_adres)',
+    );
+  }
+
+  if (adres.gemeente_code === undefined) {
+    columnsList.push('gemeente_code');
+    valuesList.push(
+      '(SELECT COALESCE(MAX(gemeente_code), 0)+1 FROM public.lo3_adres)',
+    );
+  }
+
+  if (adres.verblijf_plaats_ident_code === undefined) {
+    columnsList.push('verblijf_plaats_ident_code');
+    valuesList.push(
+      "(SELECT LPAD((COALESCE(MAX(gemeente_code), 0)+1)::text, 4, '0') || '010000000001' FROM public.lo3_adres)",
+    );
+  }
+
+  const statementText = `INSERT INTO public.lo3_adres(${columnsList.join(',')}) VALUES(${valuesList.join(',')}) RETURNING *`;
+
+  return new SqlStatement(statementText, values);
+}
+
+export function createLo3AdresUpdateStatement(
+  adres: Adres,
+  changedColummn: string,
+  newValue: string,
+): SqlStatement {
+  const values: any[] = [];
+
+  values.push(newValue);
+  values.push(adres.adres_id);
+
+  const statementText = `UPDATE public.lo3_adres SET ${changedColummn}=$1 WHERE adres_id=$2`;
 
   return new SqlStatement(statementText, values);
 }
@@ -165,6 +158,37 @@ export function createLo3PlVerblijfplaatsInsertStatement(
   );
 }
 
+export function createLo3PlVerblijfplaatsOpAdresInsertStatement(
+  persoon: Persoon,
+  adres: Adres,
+  datumVan: string,
+): SqlStatement {
+  if (
+    adres === undefined ||
+    adres.adres_id === undefined ||
+    adres.gemeente_code === undefined
+  ) {
+    throw new Error('Er is geen adres');
+  }
+
+  const columns =
+    'pl_id, volg_nr, inschrijving_gemeente_code, adres_id, inschrijving_datum, adres_functie, adreshouding_start_datum, aangifte_adreshouding_oms, geldigheid_start_datum, opneming_datum';
+
+  return new SqlStatement(
+    `INSERT INTO public.lo3_pl_verblijfplaats (${columns}) VALUES($1, 0, $2, $3, $4, 'W', $4, 'I', $4, $4)`,
+    [persoon.pl_id, adres.gemeente_code, adres.adres_id, datumVan],
+  );
+}
+
+export function createLo3PlVerblijfplaatsVolgnummerUpdateStatement(
+  persoon: Persoon,
+): SqlStatement {
+  return new SqlStatement(
+    'UPDATE public.lo3_pl_verblijfplaats SET volg_nr=volg_nr+1 WHERE pl_id=$1',
+    [persoon.pl_id],
+  );
+}
+
 export function createInsertStatements(persoon: Persoon): SqlStatement[] {
   const statements: SqlStatement[] = [
     createLo3PlInsertStatement(persoon),
@@ -193,4 +217,55 @@ export function createSelectStatement(
 export function createLo3AdresDeleteStatement(adres: Adres): SqlStatement {
   const statementText = 'DELETE FROM public.lo3_adres WHERE adres_id = $1';
   return new SqlStatement(statementText, [adres.adres_id]);
+}
+
+export function createLo3PersoonDeleteStatements(
+  persoon: Persoon,
+): Array<SqlStatement> {
+  const statements = [
+    new SqlStatement(
+      'DELETE FROM public.lo3_pl_verblijfplaats WHERE pl_id = $1',
+      [persoon.pl_id],
+    ),
+    new SqlStatement('DELETE FROM public.lo3_pl_persoon WHERE pl_id = $1', [
+      persoon.pl_id,
+    ]),
+    new SqlStatement('DELETE FROM public.lo3_pl WHERE pl_id = $1', [
+      persoon.pl_id,
+    ]),
+  ];
+
+  return statements;
+}
+
+export function selectFieldFromTableForPlid(
+  table: string,
+  field: string,
+  plid: number,
+): SqlStatement {
+  const statementText = `SELECT ${field}
+                         FROM public.${table}
+                         WHERE pl_id = $1`;
+  return new SqlStatement(statementText, [plid]);
+}
+
+export function selectAllFromTableForPlidAndVolgNr(
+  table: string,
+  plid: number,
+  volgNr: number,
+): SqlStatement {
+  const statementText = `SELECT *
+                         FROM public.${table}
+                         WHERE pl_id = $1 AND volg_nr = $2`;
+  return new SqlStatement(statementText, [plid, volgNr]);
+}
+
+export function selectAllFromTableForPlid(
+  table: string,
+  plid: number,
+): SqlStatement {
+  const statementText = `SELECT *
+                         FROM public.${table}
+                         WHERE pl_id = $1`;
+  return new SqlStatement(statementText, [plid]);
 }

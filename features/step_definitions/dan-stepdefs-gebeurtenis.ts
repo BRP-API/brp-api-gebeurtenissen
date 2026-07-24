@@ -1,45 +1,11 @@
 import {Then} from '@cucumber/cucumber';
 import {CloudEvent} from './support/cloud-events';
 import {setNestedProperty} from './support/object-utils';
-import {Aanduiding} from './support/aanduiding';
 import {VerhuisdIntergemeentelijkEvent} from './brp/verhuisd-intergemeentelijk-event';
-import {AangifteVanAdreswijzigingCommand} from './brp-api/commands';
-import {Persoon} from './brp/persoon-entity';
+import {PersoonFactory} from './support/persoon-factory';
+import {createObjectArrayFrom} from './support/dataTable2Object';
+import {maakGebeurtenis} from './support/gebeurtenissen-api-helpers';
 import {logger} from './support/logger';
-
-Then('zijn er geen gebeurtenissen gepubliceerd', () => {});
-
-function getPersoonByBsn(personen: any, bsn: string): Persoon | undefined {
-  const key = Object.keys(personen).find(key => {
-    return personen[key].burger_service_nr === bsn;
-  });
-  return key ? personen[key] : undefined;
-}
-
-Then(
-  'is een {string} gebeurtenis gepubliceerd( met de volgende velden)( met de volgende data)',
-  function (gebeurtenisType: string) {
-    this.expected =
-      gebeurtenisType === 'verhuisd.intergemeentelijk'
-        ? new VerhuisdIntergemeentelijkEvent(true)
-        : new CloudEvent(`nl.brp.${gebeurtenisType}`);
-    this.aanduiding = Aanduiding.gepubliceerdGebeurtenis();
-
-    if (this.command instanceof AangifteVanAdreswijzigingCommand) {
-      const persoon: Persoon | undefined = getPersoonByBsn(
-        this.context.personen,
-        this.command.burgerservicenummer!,
-      );
-      if (persoon) {
-        this.expected.setAnummer(persoon.a_nr);
-      }
-      this.expected.setVerhuisdatum(this.command.verhuisdatum);
-      this.expected.setAdresseerbaarObjectIdentificatie(
-        this.command.adresseerbaarObjectIdentificatie,
-      );
-    }
-  },
-);
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',
@@ -57,12 +23,6 @@ Then(
     setNestedProperty(this.expected, `data.${veld}`, aanduidingAfnemer);
   },
 );
-
-Then('het A-nummer van {string}', function (aanduidingPersoon: string) {
-  if (this.expected instanceof VerhuisdIntergemeentelijkEvent) {
-    this.expected.setAnummer(this.context.personen[aanduidingPersoon].a_nr);
-  }
-});
 
 Then(
   'de vanaf datum van de opgave van verhuizing van {string}',
@@ -96,3 +56,37 @@ Then(
     }
   },
 );
+
+Then('wordt er geen gebeurtenis geleverd', function () {
+  this.expected = {
+    ['gebeurtenissen']: [],
+  };
+});
+
+Then(
+  'wordt de {string} gebeurtenis van {string} geleverd',
+  async function (gebeurtenistype: string, persoonAanduiding: string) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    this.expected.gebeurtenissen = [maakGebeurtenis(gebeurtenistype, persoon)];
+  },
+);
+
+Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
+  const gebeurtenissen = createObjectArrayFrom(dataTable);
+
+  this.expected.gebeurtenissen = [];
+
+  for (const gebeurtenis of gebeurtenissen) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      gebeurtenis['burgerservicenummer'],
+    );
+    this.expected.gebeurtenissen.push(
+      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon),
+    );
+  }
+});
