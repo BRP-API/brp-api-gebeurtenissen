@@ -91,7 +91,7 @@ module.exports = {
   },
   EndToEnd: {
     ...baseConfig,
-    paths: ['features/beheer-abonnees/*', 'features/beheer-abonnementen/*'], // Only run end-to-end features
+    paths: ['features/beheer-abonnees/*', 'features/beheer-abonnementen/*', 'features/autorisatie.feature'], // Only run end-to-end features
     tags: 'not @skip-verify', // Exclude scenarios tagged with @skip-verify
     format: [
       // output formats and locations
