@@ -1,5 +1,5 @@
-import {Persoon} from '../brp/persoon-entity';
-import {createPersoon} from './repository';
+import {Persoon} from '../brp/persoon-entity.js';
+import {createPersoon} from './repository.js';
 
 export class PersoonFactory {
   static async create(context: any, aanduiding: string): Promise<Persoon> {

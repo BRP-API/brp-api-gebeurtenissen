@@ -1,4 +1,4 @@
-import {BrpApiDatum, VolledigeDatum} from '../brp-api/brp-api-datum';
+import {BrpApiDatum, VolledigeDatum} from '../brp-api/brp-api-datum.js';
 
 /**
  * Converteer een datum string in dd-mm-yyyy formaat naar yyyymmdd formaat

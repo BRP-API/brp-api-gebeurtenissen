@@ -1,7 +1,7 @@
 import {Given} from '@cucumber/cucumber';
-import {Adres} from './brp/adres-entity';
-import {Aanduiding} from './support/aanduiding';
-import {AdresBuitenland} from './brp/adres-buitenland-entity';
+import {Adres} from './brp/adres-entity.js';
+import {Aanduiding} from './support/aanduiding.js';
+import {AdresBuitenland} from './brp/adres-buitenland-entity.js';
 
 Given('het adres {string}', function (adresAanduiding: string) {
   if (!this.context.adressen) {

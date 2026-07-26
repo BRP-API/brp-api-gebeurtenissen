@@ -1,5 +1,5 @@
 import {When} from '@cucumber/cucumber';
-import {getOudsteOngelezenGebeurtenisVoorAfnemer} from './support/gebeurtenissen-vragen-api-helpers';
+import {getOudsteOngelezenGebeurtenisVoorAfnemer} from './support/gebeurtenissen-vragen-api-helpers.js';
 
 When(
   'de oudste ongelezen gebeurtenis wordt gevraagd door afnemer {string}',

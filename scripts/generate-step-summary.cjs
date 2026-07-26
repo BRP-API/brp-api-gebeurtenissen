@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { processFile } = require('./process-cucumber-file');
+const { processFile } = require('./process-cucumber-file.cjs');
 
 const outputFile = path.join(__dirname, './../test-reports/cucumber-js/step-summary.txt');
 fs.writeFileSync(outputFile, '', 'utf8');

@@ -1,8 +1,8 @@
-import {Adres} from '../brp/adres-entity';
-import {Afnemer} from '../brp/afnemer-entity';
-import {Persoon} from '../brp/persoon-entity';
-import {logger} from './logger';
-import {PostgresqlManager} from './postgresql-manager';
+import {Adres} from '../brp/adres-entity.js';
+import {Afnemer} from '../brp/afnemer-entity.js';
+import {Persoon} from '../brp/persoon-entity.js';
+import {logger} from './logger.js';
+import {PostgresqlManager} from './postgresql-manager.js';
 import {
   createLo3AdresInsertStatement,
   createLo3AutorisatieInsertStatement,
@@ -10,7 +10,7 @@ import {
   createLo3PlPersoonInsertStatement,
   createLo3PlVerblijfplaatsInsertStatement,
   createLo3AdresDeleteStatement,
-} from './sql-statements-factory';
+} from './sql-statements-factory.js';
 
 export async function createAdres(adres: Adres): Promise<void> {
   const statement = createLo3AdresInsertStatement(adres);

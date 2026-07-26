@@ -1,11 +1,11 @@
-import {Adres} from './adres-entity';
-import {AdresBuitenland} from './adres-buitenland-entity';
+import {Adres} from './adres-entity.js';
+import {AdresBuitenland} from './adres-buitenland-entity.js';
 import {
   Verblijfplaats,
   VerblijfplaatsBinnenland,
   VerblijfplaatsBuitenland,
-} from './verblijfplaats-entity';
-import {toBrpDate} from '../support/date-utils';
+} from './verblijfplaats-entity.js';
+import {toBrpDate} from '../support/date-utils.js';
 
 export class Persoon {
   pl_id?: string;
