@@ -1,5 +1,4 @@
 import {Given} from '@cucumber/cucumber';
-import {Adres} from './brp/adres-entity.js';
 import {Aanduiding} from './support/aanduiding.js';
 import {AdresBuitenland} from './brp/adres-buitenland-entity.js';
 import {AdresFactory} from './support/adres-factory.js';

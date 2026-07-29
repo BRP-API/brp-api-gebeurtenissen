@@ -1,5 +1,4 @@
 import {Given} from '@cucumber/cucumber';
-import {logger} from './support/logger';
 import {AfnemerFactory} from './support/afnemer-factory';
 
 Given(
