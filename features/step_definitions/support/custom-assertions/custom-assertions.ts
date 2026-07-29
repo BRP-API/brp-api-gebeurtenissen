@@ -28,9 +28,6 @@ function registerConsecutiveAssertion() {
         (i === 0 || n === arr[i - 1] + 1),
     );
 
-    assert(
-      valid,
-      'expected #{this} to contain consecutive numbers',
-    );
+    assert(valid, 'expected #{this} to contain consecutive numbers');
   });
 }
