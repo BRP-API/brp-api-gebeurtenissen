@@ -1,4 +1,4 @@
-import chai from 'chai';
+import {Assertion, assert} from 'chai';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -16,10 +16,10 @@ export function registerCustomAssertions() {
 }
 
 function registerConsecutiveAssertion() {
-  chai.Assertion.addMethod('consecutiveNumbers', function () {
+  Assertion.addMethod('consecutiveNumbers', function () {
     const arr = this._obj;
 
-    new chai.Assertion(arr).to.be.an('array');
+    new Assertion(arr).to.be.an('array');
 
     const valid = arr.every(
       (n: unknown, i: number) =>
@@ -28,10 +28,9 @@ function registerConsecutiveAssertion() {
         (i === 0 || n === arr[i - 1] + 1),
     );
 
-    this.assert(
+    assert(
       valid,
       'expected #{this} to contain consecutive numbers',
-      'expected #{this} not to contain consecutive numbers',
     );
   });
 }
