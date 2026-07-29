@@ -1,5 +1,5 @@
 import {Then} from '@cucumber/cucumber';
-import {getFirstEventMatching} from './support/axon-api-helpers';
+import {getFirstEventMatching} from './support/axon-api-helpers.js';
 import {expect} from 'chai';
 
 const CLOUD_EVENT_PREFIX = 'nl.brp.';

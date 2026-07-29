@@ -6,7 +6,7 @@ import {
   createObjectArrayFrom,
   createObjectFrom,
 } from './support/dataTable2Object.js';
-import {Persoon} from './brp/persoon-entity';
+import {Persoon} from './brp/persoon-entity.js';
 import {expect} from 'chai';
 
 Then(

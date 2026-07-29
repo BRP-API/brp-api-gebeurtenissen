@@ -1,6 +1,6 @@
 import {DataTable} from '@cucumber/cucumber';
 import {toDateOrString} from './date-utils.js';
-import {Persoon} from '../brp/persoon-entity';
+import {Persoon} from '../brp/persoon-entity.js';
 
 function setPropertyValue(
   obj: any,

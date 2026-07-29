@@ -5,7 +5,7 @@ import {
   After,
   AfterAll,
 } from '@cucumber/cucumber';
-import {ICustomWorld} from './support/custom-world';
+import {ICustomWorld} from './support/custom-world.js';
 import {expect} from 'chai';
 import {PostgresqlManager} from './support/postgresql-manager.js';
 import {poolConfig} from './support/postgresql-config.js';

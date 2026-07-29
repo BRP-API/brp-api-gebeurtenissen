@@ -1,6 +1,6 @@
 import {Given} from '@cucumber/cucumber';
 import {AfnemerFactory} from './support/afnemer-factory.js';
-import {PersoonFactory} from './support/persoon-factory';
+import {PersoonFactory} from './support/persoon-factory.js';
 import {
   //abonneerOpGebeurtenistypeVanPersoon,
   abonneerPersoonOpGroep,

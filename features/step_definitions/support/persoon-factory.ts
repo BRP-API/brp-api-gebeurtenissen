@@ -1,5 +1,5 @@
 import {Persoon} from '../brp/persoon-entity.js';
-import {Adres} from '../brp/adres-entity';
+import {Adres} from '../brp/adres-entity.js';
 import {
   createPersoon,
   createVerblijfPlaatsVoorPersoonOpAdres,

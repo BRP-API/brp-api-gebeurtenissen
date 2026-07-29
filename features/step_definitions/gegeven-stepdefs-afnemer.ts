@@ -1,5 +1,5 @@
 import {Given} from '@cucumber/cucumber';
-import {AfnemerFactory} from './support/afnemer-factory';
+import {AfnemerFactory} from './support/afnemer-factory.js';
 
 Given(
   'de geauthenticeerde consumer {string} is een gemeente',
