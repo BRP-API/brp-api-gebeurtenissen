@@ -1,5 +1,5 @@
 import {When} from '@cucumber/cucumber';
-import {raadpleegGebeurtenissenVoorAbonnee} from './support/gebeurtenissen-api-helpers';
+import {raadpleegGebeurtenissenVoorAbonnee} from './support/gebeurtenissen-api-helpers.js';
 import {AfnemerFactory} from './support/afnemer-factory';
 
 When(

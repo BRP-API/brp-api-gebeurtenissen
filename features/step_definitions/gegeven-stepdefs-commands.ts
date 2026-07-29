@@ -1,5 +1,5 @@
 import {Given} from '@cucumber/cucumber';
-import {Aanduiding} from './support/aanduiding';
+import {Aanduiding} from './support/aanduiding.js';
 
 Given(
   'de verwerkte aangifte van adreswijziging van {string}',

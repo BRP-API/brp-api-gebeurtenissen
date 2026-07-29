@@ -1,5 +1,5 @@
-import {Command} from '../brp-api/commands';
-import {logger} from './logger';
+import {Command} from '../brp-api/commands.js';
+import {logger} from './logger.js';
 
 export async function sendCommand(command: Command): Promise<Response> {
   try {

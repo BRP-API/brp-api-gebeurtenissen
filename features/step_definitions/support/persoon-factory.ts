@@ -1,9 +1,9 @@
-import {Persoon} from '../brp/persoon-entity';
+import {Persoon} from '../brp/persoon-entity.js';
 import {Adres} from '../brp/adres-entity';
 import {
   createPersoon,
   createVerblijfPlaatsVoorPersoonOpAdres,
-} from './repository';
+} from './repository.js';
 //import {logger} from './logger';
 
 export class PersoonFactory {

@@ -1,7 +1,7 @@
 import {DataTable, Then} from '@cucumber/cucumber';
-import {createSelectStatement} from './support/sql-statements-factory';
-import {PostgresqlManager} from './support/postgresql-manager';
-import {stringifyValues} from './support/object-utils';
+import {createSelectStatement} from './support/sql-statements-factory.js';
+import {PostgresqlManager} from './support/postgresql-manager.js';
+import {stringifyValues} from './support/object-utils.js';
 import {expect} from 'chai';
 
 function entiteitAanduidingenVervangen(expected: any, eniteiten: any) {

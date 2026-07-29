@@ -1,5 +1,5 @@
-import {Afnemer} from '../brp/afnemer-entity';
-import {setupClient} from './oauth-helpers';
+import {Afnemer} from '../brp/afnemer-entity.js';
+import {setupClient} from './oauth-helpers.js';
 
 const gemeenteCodes = new Map<string, string>([
   ['Gemeente Amsterdam', '0363'],

@@ -1,9 +1,9 @@
 import {DataTable, When, defineParameterType} from '@cucumber/cucumber';
-import {Aanduiding} from './support/aanduiding';
+import {Aanduiding} from './support/aanduiding.js';
 import {
   AangifteVanAdreswijzigingCommand,
   AangifteVanVertrekNaarBuitenlandCommand,
-} from './brp-api/commands';
+} from './brp-api/commands.js';
 import {createObjectFrom} from './support/dataTable2Object';
 import {sendCommand} from './support/mutatie-api-helpers';
 import {expect} from 'chai';

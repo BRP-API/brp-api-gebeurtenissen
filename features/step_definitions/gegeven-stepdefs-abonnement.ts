@@ -1,5 +1,5 @@
 import {Given} from '@cucumber/cucumber';
-import {AfnemerFactory} from './support/afnemer-factory';
+import {AfnemerFactory} from './support/afnemer-factory.js';
 import {PersoonFactory} from './support/persoon-factory';
 import {
   //abonneerOpGebeurtenistypeVanPersoon,
@@ -11,11 +11,11 @@ import {
   voegGebeurtenistypeToeAanGroep,
   voegGroepToeBijAbonnee,
   //zegOpAbonnementOpGebeurtenistypeVanPersoon
-} from './support/abonnement-api-helpers';
+} from './support/abonnement-api-helpers.js';
 import {
   createObjectArrayFrom,
   createObjectFrom,
-} from './support/dataTable2Object';
+} from './support/dataTable2Object.js';
 import {expect} from 'chai';
 import {HttpStatusCode} from 'axios';
 

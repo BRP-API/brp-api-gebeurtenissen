@@ -7,22 +7,22 @@ import {
 } from '@cucumber/cucumber';
 import {ICustomWorld} from './support/custom-world';
 import {expect} from 'chai';
-import {PostgresqlManager} from './support/postgresql-manager';
-import {poolConfig} from './support/postgresql-config';
+import {PostgresqlManager} from './support/postgresql-manager.js';
+import {poolConfig} from './support/postgresql-config.js';
 import {
   createAdres,
   createPersoon,
   deleteAdres,
   deletePersoon,
-} from './support/repository';
-import {tearDownClient} from './support/oauth-helpers';
-import {logger} from './support/logger';
-import {sendCommand} from './support/mutatie-api-helpers';
-import {getLastEventFrom} from './support/axon-api-helpers';
-import {Event} from './brp/verhuisd-intergemeentelijk-event';
-import {deregistreerAbonneeVoorAfnemer} from './support/abonnement-api-helpers';
-import {Afnemer} from './brp/afnemer-entity';
-import {ProblemDetails} from './support/problem-details';
+} from './support/repository.js';
+import {tearDownClient} from './support/oauth-helpers.js';
+import {logger} from './support/logger.js';
+import {sendCommand} from './support/mutatie-api-helpers.js';
+import {getLastEventFrom} from './support/axon-api-helpers.js';
+import {Event} from './brp/verhuisd-intergemeentelijk-event.js';
+import {deregistreerAbonneeVoorAfnemer} from './support/abonnement-api-helpers.js';
+import {Afnemer} from './brp/afnemer-entity.js';
+import {ProblemDetails} from './support/problem-details.js';
 
 Before(async function (this: ICustomWorld, {pickle}) {
   this.init(pickle);
@@ -121,7 +121,7 @@ function copyIdIfExpectedIsExternalEventAndResultHasId(
   if (
     expected instanceof Event &&
     !expected.intern &&
-    Object.hasOwn(result, 'id')
+    result?.id !== undefined
   ) {
     expected.id = result.id;
   }

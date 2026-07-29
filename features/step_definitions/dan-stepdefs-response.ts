@@ -1,11 +1,11 @@
 import {Then, defineParameterType, DataTable} from '@cucumber/cucumber';
-import {ProblemDetails} from './support/problem-details';
+import {ProblemDetails} from './support/problem-details.js';
 import {
   createArrayFrom,
   createObjectArrayWithPersoonAanduidingenFrom,
   createObjectArrayFrom,
   createObjectFrom,
-} from './support/dataTable2Object';
+} from './support/dataTable2Object.js';
 import {Persoon} from './brp/persoon-entity';
 import {expect} from 'chai';
 

@@ -1,6 +1,6 @@
 import {Pool, PoolClient, PoolConfig, QueryResult} from 'pg';
-import {logger} from './logger';
-import {SqlStatement} from './sql-statements-factory';
+import {logger} from './logger.js';
+import {SqlStatement} from './sql-statements-factory.js';
 
 export class PostgresqlManager {
   private static instance: PostgresqlManager | null = null;

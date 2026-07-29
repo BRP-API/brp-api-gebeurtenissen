@@ -1,5 +1,5 @@
-import {AdresBuitenland} from './adres-buitenland-entity';
-import {Adres} from './adres-entity';
+import {AdresBuitenland} from './adres-buitenland-entity.js';
+import {Adres} from './adres-entity.js';
 
 export abstract class Verblijfplaats {
   volg_nr: string;

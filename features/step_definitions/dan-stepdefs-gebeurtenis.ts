@@ -1,11 +1,14 @@
 import {Then} from '@cucumber/cucumber';
-import {CloudEvent} from './support/cloud-events';
-import {setNestedProperty} from './support/object-utils';
-import {VerhuisdIntergemeentelijkEvent} from './brp/verhuisd-intergemeentelijk-event';
-import {PersoonFactory} from './support/persoon-factory';
-import {createObjectArrayFrom} from './support/dataTable2Object';
-import {maakGebeurtenis} from './support/gebeurtenissen-api-helpers';
-import {logger} from './support/logger';
+import {CloudEvent} from './support/cloud-events.js';
+import {setNestedProperty} from './support/object-utils.js';
+import {Aanduiding} from './support/aanduiding.js';
+import {VerhuisdIntergemeentelijkEvent} from './brp/verhuisd-intergemeentelijk-event.js';
+import {AangifteVanAdreswijzigingCommand} from './brp-api/commands.js';
+import {Persoon} from './brp/persoon-entity.js';
+import {PersoonFactory} from './support/persoon-factory.js';
+import {createObjectArrayFrom} from './support/dataTable2Object.js';
+import {maakGebeurtenis} from './support/gebeurtenissen-api-helpers.js';
+import {logger} from './support/logger.js';
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',

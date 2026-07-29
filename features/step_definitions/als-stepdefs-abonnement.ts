@@ -11,10 +11,10 @@ import {
   verwijderGroepVanAbonnee,
   voegGebeurtenistypeToeAanGroep,
   voegGroepToeBijAbonnee,
-} from './support/abonnement-api-helpers';
-import {AfnemerFactory} from './support/afnemer-factory';
-import {PersoonFactory} from './support/persoon-factory';
-//import {Persoon} from './brp/persoon-entity';
+} from './support/abonnement-api-helpers.js';
+import {AfnemerFactory} from './support/afnemer-factory.js';
+import {PersoonFactory} from './support/persoon-factory.js';
+//import {Persoon} from './brp/persoon-entity.js';
 
 When(
   'de afnemer {string} de abonnee {string} registreert',
