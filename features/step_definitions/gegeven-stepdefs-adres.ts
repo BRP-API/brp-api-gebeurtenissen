@@ -1,7 +1,7 @@
 import {Given} from '@cucumber/cucumber';
-import {Aanduiding} from './support/aanduiding';
-import {AdresBuitenland} from './brp/adres-buitenland-entity';
-import {AdresFactory} from './support/adres-factory';
+import {Aanduiding} from './support/aanduiding.js';
+import {AdresBuitenland} from './brp/adres-buitenland-entity.js';
+import {AdresFactory} from './support/adres-factory.js';
 
 Given('het adres {string}', async function (adresAanduiding: string) {
   await AdresFactory.create(this.context, adresAanduiding);

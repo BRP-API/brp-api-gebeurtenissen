@@ -1,10 +1,10 @@
 import {Given} from '@cucumber/cucumber';
-import {PersoonFactory} from './support/persoon-factory';
+import {PersoonFactory} from './support/persoon-factory.js';
 import {
   publiceerGebeurtenis,
   raadpleegGebeurtenissenVoorAbonnee,
-} from './support/gebeurtenissen-api-helpers';
-import {AfnemerFactory} from './support/afnemer-factory';
+} from './support/gebeurtenissen-api-helpers.js';
+import {AfnemerFactory} from './support/afnemer-factory.js';
 
 Given(
   'er is een {string} gebeurtenis gepubliceerd voor persoon {string}',

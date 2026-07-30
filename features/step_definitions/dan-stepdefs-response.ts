@@ -1,30 +1,27 @@
 import {Then, defineParameterType, DataTable} from '@cucumber/cucumber';
-import {ProblemDetails} from './support/problem-details';
+import {ProblemDetails} from './support/problem-details.js';
 import {
   createArrayFrom,
   createObjectArrayWithPersoonAanduidingenFrom,
   createObjectArrayFrom,
   createObjectFrom,
-} from './support/dataTable2Object';
-import {Persoon} from './brp/persoon-entity';
+} from './support/dataTable2Object.js';
+import {Persoon} from './brp/persoon-entity.js';
 import {expect} from 'chai';
 
 Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
     const expectedStatus = Number(status.split(' ')[0]);
+    expect(this.responseStatusCode).to.equal(
+      expectedStatus,
+      'http statuscode is niet correct',
+    );
+
     if (expectedStatus === 201) {
-      expect(this.responseStatusCode).to.equal(
-        expectedStatus,
-        'http statuscode is niet correct',
-      );
       this.expected = null;
     }
     if (expectedStatus === 204) {
-      expect(this.responseStatusCode).to.equal(
-        expectedStatus,
-        'http statuscode is niet correct',
-      );
       this.expected = null;
     }
 
@@ -39,6 +36,8 @@ Then(
         this.expected.type,
         'type is niet correct',
       );
+      expect(this.result).to.have.property('instance').that.is.a('string');
+      expect(this.result).to.have.property('title').that.is.a('string');
     }
   },
 );

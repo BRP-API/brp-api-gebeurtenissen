@@ -1,14 +1,14 @@
 import {DataTable, When, defineParameterType} from '@cucumber/cucumber';
-import {Aanduiding} from './support/aanduiding';
+import {Aanduiding} from './support/aanduiding.js';
 import {
   AangifteVanAdreswijzigingCommand,
   AangifteVanVertrekNaarBuitenlandCommand,
-} from './brp-api/commands';
-import {createObjectFrom} from './support/dataTable2Object';
-import {sendCommand} from './support/mutatie-api-helpers';
+} from './brp-api/commands.js';
+import {createObjectFrom} from './support/dataTable2Object.js';
+import {sendCommand} from './support/mutatie-api-helpers.js';
 import {expect} from 'chai';
 import {HttpStatusCode} from 'axios';
-import {toIsoDate} from './support/date-utils';
+import {toIsoDate} from './support/date-utils.js';
 
 When(
   'de aangifte van adreswijziging van {string} is verwerkt',

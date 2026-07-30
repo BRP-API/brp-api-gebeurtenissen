@@ -1,10 +1,10 @@
 import {Given} from '@cucumber/cucumber';
-import {toBrpDate} from './support/date-utils';
-import {Adres} from './brp/adres-entity';
-import {Persoon} from './brp/persoon-entity';
-import {VerblijfplaatsBinnenland} from './brp/verblijfplaats-entity';
-import {createVerblijfPlaatsVoorPersoon} from './support/repository';
-import {PersoonFactory} from './support/persoon-factory';
+import {toBrpDate} from './support/date-utils.js';
+import {Adres} from './brp/adres-entity.js';
+import {Persoon} from './brp/persoon-entity.js';
+import {VerblijfplaatsBinnenland} from './brp/verblijfplaats-entity.js';
+import {createVerblijfPlaatsVoorPersoon} from './support/repository.js';
+import {PersoonFactory} from './support/persoon-factory.js';
 
 Given(
   'verblijft vanaf {string} op het adres {string}',

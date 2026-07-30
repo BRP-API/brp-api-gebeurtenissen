@@ -41,6 +41,8 @@ export class ProblemDetails {
         return new BadRequestProblemDetails();
       case 401:
         return new UnauthorizedProblemDetails();
+      case 403:
+        return new ForbiddenProblemDetails();
       case 404:
         return new NotFoundProblemDetails();
       case 409:
@@ -68,6 +70,18 @@ class UnauthorizedProblemDetails extends ProblemDetails {
     super(
       'https://www.rfc-editor.org/rfc/rfc9110.html#name-401-unauthorized',
       401,
+      title,
+      detail,
+      instance,
+    );
+  }
+}
+
+class ForbiddenProblemDetails extends ProblemDetails {
+  constructor(title?: string, detail?: string, instance?: string) {
+    super(
+      'https://www.rfc-editor.org/rfc/rfc9110.html#name-403-forbidden',
+      403,
       title,
       detail,
       instance,

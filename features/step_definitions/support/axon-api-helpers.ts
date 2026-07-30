@@ -1,5 +1,5 @@
 import {EventSource} from 'eventsource';
-import {logger} from './logger';
+import {logger} from './logger.js';
 
 const PayloadTypeMap: {[key: string]: string} = {
   'nl.rvig.brpapi.gebeurtenissen.web.api.v1.VerhuisdIntergemeentelijkData':

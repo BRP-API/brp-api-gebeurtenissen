@@ -2,8 +2,8 @@ import {When} from '@cucumber/cucumber';
 import {
   raadpleegMetBurgerservicenummer,
   raadpleegVerblijfplaatshistorieMetPeriode,
-} from './support/personen-api-helpers';
-import {AfnemerFactory} from './support/afnemer-factory';
+} from './support/personen-api-helpers.js';
+import {AfnemerFactory} from './support/afnemer-factory.js';
 
 When(
   '{string} wordt gevraagd van {string}',

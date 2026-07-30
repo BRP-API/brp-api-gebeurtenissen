@@ -1,6 +1,6 @@
-import {Afnemer} from '../brp/afnemer-entity';
-import {oauthConfig} from './oauth-config';
-import {logger} from './logger';
+import {Afnemer} from '../brp/afnemer-entity.js';
+import {oauthConfig} from './oauth-config.js';
+import {logger} from './logger.js';
 
 async function getAccessToken(
   URLSearchParams: URLSearchParams,

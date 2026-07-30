@@ -4,6 +4,12 @@
 - maak een kopie van het .env.example bestand en hernoem het naar .env
 - vul in het .env bestand de missende user en password variabelen
 
+## Uitvoeren van alle documentatie scenarios
+```
+npx cucumber-js -p Docs
+npx cucumber-js -p DocsIntegratie
+```
+
 ## Uitvoeren van alle end to end scenarios
 ```
 npx cucumber-js -p EndToEnd

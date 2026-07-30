@@ -1,5 +1,5 @@
-import {Adres} from '../brp/adres-entity';
-import {createAdres, updateAdres} from './repository';
+import {Adres} from '../brp/adres-entity.js';
+import {createAdres, updateAdres} from './repository.js';
 //import {logger} from './logger';
 
 export class AdresFactory {
