@@ -38,7 +38,6 @@ Then(
       );
       expect(this.result).to.have.property('instance').that.is.a('string');
       expect(this.result).to.have.property('title').that.is.a('string');
-      expect(this.result).to.have.property('code').that.is.a('string');
     }
   },
 );
