@@ -1,6 +1,6 @@
 services:
   gebeurtenissen:
-    image: ghcr.io/brp-api/brp-api-gebeurtenissen:0.0.1-20260716231821
+    image: ghcr.io/brp-api/brp-api-gebeurtenissen:0.0.1-20260729222721
     container_name: gebeurtenissen
     depends_on:
       axon-server:
