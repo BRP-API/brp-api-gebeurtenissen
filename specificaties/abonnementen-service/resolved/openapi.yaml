@@ -21,6 +21,9 @@ paths:
       responses:
         '201':
           description: Abonnee succesvol geregistreerd.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -43,6 +46,9 @@ paths:
       responses:
         '200':
           description: Lijst van abonnees succesvol opgehaald.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
           content:
             application/json:
               schema:
@@ -66,6 +72,9 @@ paths:
       responses:
         '204':
           description: Abonnee succesvol gederegistreerd als abonnee van BRP API Gebeurtenissen.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -93,6 +102,9 @@ paths:
       responses:
         '201':
           description: Groep succesvol toegevoegd aan de abonnee van BRP API Gebeurtenissen.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -115,6 +127,9 @@ paths:
       responses:
         '200':
           description: Lijst van groepen succesvol opgehaald.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
           content:
             application/json:
               schema:
@@ -141,6 +156,9 @@ paths:
       responses:
         '204':
           description: Groep succesvol verwijderd van de abonnee van BRP API Gebeurtenissen.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -169,6 +187,9 @@ paths:
       responses:
         '201':
           description: Gebeurtenistype succesvol toegevoegd aan de groep.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -191,6 +212,9 @@ paths:
       responses:
         '200':
           description: Lijst van gebeurtenistypes succesvol opgehaald.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
           content:
             application/json:
               schema:
@@ -218,6 +242,9 @@ paths:
       responses:
         '204':
           description: Gebeurtenistype succesvol verwijderd uit de groep.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
         '401':
           $ref: '#/components/responses/401'
         '403':
@@ -245,8 +272,14 @@ paths:
       responses:
         '201':
           description: Abonnement(en) succesvol aangemaakt.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
         '204':
           description: Abonnement(en) succesvol opgezegd.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -272,6 +305,9 @@ paths:
       responses:
         '200':
           description: Lijst van abonnementen van de abonnee succesvol opgehaald.
+          headers:
+            API-Version:
+              $ref: '#/components/headers/ApiVersion'
           content:
             application/json:
               schema:
@@ -294,6 +330,13 @@ components:
         clientCredentials:
           tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
           scopes: {}
+  headers:
+    ApiVersion:
+      description: Geeft de versie aan van de API die het request beantwoordt conform semantic versioning (major.minor.patch).
+      style: simple
+      schema:
+        type: string
+        example: 1.0.1
   schemas:
     AbonneeNaam:
       type: string
@@ -327,6 +370,9 @@ components:
     Foutbericht:
       type: object
       description: Terugmelding bij een fout. JSON representatie in lijn met [RFC7807](https://tools.ietf.org/html/rfc7807).
+      headers:
+        API-Version:
+          $ref: ../headers/api-version-v1.yaml#/components/headers/ApiVersion
       properties:
         type:
           description: Link naar meer informatie over deze fout
@@ -564,6 +610,9 @@ components:
   responses:
     '400':
       description: Bad Request
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
@@ -582,6 +631,9 @@ components:
                 reason: Waarde is geen geldig getal.
     '401':
       description: Unauthorized
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
@@ -595,6 +647,9 @@ components:
             code: authentication
     '403':
       description: Forbidden
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
@@ -608,6 +663,9 @@ components:
             code: autorisation
     '404':
       description: Not Found
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
@@ -621,6 +679,9 @@ components:
             code: notFound
     '409':
       description: Conflict
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
@@ -634,6 +695,9 @@ components:
             code: conflict
     '500':
       description: Internal Server Error
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
