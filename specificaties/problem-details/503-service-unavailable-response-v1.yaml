@@ -9,6 +9,9 @@ components:
   responses:
     '503':
       description: Service Unavailable
+      headers:
+        API-Version:
+          $ref: '../headers/api-version-v1.yaml#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:

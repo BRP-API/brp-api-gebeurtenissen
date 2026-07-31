@@ -9,6 +9,9 @@ components:
   responses:
     '401':
       description: Unauthorized
+      headers:
+        API-Version:
+          $ref: '../headers/api-version-v1.yaml#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
