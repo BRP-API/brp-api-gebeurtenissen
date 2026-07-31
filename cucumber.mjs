@@ -72,8 +72,9 @@ export default function profiles() {
           },
         ],
       },
+      tags: 'not @skip-verify', // Exclude scenarios tagged with @skip-verify
       worldParameters: {
-        apiUrl: 'http://localhost:5040/api/brp',
+        apiUrl: 'http://localhost:8888/api/brp',
         api: 'gebeurtenissen-api',
         logger: {
           level: 'warn',
