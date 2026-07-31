@@ -2,7 +2,6 @@ import {Given} from '@cucumber/cucumber';
 import {AfnemerFactory} from './support/afnemer-factory.js';
 import {PersoonFactory} from './support/persoon-factory.js';
 import {
-  //abonneerOpGebeurtenistypeVanPersoon,
   abonneerPersoonOpGroep,
   deregistreerAbonneeVoorAfnemer,
   registreerAbonneeVoorAfnemer,
@@ -10,7 +9,6 @@ import {
   verwijderGroepVanAbonnee,
   voegGebeurtenistypeToeAanGroep,
   voegGroepToeBijAbonnee,
-  //zegOpAbonnementOpGebeurtenistypeVanPersoon
 } from './support/abonnement-api-helpers.js';
 import {
   createObjectArrayFrom,

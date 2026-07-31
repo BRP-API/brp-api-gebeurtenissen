@@ -10,7 +10,7 @@ Functionaliteit: Abonneer persoon voor een groep
     En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client'
     En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistypes 'nl.brp.verhuisd.intergemeentelijk en nl.brp.overleden'
     En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie'
-    En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
+    En groep 'relatie' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
     En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
     En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client'
     En groep 'client' bij abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
