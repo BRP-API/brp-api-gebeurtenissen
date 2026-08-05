@@ -20,9 +20,7 @@ export class AfnemerFactory {
     let afnemer = context.afnemers[aanduiding];
     if (!afnemer) {
       afnemer = new Afnemer(aanduiding);
-      afnemer.afnemerId = (Object.keys(context.afnemers).length + 1)
-        .toString()
-        .padStart(6, '0');
+      afnemer.afnemerId = crypto.randomUUID()
       afnemer.oin = `00000009900${afnemer.afnemerId}0000`;
       if (gemeenteCodes.has(aanduiding)) {
         afnemer.gemeenteCode = gemeenteCodes.get(aanduiding);
