@@ -356,7 +356,7 @@ export async function raadpleegAbonnementen(
     // haal eerst alle abonnementen op om de uuid van cursor op te zoeken
     const alleAbonnementen = await raadpleegAbonnementen(afnemer, abonneeNaam);
 
-    const hetAbonnement = alleAbonnementen.abonnementen.find(
+    const hetAbonnement = alleAbonnementen.body.abonnementen.find(
       (abo: any) =>
         abo.burgerservicenummer === persoon.burger_service_nr &&
         abo.groep === groepNaam,
@@ -370,7 +370,7 @@ export async function raadpleegAbonnementen(
     uriParams.push(`cursor=${cursor}`);
   }
 
-  if (limit) {
+  if (limit !== null && limit !== undefined) {
     uriParams.push(`limit=${limit.toString()}`);
   }
 

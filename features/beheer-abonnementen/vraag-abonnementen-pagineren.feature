@@ -1,11 +1,11 @@
 # language: nl
 Functionaliteit: Abonneer persoon voor een groep
-  Als abonnee wil ik kunnen raadplegen welke actieve abonnementen ik heb
-  zodat ik mijn abonnementen kan beheren
+Als abonnee wil ik kunnen raadplegen welke actieve abonnementen ik heb
+zodat ik mijn abonnementen kan beheren
 
-  Wanneer de abonnee heel veel abonnementen heeft, kan deze door de abonnementen pagineren.
+Wanneer de abonnee heel veel abonnementen heeft, kan deze door de abonnementen pagineren.
 
-  Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
+Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
 
   Achtergrond:
     Gegeven de persoon 'Jan' is geregistreerd in de BRP
@@ -19,15 +19,15 @@ Functionaliteit: Abonneer persoon voor een groep
     En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Karin' voor de groep 'client'
 
   Regel: Een abonnee kan abonnementen vragen na de id van een eerder ontvangen abonnement
-    Hiervoor gebruikt de abonnee optionele parameter 'cursor'.
-    De abonnee vraagt de volgende 'pagina' aan abonnementen door het id uit het laatste abonnement van de laatst ontvangen pagina in parameter cursor te zetten.
+  Hiervoor gebruikt de abonnee optionele parameter 'cursor'.
+  De abonnee vraagt de volgende 'pagina' aan abonnementen door het id uit het laatste abonnement van de laatst ontvangen pagina in parameter cursor te zetten.
 
     Scenario: De abonnee vraagt abonnementen na de opgegeven gebeurtenis id
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement op 'Jan' voor de groep 'client'
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Piet                | client    |
-        | Karin               | client    |
+        | burgerservicenummer | groep  |
+        | Piet                | client |
+        | Karin               | client |
 
     Scenario: De abonnee vraagt abonnementen na het laatste abonnement op
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement op 'Karin' voor de groep 'client'
@@ -43,28 +43,28 @@ Functionaliteit: Abonneer persoon voor een groep
       # nog geen automation voor tellen aantal abonnementen in resultaat
 
   Regel: Een abonnee kan het maximaal aantal te ontvangen abonnementen opgeven
-    Hiervoor gebruikt de abonnee optionele parameter 'limit'
+  Hiervoor gebruikt de abonnee optionele parameter 'limit'
 
     Scenario: De abonnee wil 2 abonnementen per keer ontvangen
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal 2 abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Jan                 | client    |
-        | Piet                | client    |
+        | burgerservicenummer | groep  |
+        | Jan                 | client |
+        | Piet                | client |
 
     Scenario: De abonnee wil alleen de eerstvolgende gebeurtenis ontvangen
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal 1 abonnement opvraagt
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Jan                 | client    |
+        | burgerservicenummer | groep  |
+        | Jan                 | client |
 
   Regel: Een abonnee mag parameters 'cursor' en 'limit' samen gebruiken
 
     Scenario: De abonnee wil 1 abonnement ontvangen na de opgegeven id
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal 1 abonnement opvraagt na het abonnement op 'Jan' voor de groep 'client'
       Dan worden volgende abonnementen geleverd
-        | burgerservicenummer | groepnaam |
-        | Piet                | client    |
+        | burgerservicenummer | groep  |
+        | Piet                | client |
 
   Regel: Parameter 'cursor' moet een geldige uuid zijn
 
@@ -81,7 +81,7 @@ Functionaliteit: Abonneer persoon voor een groep
     Scenario: De opgegeven cursor is geen id van een abonnement
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt met cursor 'ad095c09-6c0e-4800-94ac-adf05b5ea4a4'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor.'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
         | code    | name   | reason                                 |
         | unknown | cursor | Cursor is geen correcte abonnement id. |
@@ -91,13 +91,13 @@ Functionaliteit: Abonneer persoon voor een groep
     Abstract Scenario: De opgegeven 'limit' <omschrijving>
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal <waarde> abonnementen opvraagt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De foutieve parameter(s) zijn: limit.'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: limit'
       En heeft de response invalidParams met de volgende gegevens
-        | code   | name   | reason   |
+        | code   | name  | reason   |
         | <code> | limit | <reason> |
 
       Voorbeelden:
-        | omschrijving    | waarde | code    | reason                          |
-        | is 0            |      0 | minimum | Waarde is lager dan minimum 1.  |
-        | is negatief     |     -3 | minimum | Waarde is lager dan minimum 1.  |
-        | is hoger dan 10 |     11 | maximum | Waarde is hoger dan maximum 10. |
+        | omschrijving     | waarde | code    | reason                           |
+        | is 0             | 0      | minimum | Waarde is lager dan minimum 1.   |
+        | is negatief      | -3     | minimum | Waarde is lager dan minimum 1.   |
+        | is hoger dan 100 | 101    | maximum | Waarde is hoger dan maximum 100. |

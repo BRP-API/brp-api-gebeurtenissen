@@ -23,10 +23,12 @@ import {Event} from './brp/verhuisd-intergemeentelijk-event.js';
 import {deregistreerAbonneeVoorAfnemer} from './support/abonnement-api-helpers.js';
 import {Afnemer} from './brp/afnemer-entity.js';
 import {ProblemDetails} from './support/problem-details.js';
+import {use} from 'chai';
+import chaiExclude from 'chai-exclude';
 
 Before(async function (this: ICustomWorld, {pickle}) {
   this.init(pickle);
-
+  use(chaiExclude);
   PostgresqlManager.setup(poolConfig);
 
   logger.debug(`Scenario: ${pickle.name}. Start`);

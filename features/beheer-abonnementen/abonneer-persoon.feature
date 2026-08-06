@@ -58,7 +58,7 @@ Functionaliteit: Abonneer persoon voor een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'bestaat-niet'
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die alleen bij een andere abonnee toegevoegd is
@@ -67,7 +67,7 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'andere' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'andere'
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die verwijderd is
@@ -76,7 +76,7 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'andere'
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Groep bestaat niet'
 
   Regel: Type is verplicht en moet een ondersteund type zijn

@@ -40,6 +40,8 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een abonnee en een andere abonnee hebben abonnementen
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'relatie'
+      En groep 'relatie' bij abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'relatie'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
@@ -48,7 +50,7 @@ Functionaliteit: Abonneer persoon voor een groep
 
     Scenario: Een andere afnemer heeft een abonnee met dezelfde naam
       Gegeven de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      En de abonnee 'jz' van afnemer 'Gemeente Rotterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'relatie'
+      En de abonnee 'jz' van afnemer 'Gemeente Rotterdam' heeft een abonnement op de persoon 'Piet' voor de groep 'client'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden volgende abonnementen geleverd
         | burgerservicenummer | groep  |

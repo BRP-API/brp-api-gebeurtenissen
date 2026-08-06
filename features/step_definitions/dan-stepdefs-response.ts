@@ -8,6 +8,7 @@ import {
 } from './support/dataTable2Object.js';
 import {Persoon} from './brp/persoon-entity.js';
 import {expect} from 'chai';
+import 'chai-exclude';
 
 Then(
   'is de response {string}( met de volgende velden)',
@@ -77,12 +78,18 @@ Then(
         personen,
       ),
     };
-    expect(this.result[objectNaam]).to.deep.equal(
-      this.expected[objectNaam],
-      `${objectNaam} is niet correct`,
-    );
+    expect(this.result[objectNaam])
+      .excludingEvery('id')
+      .to.deep.equal(
+        this.expected[objectNaam],
+        `${objectNaam} is niet correct`,
+      );
   },
 );
+
+Then('wordt er geen abonnement geleverd', function () {
+  expect(this.result.abonnementen).to.deep.equal([]);
+});
 
 Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {
   this.expected = {

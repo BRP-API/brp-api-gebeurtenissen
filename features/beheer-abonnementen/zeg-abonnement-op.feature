@@ -55,7 +55,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'relatie' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'relatie' opzegt
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnement bestaat niet'
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en heeft wel een abonnement voor deze groep voor een andere persoon
@@ -63,7 +63,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Piet' voor de groep 'client' opzegt
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnement bestaat niet'
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en een andere abonnee heeft wel een abonnement voor deze persoon voor deze groep
@@ -73,13 +73,13 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'szw' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnement bestaat niet'
 
     Scenario: De abonnee zegt een abonnement op met een groepnaam die niet bestaat
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'bestaat-niet' opzegt
-      Dan is de response '409 Conflict' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Abonnement bestaat niet'
 
   Regel: Er wordt geen 'AbonnementOpPersoonOpgezegd' gebeurtenis gepubliceerd wanneer een reeds opgezegd abonnement opnieuw wordt verwijderd
@@ -89,8 +89,9 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement op de persoon 'Jan' voor de groep 'client' opgezegd
-      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'relatie' opzegt
-      Dan is de response '204 No Content'
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
+      Dan is de response '404 Not Found' met de volgende velden
+      * 'title' met tekst 'Abonnement bestaat niet'
 
   Regel: Burgerservicenummer is verplicht en moet een 9-cijferig nummer zijn
 
@@ -99,14 +100,14 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' een abonnement voor de groep 'client' opzegt zonder een burgerservicenummer op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Burgerservicenummer ongeldig'
+      * 'title' met tekst 'Burgerservicenummer is verplicht'
 
     Scenario: De abonnee geeft een burgerservicenummer op van 8 cijfers (laat de voorloopnul weg)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon met burgerservicenummer '10755561' voor de groep 'client' opzegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Burgerservicenummer ongeldig'
+      * 'title' met tekst 'Burgerservicenummer is ongeldig'
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
     - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
@@ -125,4 +126,4 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep '!@#$%^&*=' opzegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Groepnaam ongeldig'
+      * 'title' met tekst 'Groepnaam is ongeldig'
