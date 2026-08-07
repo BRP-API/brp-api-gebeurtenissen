@@ -1,0 +1,14 @@
+openapi: 3.1.2
+info:
+  title: API-version response header definitie
+  description: |
+    Definitie voor de response header API-version
+  version: 1.0.0
+components:
+  headers:
+    ApiVersion:
+      description: Geeft de versie aan van de API die het request beantwoordt conform semantic versioning (major.minor.patch).
+      style: simple
+      schema:
+        type: string
+        example: 1.0.1
