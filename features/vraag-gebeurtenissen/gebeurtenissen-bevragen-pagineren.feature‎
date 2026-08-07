@@ -36,6 +36,20 @@ Functionaliteit: Gebeurtenissen bevragen met cursor en limit
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de gebeurtenissen vraagt na de gebeurtenis voor 'Karin'
       Dan wordt er geen gebeurtenis geleverd
 
+  Regel: Een abonnee kan gebeurtenissen vragen na een opgegeven timestamp
+    Hiervoor gebruikt de abonnee optionele parameter 'timestamp'
+
+    Scenario: De abonnee vraagt gebeurtenissen na een opgegeven timestamp
+      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de gebeurtenissen vraagt na timestamp 2026-01-01T00:00:00.000Z
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                   | burgerservicenummer |
+        | nl.brp.verhuisd.intergemeentelijk | Piet                |
+        | nl.brp.verhuisd.intergemeentelijk | Karin               |
+
+    Scenario: De abonnee vraagt gebeurtenissen na de laatste gebeurtenis op
+      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de gebeurtenissen vraagt na timestamp 2027-01-01T00:00:00.000Z
+      Dan wordt er geen gebeurtenis geleverd
+
   Regel: Standaard worden per request maximaal 10 gebeurtenissen geleverd
 
     @skip-verify
