@@ -71,7 +71,7 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
     Scenario: De abonnee vraagt abonnementen met een cursor die geen uuid is
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt met cursor '47bf7642'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor.'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
         | code | name   | reason               |
         | uuid | cursor | Waarde is geen uuid. |
