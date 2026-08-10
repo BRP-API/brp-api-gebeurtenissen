@@ -9,10 +9,7 @@ import {
 import {Persoon} from './brp/persoon-entity.js';
 import {expect} from 'chai';
 import 'chai-exclude';
-import {
-  expectEventually,
-  expectEventuallyWithRetry,
-} from './support/custom-assertions/expectEventually.js';
+import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
 
 Then(
   'is de response {string}( met de volgende velden)',
