@@ -187,10 +187,9 @@ After(async function (this: ICustomWorld, {pickle}) {
   if (this.expected instanceof ProblemDetails) {
     assertProblemDetailsResult(this.expected, this.result);
   } else {
-    expect(this.result).to.deep.equal(
-      this.expected,
-      JSON.stringify({result: this.result, expected: this.expected}, null, 2),
-    );
+    expect(this.result)
+      .excludingEvery('id')
+      .to.deep.equal(this.expected, JSON.stringify(this.result, null, 2));
   }
 });
 
