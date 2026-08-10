@@ -87,6 +87,12 @@ jobs:
       - name: Valideer functionele specs
         uses: ./.github/actions/valideer-functionele-specs
 
+      - uses: deblockt/cucumber-report-annotations-action@v1.7
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+          path: "test-reports/cucumber-js/e2e/test-result.json"
+          name: "Cucumber E2E tests"
+
       - name: Upload test rapportage
         if: always()
         uses: actions/upload-artifact@v7
