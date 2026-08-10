@@ -6,6 +6,9 @@ import {PersoonFactory} from './support/persoon-factory.js';
 import {createObjectArrayFrom} from './support/dataTable2Object.js';
 import {maakGebeurtenis} from './support/gebeurtenissen-api-helpers.js';
 import {logger} from './support/logger.js';
+import {expect} from 'chai';
+import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
+import 'chai-exclude';
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',
@@ -58,9 +61,8 @@ Then(
 );
 
 Then('wordt er geen gebeurtenis geleverd', function () {
-  this.expected = {
-    ['gebeurtenissen']: [],
-  };
+  expect(this.result).to.deep.equal({gebeurtenissen: []});
+  this.expected = null;
 });
 
 Then(
@@ -71,22 +73,45 @@ Then(
       persoonAanduiding,
     );
 
-    this.expected.gebeurtenissen = [maakGebeurtenis(gebeurtenistype, persoon)];
+    const expected = {
+      gebeurtenissen: [maakGebeurtenis(gebeurtenistype, persoon)],
+    };
+
+    await expectEventuallyWithRetry(
+      this.result,
+      async () => (await this.resultProducer()).body,
+      result => {
+        this.result = result;
+        expect(result).excludingEvery('id').to.deep.equal(expected);
+      },
+    );
+
+    this.expected = null;
   },
 );
 
 Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
   const gebeurtenissen = createObjectArrayFrom(dataTable);
 
-  this.expected.gebeurtenissen = [];
+  const expectedGebeurtenissen = [];
 
   for (const gebeurtenis of gebeurtenissen) {
     const persoon = await PersoonFactory.create(
       this.context,
       gebeurtenis['burgerservicenummer'],
     );
-    this.expected.gebeurtenissen.push(
+    expectedGebeurtenissen.push(
       maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon),
     );
   }
+  const expected = {gebeurtenissen: expectedGebeurtenissen};
+  await expectEventuallyWithRetry(
+    this.result,
+    async () => (await this.resultProducer()).body,
+    result => {
+      this.result = result;
+      expect(result).excludingEvery('id').to.deep.equal(expected);
+    },
+  );
+  this.expected = null;
 });

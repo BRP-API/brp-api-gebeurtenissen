@@ -184,6 +184,9 @@ After(async function (this: ICustomWorld, {pickle}) {
 
   copyIdIfExpectedIsExternalEventAndResultHasId(this.expected, this.result);
 
+  if (this.expected === null) {
+    return;
+  }
   if (this.expected instanceof ProblemDetails) {
     assertProblemDetailsResult(this.expected, this.result);
   } else {

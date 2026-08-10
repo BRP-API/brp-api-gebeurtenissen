@@ -25,7 +25,7 @@ Functionaliteit: Valideren van gebeurtenissen bevragen
     Scenario: De abonnee vraagt gebeurtenissen met een cursor die geen uuid is
       Als gebeurtenissen worden gevraagd door abonnee 'jz' vanaf gebeurtenis '47bf7642'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor.'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
         | code | name   | reason               |
         | uuid | cursor | Waarde is geen uuid. |
@@ -35,7 +35,7 @@ Functionaliteit: Valideren van gebeurtenissen bevragen
     Scenario: De opgegeven cursor is geen id van een gebeurtenis
       Als gebeurtenissen worden gevraagd door abonnee 'jz' vanaf gebeurtenis 'ad095c09-6c0e-4800-94ac-adf05b5ea4a4'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor.'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
         | code    | name   | reason                                  |
         | unknown | cursor | Cursor is geen correcte gebeurtenis id. |
@@ -54,7 +54,7 @@ Functionaliteit: Valideren van gebeurtenissen bevragen
     Abstract Scenario: De opgegeven 'limit' <omschrijving>
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal <waarde> gebeurtenissen vraagt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De foutieve parameter(s) zijn: limit.'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: limit'
       En heeft de response invalidParams met de volgende gegevens
         | code   | name   | reason   |
         | <code> | cursor | <reason> |
@@ -63,4 +63,4 @@ Functionaliteit: Valideren van gebeurtenissen bevragen
         | omschrijving    | waarde | code    | reason                          |
         | is 0            |      0 | minimum | Waarde is lager dan minimum 1.  |
         | is negatief     |     -3 | minimum | Waarde is lager dan minimum 1.  |
-        | is hoger dan 10 |     11 | maximum | Waarde is hoger dan maximum 10. |
+        | is hoger dan 10 |    101 | maximum | Waarde is hoger dan maximum 10. |

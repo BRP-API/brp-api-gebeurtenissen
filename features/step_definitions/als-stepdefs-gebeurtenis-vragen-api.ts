@@ -14,6 +14,12 @@ When(
       afnemer,
       abonneeNaam,
     );
+
+    this.resultProducer = async () =>
+      await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam);
+    const response = await this.resultProducer();
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -47,11 +53,13 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegGebeurtenissenVoorAbonnee(
+    const response = await raadpleegGebeurtenissenVoorAbonnee(
       afnemer,
       abonneeNaam,
       limit,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -87,10 +95,12 @@ When(
     );
     const abonneeNaam = 'bestaat-niet';
 
-    this.result = await raadpleegGebeurtenissenVoorAbonnee(
+    const response = await raadpleegGebeurtenissenVoorAbonnee(
       afnemer,
       abonneeNaam,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -102,12 +112,14 @@ When(
       'Gemeente Amsterdam',
     );
 
-    this.result = await raadpleegGebeurtenissenVoorAbonnee(
+    const response = await raadpleegGebeurtenissenVoorAbonnee(
       afnemer,
       abonneeNaam,
       undefined,
       undefined,
       cursor,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );

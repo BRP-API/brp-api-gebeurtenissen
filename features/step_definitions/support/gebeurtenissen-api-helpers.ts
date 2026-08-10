@@ -39,7 +39,7 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
     uriParams.push(`cursor=${cursor}`);
   }
 
-  if (limit) {
+  if (limit !== null && limit !== undefined) {
     uriParams.push(`limit=${limit.toString()}`);
   }
 
@@ -63,7 +63,7 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
     `GET /api/brp/abonnees/${abonneeNaam}/gebeurtenissen${uriParamsString} >>> status: ${response.status}`,
   );
 
-  return await response.json();
+  return {body: await response.json(), statusCode: response.status};
 }
 
 export async function publiceerGebeurtenis(
@@ -168,5 +168,10 @@ export function maakGebeurtenis(gebeurtenistype: string, persoon: Persoon) {
       };
   }
 
-  return {type: gebeurtenistype, data: data};
+  return {
+    type: gebeurtenistype,
+    data: data,
+    source: 'brp-api-gebeurtenissen',
+    specversion: '1.0',
+  };
 }
