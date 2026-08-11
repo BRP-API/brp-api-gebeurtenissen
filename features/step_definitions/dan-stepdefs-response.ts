@@ -103,6 +103,7 @@ Then(
 
 Then('wordt er geen abonnement geleverd', function () {
   expect(this.result.abonnementen).to.deep.equal([]);
+  this.expected = null;
 });
 
 Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {
