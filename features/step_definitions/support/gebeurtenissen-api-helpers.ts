@@ -21,8 +21,8 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
       abonneeNaam,
     );
 
-    const deGebeurtenis = alleGebeurtenissen.gebeurtenissen.find(
-      (geb: any) => geb.burgerservicenummer === persoon.burger_service_nr,
+    const deGebeurtenis = alleGebeurtenissen.body.gebeurtenissen.find(
+      (geb: any) => geb.data.burgerservicenummer === persoon.burger_service_nr,
     );
     if (deGebeurtenis) {
       uriParams.push(`cursor=${deGebeurtenis.id}`);
@@ -132,6 +132,7 @@ export async function publiceerGebeurtenis(
     `POST /personen/gebeurtenissen >>> status: ${response.status}`,
     requestBody,
   );
+  return {body: await response.json(), statusCode: response.status};
 }
 
 export function maakGebeurtenis(gebeurtenistype: string, persoon: Persoon) {

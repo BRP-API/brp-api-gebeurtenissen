@@ -51,7 +51,11 @@ Then(
       this.expected.invalidParams = [];
     }
 
-    this.expected.invalidParams.push(createObjectArrayFrom(dataTable));
+    const expected = createObjectArrayFrom(dataTable);
+    this.expected.invalidParams.push(expected);
+    expect(this.result.invalidParams)
+      .excludingEvery('type')
+      .to.deep.equal(expected);
   },
 );
 

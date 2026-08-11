@@ -36,12 +36,16 @@ When(
     );
     const persoon = this.context.personen[persoonAanduiding];
 
-    this.result = await raadpleegGebeurtenissenVoorAbonnee(
-      afnemer,
-      abonneeNaam,
-      undefined,
-      persoon,
-    );
+    this.resultProducer = this.resultProducer = async () =>
+      await raadpleegGebeurtenissenVoorAbonnee(
+        afnemer,
+        abonneeNaam,
+        undefined,
+        persoon,
+      );
+    const response = await this.resultProducer();
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -53,11 +57,9 @@ When(
       afnemerAanduiding,
     );
 
-    const response = await raadpleegGebeurtenissenVoorAbonnee(
-      afnemer,
-      abonneeNaam,
-      limit,
-    );
+    this.resultProducer = async () =>
+      await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam, limit);
+    const response = await this.resultProducer();
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -77,12 +79,16 @@ When(
     );
     const persoon = this.context.personen[persoonAanduiding];
 
-    this.result = await raadpleegGebeurtenissenVoorAbonnee(
-      afnemer,
-      abonneeNaam,
-      limit,
-      persoon,
-    );
+    this.resultProducer = async () =>
+      await raadpleegGebeurtenissenVoorAbonnee(
+        afnemer,
+        abonneeNaam,
+        limit,
+        persoon,
+      );
+    const response = await this.resultProducer();
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -119,6 +125,30 @@ When(
       undefined,
       cursor,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'gebeurtenissen worden gevraagd door abonnee {string} vanaf de gebeurtenis voor {string}',
+  async function (abonneeNaam: string, persoonAanduiding: string) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      'Gemeente Amsterdam',
+    );
+
+    const gebeurtenisId =
+      this.context.gebeurtenissen[persoonAanduiding].gebeurtenisId;
+
+    const response = await raadpleegGebeurtenissenVoorAbonnee(
+      afnemer,
+      abonneeNaam,
+      undefined,
+      undefined,
+      gebeurtenisId,
+    );
+
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },

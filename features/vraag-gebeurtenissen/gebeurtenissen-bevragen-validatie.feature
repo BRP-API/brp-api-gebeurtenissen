@@ -1,8 +1,8 @@
 # language: nl
 Functionaliteit: Valideren van gebeurtenissen bevragen
-  Als consumer van BRP Gebeurtenissen
-  wil ik bij het bevragen van gebeurtenissen kunnen opgeven welke gebeurtenissen ik wil ontvangen
-  zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
+Als consumer van BRP Gebeurtenissen
+wil ik bij het bevragen van gebeurtenissen kunnen opgeven welke gebeurtenissen ik wil ontvangen
+zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
 
   Achtergrond:
     Gegeven de persoon 'Jan' is geregistreerd in de BRP
@@ -41,10 +41,16 @@ Functionaliteit: Valideren van gebeurtenissen bevragen
         | unknown | cursor | Cursor is geen correcte gebeurtenis id. |
 
     Scenario: De opgegeven cursor is de id van een gebeurtenis waar de abonnee niet op geabonneerd is
-      Gegeven er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client'
+      En de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
+      En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
+      En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
+      En gebeurtenissen worden gevraagd door abonnee 'szw' van afnemer 'Gemeente Amsterdam'
+      En wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
       Als gebeurtenissen worden gevraagd door abonnee 'jz' vanaf de gebeurtenis voor 'Jan'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor.'
+      * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
         | code    | name   | reason                                  |
         | unknown | cursor | Cursor is geen correcte gebeurtenis id. |
@@ -56,11 +62,11 @@ Functionaliteit: Valideren van gebeurtenissen bevragen
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: limit'
       En heeft de response invalidParams met de volgende gegevens
-        | code   | name   | reason   |
-        | <code> | cursor | <reason> |
+        | code   | name  | reason   |
+        | <code> | limit | <reason> |
 
       Voorbeelden:
-        | omschrijving    | waarde | code    | reason                          |
-        | is 0            |      0 | minimum | Waarde is lager dan minimum 1.  |
-        | is negatief     |     -3 | minimum | Waarde is lager dan minimum 1.  |
-        | is hoger dan 10 |    101 | maximum | Waarde is hoger dan maximum 10. |
+        | omschrijving    | waarde | code    | reason                           |
+        | is 0            | 0      | minimum | Waarde is lager dan minimum 1.   |
+        | is negatief     | -3     | minimum | Waarde is lager dan minimum 1.   |
+        | is hoger dan 10 | 101    | maximum | Waarde is hoger dan maximum 100. |

@@ -60,9 +60,17 @@ Then(
   },
 );
 
-Then('wordt er geen gebeurtenis geleverd', function () {
-  expect(this.result).to.deep.equal({gebeurtenissen: []});
+Then('wordt er geen gebeurtenis geleverd', async function () {
   this.expected = null;
+
+  await expectEventuallyWithRetry(
+    this.result,
+    async () => (await this.resultProducer()).body,
+    result => {
+      this.result = result;
+      expect(result).to.deep.equal({gebeurtenissen: []});
+    },
+  );
 });
 
 Then(
