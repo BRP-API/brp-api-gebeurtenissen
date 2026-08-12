@@ -9,6 +9,7 @@ import {logger} from './support/logger.js';
 import {expect} from 'chai';
 import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
 import 'chai-exclude';
+import {DateType} from './support/date-utils.js';
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',
@@ -108,8 +109,12 @@ Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
       this.context,
       gebeurtenis['burgerservicenummer'],
     );
+    let datumType = DateType.VolledigeDatum;
+    if (gebeurtenis['datumType']) {
+      datumType = DateType[gebeurtenis['datumType'] as keyof typeof DateType];
+    }
     expectedGebeurtenissen.push(
-      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon),
+      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon, datumType),
     );
   }
   const expected = {gebeurtenissen: expectedGebeurtenissen};

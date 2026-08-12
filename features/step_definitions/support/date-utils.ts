@@ -120,3 +120,9 @@ export function toDateOrString(
   }
   return value;
 }
+
+export enum DateType {
+  JaarDatum,
+  JaarMaandDatum,
+  VolledigeDatum,
+}

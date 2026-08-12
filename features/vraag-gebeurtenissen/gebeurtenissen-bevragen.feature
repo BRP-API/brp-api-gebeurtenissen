@@ -1,8 +1,8 @@
 # language: nl
 Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
-  Als consumer van BRP Gebeurtenissen
-  wil ik bij het bevragen van gebeurtenissen kunnen opgeven welke gebeurtenissen ik wil ontvangen
-  zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
+Als consumer van BRP Gebeurtenissen
+wil ik bij het bevragen van gebeurtenissen kunnen opgeven welke gebeurtenissen ik wil ontvangen
+zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
 
   Achtergrond:
     Gegeven de persoon 'Jan' is geregistreerd in de BRP
@@ -22,10 +22,10 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Een abonnee ontvangt alleen gebeurtenissen waar deze op geabonneerd is
-    Dit is het geval wanneer er een gebeurtenis plaatsvindt en er is een abonnement
-    - van de abonnee die gebeurtenissen vraagt
-    - op de persoon waar de gebeurtenis op heeft plaatsgevonden
-    - voor een groep met het type van de gebeurtenis
+  Dit is het geval wanneer er een gebeurtenis plaatsvindt en er is een abonnement
+  - van de abonnee die gebeurtenissen vraagt
+  - op de persoon waar de gebeurtenis op heeft plaatsgevonden
+  - voor een groep met het type van de gebeurtenis
 
     Scenario: De abonnee is geabonneerd op de gebeurtenis
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
@@ -191,6 +191,26 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijderd
       Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
+
+  Regel: Een abonnee ontvangt JaarDatum en JaarMaandDatum als integers
+
+    Scenario: Er is een gebeurtenissen met JaarDatum
+      Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
+      En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan' met 'JaarDatum'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                   | burgerservicenummer | datumType |
+        | nl.brp.verhuisd.intergemeentelijk | Jan                 | JaarDatum |
+
+    Scenario: Er is een gebeurtenissen met JaarMaandDatum
+      Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
+      En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan' met 'JaarMaandDatum'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                   | burgerservicenummer | datumType      |
+        | nl.brp.verhuisd.intergemeentelijk | Jan                 | JaarMaandDatum |
 
   Regel: Een abonnee ontvangt gebeurtenissen op volgorde dat ze gepubliceerd zijn
 

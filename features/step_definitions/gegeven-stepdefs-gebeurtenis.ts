@@ -7,6 +7,7 @@ import {
 import {AfnemerFactory} from './support/afnemer-factory.js';
 import {expect} from 'chai';
 import {HttpStatusCode} from 'axios';
+import {DateType} from './support/date-utils.js';
 
 Given(
   'er is een {string} gebeurtenis gepubliceerd voor persoon {string}',
@@ -17,6 +18,31 @@ Given(
     );
 
     this.result = await publiceerGebeurtenis(gebeurtenistype, persoon);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
+    if (!this.context.gebeurtenissen) {
+      this.context.gebeurtenissen = {};
+    }
+    this.context.gebeurtenissen[persoonAanduiding] = this.result.body;
+  },
+);
+
+Given(
+  'er is een {string} gebeurtenis gepubliceerd voor persoon {string} met {string}',
+  async function (
+    gebeurtenistype: string,
+    persoonAanduiding: string,
+    datumType: string,
+  ) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    this.result = await publiceerGebeurtenis(
+      gebeurtenistype,
+      persoon,
+      DateType[datumType as keyof typeof DateType],
+    );
     expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
     if (!this.context.gebeurtenissen) {
       this.context.gebeurtenissen = {};

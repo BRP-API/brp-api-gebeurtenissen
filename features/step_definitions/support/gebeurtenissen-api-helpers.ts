@@ -2,6 +2,7 @@ import {Afnemer} from '../brp/afnemer-entity.js';
 import {Persoon} from '../brp/persoon-entity.js';
 import {logger} from './logger.js';
 import {getClientAccessToken} from './oauth-helpers.js';
+import {DateType} from './date-utils.js';
 
 export async function raadpleegGebeurtenissenVoorAbonnee(
   afnemer: Afnemer,
@@ -69,7 +70,18 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
 export async function publiceerGebeurtenis(
   gebeurtenistype: string,
   persoon: Persoon,
+  datumType: DateType = DateType.VolledigeDatum,
 ) {
+  const gebeurtenisDatum = (datumType1: DateType) => {
+    switch (datumType1) {
+      case DateType.JaarDatum:
+        return '20260000';
+      case DateType.JaarMaandDatum:
+        return '20260500';
+      case DateType.VolledigeDatum:
+        return '20260526';
+    }
+  };
   const data: any = {
     c01: {
       e0110: `${persoon.a_nr}`,
@@ -79,14 +91,14 @@ export async function publiceerGebeurtenis(
   switch (gebeurtenistype) {
     case 'nl.brp.verhuisd.intergemeentelijk':
       data.c08 = {
-        e1030: '20260526',
+        e1030: gebeurtenisDatum(datumType),
         e1180: '0935010000092253',
       };
       break;
     case 'nl.brp.verhuisd.naar-buitenland':
       data.c08 = {
         e1310: '5015',
-        e1320: '20260526',
+        e1320: gebeurtenisDatum(datumType),
         e1330: 'Nordmarksvej 9',
         e1340: '7190',
         e1350: 'Billund',
@@ -94,7 +106,7 @@ export async function publiceerGebeurtenis(
       break;
     case 'nl.brp.overleden':
       data.c06 = {
-        e0810: '20260526',
+        e0810: gebeurtenisDatum(datumType),
         e0820: '0518',
         e0830: '6030',
       };
@@ -135,37 +147,55 @@ export async function publiceerGebeurtenis(
   return {body: await response.json(), statusCode: response.status};
 }
 
-export function maakGebeurtenis(gebeurtenistype: string, persoon: Persoon) {
+export function maakGebeurtenis(
+  gebeurtenistype: string,
+  persoon: Persoon,
+  datumType: DateType = DateType.VolledigeDatum,
+) {
   const data: any = {
     burgerservicenummer: persoon.burger_service_nr,
   };
 
-  switch (gebeurtenistype) {
-    case 'nl.brp.verhuisd.intergemeentelijk':
-      data.verblijfplaats = {
-        datumVan: {
+  const datum = (datumType1: DateType) => {
+    switch (datumType1) {
+      case DateType.VolledigeDatum:
+        return {
           type: 'Datum',
           datum: '2026-05-26',
           langFormaat: '26 mei 2026',
-        },
+        };
+      case DateType.JaarDatum:
+        return {
+          type: 'JaarDatum',
+          jaar: 2026,
+          langFormaat: '2026',
+        };
+      case DateType.JaarMaandDatum:
+        return {
+          type: 'JaarMaandDatum',
+          maand: 5,
+          jaar: 2026,
+          langFormaat: 'mei 2026',
+        };
+    }
+  };
+
+  console.log(datum(datumType));
+
+  switch (gebeurtenistype) {
+    case 'nl.brp.verhuisd.intergemeentelijk':
+      data.verblijfplaats = {
+        datumVan: datum(datumType),
       };
       break;
     case 'nl.brp.verhuisd.naar-buitenland':
       data.verblijfplaats = {
-        datumVan: {
-          type: 'Datum',
-          datum: '2026-05-26',
-          langFormaat: '26 mei 2026',
-        },
+        datumVan: datum(datumType),
       };
       break;
     case 'nl.brp.overleden':
       data.overlijden = {
-        datum: {
-          type: 'Datum',
-          datum: '2026-05-26',
-          langFormaat: '26 mei 2026',
-        },
+        datum: datum(datumType),
       };
   }
 
