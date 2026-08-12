@@ -1,8 +1,9 @@
 import {When} from '@cucumber/cucumber';
 import {
-  abonneerOpGebeurtenistypeVanPersoon,
+  abonneerPersoonOpGroep,
   deregistreerAbonneeVoorAfnemer,
   raadpleegAbonneesVoorAfnemer,
+  raadpleegAbonnementen,
   raadpleegGebeurtenistypesInGroep,
   raadpleegGroepenVanAbonnee,
   registreerAbonneeVoorAfnemer,
@@ -10,12 +11,10 @@ import {
   verwijderGroepVanAbonnee,
   voegGebeurtenistypeToeAanGroep,
   voegGroepToeBijAbonnee,
-  zegOpAbonnementenOpPersoon,
-  zegOpAbonnementOpGebeurtenistypeVanPersoon,
 } from './support/abonnement-api-helpers.js';
 import {AfnemerFactory} from './support/afnemer-factory.js';
 import {PersoonFactory} from './support/persoon-factory.js';
-import {Persoon} from './brp/persoon-entity.js';
+//import {Persoon} from './brp/persoon-entity.js';
 
 When(
   'de afnemer {string} de abonnee {string} registreert',
@@ -26,10 +25,8 @@ When(
     );
 
     const response = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    this.result = {
-      statusCode: response.statusCode,
-      body: response.body,
-    };
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -42,10 +39,8 @@ When(
     );
 
     const response = await registreerAbonneeVoorAfnemer(afnemer);
-    this.result = {
-      statusCode: response.statusCode,
-      body: response.body,
-    };
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -57,7 +52,9 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegAbonneesVoorAfnemer(afnemer);
+    const response = await raadpleegAbonneesVoorAfnemer(afnemer);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -70,10 +67,8 @@ When(
     );
 
     const response = await deregistreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    this.result = {
-      statusCode: response.statusCode,
-      body: response.body,
-    };
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -89,7 +84,13 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await voegGroepToeBijAbonnee(afnemer, abonneeNaam, groepNaam);
+    const response = await voegGroepToeBijAbonnee(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -105,11 +106,13 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await verwijderGroepVanAbonnee(
+    const response = await verwijderGroepVanAbonnee(
       afnemer,
       abonneeNaam,
       groepNaam,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -121,7 +124,9 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegGroepenVanAbonnee(afnemer, abonneeNaam);
+    const response = await raadpleegGroepenVanAbonnee(afnemer, abonneeNaam);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -138,12 +143,14 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await voegGebeurtenistypeToeAanGroep(
+    const response = await voegGebeurtenistypeToeAanGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       gebeurtenistype,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -160,12 +167,14 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await verwijderGebeurtenistypeUitGroep(
+    const response = await verwijderGebeurtenistypeUitGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
       gebeurtenistype,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
@@ -181,187 +190,414 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegGebeurtenistypesInGroep(
+    const response = await raadpleegGebeurtenistypesInGroep(
       afnemer,
       abonneeNaam,
       groepNaam,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
 When(
-  'een afnemer zonder abonnees een abonnement op een gebeurtenis van een persoon wil nemen',
-  async function () {
-    const persoon = await PersoonFactory.create(this.context, 'Jan');
-
-    const afnemer = await AfnemerFactory.create(
-      this.context,
-      'Gemeente Den Haag',
-    );
-
-    this.result = await abonneerOpGebeurtenistypeVanPersoon(
-      afnemer,
-      'jz',
-      'nl.brp.verhuisd.intergemeentelijk',
-      persoon,
-    );
-  },
-);
-
-When(
-  'een afnemer met een niet-geregistreerde abonnee een abonnement op een gebeurtenis van een persoon wil nemen',
-  async function () {
-    const persoon = await PersoonFactory.create(this.context, 'Jan');
-
-    const afnemer = await AfnemerFactory.create(
-      this.context,
-      'Gemeente Den Haag',
-    );
-
-    await registreerAbonneeVoorAfnemer(afnemer, 'dbz');
-
-    this.result = await abonneerOpGebeurtenistypeVanPersoon(
-      afnemer,
-      'jz',
-      'nl.brp.verhuisd.intergemeentelijk',
-      persoon,
-    );
-  },
-);
-
-When(
-  'een abonnee zich abonneert op een ongeldige gebeurtenis van een persoon',
-  async function () {
-    const persoon = await PersoonFactory.create(this.context, 'Jan');
-
-    const afnemer = await AfnemerFactory.create(
-      this.context,
-      'Gemeente Den Haag',
-    );
-
-    await registreerAbonneeVoorAfnemer(afnemer, 'dbz');
-
-    this.result = await abonneerOpGebeurtenistypeVanPersoon(
-      afnemer,
-      'dbz',
-      'nl.brp.gebeurtenis.ongeldig',
-      persoon,
-    );
-  },
-);
-
-When(
-  'een abonnee zich abonneert op een gebeurtenis van een persoon met een ongeldig burgerservicenummer',
-  async function () {
-    const persoon = new Persoon('123456789', '98765432', 'Jansen');
-
-    const afnemer = await AfnemerFactory.create(
-      this.context,
-      'Gemeente Den Haag',
-    );
-
-    await registreerAbonneeVoorAfnemer(afnemer, 'dbz');
-
-    this.result = await abonneerOpGebeurtenistypeVanPersoon(
-      afnemer,
-      'dbz',
-      'nl.brp.verhuisd.intergemeentelijk',
-      persoon,
-    );
-  },
-);
-
-When(
-  'een abonnee zich abonneert op een gebeurtenis van een persoon die niet is geregistreerd in de BRP',
-  async function () {
-    const persoon = new Persoon('123456789', '987654321', 'Jansen');
-
-    const afnemer = await AfnemerFactory.create(
-      this.context,
-      'Gemeente Den Haag',
-    );
-
-    await registreerAbonneeVoorAfnemer(afnemer, 'dbz');
-
-    this.result = await abonneerOpGebeurtenistypeVanPersoon(
-      afnemer,
-      'dbz',
-      'nl.brp.verhuisd.intergemeentelijk',
-      persoon,
-    );
-  },
-);
-
-When(
-  'de abonnee {string} van afnemer {string} zich( weer) abonneert op de {string} gebeurtenissen van {string}',
+  'de abonnee {string} van afnemer {string} zich abonneert op de persoon {string} voor de groep {string}',
   async function (
     abonneeNaam: string,
     afnemerAanduiding: string,
-    gebeurtenistype: string,
     persoonAanduiding: string,
+    groepNaam: string,
   ) {
-    const persoon = this.context.personen[persoonAanduiding];
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
 
     const afnemer = await AfnemerFactory.create(
       this.context,
       afnemerAanduiding,
     );
 
-    await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-
-    this.result = await abonneerOpGebeurtenistypeVanPersoon(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
-      `nl.brp.${gebeurtenistype}`,
+      groepNaam,
       persoon,
+      'AbonneerPersoonOpGroep',
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
 When(
-  'de abonnee {string} van afnemer {string} zijn abonnement op de {string} gebeurtenissen van {string}( opnieuw) opzegt',
+  'de abonnee {string} van afnemer {string} zich abonneert voor persoon {string} en groep {string} zonder type op te geven',
   async function (
     abonneeNaam: string,
     afnemerAanduiding: string,
-    gebeurtenistype: string,
     persoonAanduiding: string,
+    groepNaam: string,
   ) {
-    const persoon = this.context.personen[persoonAanduiding];
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
 
     const afnemer = await AfnemerFactory.create(
       this.context,
       afnemerAanduiding,
     );
 
-    await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-
-    this.result = await zegOpAbonnementOpGebeurtenistypeVanPersoon(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
-      `nl.brp.${gebeurtenistype}`,
+      groepNaam,
       persoon,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );
 
 When(
-  'de abonnee {string} van afnemer {string} alle abonnementen op de gebeurtenissen van {string} opzegt',
+  'de abonnee {string} van afnemer {string} zich abonneert voor persoon {string} en groep {string} met type {string}',
   async function (
     abonneeNaam: string,
     afnemerAanduiding: string,
     persoonAanduiding: string,
+    groepNaam: string,
+    type: string,
   ) {
-    const persoon = this.context.personen[persoonAanduiding];
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
 
     const afnemer = await AfnemerFactory.create(
       this.context,
       afnemerAanduiding,
     );
 
-    this.result = await zegOpAbonnementenOpPersoon(
+    const response = await abonneerPersoonOpGroep(
       afnemer,
       abonneeNaam,
+      groepNaam,
+      persoon,
+      type,
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de abonnee {string} van afnemer {string} zich abonneert op de persoon met burgerservicenummer {string} voor de groep {string}',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    burgerservicenummer: string,
+    groepNaam: string,
+  ) {
+    const persoon = await PersoonFactory.create(this.context, 'Jan');
+    persoon.burger_service_nr = burgerservicenummer;
+
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      persoon,
+      'AbonneerPersoonOpGroep',
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de abonnee {string} van afnemer {string} zich abonneert voor de groep {string} zonder een burgerservicenummer op te geven',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    groepNaam: string,
+  ) {
+    const persoon = await PersoonFactory.create(this.context, 'Jan');
+    delete persoon.burger_service_nr;
+
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      persoon,
+      'AbonneerPersoonOpGroep',
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de abonnee {string} van afnemer {string} zich abonneert op de persoon {string} zonder een groep op te geven',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    persoonAanduiding: string,
+  ) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      '',
+      persoon,
+      'AbonneerPersoonOpGroep',
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de abonnee {string} van afnemer {string} zijn abonnement op de persoon {string} voor de groep {string} opzegt',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    persoonAanduiding: string,
+    groepNaam: string,
+  ) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      persoon,
+      'ZegOpAbonnementVanPersoonOpGroep',
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de abonnee {string} van afnemer {string} een abonnement voor de groep {string} opzegt zonder een burgerservicenummer op te geven',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    groepNaam: string,
+  ) {
+    const persoon = await PersoonFactory.create(this.context, 'Jan');
+    delete persoon.burger_service_nr;
+
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      persoon,
+      'ZegOpAbonnementVanPersoonOpGroep',
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de abonnee {string} van afnemer {string} zijn abonnement op de persoon met burgerservicenummer {string} voor de groep {string} opzegt',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    burgerservicenummer: string,
+    groepNaam: string,
+  ) {
+    const persoon = await PersoonFactory.create(this.context, 'Jan');
+    persoon.burger_service_nr = burgerservicenummer;
+
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      groepNaam,
+      persoon,
+      'ZegOpAbonnementVanPersoonOpGroep',
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de abonnee {string} van afnemer {string} zijn abonnement op de persoon {string} opzegt zonder een groep op te geven',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    persoonAanduiding: string,
+  ) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await abonneerPersoonOpGroep(
+      afnemer,
+      abonneeNaam,
+      '',
+      persoon,
+      'ZegOpAbonnementVanPersoonOpGroep',
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'abonnee {string} van afnemer {string} de abonnementen opvraagt',
+  async function (abonneeNaam: string, afnemerAanduiding: string) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    this.resultProducer = async () =>
+      await raadpleegAbonnementen(afnemer, abonneeNaam);
+    const response = await this.resultProducer();
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'abonnee {string} van afnemer {string} de abonnementen opvraagt na het abonnement op {string} voor de groep {string}',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    persoonAanduiding: string,
+    groepNaam: string,
+  ) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const persoon = this.context.personen[persoonAanduiding];
+
+    const response = await raadpleegAbonnementen(
+      afnemer,
+      abonneeNaam,
+      undefined,
+      groepNaam,
       persoon,
     );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'abonnee {string} van afnemer {string} maximaal {int} abonnement(en) opvraagt',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    aantal: bigint,
+  ) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await raadpleegAbonnementen(afnemer, abonneeNaam, aantal);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'abonnee {string} van afnemer {string} maximaal {int} abonnement opvraagt na het abonnement op {string} voor de groep {string}',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    aantal: bigint,
+    persoonAanduiding: string,
+    groepNaam: string,
+  ) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const persoon = this.context.personen[persoonAanduiding];
+
+    const response = await raadpleegAbonnementen(
+      afnemer,
+      abonneeNaam,
+      aantal,
+      groepNaam,
+      persoon,
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'abonnee {string} van afnemer {string} de abonnementen opvraagt met cursor {string}',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    cursor: string,
+  ) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await raadpleegAbonnementen(
+      afnemer,
+      abonneeNaam,
+      undefined,
+      undefined,
+      undefined,
+      cursor,
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
   },
 );

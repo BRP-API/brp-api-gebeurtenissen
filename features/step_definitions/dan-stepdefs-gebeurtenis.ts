@@ -1,45 +1,14 @@
 import {Then} from '@cucumber/cucumber';
 import {CloudEvent} from './support/cloud-events.js';
 import {setNestedProperty} from './support/object-utils.js';
-import {Aanduiding} from './support/aanduiding.js';
 import {VerhuisdIntergemeentelijkEvent} from './brp/verhuisd-intergemeentelijk-event.js';
-import {AangifteVanAdreswijzigingCommand} from './brp-api/commands.js';
-import {Persoon} from './brp/persoon-entity.js';
+import {PersoonFactory} from './support/persoon-factory.js';
+import {createObjectArrayFrom} from './support/dataTable2Object.js';
+import {maakGebeurtenis} from './support/gebeurtenissen-api-helpers.js';
 import {logger} from './support/logger.js';
-
-Then('zijn er geen gebeurtenissen gepubliceerd', () => {});
-
-function getPersoonByBsn(personen: any, bsn: string): Persoon | undefined {
-  const key = Object.keys(personen).find(key => {
-    return personen[key].burger_service_nr === bsn;
-  });
-  return key ? personen[key] : undefined;
-}
-
-Then(
-  'is een {string} gebeurtenis gepubliceerd( met de volgende velden)( met de volgende data)',
-  function (gebeurtenisType: string) {
-    this.expected =
-      gebeurtenisType === 'verhuisd.intergemeentelijk'
-        ? new VerhuisdIntergemeentelijkEvent(true)
-        : new CloudEvent(`nl.brp.${gebeurtenisType}`);
-    this.aanduiding = Aanduiding.gepubliceerdGebeurtenis();
-
-    if (this.command instanceof AangifteVanAdreswijzigingCommand) {
-      const persoon: Persoon | undefined = getPersoonByBsn(
-        this.context.personen,
-        this.command.burgerservicenummer!,
-      );
-      if (persoon) {
-        this.expected.setAnummer(persoon.a_nr);
-      }
-      this.expected.setVerhuisdatum(this.command.verhuisdatum);
-      this.expected.setAdresseerbaarObjectIdentificatie(
-        this.command.adresseerbaarObjectIdentificatie,
-      );
-    }
-  },
-);
+import {expect} from 'chai';
+import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
+import 'chai-exclude';
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',
@@ -57,12 +26,6 @@ Then(
     setNestedProperty(this.expected, `data.${veld}`, aanduidingAfnemer);
   },
 );
-
-Then('het A-nummer van {string}', function (aanduidingPersoon: string) {
-  if (this.expected instanceof VerhuisdIntergemeentelijkEvent) {
-    this.expected.setAnummer(this.context.personen[aanduidingPersoon].a_nr);
-  }
-});
 
 Then(
   'de vanaf datum van de opgave van verhuizing van {string}',
@@ -96,3 +59,67 @@ Then(
     }
   },
 );
+
+Then('wordt er geen gebeurtenis geleverd', async function () {
+  this.expected = null;
+
+  await expectEventuallyWithRetry(
+    this.result,
+    async () => (await this.resultProducer()).body,
+    result => {
+      this.result = result;
+      expect(result).to.deep.equal({gebeurtenissen: []});
+    },
+  );
+});
+
+Then(
+  'wordt de {string} gebeurtenis van {string} geleverd',
+  async function (gebeurtenistype: string, persoonAanduiding: string) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    const expected = {
+      gebeurtenissen: [maakGebeurtenis(gebeurtenistype, persoon)],
+    };
+
+    await expectEventuallyWithRetry(
+      this.result,
+      async () => (await this.resultProducer()).body,
+      result => {
+        this.result = result;
+        expect(result).excludingEvery('id').to.deep.equal(expected);
+      },
+    );
+
+    this.expected = null;
+  },
+);
+
+Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
+  const gebeurtenissen = createObjectArrayFrom(dataTable);
+
+  const expectedGebeurtenissen = [];
+
+  for (const gebeurtenis of gebeurtenissen) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      gebeurtenis['burgerservicenummer'],
+    );
+    expectedGebeurtenissen.push(
+      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon),
+    );
+  }
+  const expected = {gebeurtenissen: expectedGebeurtenissen};
+  await expectEventuallyWithRetry(
+    this.result,
+    async () => (await this.resultProducer()).body,
+    result => {
+      this.result = result;
+      expect(result).excludingEvery('id').to.deep.equal(expected);
+    },
+  );
+  this.expected = null;
+});

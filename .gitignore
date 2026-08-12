@@ -5,3 +5,6 @@ test-reports/
 .env
 
 .idea
+.vscode
+cucumber.json
+.ai

@@ -274,10 +274,10 @@ paths:
       - $ref: '../brp-api/abonnee/abonnee-naam-path-parameter-v1.yaml#/components/parameters/AbonneeNaamPathParameter'
 
     post: 
-      operationId: VoeruitAbonnementenCommand
-      summary: Abonnementen commands uitvoeren voor een bestaande abonnee, zoals het abonneneren op gebeurtenis types van een persoon of opzeggen van abonnementen
+      operationId: VoerUitAbonnementenCommand
+      summary: Opdrachten voor het abonneren op gebeurtenissen. Hiermee kan je een abonnement nemen of een abonnement opzeggen.
       tags:
-        - Abonnees
+        - Abonnementen
       requestBody:
         required: true
         content:
@@ -303,6 +303,8 @@ paths:
           $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
         '404':
           $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '409':
+          $ref: '../problem-details/409-conflict-response-v1.yaml#/components/responses/409'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
@@ -312,7 +314,7 @@ paths:
       operationId: RaadpleegAbonnementen
       summary: Raadpleeg de lijst van abonnementen van een abonnee
       tags:
-        - Abonnees
+        - Abonnementen
       parameters: 
         - $ref: '../paginering/cursor-query-parameter-v1.yaml#/components/parameters/CursorQueryParameter'
           description: Gebruik dit voor paginering. Vul hier de id van het laatst ontvangen abonnement op om de hieropvolgende abonnementen te ontvangen.

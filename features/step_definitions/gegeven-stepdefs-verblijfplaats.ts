@@ -1,62 +1,35 @@
 import {Given} from '@cucumber/cucumber';
-import {toIsoDate} from './support/date-utils.js';
+import {toBrpDate} from './support/date-utils.js';
 import {Adres} from './brp/adres-entity.js';
-import {AdresBuitenland} from './brp/adres-buitenland-entity.js';
-
-function handleVerhuizing(persoon: any, adres: any, datum: string) {
-  if (adres instanceof Adres) {
-    persoon.verhuistNaarAdres(adres, datum);
-  }
-  if (adres instanceof AdresBuitenland) {
-    persoon.verhuistNaarAdresBuitenland(adres, datum);
-  }
-}
-
-function handleAangifteVanAdreswijzigingCommand(
-  command: any,
-  adres: Adres,
-  datum: string,
-) {
-  command.adresseerbaarObjectIdentificatie = adres.verblijf_plaats_ident_code;
-  command.verhuisdatum = toIsoDate(datum);
-}
-
-function handleAangifteVanVertrekCommand(
-  command: any,
-  adres: AdresBuitenland,
-  datum: string,
-) {
-  command.adres = {};
-
-  if (adres.vertrek_land_adres_1) {
-    command.adres.regel1 = adres.vertrek_land_adres_1;
-  }
-  if (adres.vertrek_land_adres_2) {
-    command.adres.regel2 = adres.vertrek_land_adres_2;
-  }
-  if (adres.vertrek_land_adres_3) {
-    command.adres.regel3 = adres.vertrek_land_adres_3;
-  }
-  command.adres.land = adres.vertrek_land_code;
-  command.verhuisdatum = toIsoDate(datum);
-}
+import {Persoon} from './brp/persoon-entity.js';
+import {VerblijfplaatsBinnenland} from './brp/verblijfplaats-entity.js';
+import {createVerblijfPlaatsVoorPersoon} from './support/repository.js';
+import {PersoonFactory} from './support/persoon-factory.js';
 
 Given(
   'verblijft vanaf {string} op het adres {string}',
-  function (datum: string, adresAanduiding: string) {
-    if (this.huidigAanduiding?.isPersoon) {
-      const persoon = this.context.personen[this.huidigAanduiding.id];
-      const adres = this.context.adressen[adresAanduiding];
+  async function (datum: string, adresAanduiding: string) {
+    const persoon = this.context.personen[this.context.actuelePersoon];
+    const adres = this.context.adressen[adresAanduiding];
 
-      handleVerhuizing(persoon, adres, datum);
-    } else if (this.huidigAanduiding?.isCommand) {
-      if (this.command.type === 'AangifteVanAdreswijziging') {
-        const adres = this.context.adressen[adresAanduiding] as Adres;
-        handleAangifteVanAdreswijzigingCommand(this.command, adres, datum);
-      } else if (this.command.type === 'AangifteVanVertrek') {
-        const adres = this.context.adressen[adresAanduiding] as AdresBuitenland;
-        handleAangifteVanVertrekCommand(this.command, adres, datum);
-      }
-    }
+    await PersoonFactory.verhuisNaarAdres(persoon, adres, toBrpDate(datum));
+  },
+);
+
+Given(
+  '{string} verblijft sinds {string} op adres {string}',
+  async function (
+    persoonAanduiding: string,
+    datum: string,
+    adresAanduiding: string,
+  ) {
+    const persoon: Persoon = this.context.personen[persoonAanduiding];
+    const adres: Adres = this.context.adressen[adresAanduiding];
+
+    persoon.verblijfplaats = new VerblijfplaatsBinnenland(
+      adres,
+      toBrpDate(datum),
+    );
+    await createVerblijfPlaatsVoorPersoon(persoon);
   },
 );

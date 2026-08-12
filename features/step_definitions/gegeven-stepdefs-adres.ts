@@ -1,17 +1,13 @@
 import {Given} from '@cucumber/cucumber';
-import {Adres} from './brp/adres-entity.js';
 import {Aanduiding} from './support/aanduiding.js';
 import {AdresBuitenland} from './brp/adres-buitenland-entity.js';
+import {AdresFactory} from './support/adres-factory.js';
 
-Given('het adres {string}', function (adresAanduiding: string) {
-  if (!this.context.adressen) {
-    this.context.adressen = {};
-  }
-  this.context.adressen[adresAanduiding] = new Adres();
-  this.huidigAanduiding = Aanduiding.adres(adresAanduiding);
+Given('het adres {string}', async function (adresAanduiding: string) {
+  await AdresFactory.create(this.context, adresAanduiding);
 });
 
-Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
+Given('in gemeente {string}', async function (gemeenteOmschrijving: string) {
   const gemeenteCodeMap: {[key: string]: string} = {
     Amsterdam: '0363',
     'Den Haag': '0518',
@@ -21,20 +17,44 @@ Given('in gemeente {string}', function (gemeenteOmschrijving: string) {
     Utrecht: '0344',
   };
 
-  if (this.huidigAanduiding?.isAdres) {
-    (this.context.adressen[this.huidigAanduiding.id] as Adres).gemeente_code =
-      gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving;
-  }
+  await AdresFactory.update(
+    this.context,
+    'gemeente_code',
+    gemeenteCodeMap[gemeenteOmschrijving] || gemeenteOmschrijving,
+  );
+
+  await AdresFactory.update(
+    this.context,
+    'woon_plaats_naam',
+    gemeenteOmschrijving,
+  );
+});
+
+Given('met straat {string}', async function (straat: string) {
+  await AdresFactory.update(
+    this.context,
+    'straat_naam',
+    straat.substring(0, 24),
+  );
+  await AdresFactory.update(this.context, 'open_ruimte_naam', straat);
+});
+
+Given('met huisnummer {int}', async function (huisnummer: bigint) {
+  await AdresFactory.update(this.context, 'huis_nr', String(huisnummer));
+});
+
+Given('met postcode {string}', async function (postcode) {
+  await AdresFactory.update(this.context, 'postcode', postcode);
 });
 
 Given(
   'met adresseerbaar object identificatie {string}',
-  function (adresseerbaarObjectIdentificatie: string) {
-    if (this.huidigAanduiding?.isAdres) {
-      (
-        this.context.adressen[this.huidigAanduiding.id] as Adres
-      ).verblijf_plaats_ident_code = adresseerbaarObjectIdentificatie;
-    }
+  async function (adresseerbaarObjectIdentificatie: string) {
+    await AdresFactory.update(
+      this.context,
+      'verblijf_plaats_ident_code',
+      adresseerbaarObjectIdentificatie,
+    );
   },
 );
 

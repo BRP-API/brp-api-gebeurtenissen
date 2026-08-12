@@ -1,46 +1,67 @@
-import {Then, defineParameterType} from '@cucumber/cucumber';
+import {Then, defineParameterType, DataTable} from '@cucumber/cucumber';
 import {ProblemDetails} from './support/problem-details.js';
 import {
   createArrayFrom,
+  createObjectArrayWithPersoonAanduidingenFrom,
   createObjectArrayFrom,
+  createObjectFrom,
 } from './support/dataTable2Object.js';
+import {Persoon} from './brp/persoon-entity.js';
 import {expect} from 'chai';
+import 'chai-exclude';
+import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
 
 Then(
   'is de response {string}( met de volgende velden)',
   function (status: string) {
     const expectedStatus = Number(status.split(' ')[0]);
+    expect(this.responseStatusCode).to.equal(
+      expectedStatus,
+      'http statuscode is niet correct',
+    );
+
     if (expectedStatus === 201) {
-      this.expected = {
-        statusCode: 201,
-        body: null,
-      };
+      this.expected = null;
     }
     if (expectedStatus === 204) {
-      this.expected = {
-        statusCode: 204,
-        body: null,
-      };
+      this.expected = null;
     }
 
     if (!ProblemDetails.isSuccessFull(expectedStatus)) {
       this.expected = ProblemDetails.create(status);
 
-      expect(this.result.body.status).to.equal(
+      expect(this.result.status).to.equal(
         expectedStatus,
         'http statuscode is niet correct',
       );
-      expect(this.result.body.type).to.equal(
+      expect(this.result.type).to.equal(
         this.expected.type,
         'type is niet correct',
       );
+      expect(this.result).to.have.property('instance').that.is.a('string');
+      expect(this.result).to.have.property('title').that.is.a('string');
     }
+  },
+);
+
+Then(
+  'heeft de response invalidParams met de volgende gegevens',
+  function (dataTable: DataTable) {
+    if (!this.expected.invalidParams) {
+      this.expected.invalidParams = [];
+    }
+
+    const expected = createObjectArrayFrom(dataTable);
+    this.expected.invalidParams.push(expected);
+    expect(this.result.invalidParams)
+      .excludingEvery('type')
+      .to.deep.equal(expected);
   },
 );
 
 Then('{string} met tekst {string}', function (veld: string, waarde: string) {
   this.expected[veld] = waarde;
-  expect(this.result.body[veld]).to.equal(
+  expect(this.result[veld]).to.equal(
     this.expected[veld],
     `${veld} is niet correct`,
   );
@@ -53,29 +74,78 @@ defineParameterType({
 
 Then(
   'worden volgende {objectNaam} geleverd',
-  function (objectNaam: string, dataTable) {
+  async function (objectNaam: string, dataTable) {
+    const personen: Record<string, Persoon> = this.context.personen || {};
+
     this.expected = {
-      statusCode: 200,
-      body: {
-        [objectNaam]: createObjectArrayFrom(dataTable),
-      },
+      [objectNaam]: createObjectArrayWithPersoonAanduidingenFrom(
+        dataTable,
+        personen,
+      ),
     };
-    expect(this.result.body[objectNaam]).to.deep.equal(
-      this.expected.body[objectNaam],
-      `${objectNaam} is niet correct`,
+
+    await expectEventuallyWithRetry(
+      this.result,
+      async () => (await this.resultProducer()).body,
+      result => {
+        this.result = result;
+        console.log(this.result);
+        expect(this.result[objectNaam])
+          .excludingEvery('id')
+          .to.deep.equal(
+            this.expected[objectNaam],
+            `${objectNaam} is niet correct`,
+          );
+      },
     );
   },
 );
 
+Then('wordt er geen abonnement geleverd', function () {
+  expect(this.result.abonnementen).to.deep.equal([]);
+  this.expected = null;
+});
+
 Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {
   this.expected = {
-    statusCode: 200,
-    body: {
-      gebeurtenistypes: createArrayFrom(dataTable),
-    },
+    gebeurtenistypes: createArrayFrom(dataTable),
   };
-  expect(this.result.body.gebeurtenistypes).to.deep.equal(
-    this.expected.body.gebeurtenistypes,
+  expect(this.result.gebeurtenistypes).to.deep.equal(
+    this.expected.gebeurtenistypes,
     'gebeurtenistypes is niet correct',
   );
+});
+
+Then(
+  'heeft {string} de volgende {string} gegevens',
+  function (persoonaanduiding, propertyNaam, dataTable) {
+    // dit betreft gegevens van een persoon zoals die uit de personen API komt.
+    // dit werkt alleen bij vragen (en ontvangen) van exact 1 persoon in de response
+
+    if (this.expected === undefined || this.expected.personen === undefined) {
+      this.expected.personen = [{}];
+    }
+    this.expected.personen[0][propertyNaam] = createObjectFrom(dataTable);
+  },
+);
+
+Then(
+  'heeft de response een verblijfplaats voorkomen met de volgende gegevens',
+  function (dataTable) {
+    if (
+      this.expected === undefined ||
+      this.expected.verblijfplaatsen === undefined
+    ) {
+      this.expected.verblijfplaatsen = [];
+    }
+    this.expected.verblijfplaatsen.push(createObjectFrom(dataTable));
+  },
+);
+
+Then('heeft de response de volgende gegevens', function (dataTable) {
+  if (this.expected === undefined) {
+    this.expected = {};
+  }
+
+  this.expected = Object.assign(this.expected, createObjectFrom(dataTable));
 });

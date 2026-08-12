@@ -5,11 +5,16 @@ import {
   After,
   AfterAll,
 } from '@cucumber/cucumber';
-import {ICustomWorld} from './support/custom-world';
+import {ICustomWorld} from './support/custom-world.js';
 import {expect} from 'chai';
 import {PostgresqlManager} from './support/postgresql-manager.js';
 import {poolConfig} from './support/postgresql-config.js';
-import {createAdres, createPersoon, deleteAdres} from './support/repository.js';
+import {
+  createAdres,
+  createPersoon,
+  deleteAdres,
+  deletePersoon,
+} from './support/repository.js';
 import {tearDownClient} from './support/oauth-helpers.js';
 import {logger} from './support/logger.js';
 import {sendCommand} from './support/mutatie-api-helpers.js';
@@ -18,10 +23,12 @@ import {Event} from './brp/verhuisd-intergemeentelijk-event.js';
 import {deregistreerAbonneeVoorAfnemer} from './support/abonnement-api-helpers.js';
 import {Afnemer} from './brp/afnemer-entity.js';
 import {ProblemDetails} from './support/problem-details.js';
+import {use} from 'chai';
+import chaiExclude from 'chai-exclude';
 
 Before(async function (this: ICustomWorld, {pickle}) {
   this.init(pickle);
-
+  use(chaiExclude);
   PostgresqlManager.setup(poolConfig);
 
   logger.debug(`Scenario: ${pickle.name}. Start`);
@@ -105,6 +112,8 @@ AfterStep(function (this: ICustomWorld, {pickleStep}) {
         logger.warn(`onbekende stap type: ${JSON.stringify(pickleStep)}`);
       }
   }
+
+  logger.debug(this.context);
 });
 
 function copyIdIfExpectedIsExternalEventAndResultHasId(
@@ -126,7 +135,7 @@ function assertProblemDetailsResult(expected: any, actual: any) {
     `Response is geen (ProblemDetails) object. Response: ${JSON.stringify({actual: actual, expected: expected}, null, 2)}`,
   );
 
-  const body = actual.body;
+  const body = actual;
   expect(body)
     .to.have.property('type')
     .that.equals(
@@ -175,13 +184,15 @@ After(async function (this: ICustomWorld, {pickle}) {
 
   copyIdIfExpectedIsExternalEventAndResultHasId(this.expected, this.result);
 
+  if (this.expected === null) {
+    return;
+  }
   if (this.expected instanceof ProblemDetails) {
     assertProblemDetailsResult(this.expected, this.result);
   } else {
-    expect(this.result).to.deep.equal(
-      this.expected,
-      JSON.stringify({result: this.result, expected: this.expected}, null, 2),
-    );
+    expect(this.result)
+      .excludingEvery('id')
+      .to.deep.equal(this.expected, JSON.stringify(this.result, null, 2));
   }
 });
 
@@ -203,6 +214,12 @@ After(async function (this: ICustomWorld) {
   if (this.context.adressen) {
     for (const key of Object.keys(this.context.adressen)) {
       await deleteAdres(this.context.adressen[key]);
+    }
+  }
+
+  if (this.context.personen) {
+    for (const key of Object.keys(this.context.personen)) {
+      await deletePersoon(this.context.personen[key]);
     }
   }
 });

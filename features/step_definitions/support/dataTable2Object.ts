@@ -1,5 +1,6 @@
 import {DataTable} from '@cucumber/cucumber';
 import {toDateOrString} from './date-utils.js';
+import {Persoon} from '../brp/persoon-entity.js';
 
 function setPropertyValue(
   obj: any,
@@ -7,7 +8,11 @@ function setPropertyValue(
   propertyValue: string,
   dateAsDate: boolean,
 ) {
-  obj[propertyName] = toDateOrString(propertyValue, dateAsDate);
+  if (propertyName === 'huisnummer') {
+    obj[propertyName] = parseInt(propertyValue);
+  } else {
+    obj[propertyName] = toDateOrString(propertyValue, dateAsDate);
+  }
 }
 
 function setNestedPropertyValue(
@@ -43,11 +48,13 @@ function setProperty(
   if (propertyValue === undefined || propertyValue === '') {
     return;
   }
-
+  const cleanedPropertyName = propertyName
+    .replace(/\s*\(.*?\)\s*/g, ' ')
+    .trim();
   if (propertyName.includes('.')) {
-    setNestedPropertyValue(obj, propertyName, propertyValue, dateAsDate);
+    setNestedPropertyValue(obj, cleanedPropertyName, propertyValue, dateAsDate);
   } else {
-    setPropertyValue(obj, propertyName, propertyValue, dateAsDate);
+    setPropertyValue(obj, cleanedPropertyName, propertyValue, dateAsDate);
   }
 }
 
@@ -104,6 +111,44 @@ export function createObjectArrayFrom(
   }
 
   return retval;
+}
+
+export function convertNumericStrings(obj: any) {
+  const result: any = {};
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (
+      typeof value === 'string' &&
+      value.trim() !== '' &&
+      !isNaN(Number(value))
+    ) {
+      result[key] = Number(value);
+    } else {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+
+// Zet een datatable om naar een array van objecten, waarbij het 'burgerservicenummer' veld wordt vervangen door het daadwerkelijke burgerservicenummer van de persoon in de context
+// Het burgerservicenummer veld moet de aanduiding bevatten naar een persoon in de context
+export function createObjectArrayWithPersoonAanduidingenFrom(
+  dataTable: DataTable,
+  personen: Record<string, Persoon>,
+  dateAsDate: boolean = false,
+): any[] {
+  return createObjectArrayFrom(dataTable, dateAsDate).map(obj => {
+    for (const key in obj) {
+      if (key === 'burgerservicenummer') {
+        const persoon = personen[obj[key]];
+        if (persoon) {
+          obj[key] = persoon.burger_service_nr;
+        }
+      }
+    }
+    return obj;
+  });
 }
 
 export function createArrayFrom(dataTable: DataTable): any[] {

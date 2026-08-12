@@ -1,5 +1,10 @@
 import {Persoon} from '../brp/persoon-entity.js';
-import {createPersoon} from './repository.js';
+import {Adres} from '../brp/adres-entity.js';
+import {
+  createPersoon,
+  createVerblijfPlaatsVoorPersoonOpAdres,
+} from './repository.js';
+//import {logger} from './logger';
 
 export class PersoonFactory {
   static async create(context: any, aanduiding: string): Promise<Persoon> {
@@ -8,6 +13,8 @@ export class PersoonFactory {
     }
 
     let persoon = context.personen[aanduiding];
+    context.actuelePersoon = aanduiding;
+
     if (!persoon) {
       persoon = new Persoon(undefined, undefined, aanduiding);
       context.personen[aanduiding] = persoon;
@@ -16,5 +23,13 @@ export class PersoonFactory {
     }
 
     return persoon;
+  }
+
+  static async verhuisNaarAdres(
+    persoon: Persoon,
+    adres: Adres,
+    datumVan: string,
+  ): Promise<void> {
+    await createVerblijfPlaatsVoorPersoonOpAdres(persoon, adres, datumVan);
   }
 }
