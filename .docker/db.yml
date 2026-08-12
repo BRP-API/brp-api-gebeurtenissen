@@ -22,7 +22,7 @@ services:
       - POSTGRES_PASSWORD=root
     volumes:
       - ./scripts/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-      - ./scripts/projecties-db/schema.sql:/docker-entrypoint-initdb.d/projecties-schema.sql
+      - ./scripts/projecties-db/init-user-db.sql:/docker-entrypoint-initdb.d/init-user-db.sql
     healthcheck:
       test:
         [
