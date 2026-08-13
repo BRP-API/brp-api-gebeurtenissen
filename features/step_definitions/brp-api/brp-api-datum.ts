@@ -33,3 +33,25 @@ export class VolledigeDatum extends BrpApiDatum {
     this.datum = `${jaar}-${String(maand).padStart(2, '0')}-${String(dag).padStart(2, '0')}`;
   }
 }
+
+export class JaarDatum extends BrpApiDatum {
+  jaar: number;
+
+  constructor(jaar: number) {
+    super('JaarDatum', `${jaar}`);
+
+    this.jaar = jaar;
+  }
+}
+
+export class JaarMaandDatum extends BrpApiDatum {
+  jaar: number;
+  maand: number;
+
+  constructor(jaar: number, maand: number) {
+    super('JaarMaandDatum', `${naarMaandInTekst(maand)} ${jaar}`);
+
+    this.jaar = jaar;
+    this.maand = maand;
+  }
+}

@@ -26,6 +26,31 @@ Given(
 );
 
 Given(
+  'er is een {string} gebeurtenis gepubliceerd voor persoon {string} met datum {string}',
+  async function (
+    gebeurtenistype: string,
+    persoonAanduiding: string,
+    datumString: string,
+  ) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    this.result = await publiceerGebeurtenis(
+      gebeurtenistype,
+      persoon,
+      datumString,
+    );
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
+    if (!this.context.gebeurtenissen) {
+      this.context.gebeurtenissen = {};
+    }
+    this.context.gebeurtenissen[persoonAanduiding] = this.result.body;
+  },
+);
+
+Given(
   'gebeurtenissen zijn gevraagd door abonnee {string} van afnemer {string}',
   async function (abonneeNaam: string, afnemerAanduiding: string) {
     const afnemer = await AfnemerFactory.create(

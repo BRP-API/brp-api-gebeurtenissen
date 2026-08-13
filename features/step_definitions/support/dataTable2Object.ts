@@ -8,11 +8,19 @@ function setPropertyValue(
   propertyValue: string,
   dateAsDate: boolean,
 ) {
-  if (propertyName === 'huisnummer') {
+  if (['huisnummer', 'jaar', 'maand'].includes(propertyName)) {
     obj[propertyName] = parseInt(propertyValue);
+  } else if (['onbekend'].includes(propertyName)) {
+    obj[propertyName] = toBoolean(propertyValue);
   } else {
     obj[propertyName] = toDateOrString(propertyValue, dateAsDate);
   }
+}
+
+function toBoolean(value: string | undefined): boolean | undefined {
+  if (value === 'true') return true;
+  if (value === 'false') return false;
+  return undefined;
 }
 
 function setNestedPropertyValue(

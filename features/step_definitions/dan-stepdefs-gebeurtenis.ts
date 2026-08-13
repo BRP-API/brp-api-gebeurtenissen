@@ -108,8 +108,12 @@ Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
       this.context,
       gebeurtenis['burgerservicenummer'],
     );
+    let datum = undefined;
+    if (gebeurtenis['datum']) {
+      datum = gebeurtenis['datum'];
+    }
     expectedGebeurtenissen.push(
-      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon),
+      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon, datum),
     );
   }
   const expected = {gebeurtenissen: expectedGebeurtenissen};

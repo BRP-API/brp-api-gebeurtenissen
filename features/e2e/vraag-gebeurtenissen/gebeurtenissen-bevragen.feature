@@ -192,6 +192,26 @@ Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
       Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
 
+
+  Regel: Een abonnee ontvangt gebeurtenis datums in de gespecificeerde formaten.
+
+    Abstract Scenario: Er is een gebeurtenissen met datum type <datumType>
+      Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
+      En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
+      En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan' met datum '<inputDatumString>'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
+      Dan worden de volgende gebeurtenissen geleverd
+        | gebeurtenistype                   | burgerservicenummer | datum.type  | datum.datum  | datum.maand  | datum.jaar  | datum.langFormaat  | datum.onbekend  |
+        | nl.brp.verhuisd.intergemeentelijk | Jan                 | <datumType> | <datumDatum> | <datumMaand> | <datumJaar> | <datumLangFormaat> | <datumOnbekend> |
+
+      Voorbeelden:
+        | datumType      | inputDatumString | datumDatum | datumMaand | datumJaar | datumLangFormaat | datumOnbekend |
+        | Datum          | 20260526         | 2026-05-26 |            |           | 26 mei 2026      |               |
+        | JaarDatum      | 20260000         |            |            | 2026      | 2026             |               |
+        | JaarMaandDatum | 20260500         |            | 05         | 2026      | mei 2026         |               |
+        | DatumOnbekend  | 0001             |            |            |           | onbekend         | true          |
+
+
   Regel: Een abonnee ontvangt gebeurtenissen op volgorde dat ze gepubliceerd zijn
 
     Scenario: Er zijn meerdere gebeurtenissen
