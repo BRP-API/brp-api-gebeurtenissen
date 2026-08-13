@@ -111,7 +111,7 @@ Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
     );
     let datum = undefined;
     if (gebeurtenis['datum']) {
-      datum = toBrpApiDatum(gebeurtenis['datum'] as string);
+      datum = gebeurtenis['datum'];
     }
     expectedGebeurtenissen.push(
       maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon, datum),
