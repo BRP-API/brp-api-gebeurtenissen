@@ -9,7 +9,6 @@ import {logger} from './support/logger.js';
 import {expect} from 'chai';
 import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
 import 'chai-exclude';
-import {toBrpApiDatum} from './support/date-utils.js';
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',
