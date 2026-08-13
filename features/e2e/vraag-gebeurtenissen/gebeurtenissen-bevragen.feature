@@ -1,8 +1,8 @@
 # language: nl
 Functionaliteit: Gebeurtenissen bevragen waar de abonnee op geabonneerd is
-Als consumer van BRP Gebeurtenissen
-wil ik bij het bevragen van gebeurtenissen kunnen opgeven welke gebeurtenissen ik wil ontvangen
-zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
+  Als consumer van BRP Gebeurtenissen
+  wil ik bij het bevragen van gebeurtenissen kunnen opgeven welke gebeurtenissen ik wil ontvangen
+  zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
 
   Achtergrond:
     Gegeven de persoon 'Jan' is geregistreerd in de BRP
@@ -22,10 +22,10 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
       Dan wordt er geen gebeurtenis geleverd
 
   Regel: Een abonnee ontvangt alleen gebeurtenissen waar deze op geabonneerd is
-  Dit is het geval wanneer er een gebeurtenis plaatsvindt en er is een abonnement
-  - van de abonnee die gebeurtenissen vraagt
-  - op de persoon waar de gebeurtenis op heeft plaatsgevonden
-  - voor een groep met het type van de gebeurtenis
+    Dit is het geval wanneer er een gebeurtenis plaatsvindt en er is een abonnement
+    - van de abonnee die gebeurtenissen vraagt
+    - op de persoon waar de gebeurtenis op heeft plaatsgevonden
+    - voor een groep met het type van de gebeurtenis
 
     Scenario: De abonnee is geabonneerd op de gebeurtenis
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
