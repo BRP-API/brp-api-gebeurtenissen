@@ -131,12 +131,7 @@ export default function profiles() {
     },
     EndToEnd: {
       ...baseConfig,
-      paths: [
-        'features/beheer-abonnees/*',
-        'features/beheer-abonnementen/*',
-        'features/vraag-gebeurtenissen/*',
-        'features/autorisatie.feature',
-      ], // Only run end-to-end features
+      paths: ['features/e2e/*'], // Only run end-to-end features
       tags: 'not @skip-verify', // Exclude scenarios tagged with @skip-verify
       format: [
         // output formats and locations

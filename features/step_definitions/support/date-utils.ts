@@ -1,4 +1,9 @@
-import {BrpApiDatum, VolledigeDatum} from '../brp-api/brp-api-datum.js';
+import {
+  BrpApiDatum,
+  JaarDatum,
+  JaarMaandDatum,
+  VolledigeDatum,
+} from '../brp-api/brp-api-datum.js';
 
 /**
  * Converteer een datum string in dd-mm-yyyy formaat naar yyyymmdd formaat
@@ -85,6 +90,14 @@ function isVolledigeDatum(jaar: string, maand: string, dag: string): boolean {
   return maand !== '00' && dag !== '00';
 }
 
+function isJaarMaandDatum(jaar: string, maand: string, dag: string): boolean {
+  return maand !== '00' && dag === '00';
+}
+
+function isJaarDatum(jaar: string, maand: string, dag: string): boolean {
+  return maand === '00' && dag === '00';
+}
+
 /**
  * Converteer een datum in yyyymmdd formaat naar een BRP API datum (polymorf)
  * @param dateString - Datum in ddmmyyyy formaat
@@ -100,12 +113,15 @@ export function toBrpApiDatum(dateString: string): BrpApiDatum | undefined {
 
   const [, year, month, day] = match;
 
+  const jaar = Number.parseInt(year);
+  const maand = Number.parseInt(month);
+  const dag = Number.parseInt(day);
   if (isVolledigeDatum(year, month, day)) {
-    return new VolledigeDatum(
-      Number.parseInt(year),
-      Number.parseInt(month),
-      Number.parseInt(day),
-    );
+    return new VolledigeDatum(jaar, maand, dag);
+  } else if (isJaarMaandDatum(year, month, day)) {
+    return new JaarMaandDatum(jaar, maand);
+  } else if (isJaarDatum(year, month, day)) {
+    return new JaarDatum(jaar);
   }
 
   return undefined;
@@ -119,10 +135,4 @@ export function toDateOrString(
     console.error('TODO implement this');
   }
   return value;
-}
-
-export enum DateType {
-  JaarDatum,
-  JaarMaandDatum,
-  VolledigeDatum,
 }

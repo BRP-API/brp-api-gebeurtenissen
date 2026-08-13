@@ -197,20 +197,20 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
     Scenario: Er is een gebeurtenissen met JaarDatum
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan' met 'JaarDatum'
+      En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan' met datum '20260000'
       Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan worden de volgende gebeurtenissen geleverd
-        | gebeurtenistype                   | burgerservicenummer | datumType |
-        | nl.brp.verhuisd.intergemeentelijk | Jan                 | JaarDatum |
+        | gebeurtenistype                   | burgerservicenummer | datum    |
+        | nl.brp.verhuisd.intergemeentelijk | Jan                 | 20260000 |
 
     Scenario: Er is een gebeurtenissen met JaarMaandDatum
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan' met 'JaarMaandDatum'
+      En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan' met datum '20260100'
       Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan worden de volgende gebeurtenissen geleverd
-        | gebeurtenistype                   | burgerservicenummer | datumType      |
-        | nl.brp.verhuisd.intergemeentelijk | Jan                 | JaarMaandDatum |
+        | gebeurtenistype                   | burgerservicenummer | datum    |
+        | nl.brp.verhuisd.intergemeentelijk | Jan                 | 20260100 |
 
   Regel: Een abonnee ontvangt gebeurtenissen op volgorde dat ze gepubliceerd zijn
 
