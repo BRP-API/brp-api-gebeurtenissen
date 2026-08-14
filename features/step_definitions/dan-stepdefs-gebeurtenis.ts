@@ -6,6 +6,9 @@ import {PersoonFactory} from './support/persoon-factory.js';
 import {createObjectArrayFrom} from './support/dataTable2Object.js';
 import {maakGebeurtenis} from './support/gebeurtenissen-api-helpers.js';
 import {logger} from './support/logger.js';
+import {expect} from 'chai';
+import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
+import 'chai-exclude';
 
 Then(
   'is een {string} gebeurtenis geleverd( met de volgende velden)( met de volgende data)',
@@ -57,10 +60,17 @@ Then(
   },
 );
 
-Then('wordt er geen gebeurtenis geleverd', function () {
-  this.expected = {
-    ['gebeurtenissen']: [],
-  };
+Then('wordt er geen gebeurtenis geleverd', async function () {
+  this.expected = null;
+
+  await expectEventuallyWithRetry(
+    this.result,
+    async () => (await this.resultProducer()).body,
+    result => {
+      this.result = result;
+      expect(result).to.deep.equal({gebeurtenissen: []});
+    },
+  );
 });
 
 Then(
@@ -71,22 +81,49 @@ Then(
       persoonAanduiding,
     );
 
-    this.expected.gebeurtenissen = [maakGebeurtenis(gebeurtenistype, persoon)];
+    const expected = {
+      gebeurtenissen: [maakGebeurtenis(gebeurtenistype, persoon)],
+    };
+
+    await expectEventuallyWithRetry(
+      this.result,
+      async () => (await this.resultProducer()).body,
+      result => {
+        this.result = result;
+        expect(result).excludingEvery('id').to.deep.equal(expected);
+      },
+    );
+
+    this.expected = null;
   },
 );
 
 Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
   const gebeurtenissen = createObjectArrayFrom(dataTable);
 
-  this.expected.gebeurtenissen = [];
+  const expectedGebeurtenissen = [];
 
   for (const gebeurtenis of gebeurtenissen) {
     const persoon = await PersoonFactory.create(
       this.context,
       gebeurtenis['burgerservicenummer'],
     );
-    this.expected.gebeurtenissen.push(
-      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon),
+    let datum = undefined;
+    if (gebeurtenis['datum']) {
+      datum = gebeurtenis['datum'];
+    }
+    expectedGebeurtenissen.push(
+      maakGebeurtenis(gebeurtenis['gebeurtenistype'], persoon, datum),
     );
   }
+  const expected = {gebeurtenissen: expectedGebeurtenissen};
+  await expectEventuallyWithRetry(
+    this.result,
+    async () => (await this.resultProducer()).body,
+    result => {
+      this.result = result;
+      expect(result).excludingEvery('id').to.deep.equal(expected);
+    },
+  );
+  this.expected = null;
 });

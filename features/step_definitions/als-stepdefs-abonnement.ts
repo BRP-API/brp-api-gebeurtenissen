@@ -496,7 +496,9 @@ When(
       afnemerAanduiding,
     );
 
-    const response = await raadpleegAbonnementen(afnemer, abonneeNaam);
+    this.resultProducer = async () =>
+      await raadpleegAbonnementen(afnemer, abonneeNaam);
+    const response = await this.resultProducer();
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },

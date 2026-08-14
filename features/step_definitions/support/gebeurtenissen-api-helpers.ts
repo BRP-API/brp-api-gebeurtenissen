@@ -2,6 +2,7 @@ import {Afnemer} from '../brp/afnemer-entity.js';
 import {Persoon} from '../brp/persoon-entity.js';
 import {logger} from './logger.js';
 import {getClientAccessToken} from './oauth-helpers.js';
+import {BrpApiDatum, VolledigeDatum} from '../brp-api/brp-api-datum.js';
 
 export async function raadpleegGebeurtenissenVoorAbonnee(
   afnemer: Afnemer,
@@ -21,8 +22,8 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
       abonneeNaam,
     );
 
-    const deGebeurtenis = alleGebeurtenissen.gebeurtenissen.find(
-      (geb: any) => geb.burgerservicenummer === persoon.burger_service_nr,
+    const deGebeurtenis = alleGebeurtenissen.body.gebeurtenissen.find(
+      (geb: any) => geb.data.burgerservicenummer === persoon.burger_service_nr,
     );
     if (deGebeurtenis) {
       uriParams.push(`cursor=${deGebeurtenis.id}`);
@@ -39,7 +40,7 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
     uriParams.push(`cursor=${cursor}`);
   }
 
-  if (limit) {
+  if (limit !== null && limit !== undefined) {
     uriParams.push(`limit=${limit.toString()}`);
   }
 
@@ -63,13 +64,18 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
     `GET /api/brp/abonnees/${abonneeNaam}/gebeurtenissen${uriParamsString} >>> status: ${response.status}`,
   );
 
-  return await response.json();
+  return {body: await response.json(), statusCode: response.status};
 }
 
 export async function publiceerGebeurtenis(
   gebeurtenistype: string,
   persoon: Persoon,
+  datumString: string | undefined = undefined,
 ) {
+  if (!datumString) {
+    datumString = '20260526';
+  }
+
   const data: any = {
     c01: {
       e0110: `${persoon.a_nr}`,
@@ -79,14 +85,14 @@ export async function publiceerGebeurtenis(
   switch (gebeurtenistype) {
     case 'nl.brp.verhuisd.intergemeentelijk':
       data.c08 = {
-        e1030: '20260526',
+        e1030: datumString,
         e1180: '0935010000092253',
       };
       break;
     case 'nl.brp.verhuisd.naar-buitenland':
       data.c08 = {
         e1310: '5015',
-        e1320: '20260526',
+        e1320: datumString,
         e1330: 'Nordmarksvej 9',
         e1340: '7190',
         e1350: 'Billund',
@@ -94,7 +100,7 @@ export async function publiceerGebeurtenis(
       break;
     case 'nl.brp.overleden':
       data.c06 = {
-        e0810: '20260526',
+        e0810: datumString,
         e0820: '0518',
         e0830: '6030',
       };
@@ -132,41 +138,43 @@ export async function publiceerGebeurtenis(
     `POST /personen/gebeurtenissen >>> status: ${response.status}`,
     requestBody,
   );
+  return {body: await response.json(), statusCode: response.status};
 }
 
-export function maakGebeurtenis(gebeurtenistype: string, persoon: Persoon) {
+export function maakGebeurtenis(
+  gebeurtenistype: string,
+  persoon: Persoon,
+  datum: BrpApiDatum | undefined = undefined,
+) {
   const data: any = {
     burgerservicenummer: persoon.burger_service_nr,
   };
 
+  if (!datum) {
+    datum = new VolledigeDatum(2026, 5, 26);
+  }
+
   switch (gebeurtenistype) {
     case 'nl.brp.verhuisd.intergemeentelijk':
       data.verblijfplaats = {
-        datumVan: {
-          type: 'Datum',
-          datum: '2026-05-26',
-          langFormaat: '26 mei 2026',
-        },
+        datumVan: datum,
       };
       break;
     case 'nl.brp.verhuisd.naar-buitenland':
       data.verblijfplaats = {
-        datumVan: {
-          type: 'Datum',
-          datum: '2026-05-26',
-          langFormaat: '26 mei 2026',
-        },
+        datumVan: datum,
       };
       break;
     case 'nl.brp.overleden':
       data.overlijden = {
-        datum: {
-          type: 'Datum',
-          datum: '2026-05-26',
-          langFormaat: '26 mei 2026',
-        },
+        datum: datum,
       };
   }
 
-  return {type: gebeurtenistype, data: data};
+  return {
+    type: gebeurtenistype,
+    data: data,
+    source: 'brp-api-gebeurtenissen',
+    specversion: '1.0',
+  };
 }

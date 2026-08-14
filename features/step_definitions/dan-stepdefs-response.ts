@@ -9,6 +9,7 @@ import {
 import {Persoon} from './brp/persoon-entity.js';
 import {expect} from 'chai';
 import 'chai-exclude';
+import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
 
 Then(
   'is de response {string}( met de volgende velden)',
@@ -50,7 +51,11 @@ Then(
       this.expected.invalidParams = [];
     }
 
-    this.expected.invalidParams.push(createObjectArrayFrom(dataTable));
+    const expected = createObjectArrayFrom(dataTable);
+    this.expected.invalidParams.push(expected);
+    expect(this.result.invalidParams)
+      .excludingEvery('type')
+      .to.deep.equal(expected);
   },
 );
 
@@ -69,7 +74,7 @@ defineParameterType({
 
 Then(
   'worden volgende {objectNaam} geleverd',
-  function (objectNaam: string, dataTable) {
+  async function (objectNaam: string, dataTable) {
     const personen: Record<string, Persoon> = this.context.personen || {};
 
     this.expected = {
@@ -78,17 +83,27 @@ Then(
         personen,
       ),
     };
-    expect(this.result[objectNaam])
-      .excludingEvery('id')
-      .to.deep.equal(
-        this.expected[objectNaam],
-        `${objectNaam} is niet correct`,
-      );
+
+    await expectEventuallyWithRetry(
+      this.result,
+      async () => (await this.resultProducer()).body,
+      result => {
+        this.result = result;
+        console.log(this.result);
+        expect(this.result[objectNaam])
+          .excludingEvery('id')
+          .to.deep.equal(
+            this.expected[objectNaam],
+            `${objectNaam} is niet correct`,
+          );
+      },
+    );
   },
 );
 
 Then('wordt er geen abonnement geleverd', function () {
   expect(this.result.abonnementen).to.deep.equal([]);
+  this.expected = null;
 });
 
 Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {

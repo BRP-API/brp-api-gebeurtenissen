@@ -5,6 +5,8 @@ import {
   raadpleegGebeurtenissenVoorAbonnee,
 } from './support/gebeurtenissen-api-helpers.js';
 import {AfnemerFactory} from './support/afnemer-factory.js';
+import {expect} from 'chai';
+import {HttpStatusCode} from 'axios';
 
 Given(
   'er is een {string} gebeurtenis gepubliceerd voor persoon {string}',
@@ -15,6 +17,36 @@ Given(
     );
 
     this.result = await publiceerGebeurtenis(gebeurtenistype, persoon);
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
+    if (!this.context.gebeurtenissen) {
+      this.context.gebeurtenissen = {};
+    }
+    this.context.gebeurtenissen[persoonAanduiding] = this.result.body;
+  },
+);
+
+Given(
+  'er is een {string} gebeurtenis gepubliceerd voor persoon {string} met datum {string}',
+  async function (
+    gebeurtenistype: string,
+    persoonAanduiding: string,
+    datumString: string,
+  ) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    this.result = await publiceerGebeurtenis(
+      gebeurtenistype,
+      persoon,
+      datumString,
+    );
+    expect(this.result.statusCode).to.equal(HttpStatusCode.Created);
+    if (!this.context.gebeurtenissen) {
+      this.context.gebeurtenissen = {};
+    }
+    this.context.gebeurtenissen[persoonAanduiding] = this.result.body;
   },
 );
 
