@@ -55,7 +55,7 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
         | code    | name   | reason                                  |
         | unknown | cursor | Cursor is geen correcte gebeurtenis id. |
 
-  Regel: Parameter 'limit' moet een getal zijn tussen 1 en 10
+  Regel: Parameter 'limit' moet een getal zijn tussen 1 en 100
 
     Abstract Scenario: De opgegeven 'limit' <omschrijving>
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal <waarde> gebeurtenissen vraagt

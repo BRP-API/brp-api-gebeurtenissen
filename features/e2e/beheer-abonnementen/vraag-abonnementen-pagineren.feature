@@ -19,8 +19,8 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
     En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Karin' voor de groep 'client'
 
   Regel: Een abonnee kan abonnementen vragen na de id van een eerder ontvangen abonnement
-  Hiervoor gebruikt de abonnee optionele parameter 'cursor'.
-  De abonnee vraagt de volgende 'pagina' aan abonnementen door het id uit het laatste abonnement van de laatst ontvangen pagina in parameter cursor te zetten.
+    Hiervoor gebruikt de abonnee optionele parameter 'cursor'.
+    De abonnee vraagt de volgende 'pagina' aan abonnementen door het id uit het laatste abonnement van de laatst ontvangen pagina in parameter cursor te zetten.
 
     Scenario: De abonnee vraagt abonnementen na de opgegeven gebeurtenis id
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement op 'Jan' voor de groep 'client'
@@ -33,13 +33,13 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement op 'Karin' voor de groep 'client'
       Dan wordt er geen abonnement geleverd
 
-  Regel: Standaard worden per request maximaal 10 abonnementen geleverd
+  Regel: Standaard worden per request maximaal 100 abonnementen geleverd
 
     @skip-verify
-    Scenario: Er zijn meer dan 10 abonnementen
-      Gegeven er zijn 11 abonnementen voor abonnee 'jz' van afnemer 'Gemeente Amsterdam'
+    Scenario: Er zijn meer dan 100 abonnementen
+      Gegeven er zijn 101 abonnementen voor abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
-      Dan worden 10 abonnementen geleverd
+      Dan worden 100 abonnementen geleverd
       # nog geen automation voor tellen aantal abonnementen in resultaat
 
   Regel: Een abonnee kan het maximaal aantal te ontvangen abonnementen opgeven
@@ -86,7 +86,7 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
         | code    | name   | reason                                 |
         | unknown | cursor | Cursor is geen correcte abonnement id. |
 
-  Regel: Parameter 'limit' moet een getal zijn tussen 1 en 10
+  Regel: Parameter 'limit' moet een getal zijn tussen 1 en 100
 
     Abstract Scenario: De opgegeven 'limit' <omschrijving>
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' maximaal <waarde> abonnementen opvraagt
