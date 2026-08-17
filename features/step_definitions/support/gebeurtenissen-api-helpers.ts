@@ -4,6 +4,11 @@ import {logger} from './logger.js';
 import {getClientAccessToken} from './oauth-helpers.js';
 import {BrpApiDatum, VolledigeDatum} from '../brp-api/brp-api-datum.js';
 
+async function delay(interval: number) {
+  const starttijd = Date.now();
+  while (Date.now() - starttijd < interval) {}
+}
+
 export async function raadpleegGebeurtenissenVoorAbonnee(
   afnemer: Afnemer,
   abonneeNaam: string,
@@ -11,6 +16,9 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
   persoon?: Persoon,
   cursor?: string,
 ): Promise<any> {
+  // wacht even om de gebeurtenis API de tijd te geven het te verwerken naar de projectie database
+  await delay(1000);
+
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
   const uriParams = [];
@@ -29,10 +37,13 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
       uriParams.push(`cursor=${deGebeurtenis.id}`);
     } else {
       logger.warn(
-        `Geen gebeurtenis gevonden met burgerservicenummer ${persoon.burger_service_nr}`,
+        `Geen gebeurtenis gevonden van persoon ${persoon.geslachts_naam} met burgerservicenummer ${persoon.burger_service_nr}`,
         alleGebeurtenissen,
       );
-      return false;
+      return {
+        redenMislukt: `Geen gebeurtenis gevonden van ${persoon.geslachts_naam}`,
+        statusCode: -1,
+      };
     }
   }
 
@@ -129,6 +140,9 @@ export async function publiceerGebeurtenis(
       body: JSON.stringify(requestBody),
     },
   );
+
+  // wacht even om de gebeurtenis API de tijd te geven het te verwerken naar de projectie database
+  await delay(200);
 
   logger.debug(
     `publiceerGebeurtenis afnemer: type: ${gebeurtenistype}, requestBody: ${requestBody}`,

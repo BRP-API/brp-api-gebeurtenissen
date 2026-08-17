@@ -1,6 +1,7 @@
 import {When} from '@cucumber/cucumber';
 import {raadpleegGebeurtenissenVoorAbonnee} from './support/gebeurtenissen-api-helpers.js';
 import {AfnemerFactory} from './support/afnemer-factory.js';
+import {expect} from 'chai';
 
 When(
   'gebeurtenissen worden gevraagd door abonnee {string} van afnemer {string}',
@@ -10,14 +11,11 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegGebeurtenissenVoorAbonnee(
-      afnemer,
-      abonneeNaam,
-    );
-
     this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam);
+
     const response = await this.resultProducer();
+    expect(response.redenMislukt).to.not.exist;
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -44,6 +42,7 @@ When(
         persoon,
       );
     const response = await this.resultProducer();
+    expect(response.redenMislukt).to.not.exist;
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -60,6 +59,7 @@ When(
     this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam, limit);
     const response = await this.resultProducer();
+    expect(response.redenMislukt).to.not.exist;
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -87,6 +87,7 @@ When(
         persoon,
       );
     const response = await this.resultProducer();
+    expect(response.redenMislukt).to.not.exist;
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -105,6 +106,7 @@ When(
       afnemer,
       abonneeNaam,
     );
+    expect(response.redenMislukt).to.not.exist;
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -125,6 +127,7 @@ When(
       undefined,
       cursor,
     );
+    expect(response.redenMislukt).to.not.exist;
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -149,6 +152,7 @@ When(
       gebeurtenisId,
     );
 
+    expect(response.redenMislukt).to.not.exist;
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },

@@ -89,7 +89,7 @@ Then(
       async () => (await this.resultProducer()).body,
       result => {
         this.result = result;
-        console.log(this.result);
+        
         expect(this.result[objectNaam])
           .excludingEvery('id')
           .to.deep.equal(
@@ -103,6 +103,11 @@ Then(
 
 Then('wordt er geen abonnement geleverd', function () {
   expect(this.result.abonnementen).to.deep.equal([]);
+  this.expected = null;
+});
+
+Then('worden {int} abonnementen geleverd', function (aantal: number) {
+  expect(this.result.abonnementen.length).to.equal(aantal);
   this.expected = null;
 });
 

@@ -127,3 +127,8 @@ Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
   );
   this.expected = null;
 });
+
+Then('worden {int} gebeurtenissen geleverd', function (aantal: number) {
+  expect(this.result.gebeurtenissen.length).to.equal(aantal);
+  this.expected = null;
+});

@@ -38,12 +38,10 @@ Functionaliteit: Gebeurtenissen bevragen met cursor en limit
 
   Regel: Standaard worden per request maximaal 100 gebeurtenissen geleverd
 
-    @skip-verify
     Scenario: Er zijn meer dan 100 gebeurtenissen gepubliceerd
-      Gegeven er zijn 101 gebeurtenissen gepubliceerd waar abonnee 'jz' op geabonneerd is
-      Als gebeurtenissen worden gevraagd door abonnee 'jz'
+      Gegeven er zijn 101 gebeurtenissen gepubliceerd waar abonnee 'jz' van afnemer 'Gemeente Amsterdam' op geabonneerd is
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan worden 100 gebeurtenissen geleverd
-      # nog geen automation voor tellen aantal gebeurtenissen in resultaat
 
   Regel: Een abonnee kan het maximaal aantal te ontvangen gebeurtenissen opgeven
     Hiervoor gebruikt de abonnee optionele parameter 'limit'

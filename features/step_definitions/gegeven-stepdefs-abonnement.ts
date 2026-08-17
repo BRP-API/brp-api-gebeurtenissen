@@ -16,6 +16,7 @@ import {
 } from './support/dataTable2Object.js';
 import {expect} from 'chai';
 import {HttpStatusCode} from 'axios';
+import {Afnemer} from './brp/afnemer-entity.js';
 
 Given(
   'de afnemer {string} heeft de abonnee {string} geregistreerd',
@@ -317,6 +318,129 @@ Given(
     expect(this.result.statusCode).to.equal(
       HttpStatusCode.Created,
       'http statuscode is niet correct',
+    );
+  },
+);
+
+async function voegGroepenToe(
+  nummer: number,
+  maximaalAantal: number,
+  context: any,
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  groepNaamBasis = 'groep',
+) {
+  const groepNaam = groepNaamBasis + nummer.toString();
+
+  const groepResult = await voegGroepToeBijAbonnee(
+    afnemer,
+    abonneeNaam,
+    groepNaam,
+  );
+  expect(groepResult.statusCode).to.equal(
+    HttpStatusCode.Created,
+    'http statuscode is niet correct',
+  );
+
+  const gebeurtenistype = 'nl.brp.verhuisd.intergemeentelijk';
+  const typeResult = await voegGebeurtenistypeToeAanGroep(
+    afnemer,
+    abonneeNaam,
+    groepNaam,
+    gebeurtenistype,
+  );
+  expect(typeResult.statusCode).to.equal(
+    HttpStatusCode.Created,
+    'http statuscode is niet correct',
+  );
+
+  if (nummer < maximaalAantal) {
+    await voegGroepenToe(
+      nummer + 1,
+      maximaalAantal,
+      context,
+      afnemer,
+      abonneeNaam,
+      groepNaamBasis,
+    );
+  }
+}
+
+async function abonneerPersonen(
+  nummer: number,
+  maximaalAantal: number,
+  context: any,
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  groepNaamBasis = 'groep',
+) {
+  const aantalPersonen = Object.keys(context.personen).length;
+
+  const persoonAanduiding = Object.keys(context.personen)[
+    (nummer - 1) % aantalPersonen
+  ];
+  const persoon = await PersoonFactory.create(context, persoonAanduiding);
+
+  const groepNaam =
+    groepNaamBasis + (Math.floor((nummer - 1) / aantalPersonen) + 1).toString();
+  const abonneerResult = await abonneerPersoonOpGroep(
+    afnemer,
+    abonneeNaam,
+    groepNaam,
+    persoon,
+    'AbonneerPersoonOpGroep',
+  );
+  expect(abonneerResult.statusCode).to.equal(
+    HttpStatusCode.Created,
+    `http statuscode is niet correct bij abonneren van ${persoonAanduiding} op groep ${groepNaam}`,
+  );
+
+  if (nummer < maximaalAantal) {
+    await abonneerPersonen(
+      nummer + 1,
+      maximaalAantal,
+      context,
+      afnemer,
+      abonneeNaam,
+      groepNaamBasis,
+    );
+  }
+}
+
+Given(
+  'er zijn {int} abonnementen voor abonnee {string} van afnemer {string}',
+  {timeout: 60000},
+  async function (
+    aantalAbonnementen: number,
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+  ) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    if (
+      !this.context.afnemers[afnemerAanduiding].abonnees.includes(abonneeNaam)
+    ) {
+      this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+      expect(this.result.statusCode).to.equal(
+        HttpStatusCode.Created,
+        'http statuscode is niet correct',
+      );
+    }
+
+    const aantalPersonen = Object.keys(this.context.personen).length;
+    const aantalGroepen = Math.ceil(aantalAbonnementen / aantalPersonen);
+
+    await voegGroepenToe(1, aantalGroepen, this.context, afnemer, abonneeNaam);
+
+    await abonneerPersonen(
+      1,
+      aantalAbonnementen,
+      this.context,
+      afnemer,
+      abonneeNaam,
     );
   },
 );

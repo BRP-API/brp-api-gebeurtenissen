@@ -35,12 +35,10 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
 
   Regel: Standaard worden per request maximaal 100 abonnementen geleverd
 
-    @skip-verify
     Scenario: Er zijn meer dan 100 abonnementen
-      Gegeven er zijn 101 abonnementen voor abonnee 'jz' van afnemer 'Gemeente Amsterdam'
-      Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
+      Gegeven er zijn 101 abonnementen voor abonnee 'szw' van afnemer 'Gemeente Amsterdam'
+      Als abonnee 'szw' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan worden 100 abonnementen geleverd
-      # nog geen automation voor tellen aantal abonnementen in resultaat
 
   Regel: Een abonnee kan het maximaal aantal te ontvangen abonnementen opgeven
   Hiervoor gebruikt de abonnee optionele parameter 'limit'
