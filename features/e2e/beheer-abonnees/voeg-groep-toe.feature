@@ -1,8 +1,8 @@
 # language: nl
 Functionaliteit: Voeg groep toe aan abonnee
-  Als abonnee 
-  wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen
-  zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder uitgebreide set gebeurtenissen kan ontvangen op relaties van cliënten
+Als abonnee
+wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen
+zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder uitgebreide set gebeurtenissen kan ontvangen op relaties van cliënten
 
   Regel: Een afnemer kan een groep toevoegen aan een bestaande abonnee
 
@@ -32,7 +32,11 @@ Functionaliteit: Voeg groep toe aan abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep '<naam van de groep>' toevoegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Naam ongeldig'
+      * 'title' met tekst 'naam is ongeldig'
+      * heeft de response invalidParams met de volgende gegevens
+        | code    | name | reason                                                                                                                                                                                                        |
+        | invalid | naam | Groepnaam voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 64 tekens, begint en eindigt niet met een koppelteken (-). |
+
 
       Voorbeelden:
         | titel                               | naam van de groep                                                 |
@@ -43,8 +47,16 @@ Functionaliteit: Voeg groep toe aan abonnee
         | bevat een koppelteken aan het einde | jz-                                                               |
         | bevat dubbele koppeltekens          | j--z                                                              |
         | bevat een ongeldig teken            | j_z                                                               |
-        | is leeg                             |                                                                   |
         | bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
+
+    Scenario: De groepnaam is null
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep '' toevoegt
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'naam is verplicht'
+      * heeft de response invalidParams met de volgende gegevens
+        | code     | name | reason            |
+        | required | naam | naam is verplicht |
 
   Regel: De naam van de groep is uniek binnen de context van een abonnee
 
