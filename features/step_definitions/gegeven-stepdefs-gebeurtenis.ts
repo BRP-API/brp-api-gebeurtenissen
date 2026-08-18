@@ -5,7 +5,6 @@ import {
   raadpleegGebeurtenissenVoorAbonnee,
 } from './support/gebeurtenissen-api-helpers.js';
 import {
-  abonneerPersoonOpGroep,
   registreerAbonneeVoorAfnemer,
   voegGebeurtenistypeToeAanGroep,
   voegGroepToeBijAbonnee,

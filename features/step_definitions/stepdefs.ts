@@ -5,7 +5,6 @@ import {
   AfterStep,
   After,
   AfterAll,
-  setDefaultTimeout,
 } from '@cucumber/cucumber';
 import {ICustomWorld} from './support/custom-world.js';
 import {expect} from 'chai';
@@ -28,7 +27,7 @@ import {ProblemDetails} from './support/problem-details.js';
 import {use} from 'chai';
 import chaiExclude from 'chai-exclude';
 
-BeforeAll(function () {
+BeforeAll(() => {
   use(chaiExclude);
   PostgresqlManager.setup(poolConfig);
 });

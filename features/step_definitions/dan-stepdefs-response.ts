@@ -89,7 +89,7 @@ Then(
       async () => (await this.resultProducer()).body,
       result => {
         this.result = result;
-        
+
         expect(this.result[objectNaam])
           .excludingEvery('id')
           .to.deep.equal(

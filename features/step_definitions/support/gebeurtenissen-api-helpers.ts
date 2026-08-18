@@ -4,9 +4,8 @@ import {logger} from './logger.js';
 import {getClientAccessToken} from './oauth-helpers.js';
 import {BrpApiDatum, VolledigeDatum} from '../brp-api/brp-api-datum.js';
 
-async function delay(interval: number) {
-  const starttijd = Date.now();
-  while (Date.now() - starttijd < interval) {}
+async function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export async function raadpleegGebeurtenissenVoorAbonnee(
