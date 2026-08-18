@@ -6,7 +6,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
     En de persoon 'Piet' is geregistreerd in de BRP
 
   Regel: Een abonnee kan een abonnement op een persoon voor een groep opzeggen
-  Voor het opzeggen van een abonnement wordt in type de waarde 'ZegOpAbonnementVanPersoonOpGroep' opgegeven
+    Voor het opzeggen van een abonnement wordt in type de waarde 'ZegOpAbonnementVanPersoonOpGroep' opgegeven
 
     Scenario: Een abonnee abonneert een persoon voor een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -116,10 +116,10 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
         | invalid | burgerservicenummer | burgerservicenummer moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP. |
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
-  - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
-  - bevat geen dubbele koppeltekens achter elkaar (--)
-  - bevat minimaal 2 en maximaal 64 tekens
-  - begint en eindigt niet met een koppelteken (-)
+    - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+    - bevat geen dubbele koppeltekens achter elkaar (--)
+    - bevat minimaal 2 en maximaal 64 tekens
+    - begint en eindigt niet met een koppelteken (-)
 
     Scenario: De abonnee geeft geen groepnaam op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd

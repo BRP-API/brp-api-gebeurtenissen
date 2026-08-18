@@ -80,7 +80,7 @@ Functionaliteit: Abonneer persoon voor een groep
       * 'title' met tekst 'Groep bestaat niet'
 
   Regel: Type is verplicht en moet een ondersteund type zijn
-  Voor het toevoegen van een abonnement op een persoon is het type  'AbonneerPersoonOpGroep'
+    Voor het toevoegen van een abonnement op een persoon is het type  'AbonneerPersoonOpGroep'
 
     Scenario: Een afnemer voegt een abonnement toe zonder het type groep op te geven
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -139,10 +139,10 @@ Functionaliteit: Abonneer persoon voor een groep
         | invalid | burgerservicenummer | burgerservicenummer moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP. |
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
-  - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
-  - bevat geen dubbele koppeltekens achter elkaar (--)
-  - bevat minimaal 2 en maximaal 64 tekens
-  - begint en eindigt niet met een koppelteken (-)
+    - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+    - bevat geen dubbele koppeltekens achter elkaar (--)
+    - bevat minimaal 2 en maximaal 64 tekens
+    - begint en eindigt niet met een koppelteken (-)
 
     Scenario: De abonnee geeft geen groepnaam op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd

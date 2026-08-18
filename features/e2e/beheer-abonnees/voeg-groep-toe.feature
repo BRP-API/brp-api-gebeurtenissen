@@ -1,8 +1,8 @@
 # language: nl
 Functionaliteit: Voeg groep toe aan abonnee
-Als abonnee
-wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen
-zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder uitgebreide set gebeurtenissen kan ontvangen op relaties van cliënten
+  Als abonnee
+  wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen
+  zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder uitgebreide set gebeurtenissen kan ontvangen op relaties van cliënten
 
   Regel: Een afnemer kan een groep toevoegen aan een bestaande abonnee
 
