@@ -162,7 +162,7 @@ Functionaliteit: Abonneer persoon voor een groep
       * 'title' met tekst 'groep is ongeldig'
       * heeft de response invalidParams met de volgende gegevens
         | code    | name  | reason                                                                                                                                                                                                        |
-        | invalid | groep | Groepnaam voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 64 tekens, begint en eindigt niet met een koppelteken (-). |
+        | invalid | groep | groep voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 64 tekens, begint en eindigt niet met een koppelteken (-). |
 
   Regel: Een abonnee mag niet twee keer hetzelfde abonnement nemen
 

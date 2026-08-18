@@ -38,7 +38,7 @@ Functionaliteit: Registreer een abonnee
       * 'title' met tekst 'naam is ongeldig'
       * heeft de response invalidParams met de volgende gegevens
         | code    | name | reason                                                                                                                                                                                                          |
-        | invalid | naam | Abonneenaam voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 10 tekens, begint en eindigt niet met een koppelteken (-). |
+        | invalid | naam | naam voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 10 tekens, begint en eindigt niet met een koppelteken (-). |
 
       Voorbeelden:
         | titel                                           | abonneeNaam                                                       |
