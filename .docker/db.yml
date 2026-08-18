@@ -1,4 +1,15 @@
 services:
+  flyway:
+    image: flyway/flyway
+    command: migrate -connectRetries=5
+    volumes:
+      - ./scripts/projecties-db/flyway/conf:/flyway/conf
+      - ./scripts/projecties-db/flyway/sql:/flyway/sql
+    depends_on:
+      - postgres
+    networks:
+      - brp-api-network
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
