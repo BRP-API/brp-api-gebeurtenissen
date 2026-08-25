@@ -47,11 +47,21 @@ Functionaliteit: Voeg groep toe aan abonnee
         | bevat een koppelteken aan het einde | jz-                                                               |
         | bevat dubbele koppeltekens          | j--z                                                              |
         | bevat een ongeldig teken            | j_z                                                               |
+        | is leeg                             |                                                                   |
         | bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
 
     Scenario: De groepnaam is null
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep '' toevoegt
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'null' toevoegt
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'naam is verplicht'
+      * heeft de response invalidParams met de volgende gegevens
+        | code     | name | reason            |
+        | required | naam | naam is verplicht |
+
+    Scenario: De groepnaam is undefined
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'undefined' toevoegt
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'naam is verplicht'
       * heeft de response invalidParams met de volgende gegevens

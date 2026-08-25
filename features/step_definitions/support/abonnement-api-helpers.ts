@@ -23,7 +23,7 @@ export async function registreerAbonneeVoorAfnemer(
 ): Promise<any> {
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-  const requestBody = abonneeNaam ? {naam: abonneeNaam} : {};
+  const requestBody = nameJsonFromString(abonneeNaam);
 
   const response = await fetch(
     `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees`,
@@ -119,7 +119,7 @@ export async function voegGroepToeBijAbonnee(
 ): Promise<any> {
   const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
 
-  const requestBody = groepNaam ? {naam: groepNaam} : {};
+  const requestBody = nameJsonFromString(groepNaam);
 
   const response = await fetch(
     `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/groepen`,
@@ -431,4 +431,10 @@ export async function zegOpAbonnementenOpPersoon(
     statusCode: response.status,
     body: await parseResponseBody(response),
   };
+}
+
+function nameJsonFromString(naam?: string): any {
+  if (naam === undefined || naam === 'undefined') return {};
+  if (naam === null || naam === 'null') return {naam: null};
+  return {naam: naam};
 }
