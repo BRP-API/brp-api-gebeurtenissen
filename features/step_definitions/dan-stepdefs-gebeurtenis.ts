@@ -128,7 +128,19 @@ Then('worden de volgende gebeurtenissen geleverd', async function (dataTable) {
   this.expected = null;
 });
 
-Then('worden {int} gebeurtenissen geleverd', function (aantal: number) {
-  expect(this.result.gebeurtenissen.length).to.equal(aantal);
-  this.expected = null;
-});
+Then(
+  'worden {int} gebeurtenissen geleverd',
+  {timeout: 60000},
+  async function (aantal: number) {
+    await expectEventuallyWithRetry(
+      this.result,
+      async () => (await this.resultProducer()).body,
+      result => {
+        this.result = result;
+        expect(this.result.gebeurtenissen.length).to.equal(aantal);
+      },
+      {timeout: 60000},
+    );
+    this.expected = null;
+  },
+);

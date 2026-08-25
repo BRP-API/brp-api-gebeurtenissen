@@ -70,19 +70,19 @@ Given(
   },
 );
 
-function dateFromDay(day: number): string {
-  const nu = new Date();
-  const d0 = new Date(nu.getFullYear(), 0); // initialize a date in `year-01-01`
-  const d1 = new Date(d0.setDate(day)); // add the number of days
+function dateFromDayOfYear(dayOfYear: number): string {
+  const now = new Date();
+  const date = new Date(now.getFullYear(), 0, dayOfYear);
+
   return (
-    d1.getFullYear() +
-    (d1.getMonth() + 1).toString().padStart(2, '0') +
-    d1.getDate().toString().padStart(2, '0')
+    date.getFullYear() +
+    (date.getMonth() + 1).toString().padStart(2, '0') +
+    date.getDate().toString().padStart(2, '0')
   );
 }
 
 async function publiceerGebeurtenissen(
-  nummer: number,
+  gebeurtenisNummer: number,
   maximaalAantal: number,
   context: any,
   gebeurtenistype: string,
@@ -90,14 +90,14 @@ async function publiceerGebeurtenissen(
   const aantalPersonen = Object.keys(context.personen).length;
 
   const persoonAanduiding = Object.keys(context.personen)[
-    (nummer - 1) % aantalPersonen
+    (gebeurtenisNummer - 1) % aantalPersonen
   ];
   const persoon = await PersoonFactory.create(context, persoonAanduiding);
 
   const PublishResult = await publiceerGebeurtenis(
     gebeurtenistype,
     persoon,
-    dateFromDay(nummer),
+    dateFromDayOfYear(gebeurtenisNummer),
   );
   expect(PublishResult.statusCode).to.equal(HttpStatusCode.Created);
   if (!context.gebeurtenissen) {
@@ -105,13 +105,9 @@ async function publiceerGebeurtenissen(
   }
   context.gebeurtenissen[persoonAanduiding] = PublishResult.body;
 
-  if (nummer < maximaalAantal) {
-    // const starttijd = Date.now();
-    // const interval = 100;
-    // while (Date.now() - starttijd < interval) {}
-
+  if (gebeurtenisNummer < maximaalAantal) {
     await publiceerGebeurtenissen(
-      nummer + 1,
+      gebeurtenisNummer + 1,
       maximaalAantal,
       context,
       gebeurtenistype,

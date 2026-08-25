@@ -323,14 +323,14 @@ Given(
 );
 
 async function voegGroepenToe(
-  nummer: number,
+  groepNummer: number,
   maximaalAantal: number,
   context: any,
   afnemer: Afnemer,
   abonneeNaam: string,
   groepNaamBasis = 'groep',
 ) {
-  const groepNaam = groepNaamBasis + nummer.toString();
+  const groepNaam = groepNaamBasis + groepNummer.toString();
 
   const groepResult = await voegGroepToeBijAbonnee(
     afnemer,
@@ -354,9 +354,9 @@ async function voegGroepenToe(
     'http statuscode is niet correct',
   );
 
-  if (nummer < maximaalAantal) {
+  if (groepNummer < maximaalAantal) {
     await voegGroepenToe(
-      nummer + 1,
+      groepNummer + 1,
       maximaalAantal,
       context,
       afnemer,
@@ -367,7 +367,7 @@ async function voegGroepenToe(
 }
 
 async function abonneerPersonen(
-  nummer: number,
+  abonnementNummer: number,
   maximaalAantal: number,
   context: any,
   afnemer: Afnemer,
@@ -377,12 +377,13 @@ async function abonneerPersonen(
   const aantalPersonen = Object.keys(context.personen).length;
 
   const persoonAanduiding = Object.keys(context.personen)[
-    (nummer - 1) % aantalPersonen
+    (abonnementNummer - 1) % aantalPersonen
   ];
   const persoon = await PersoonFactory.create(context, persoonAanduiding);
 
   const groepNaam =
-    groepNaamBasis + (Math.floor((nummer - 1) / aantalPersonen) + 1).toString();
+    groepNaamBasis +
+    (Math.floor((abonnementNummer - 1) / aantalPersonen) + 1).toString();
   const abonneerResult = await abonneerPersoonOpGroep(
     afnemer,
     abonneeNaam,
@@ -395,9 +396,9 @@ async function abonneerPersonen(
     `http statuscode is niet correct bij abonneren van ${persoonAanduiding} op groep ${groepNaam}`,
   );
 
-  if (nummer < maximaalAantal) {
+  if (abonnementNummer < maximaalAantal) {
     await abonneerPersonen(
-      nummer + 1,
+      abonnementNummer + 1,
       maximaalAantal,
       context,
       afnemer,

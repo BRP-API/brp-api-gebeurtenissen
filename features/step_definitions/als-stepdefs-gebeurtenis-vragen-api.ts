@@ -33,14 +33,17 @@ When(
       this.context,
       afnemerAanduiding,
     );
-    const persoon = this.context.personen[persoonAanduiding];
+
+    const gebeurtenisIdVanPersoon =
+      this.context.gebeurtenissen[persoonAanduiding].gebeurtenisId;
 
     this.resultProducer = this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(
         afnemer,
         abonneeNaam,
         undefined,
-        persoon,
+        undefined,
+        gebeurtenisIdVanPersoon,
       );
     const response = await this.resultProducer();
     expect(response).to.not.have.property('redenMislukt');
@@ -78,14 +81,17 @@ When(
       this.context,
       afnemerAanduiding,
     );
-    const persoon = this.context.personen[persoonAanduiding];
+
+    const gebeurtenisIdVanPersoon =
+      this.context.gebeurtenissen[persoonAanduiding].gebeurtenisId;
 
     this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(
         afnemer,
         abonneeNaam,
         limit,
-        persoon,
+        undefined,
+        gebeurtenisIdVanPersoon,
       );
     const response = await this.resultProducer();
     expect(response).to.not.have.property('redenMislukt');
