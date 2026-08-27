@@ -203,7 +203,7 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
-      Dan worden volgende abonnementen geleverd
+      En worden volgende abonnementen geleverd
         | burgerservicenummer | groep  |
         | Jan                 | client |
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan' met datum '<inputDatumString>'
