@@ -100,14 +100,20 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' een abonnement voor de groep 'client' opzegt zonder een burgerservicenummer op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Burgerservicenummer is verplicht'
+      * 'title' met tekst 'burgerservicenummer is verplicht'
+      * heeft de response invalidParams met de volgende gegevens
+        | code     | name                | reason                           |
+        | required | burgerservicenummer | burgerservicenummer is verplicht |
 
     Scenario: De abonnee geeft een burgerservicenummer op van 8 cijfers (laat de voorloopnul weg)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon met burgerservicenummer '10755561' voor de groep 'client' opzegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Burgerservicenummer is ongeldig'
+      * 'title' met tekst 'burgerservicenummer is ongeldig'
+      * heeft de response invalidParams met de volgende gegevens
+        | code    | name                | reason                                                                                          |
+        | invalid | burgerservicenummer | burgerservicenummer moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP. |
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
     - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
@@ -120,10 +126,16 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' opzegt zonder een groep op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Groepnaam is verplicht'
+      * 'title' met tekst 'groep is verplicht'
+      * heeft de response invalidParams met de volgende gegevens
+        | code     | name  | reason             |
+        | required | groep | groep is verplicht |
 
     Scenario: De abonnee geeft een groepnaam met ongeldige
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep '!@#$%^&*=' opzegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Groepnaam is ongeldig'
+      * 'title' met tekst 'groep is ongeldig'
+      * heeft de response invalidParams met de volgende gegevens
+        | code    | name  | reason                                                                                                                                                                                                        |
+        | invalid | groep | groep voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 64 tekens, begint en eindigt niet met een koppelteken (-). |

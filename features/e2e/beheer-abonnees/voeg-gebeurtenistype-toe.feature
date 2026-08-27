@@ -31,7 +31,10 @@ Functionaliteit: Voeg gebeurtenistype toe aan groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.bestaat-niet' aan de groep 'client' toevoegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Gebeurtenistype ongeldig'
+      * 'title' met tekst 'gebeurtenistype is ongeldig'
+      * heeft de response invalidParams met de volgende gegevens
+        | code            | name            | reason                                   |
+        | Gebeurtenistype | gebeurtenistype | gebeurtenistype is geen Gebeurtenistype. |
 
     Abstract Scenario: Een afnemer voegt geldig gebeurtenistype '<gebeurtenistype>' toe
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd

@@ -1,8 +1,8 @@
 # language: nl
 Functionaliteit: Registreer een abonnee
-  Als afnemer van BRP API Gebeurtenissen
-  wil ik binnengemeentelijke taakapplicaties kunnen registreren als abonnee
-  zodat de taakapplicatie zelfstandig abonnementen kan beheren en gebeurtenissen op de eigen abonnementen kan opvragen
+Als afnemer van BRP API Gebeurtenissen
+wil ik binnengemeentelijke taakapplicaties kunnen registreren als abonnee
+zodat de taakapplicatie zelfstandig abonnementen kan beheren en gebeurtenissen op de eigen abonnementen kan opvragen
 
   Regel: Een afnemer kan een abonnee registreren
 
@@ -27,15 +27,18 @@ Functionaliteit: Registreer een abonnee
       Dan is de response '400 Bad Request'
 
   Regel: Een geldige abonneenaam voldoet aan de volgende criteria:
-    - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
-    - bevat geen dubbele koppeltekens achter elkaar (--)
-    - bevat minimaal 2 en maximaal 64 tekens
-    - begint en eindigt niet met een koppelteken (-)
+  - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+  - bevat geen dubbele koppeltekens achter elkaar (--)
+  - bevat minimaal 2 en maximaal 64 tekens
+  - begint en eindigt niet met een koppelteken (-)
 
     Abstract Scenario: De <titel>
       Als de afnemer 'Gemeente Amsterdam' de abonnee '<abonneeNaam>' registreert
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'Abonneenaam ongeldig'
+      * 'title' met tekst 'naam is ongeldig'
+      * heeft de response invalidParams met de volgende gegevens
+        | code    | name | reason                                                                                                                                                                                                   |
+        | invalid | naam | naam voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 10 tekens, begint en eindigt niet met een koppelteken (-). |
 
       Voorbeelden:
         | titel                                           | abonneeNaam                                                       |
@@ -48,6 +51,23 @@ Functionaliteit: Registreer een abonnee
         | abonneenaam bevat een ongeldig teken            | j_z                                                               |
         | abonneenaam is leeg                             |                                                                   |
         | abonneenaam bevat ongeldige tekens              | <script>alert("hello world");</script>                            |
+
+    Scenario: De abonneenaam is null
+      Als de afnemer 'Gemeente Amsterdam' de abonnee 'null' registreert
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'naam is verplicht'
+      * heeft de response invalidParams met de volgende gegevens
+        | code     | name | reason            |
+        | required | naam | naam is verplicht |
+
+    Scenario: De groepnaam is undefined
+      Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'undefined' toevoegt
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'naam is verplicht'
+      * heeft de response invalidParams met de volgende gegevens
+        | code     | name | reason            |
+        | required | naam | naam is verplicht |
 
   Regel: De abonneenaam is uniek binnen de context van een afnemer
 

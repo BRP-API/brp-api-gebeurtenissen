@@ -74,7 +74,7 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
         | code | name   | reason               |
-        | uuid | cursor | Waarde is geen uuid. |
+        | UUID | cursor | cursor is geen UUID. |
 
   Regel: Parameter 'cursor' moet een id zijn van een gebeurtenis waar de abonnee een abonnement op heeft
 
@@ -84,7 +84,7 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
         | code    | name   | reason                                 |
-        | unknown | cursor | Cursor is geen correcte abonnement id. |
+        | unknown | cursor | cursor is geen correcte abonnement id. |
 
   Regel: Parameter 'limit' moet een getal zijn tussen 1 en 10
 
@@ -98,6 +98,6 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
 
       Voorbeelden:
         | omschrijving     | waarde | code    | reason                           |
-        | is 0             | 0      | minimum | Waarde is lager dan minimum 1.   |
-        | is negatief      | -3     | minimum | Waarde is lager dan minimum 1.   |
-        | is hoger dan 100 | 101    | maximum | Waarde is hoger dan maximum 100. |
+        | is 0             | 0      | minimum | limit is lager dan minimum 1.   |
+        | is negatief      | -3     | minimum | limit is lager dan minimum 1.   |
+        | is hoger dan 100 | 101    | maximum | limit is hoger dan maximum 100. |
