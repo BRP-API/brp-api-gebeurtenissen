@@ -551,7 +551,8 @@ components:
     Limit:
       type: integer
       minimum: 1
-      maximum: 10
+      maximum: 100
+      default: 100
       description: Het aantal resources dat in één response wordt teruggegeven.
     Burgerservicenummer:
       type: string
@@ -834,8 +835,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Gebeurtenis'
-          minItems: 0
-          maxItems: 10
   responses:
     '400':
       description: Bad Request

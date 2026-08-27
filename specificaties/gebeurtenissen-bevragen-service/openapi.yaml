@@ -62,5 +62,3 @@ components:
           type: array
           items:
             $ref: '../brp-api/gebeurtenissen/gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
-          minItems: 0
-          maxItems: 10

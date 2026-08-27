@@ -1,5 +1,6 @@
 import {
   Before,
+  BeforeAll,
   BeforeStep,
   AfterStep,
   After,
@@ -26,10 +27,13 @@ import {ProblemDetails} from './support/problem-details.js';
 import {use} from 'chai';
 import chaiExclude from 'chai-exclude';
 
-Before(async function (this: ICustomWorld, {pickle}) {
-  this.init(pickle);
+BeforeAll(() => {
   use(chaiExclude);
   PostgresqlManager.setup(poolConfig);
+});
+
+Before(async function (this: ICustomWorld, {pickle}) {
+  this.init(pickle);
 
   logger.debug(`Scenario: ${pickle.name}. Start`);
 });
