@@ -92,8 +92,8 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
       En groep 'client' bij abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      Als gebeurtenissen worden gevraagd door abonnee 'szw' van afnemer 'Gemeente Amsterdam'
-      Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
+      En gebeurtenissen worden gevraagd door abonnee 'szw' van afnemer 'Gemeente Amsterdam'
+      En wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd

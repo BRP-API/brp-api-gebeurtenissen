@@ -13,13 +13,11 @@ import {
 } from './support/abonnement-api-helpers.js';
 import {
   createObjectArrayFrom,
-  createObjectArrayWithPersoonAanduidingenFrom,
   createObjectFrom,
 } from './support/dataTable2Object.js';
 import {expect} from 'chai';
 import {HttpStatusCode} from 'axios';
 import {Afnemer} from './brp/afnemer-entity.js';
-import {Persoon} from './brp/persoon-entity.js';
 import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
 
 Given(
@@ -515,7 +513,7 @@ Given(
 Given(
   'er een abonnement is op persoon {string} voor de groep {string} van de abonnee {string} van afnemer {string}',
   async function (
-    perssonAanduiding: string,
+    persoonAanduiding: string,
     groepNaam: string,
     abonneeNaam: string,
     afnemerAanduiding: string,
@@ -523,6 +521,11 @@ Given(
     const afnemer = await AfnemerFactory.create(
       this.context,
       afnemerAanduiding,
+    );
+
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
     );
 
     this.resultProducer = async () => {
@@ -533,7 +536,7 @@ Given(
 
     this.expected = {
       groep: groepNaam,
-      burgerservicenummer: '000000001',
+      burgerservicenummer: persoon.burger_service_nr,
     };
 
     await expectEventuallyWithRetry(
@@ -541,8 +544,6 @@ Given(
       async () => (await this.resultProducer()).body,
       result => {
         this.result = result;
-        console.log(JSON.stringify(this.result.abonnementen, null, 2));
-        console.log(JSON.stringify(this.expected, null, 2));
         expect(this.result.abonnementen)
           .excludingEvery('id')
           .to.deep.include(this.expected);
