@@ -10,11 +10,6 @@ When(
       afnemerAanduiding,
     );
 
-    this.result = await raadpleegGebeurtenissenVoorAbonnee(
-      afnemer,
-      abonneeNaam,
-    );
-
     this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam);
     const response = await this.resultProducer();
