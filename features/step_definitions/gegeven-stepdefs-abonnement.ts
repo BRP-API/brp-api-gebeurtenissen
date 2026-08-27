@@ -4,6 +4,7 @@ import {PersoonFactory} from './support/persoon-factory.js';
 import {
   abonneerPersoonOpGroep,
   deregistreerAbonneeVoorAfnemer,
+  raadpleegAbonnementen,
   registreerAbonneeVoorAfnemer,
   verwijderGebeurtenistypeUitGroep,
   verwijderGroepVanAbonnee,
@@ -12,11 +13,14 @@ import {
 } from './support/abonnement-api-helpers.js';
 import {
   createObjectArrayFrom,
+  createObjectArrayWithPersoonAanduidingenFrom,
   createObjectFrom,
 } from './support/dataTable2Object.js';
 import {expect} from 'chai';
 import {HttpStatusCode} from 'axios';
 import {Afnemer} from './brp/afnemer-entity.js';
+import {Persoon} from './brp/persoon-entity.js';
+import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
 
 Given(
   'de afnemer {string} heeft de abonnee {string} geregistreerd',
@@ -505,5 +509,46 @@ Given(
         );
       }
     }
+  },
+);
+
+Given(
+  'er een abonnement is op persoon {string} voor de groep {string} van de abonnee {string} van afnemer {string}',
+  async function (
+    perssonAanduiding: string,
+    groepNaam: string,
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+  ) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    this.resultProducer = async () => {
+      this.resultProducer = async () =>
+        await raadpleegAbonnementen(afnemer, abonneeNaam);
+    };
+    this.result = await this.resultProducer().body;
+
+    this.expected = {
+      groep: groepNaam,
+      burgerservicenummer: '000000001',
+    };
+
+    await expectEventuallyWithRetry(
+      this.result,
+      async () => (await this.resultProducer()).body,
+      result => {
+        this.result = result;
+        console.log(JSON.stringify(this.result.abonnementen, null, 2));
+        console.log(JSON.stringify(this.expected, null, 2));
+        expect(this.result.abonnementen)
+          .excludingEvery('id')
+          .to.deep.include(this.expected);
+      },
+    );
+
+    this.expected = null;
   },
 );
