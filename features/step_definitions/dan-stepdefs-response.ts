@@ -89,7 +89,6 @@ Then(
       async () => (await this.resultProducer()).body,
       result => {
         this.result = result;
-        console.log(this.result);
         expect(this.result[objectNaam])
           .excludingEvery('id')
           .to.deep.equal(
@@ -101,8 +100,15 @@ Then(
   },
 );
 
-Then('wordt er geen abonnement geleverd', function () {
-  expect(this.result.abonnementen).to.deep.equal([]);
+Then('wordt er geen abonnement geleverd', async function () {
+  await expectEventuallyWithRetry(
+    this.result,
+    async () => (await this.resultProducer()).body,
+    result => {
+      this.result = result;
+      expect(this.result.abonnementen).to.deep.equal([]);
+    },
+  );
   this.expected = null;
 });
 
