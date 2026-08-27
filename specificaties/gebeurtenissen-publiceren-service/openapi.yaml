@@ -2,17 +2,18 @@ openapi: 3.1.2
 info:
   title: Gebeurtenissen Publiceren API specificatie
   version: 1.0.0
-servers: 
+servers:
   - url: http://localhost:8080
     description: development server
 paths:
   /personen/gebeurtenissen:
-    post: 
+    post:
       operationId: PubliceerGebeurtenis
-      tags: 
+      tags:
         -  Gebeurtenissen
       summary: Publiceer een persoon gebeurtenis
-      requestBody: 
+      requestBody:
+        required: true
         content:
           application/json:
             schema:

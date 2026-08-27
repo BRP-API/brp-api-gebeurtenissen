@@ -13,6 +13,7 @@ paths:
         - Gebeurtenissen
       summary: Publiceer een persoon gebeurtenis
       requestBody:
+        required: true
         content:
           application/json:
             schema:
