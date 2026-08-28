@@ -69,13 +69,28 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
-env:
+# Voor de onderstaande config word een configmap gegenereerd
+# die vervolgens gekoppeld word aan de environment van de 
+# container
+config:
   AXON_AXONSERVER_SERVERS: "axon"
   SPRING_DATASOURCE_URL: "jdbc:postgresql://brpv-db:5432/rvig_haalcentraal_testdata"
   SPRING_DATASOURCE_USERNAME: "root"
-  SPRING_DATASOURCE_PASSWORD: "root"
   PROJECTIONS_DATASOURCE_URL: "jdbc:postgresql://projecties-db:5432/rvig_brpapi_projecties"
   PROJECTIONS_DATASOURCE_USERNAME: "root"
-  PROJECTIONS_DATASOURCE_PASSWORD: "root"
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: "http://keycloak:8080/realms/brp-api"
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: "http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs"
+
+
+# Het secret kan gekppeld worden aan een bestaand secret dat 
+# vervolgens aan de omgeving van de container gekppeld word. 
+# In het secret staan alle gegevens die niet plain-text in 
+# een git repo terecht mogen komen zoals:
+#
+# SPRING_DATASOURCE_PASSWORD: "root"
+# PROJECTIONS_DATASOURCE_PASSWORD: "root"
+#
+secret:
+  enabled: false
+  existingSecretName: "gebeurtenissen"
+

@@ -39,11 +39,13 @@ spec:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
-          env:
-            {{- range $name, $value := .Values.env }}
-            - name: {{ $name }}
-              value: {{ $value | quote }}
-            {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "gebeurtenissen.fullname" . }}
+          {{- if .Values.secret.enabled }}
+            - secretRef:
+                name: {{ .Values.secret.existingSecretName }}
+          {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
