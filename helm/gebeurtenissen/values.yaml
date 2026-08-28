@@ -69,9 +69,8 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
-# Voor de onderstaande config word een configmap gegenereerd
-# die vervolgens gekoppeld word aan de environment van de 
-# container
+# Voor de onderstaande config wordt een ConfigMap gegenereerd
+# die vervolgens aan de environment van de container wordt gekoppeld.
 config:
   AXON_AXONSERVER_SERVERS: "axon"
   SPRING_DATASOURCE_URL: "jdbc:postgresql://brpv-db:5432/rvig_haalcentraal_testdata"
