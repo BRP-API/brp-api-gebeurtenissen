@@ -81,8 +81,8 @@ config:
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: "http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs"
 
 
-# Het secret kan gekppeld worden aan een bestaand secret dat 
-# vervolgens aan de omgeving van de container gekppeld word. 
+# Het secret kan aan een bestaand secret worden gekoppeld dat 
+# vervolgens aan de omgeving van de container wordt gekoppeld.
 # In het secret staan alle gegevens die niet plain-text in 
 # een git repo terecht mogen komen zoals:
 #
