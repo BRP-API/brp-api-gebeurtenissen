@@ -12,11 +12,14 @@
  *   node scripts/setup-keycloak-client.mjs --client-id 'gemeente amsterdam' --gemeente-code 0363
  */
 
-import { Afnemer } from '../features/step_definitions/brp/afnemer-entity.js';
-import { randomInt } from 'node:crypto';
-import { PostgresqlManager } from '../features/step_definitions/support/postgresql-manager.js';
-import { poolConfig } from '../features/step_definitions/support/postgresql-config.js';
-import { setupClient, getClientAccessToken } from '../features/step_definitions/support/oauth-helpers.js';
+import {Afnemer} from '../features/step_definitions/brp/afnemer-entity.js';
+import {randomInt} from 'node:crypto';
+import {PostgresqlManager} from '../features/step_definitions/support/postgresql-manager.js';
+import {poolConfig} from '../features/step_definitions/support/postgresql-config.js';
+import {
+  setupClient,
+  getClientAccessToken,
+} from '../features/step_definitions/support/oauth-helpers.js';
 import {createAutorisatie} from '../features/step_definitions/support/repository.js';
 
 interface ParsedArgs {
@@ -106,13 +109,25 @@ async function main(): Promise<void> {
     const args = parseArgs(process.argv.slice(2));
 
     if (!args.clientId) {
-      console.error("Fout: clientId moet worden opgegeven.");
-      console.error("Gebruik: node scripts/setup-keycloak-client.mjs [--client-id <clientId>] [--gemeente-code <gemeenteCode>]");
-      console.error("Voorbeeld: node scripts/setup-keycloak-client.mjs --client-id 'burgerzaken'");
-      console.error("Voorbeeld: node scripts/setup-keycloak-client.mjs --client-id 'gemeente amsterdam' --gemeente-code 0363");
-      console.error("of Gebruik (legacy): node scripts/setup-keycloak-client.mjs <clientId> [gemeenteCode]");
-      console.error("Voorbeeld (legacy): node scripts/setup-keycloak-client.mjs 'burgerzaken'");
-      console.error("Voorbeeld (legacy): node scripts/setup-keycloak-client.mjs 'gemeente amsterdam' 0363");
+      console.error('Fout: clientId moet worden opgegeven.');
+      console.error(
+        'Gebruik: node scripts/setup-keycloak-client.mjs [--client-id <clientId>] [--gemeente-code <gemeenteCode>]',
+      );
+      console.error(
+        "Voorbeeld: node scripts/setup-keycloak-client.mjs --client-id 'burgerzaken'",
+      );
+      console.error(
+        "Voorbeeld: node scripts/setup-keycloak-client.mjs --client-id 'gemeente amsterdam' --gemeente-code 0363",
+      );
+      console.error(
+        'of Gebruik (legacy): node scripts/setup-keycloak-client.mjs <clientId> [gemeenteCode]',
+      );
+      console.error(
+        "Voorbeeld (legacy): node scripts/setup-keycloak-client.mjs 'burgerzaken'",
+      );
+      console.error(
+        "Voorbeeld (legacy): node scripts/setup-keycloak-client.mjs 'gemeente amsterdam' 0363",
+      );
       process.exit(1);
     }
 
