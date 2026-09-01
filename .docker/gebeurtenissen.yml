@@ -1,6 +1,6 @@
 services:
   gebeurtenissen:
-    image: ghcr.io/brp-api/brp-api-gebeurtenissen:0.0.1-20260827120327
+    image: ghcr.io/brp-api/brp-api-gebeurtenissen:0.0.1-20260901095945
     container_name: gebeurtenissen
     depends_on:
       axon-server:
@@ -22,6 +22,7 @@ services:
       - SPRING_PROFILES_ACTIVE=compose
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/realms/brp-api
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI=http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs
+      - MANAGEMENT_GEBEURTENISSEN_ENABLED=true
     networks:
       - brp-api-network
 

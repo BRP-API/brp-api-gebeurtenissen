@@ -112,6 +112,11 @@ Then('wordt er geen abonnement geleverd', async function () {
   this.expected = null;
 });
 
+Then('worden {int} abonnementen geleverd', function (aantal: number) {
+  expect(this.result.abonnementen.length).to.equal(aantal);
+  this.expected = null;
+});
+
 Then('worden volgende gebeurtenistypes geleverd', function (dataTable) {
   this.expected = {
     gebeurtenistypes: createArrayFrom(dataTable),

@@ -1,5 +1,6 @@
 import {
   Before,
+  BeforeAll,
   BeforeStep,
   AfterStep,
   After,
@@ -25,11 +26,17 @@ import {Afnemer} from './brp/afnemer-entity.js';
 import {ProblemDetails} from './support/problem-details.js';
 import {use} from 'chai';
 import chaiExclude from 'chai-exclude';
+import {ProcessedGebeurtenisManager} from './support/proccessed-gebeurteniss-manager.js';
+
+BeforeAll(() => {
+  use(chaiExclude);
+  PostgresqlManager.setup(poolConfig);
+});
 
 Before(async function (this: ICustomWorld, {pickle}) {
   this.init(pickle);
-  use(chaiExclude);
-  PostgresqlManager.setup(poolConfig);
+
+  await ProcessedGebeurtenisManager.getInstance().reset();
 
   logger.debug(`Scenario: ${pickle.name}. Start`);
 });
