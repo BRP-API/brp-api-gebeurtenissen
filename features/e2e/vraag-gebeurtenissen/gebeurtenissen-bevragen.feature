@@ -71,8 +71,6 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
       En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
       En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
-      En er een abonnement is op persoon 'Jan' voor de groep 'client' van de abonnee 'szw' van afnemer 'Gemeente Amsterdam'
-      En er een abonnement is op persoon 'Jan' voor de groep 'client' van de abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
       Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
@@ -91,11 +89,7 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
 
     Scenario: De gebeurtenis heeft plaatsgevonden vóór het abonnement werd gezet
       Gegeven groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
-      En groep 'client' bij abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk'
-      En de abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       En er is een 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor persoon 'Jan'
-      En gebeurtenissen worden gevraagd door abonnee 'szw' van afnemer 'Gemeente Amsterdam'
-      En wordt de 'nl.brp.verhuisd.intergemeentelijk' gebeurtenis van 'Jan' geleverd
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
       Dan wordt er geen gebeurtenis geleverd

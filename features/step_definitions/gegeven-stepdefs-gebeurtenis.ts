@@ -12,6 +12,7 @@ import {
 import {AfnemerFactory} from './support/afnemer-factory.js';
 import {expect} from 'chai';
 import {HttpStatusCode} from 'axios';
+import {ProcessedGebeurtenisManager} from './support/proccessed-gebeurteniss-manager.js';
 
 Given(
   'er is een {string} gebeurtenis gepubliceerd voor persoon {string}',
@@ -27,6 +28,10 @@ Given(
       this.context.gebeurtenissen = {};
     }
     this.context.gebeurtenissen[persoonAanduiding] = this.result.body;
+
+    await ProcessedGebeurtenisManager.getInstance().awaitGebeurtenissenProcessed(
+      this.result.body.gebeurtenisId,
+    );
   },
 );
 

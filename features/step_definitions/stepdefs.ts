@@ -26,6 +26,7 @@ import {Afnemer} from './brp/afnemer-entity.js';
 import {ProblemDetails} from './support/problem-details.js';
 import {use} from 'chai';
 import chaiExclude from 'chai-exclude';
+import {ProcessedGebeurtenisManager} from './support/proccessed-gebeurteniss-manager.js';
 
 BeforeAll(() => {
   use(chaiExclude);
@@ -34,6 +35,8 @@ BeforeAll(() => {
 
 Before(async function (this: ICustomWorld, {pickle}) {
   this.init(pickle);
+
+  await ProcessedGebeurtenisManager.getInstance().reset();
 
   logger.debug(`Scenario: ${pickle.name}. Start`);
 });
