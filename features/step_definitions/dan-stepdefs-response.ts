@@ -112,8 +112,15 @@ Then('wordt er geen abonnement geleverd', async function () {
   this.expected = null;
 });
 
-Then('worden {int} abonnementen geleverd', function (aantal: number) {
-  expect(this.result.abonnementen.length).to.equal(aantal);
+Then('worden {int} abonnementen geleverd', async function (aantal: number) {
+  await expectEventuallyWithRetry(
+    this.result,
+    async () => (await this.resultProducer()).body,
+    result => {
+      this.result = result;
+      expect(this.result.abonnementen.length).to.equal(aantal);
+    },
+  );
   this.expected = null;
 });
 
