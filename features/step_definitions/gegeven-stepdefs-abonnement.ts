@@ -229,6 +229,22 @@ Given(
       HttpStatusCode.Created,
       'http statuscode is niet correct',
     );
+    const resultProducer = async () =>
+      await raadpleegAbonnementen(afnemer, abonneeNaam);
+
+    await expectEventuallyWithRetry(
+      await resultProducer(),
+      resultProducer,
+      result =>
+        expect(result.body.abonnementen).satisfies(
+          (abonnementen: {groep: string; burgerservicenummer: string}[]) =>
+            abonnementen.some(
+              abonnement =>
+                abonnement.groep === groepNaam &&
+                abonnement.burgerservicenummer === persoon.burger_service_nr,
+            ),
+        ),
+    );
   },
 );
 
