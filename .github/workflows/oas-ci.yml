@@ -1,12 +1,14 @@
 name: OpenAPI Specification CI
 
 on:
-  pull_request:
   push:
     branches:
-      - main
+      - "**"
     paths:
       - "specificaties/**"
+      - ".github/workflows/oas-ci.yml"
+      - "scripts/oas-*.sh"
+  workflow_dispatch:
 
 jobs:
   validate:
@@ -48,7 +50,6 @@ jobs:
           ./scripts/oas-lint-resolved.sh
 
       - name: Commit resolved OpenAPI specifications
-        if: github.event_name == 'push'
         run: |
           if [[ -n $(git status specificaties/**/resolved/*.yaml --porcelain) ]]; then
             git config user.name "$GITHUB_ACTOR"
