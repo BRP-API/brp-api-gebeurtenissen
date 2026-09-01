@@ -3,7 +3,7 @@ info:
   title: Gebeurtenissen Publiceren API specificatie
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
+  - url: http://internal:8080
     description: development server
 paths:
   /personen/gebeurtenissen:
@@ -29,3 +29,10 @@ paths:
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - none: []
+components:
+  securitySchemes:
+    none:
+      type: http
+      scheme: none
