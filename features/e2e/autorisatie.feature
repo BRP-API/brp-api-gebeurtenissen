@@ -33,7 +33,7 @@ Functionaliteit: Alleen gemeenten als afnemer mogen de Gebeurtenissen API gebrui
       * 'title' met tekst 'Niet geautoriseerd'
       * 'detail' met tekst 'Alleen gemeenten mogen de BRP Gebeurtenissen API gebruiken.'
 
-    Scenario: Een afnemer probeert een abonnee te registreren met een zonder naam
+    Scenario: Een afnemer probeert een abonnee te registreren zonder een abonneenaam op te geven
       Gegeven de geauthenticeerde consumer 'Waterschap Rijnland' is geen gemeente
       Als de afnemer 'Waterschap Rijnland' een abonnee registreert zonder een naam voor de abonnee op te geven
       Dan is de response '403 Unauthorized' met de volgende velden
