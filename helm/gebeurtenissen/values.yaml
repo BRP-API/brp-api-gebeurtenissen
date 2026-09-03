@@ -22,6 +22,8 @@ podLabels: {}
 podSecurityContext: {}
 securityContext: {}
 
+hostAliases: []
+
 service:
   type: ClusterIP
   port: 8888
