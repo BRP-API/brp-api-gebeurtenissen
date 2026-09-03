@@ -1,0 +1,25 @@
+openapi: 3.1.2
+info:
+  title: 409 Conflict Response type definitie
+  description: |
+    Definitie voor Conflict Response, voor het leveren van de 'request conflicteert met de huidige state van de server' foutmelding 
+  version: 1.0.0
+  contact: {}
+components:
+  responses:
+    '409':
+      description: Conflict
+      headers:
+        API-Version:
+          $ref: '../headers/api-version-v1.yaml#/components/headers/ApiVersion'
+      content:
+        application/problem+json:
+          schema:
+            $ref: 'fout-bericht-v1.yaml#/components/schemas/Foutbericht'
+          example:
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-409-conflict
+            title: Conflict
+            status: 409
+            detail: The request could not be completed due to a conflict with the current state of the resource
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: conflict

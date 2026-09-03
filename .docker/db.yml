@@ -1,0 +1,42 @@
+services:
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@haalcentraal.nl
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "5433:80"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - brp-api-network
+      
+  postgres:
+    container_name: db
+    image: postgres:17.7-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - ./scripts/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./scripts/projecties-db/schema.sql:/docker-entrypoint-initdb.d/projecties-schema.sql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U root"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    ports:
+      - "5432:5432"
+    networks:
+      - brp-api-network
+  
+networks:
+  brp-api-network:
+    name: brp-api-network

@@ -1,0 +1,16 @@
+openapi: 3.1.2
+info: 
+  title: Raadpleeg gebeurtenistypes response definitie
+  version: 1.0.0
+components: 
+  schemas:
+    RaadpleegGebeurtenistypesResponse:
+      type: object
+      properties:
+        gebeurtenistypes:
+          type: array
+          items:
+            $ref: './gebeurtenis-type-van-persoon-enum-v1.yaml#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+          description: Lijst van gebeurtenistypes in de groep
+      required:
+        - gebeurtenistypes

@@ -1,0 +1,45 @@
+openapi: 3.1.2
+info:
+  title: Gebeurtenis Abonnementen & Bevragen API Specificatie
+  version: 1.0.0
+  contact:
+    name: RvIG servicedesk
+    url: https://developer.rvig.nl/brp-api/contact/
+    email: info@rvig.nl
+servers:
+  - url: https://probeerbrpapi.rvig.nl/api/brp
+    description: BRP APIs probeeromgeving
+paths:
+  /abonnees:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees'
+
+  /abonnees/{abonneeNaam}:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}'
+  
+  /abonnees/{abonneeNaam}/groepen:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen'
+
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen~1{groepNaam}'
+
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}/gebeurtenistypes:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen~1{groepNaam}~1gebeurtenistypes'
+
+  /abonnees/{abonneeNaam}/groepen/{groepNaam}/gebeurtenistypes/{gebeurtenistype}:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1groepen~1{groepNaam}~1gebeurtenistypes~1{gebeurtenistype}'
+
+  /abonnees/{abonneeNaam}/abonnementen:
+    $ref: '../abonnementen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1abonnementen'
+
+  /abonnees/{abonneeNaam}/gebeurtenissen:
+    $ref: '../gebeurtenissen-bevragen-service/openapi.yaml#/paths/~1abonnees~1{abonneeNaam}~1gebeurtenissen'
+
+
+components:
+  securitySchemes:
+    clientCredentials:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
+          scopes: {}

@@ -1,0 +1,31 @@
+services:
+  gebeurtenissen:
+    image: ghcr.io/brp-api/brp-api-gebeurtenissen:0.0.1-20260901095945
+    container_name: gebeurtenissen
+    depends_on:
+      axon-server:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy
+    ports:
+      - "8002:8080"
+    environment:
+      - AXON_AXONSERVER_SERVERS=axon
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/rvig_haalcentraal_testdata
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - PROJECTIONS_DATASOURCE_URL=jdbc:postgresql://db:5432/rvig_brpapi_projecties
+      - PROJECTIONS_DATASOURCE_USERNAME=root
+      - PROJECTIONS_DATASOURCE_PASSWORD=root
+      - SPRING_PROFILES_ACTIVE=compose
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/realms/brp-api
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI=http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs
+      - MANAGEMENT_GEBEURTENISSEN_ENABLED=true
+    networks:
+      - brp-api-network
+
+networks:
+  brp-api-network:
+    name: brp-api-network
