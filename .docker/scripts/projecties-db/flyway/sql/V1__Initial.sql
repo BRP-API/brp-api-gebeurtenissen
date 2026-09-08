@@ -53,3 +53,9 @@ create table public.gebeurtenissen
 alter table public.gebeurtenissen
 	owner to brp_gebeurtenissen_eigenaar;
 create index gebeurtenissen_abonnee_id_timestamp on public.gebeurtenissen (abonnee_id, timestamp);
+
+CREATE SEQUENCE public.abonnementen_sequence;
+ALTER SEQUENCE public.abonnementen_sequence OWNER TO brp_gebeurtenissen_eigenaar;
+
+CREATE SEQUENCE public.gebeurtenissen_sequence;
+ALTER SEQUENCE public.gebeurtenissen_sequence OWNER TO brp_gebeurtenissen_eigenaar;
