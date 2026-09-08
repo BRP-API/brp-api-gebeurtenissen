@@ -6,9 +6,10 @@ eventmodeling
 tf 01 ui MutatieService
 tf 02 cmd RegistreerAdres [[RegistreerAdres]]
 tf 03 evt AdresGeregistreerd [[AdresGeregistreerd]]
-tf 04 rmo AdressenOverzicht
-tf 05 ui MutatieService
-tf 06 rmo lo3_adres ->> 03 [[lo3_adres]]
+tf 04 rmo lo3_adres ->> 03 [[lo3_adres]]
+
+tf 05 rmo GeregistreerdeAdressen
+tf 06 ui MutatieService
 
 data RegistreerAdres {
     afnemerid: string (access token)
@@ -22,8 +23,8 @@ data AdresGeregistreerd {
 }
 
 data lo3_adres {
-    gemeente_code: smallint (gemeentecode)
-    verblijf_plaats_ident_code: string (adresseerbaarObjectIdentificatie)
-    created_dt: timestamp (createdAt)
+    gemeente_code: gemeentecode
+    verblijf_plaats_ident_code: adresseerbaarObjectIdentificatie
+    created_dt: createdAt
 }
 ```
