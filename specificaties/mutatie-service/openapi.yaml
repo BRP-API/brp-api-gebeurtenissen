@@ -185,9 +185,13 @@ components:
         - $ref: '#/components/schemas/AdresGemuteerdResponse'
         - type: object
           properties:
+            adresId:
+              type: integer
+              format: int64
             adresseerbaarObjectIdentificatie:
               $ref: '../brp/adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatie'
           required:
+            - adresId
             - adresseerbaarObjectIdentificatie
 
   securitySchemes:
