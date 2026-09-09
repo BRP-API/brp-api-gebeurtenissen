@@ -175,9 +175,13 @@ components:
         - $ref: '#/components/schemas/AdresGemuteerdResponse'
         - type: object
           properties:
+            adresId:
+              type: integer
+              format: int64
             adresseerbaarObjectIdentificatie:
               $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
           required:
+            - adresId
             - adresseerbaarObjectIdentificatie
     AdresseerbaarObjectIdentificatie:
       type: string
