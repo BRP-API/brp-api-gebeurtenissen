@@ -1,0 +1,10 @@
+openapi: 3.1.2
+info: 
+  title: Cursor type definitie
+  version: 1.0.0
+components: 
+  schemas:
+    Cursor:
+      type: string
+      format: uuid
+      description: Identifier van een resource

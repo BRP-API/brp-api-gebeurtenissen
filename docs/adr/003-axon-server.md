@@ -1,4 +1,4 @@
-# ADR 002: BRP API Gebeurtenissen gebruikt Axon Server als Event Store en Event Bus/Message Broker
+# ADR 003: BRP API Gebeurtenissen gebruikt Axon Server als Event Store en Event Bus/Message Broker
 
 ## Status
 Voorstel
@@ -13,7 +13,7 @@ BRP API Bewoning is ook een sub-systeem dat zou kunnen worden verbeterd wanneer 
 
 En wanneer alle wijzigingen in de BRP registratie worden vastgelegd als gebeurtenissen, dan kan voor elke persoon in de registratie zijn actuele gegevens op een moment in tijd worden bepaald door alle gebeurtenissen van de betreffende persoon tot op dat moment in tijd af te spelen.
 
-Een architectuur stijl die kan worden toegepast voor bovenstaande requirements is Event Driven Architecture (EDA). Ook heeft het toepassen van EDA als essentieel voordeel dat wijzigingen aan het EDA systeem zonder impact kan plaatsvinden. Nieuwe gebeurtenis typen kunnen worden gepubliceerd zonder aanpassingen aan bestaande abonnees en nieuwe abonnees kunnen zonder performance impact worden gekoppeld aan het EDA systeem. 
+Een architectuur stijl die kan worden toegepast voor bovenstaande requirements is Event Driven Architecture (EDA). Ook heeft het toepassen van EDA als essentieel voordeel dat wijzigingen aan het EDA systeem zonder impact kunnen plaatsvinden. Nieuwe gebeurtenistypen kunnen worden gepubliceerd zonder aanpassingen aan bestaande abonnees en nieuwe abonnees kunnen zonder performance impact worden gekoppeld aan het EDA systeem. 
 
 ## Beslissingen
 

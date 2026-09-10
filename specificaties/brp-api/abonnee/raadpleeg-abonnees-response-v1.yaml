@@ -1,0 +1,16 @@
+openapi: 3.1.2
+info: 
+  title: Raadpleeg abonnees response definitie
+  version: 1.0.0
+components: 
+  schemas:
+    RaadpleegAbonneesResponse:
+      type: object
+      properties:
+        abonnees:
+          type: array
+          items:
+            $ref: './abonnee-v1.yaml#/components/schemas/Abonnee'
+          description: Lijst van abonnees van de afnemer
+      required:
+        - abonnees

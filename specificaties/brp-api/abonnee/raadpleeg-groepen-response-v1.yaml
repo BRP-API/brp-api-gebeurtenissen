@@ -1,0 +1,16 @@
+openapi: 3.1.2
+info: 
+  title: Raadpleeg groepen response definitie
+  version: 1.0.0
+components: 
+  schemas:
+    RaadpleegGroepenResponse:
+      type: object
+      properties:
+        groepen:
+          type: array
+          items:
+            $ref: './abonnee-v1.yaml#/components/schemas/Groep'
+          description: Lijst van groepen van de abonnee
+      required:
+        - groepen

@@ -1,0 +1,23 @@
+openapi: 3.1.2
+info:
+  title: gebeurtenis publiceren response specificatie
+  description: |
+    Definitie voor de response van het publiceren van een gebeurtenis.
+  version: 1.0.0
+components:
+  schemas:
+    GebeurtenisPublicerenResponse:
+      description: |
+        Response object voor een succesvol gepubliceerde gebeurtenis.
+      type: object
+      required:
+        - gebeurtenisId
+      properties:
+        gebeurtenisId:
+          $ref: '../cloud-events/cloud-events-v1.0.2.yaml#/components/schemas/iddef'
+          description: |
+            Unieke identifier voor de gepubliceerde gebeurtenis.
+        metadata:
+          $ref: '../brp/gebeurtenissen/metadata-v1.yaml#/components/schemas/Metadata'
+          description: |
+            metadata meegestuurd met de gepubliceerde gebeurtenis.
