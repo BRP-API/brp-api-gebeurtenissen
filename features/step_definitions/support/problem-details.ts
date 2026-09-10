@@ -38,7 +38,7 @@ export class ProblemDetails {
 
     switch (statuscode) {
       case 400:
-        return new BadRequestProblemDetails();
+        return new BadRequestProblemDetails("", "", "", []);
       case 401:
         return new UnauthorizedProblemDetails();
       case 403:
@@ -51,10 +51,32 @@ export class ProblemDetails {
         return null;
     }
   }
+
+  static createBadRequestProblemDetails(
+    title: string,
+    detail: string,
+    instance: string,
+    invalidParams: InvalidParam[],
+  ): BadRequestProblemDetails {
+    return new BadRequestProblemDetails(title, detail, instance, invalidParams);
+  }
+}
+
+export class InvalidParam {
+  code: string;
+  name: string;
+  reason: string;
+
+  constructor(code: string, name: string, reason: string) {
+    this.code = code;
+    this.name = name;
+    this.reason = reason;
+  }
 }
 
 class BadRequestProblemDetails extends ProblemDetails {
-  constructor(title?: string, detail?: string, instance?: string) {
+  invalidParams: InvalidParam[];
+  constructor(title: string, detail: string, instance: string, invalidParams: InvalidParam[]) {
     super(
       'https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request',
       400,
@@ -62,6 +84,7 @@ class BadRequestProblemDetails extends ProblemDetails {
       detail,
       instance,
     );
+    this.invalidParams = invalidParams;
   }
 }
 
