@@ -17,8 +17,8 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - PROJECTIONS_DATASOURCE_URL=jdbc:postgresql://db:5432/rvig_brpapi_projecties
-      - PROJECTIONS_DATASOURCE_USERNAME=root
-      - PROJECTIONS_DATASOURCE_PASSWORD=root
+      - PROJECTIONS_DATASOURCE_USERNAME=brp_gebeurtenissen_eigenaar
+      - PROJECTIONS_DATASOURCE_PASSWORD=riot-antihero-moustache
       - AXON_SERVER_HOST=axon
     networks:
       - brp-api-network

@@ -1,4 +1,15 @@
 services:
+  flyway:
+    image: flyway/flyway
+    command: migrate -connectRetries=5
+    volumes:
+      - ./scripts/projecties-db/flyway/conf:/flyway/conf
+      - ./scripts/projecties-db/flyway/sql:/flyway/sql
+    depends_on:
+      - postgres
+    networks:
+      - brp-api-network
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:latest
@@ -22,7 +33,7 @@ services:
       - POSTGRES_PASSWORD=root
     volumes:
       - ./scripts/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-      - ./scripts/projecties-db/schema.sql:/docker-entrypoint-initdb.d/projecties-schema.sql
+      - ./scripts/projecties-db/init-user-db.sql:/docker-entrypoint-initdb.d/init-user-db.sql
     healthcheck:
       test:
         [

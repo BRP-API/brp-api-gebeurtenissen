@@ -1,0 +1,7 @@
+[environments.development]
+url = "jdbc:postgresql://postgres:5432/rvig_brpapi_projecties"
+user = "brp_gebeurtenissen_eigenaar"
+password = "riot-antihero-moustache"
+
+[flyway]
+environment = "development"

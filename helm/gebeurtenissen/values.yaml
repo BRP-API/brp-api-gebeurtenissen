@@ -78,14 +78,14 @@ config:
   SPRING_DATASOURCE_URL: "jdbc:postgresql://brpv-db:5432/rvig_haalcentraal_testdata"
   SPRING_DATASOURCE_USERNAME: "root"
   PROJECTIONS_DATASOURCE_URL: "jdbc:postgresql://projecties-db:5432/rvig_brpapi_projecties"
-  PROJECTIONS_DATASOURCE_USERNAME: "root"
+  PROJECTIONS_DATASOURCE_USERNAME: "brp_gebeurtenissen_eigenaar"
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: "http://keycloak:8080/realms/brp-api"
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: "http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs"
 
 
-# Het secret kan aan een bestaand secret worden gekoppeld dat 
+# Het secret kan aan een bestaand secret worden gekoppeld dat
 # vervolgens aan de omgeving van de container wordt gekoppeld.
-# In het secret staan alle gegevens die niet plain-text in 
+# In het secret staan alle gegevens die niet plain-text in
 # een git repo terecht mogen komen zoals:
 #
 # SPRING_DATASOURCE_PASSWORD: "root"
