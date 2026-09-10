@@ -2,68 +2,48 @@ import {Then} from '@cucumber/cucumber';
 import {createSelectStatement} from './support/sql-statements-factory.js';
 import {PostgresqlManager} from './support/postgresql-manager.js';
 import {logger} from './support/logger.js';
+import {ProblemDetails, InvalidParam} from './support/problem-details.js';
 import {expect} from 'chai';
+
+const adressenEndpoint = '/api/brp/adressen';
+
+function createinValidParamsBadRequest(invalidParams: InvalidParam[]) {
+  return ProblemDetails.createBadRequestProblemDetails(
+    'Een of meerdere parameters zijn niet correct.',
+    `De foutieve parameter(s) zijn: ${invalidParams.map(p => p.name).join(', ')}.`,
+    adressenEndpoint,
+    invalidParams,
+  );
+}
 
 Then(
   'is de response een problemdetails met de melding dat de gemeentecode verplicht is',
   function () {
-    this.expected = {
-      type: 'https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request',
-      title: 'Een of meerdere parameters zijn niet correct.',
-      status: 400,
-      detail: 'De foutieve parameter(s) zijn: gemeentecode.',
-      code: 'paramsValidation',
-      instance: '/api/brp/adressen',
-      invalidParams: [
-        {
-          code: 'required',
-          name: 'gemeentecode',
-          reason: 'Parameter is verplicht.',
-        },
-      ],
-    };
+    this.expected = createinValidParamsBadRequest([
+      new InvalidParam('required', 'gemeentecode', 'Parameter is verplicht.'),
+    ]);
   },
 );
 
 Then(
   'is de response een problemdetails response met een invalidParams object met de melding dat de gemeentecode niet bestaat',
   function () {
-    this.expected = {
-      type: 'https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request',
-      title: 'Een of meerdere parameters zijn niet correct.',
-      status: 400,
-      detail: 'De foutieve parameter(s) zijn: gemeentecode.',
-      code: 'paramsValidation',
-      instance: '/api/brp/adressen',
-      invalidParams: [
-        {
-          code: 'notFound',
-          name: 'gemeentecode',
-          reason: 'Gemeente bestaat niet.',
-        },
-      ],
-    };
+    this.expected = createinValidParamsBadRequest([
+      new InvalidParam('notFound', 'gemeentecode', 'Gemeente bestaat niet.'),
+    ]);
   },
 );
 
 Then(
   'is de response een problemdetails response met de melding dat de gemeentecode ongeldig is',
   function () {
-    this.expected = {
-      type: 'https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request',
-      title: 'Een of meerdere parameters zijn niet correct.',
-      status: 400,
-      detail: 'De foutieve parameter(s) zijn: gemeentecode.',
-      code: 'paramsValidation',
-      instance: '/api/brp/adressen',
-      invalidParams: [
-        {
-          code: 'pattern',
-          name: 'gemeentecode',
-          reason: String.raw`Waarde voldoet niet aan patroon ^\d{4}$.`,
-        },
-      ],
-    };
+    this.expected = createinValidParamsBadRequest([
+      new InvalidParam(
+        'pattern',
+        'gemeentecode',
+        String.raw`Waarde voldoet niet aan patroon ^\d{4}$.`,
+      ),
+    ]);
   },
 );
 
