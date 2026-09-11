@@ -29,10 +29,13 @@ export async function raadpleegGebeurtenissenVoorAbonnee(
       uriParams.push(`cursor=${deGebeurtenis.id}`);
     } else {
       logger.warn(
-        `Geen gebeurtenis gevonden met burgerservicenummer ${persoon.burger_service_nr}`,
+        `Geen gebeurtenis gevonden van persoon ${persoon.geslachts_naam} met burgerservicenummer ${persoon.burger_service_nr}`,
         alleGebeurtenissen,
       );
-      return false;
+      return {
+        redenMislukt: `Geen gebeurtenis gevonden van ${persoon.geslachts_naam}`,
+        statusCode: -1,
+      };
     }
   }
 

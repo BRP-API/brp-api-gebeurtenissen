@@ -14,10 +14,23 @@ import {
 } from './support/abonnement-api-helpers.js';
 import {AfnemerFactory} from './support/afnemer-factory.js';
 import {PersoonFactory} from './support/persoon-factory.js';
-//import {Persoon} from './brp/persoon-entity.js';
 
 When(
   'de afnemer {string} de abonnee {string} registreert',
+  async function (afnemerAanduiding: string, abonneeNaam: string) {
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de afnemer {string} een abonnee registreert zonder body',
   async function (afnemerAanduiding: string, abonneeNaam: string) {
     const afnemer = await AfnemerFactory.create(
       this.context,

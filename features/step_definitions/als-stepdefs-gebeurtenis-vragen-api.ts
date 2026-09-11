@@ -1,6 +1,7 @@
 import {When} from '@cucumber/cucumber';
 import {raadpleegGebeurtenissenVoorAbonnee} from './support/gebeurtenissen-api-helpers.js';
 import {AfnemerFactory} from './support/afnemer-factory.js';
+import {expect} from 'chai';
 
 When(
   'gebeurtenissen worden gevraagd door abonnee {string} van afnemer {string}',
@@ -12,7 +13,10 @@ When(
 
     this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam);
+
     const response = await this.resultProducer();
+
+    expect(response).to.not.have.property('redenMislukt');
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -29,16 +33,20 @@ When(
       this.context,
       afnemerAanduiding,
     );
-    const persoon = this.context.personen[persoonAanduiding];
+
+    const gebeurtenisIdVanPersoon =
+      this.context.gebeurtenissen[persoonAanduiding].gebeurtenisId;
 
     this.resultProducer = this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(
         afnemer,
         abonneeNaam,
         undefined,
-        persoon,
+        undefined,
+        gebeurtenisIdVanPersoon,
       );
     const response = await this.resultProducer();
+    expect(response).to.not.have.property('redenMislukt');
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -55,6 +63,7 @@ When(
     this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(afnemer, abonneeNaam, limit);
     const response = await this.resultProducer();
+    expect(response).to.not.have.property('redenMislukt');
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -72,16 +81,20 @@ When(
       this.context,
       afnemerAanduiding,
     );
-    const persoon = this.context.personen[persoonAanduiding];
+
+    const gebeurtenisIdVanPersoon =
+      this.context.gebeurtenissen[persoonAanduiding].gebeurtenisId;
 
     this.resultProducer = async () =>
       await raadpleegGebeurtenissenVoorAbonnee(
         afnemer,
         abonneeNaam,
         limit,
-        persoon,
+        undefined,
+        gebeurtenisIdVanPersoon,
       );
     const response = await this.resultProducer();
+    expect(response).to.not.have.property('redenMislukt');
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -100,6 +113,7 @@ When(
       afnemer,
       abonneeNaam,
     );
+    expect(response).to.not.have.property('redenMislukt');
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -120,6 +134,7 @@ When(
       undefined,
       cursor,
     );
+    expect(response).to.not.have.property('redenMislukt');
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
@@ -144,6 +159,7 @@ When(
       gebeurtenisId,
     );
 
+    expect(response).to.not.have.property('redenMislukt');
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
