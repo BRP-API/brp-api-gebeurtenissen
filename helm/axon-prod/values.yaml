@@ -112,6 +112,16 @@ persistence:
     accessModes:
       - ReadWriteOnce
     storageClassName: ""
+  log:
+    size: 20Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: ""
+  config:
+    size: 2Gi
+    accessModes:
+      - ReadWriteOnce
+    storageClassName: ""
 
 nodeSelector: {}
 tolerations: []
