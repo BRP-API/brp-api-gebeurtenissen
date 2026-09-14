@@ -38,7 +38,7 @@ export class ProblemDetails {
 
     switch (statuscode) {
       case 400:
-        return new BadRequestProblemDetails("", "", "", []);
+        return new BadRequestProblemDetails('', '', '', []);
       case 401:
         return new UnauthorizedProblemDetails();
       case 403:
@@ -76,7 +76,12 @@ export class InvalidParam {
 
 class BadRequestProblemDetails extends ProblemDetails {
   invalidParams: InvalidParam[];
-  constructor(title: string, detail: string, instance: string, invalidParams: InvalidParam[]) {
+  constructor(
+    title: string,
+    detail: string,
+    instance: string,
+    invalidParams: InvalidParam[],
+  ) {
     super(
       'https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request',
       400,
