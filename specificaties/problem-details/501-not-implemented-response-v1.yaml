@@ -9,12 +9,15 @@ components:
   responses:
     '501':
       description: Not Implemented
+      headers:
+        API-Version:
+          $ref: '../headers/api-version-v1.yaml#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
             $ref: 'fout-bericht-v1.yaml#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.2
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-501-not-implemented
             title: Not Implemented
             status: 501
             detail: The server does not support the functionality required to fulfill the request.

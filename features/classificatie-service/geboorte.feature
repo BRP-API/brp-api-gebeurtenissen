@@ -1,6 +1,6 @@
 # language: nl
 @to-do @skip-verify
-Functionaliteit: gepubliceerde gebeurtenis bij een geboorteaangifte
+Functionaliteit: Gepubliceerde gebeurtenis bij een geboorteaangifte
 
   Scenario: geboorteaangifte van een kind geboren in Nederland
     Als de aangifte van geboorte van 'Jan' is verwerkt

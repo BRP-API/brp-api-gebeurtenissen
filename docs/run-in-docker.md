@@ -39,20 +39,8 @@ sh scripts/containers-start.sh
 sh scripts/add-testdata.sh
 ```
 
-### Start gebeurtenissen
-Start gebeurtenissen, wacht hiermee totdat Axon volledig is opgestart:
-```bash
-sh scripts/containers-gebeurtenissen-start.sh
-```
-
 ###
 Voer de HTTP requests in `../http/http-client.http` uit met het `dev` environment.
-
-
-### Stop gebeurtenissen
-```bash
-sh scripts/containers-gebeurtenissen-stop.sh
-```
 
 ### Stop containers db, axon en keycloak
 ```bash

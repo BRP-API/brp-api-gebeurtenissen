@@ -9,12 +9,15 @@ components:
   responses:
     '500':
       description: Internal Server Error
+      headers:
+        API-Version:
+          $ref: '../headers/api-version-v1.yaml#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
             $ref: 'fout-bericht-v1.yaml#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-500-internal-server-error
             title: Interne server fout.
             status: 500
             detail: The server encountered an unexpected condition which prevented it from fulfilling the request.

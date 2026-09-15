@@ -25,6 +25,9 @@ paths:
       responses:
         '200':
           description: Het gevraagde aantal gebeurtenissen is succesvol opgehaald en geleverd
+          headers:
+            API-Version:
+              $ref: '../headers/api-version-v1.yaml#/components/headers/ApiVersion'
           content:
             application/json:
               schema:
@@ -59,5 +62,3 @@ components:
           type: array
           items:
             $ref: '../brp-api/gebeurtenissen/gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
-          minItems: 0
-          maxItems: 10

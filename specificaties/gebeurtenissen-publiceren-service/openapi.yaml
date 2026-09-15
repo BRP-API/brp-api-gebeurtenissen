@@ -2,17 +2,18 @@ openapi: 3.1.2
 info:
   title: Gebeurtenissen Publiceren API specificatie
   version: 1.0.0
-servers: 
-  - url: http://localhost:8080
+servers:
+  - url: http://internal:8080
     description: development server
 paths:
   /personen/gebeurtenissen:
-    post: 
+    post:
       operationId: PubliceerGebeurtenis
-      tags: 
+      tags:
         -  Gebeurtenissen
       summary: Publiceer een persoon gebeurtenis
-      requestBody: 
+      requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -28,3 +29,10 @@ paths:
           $ref: '../problem-details/400-bad-request-response-v1.yaml#/components/responses/400'
         '500':
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - none: []
+components:
+  securitySchemes:
+    none:
+      type: http
+      scheme: none

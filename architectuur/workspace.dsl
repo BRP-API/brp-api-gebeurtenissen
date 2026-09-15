@@ -5,15 +5,19 @@ workspace "BRP API Gebeurtenissen" "Beheren van door BRPV gepubliceerde gebeurte
     model {
         BRPV = softwareSystem "BRPV"
         BRPGN = softwareSystem "BRP API Gebeurtenissen" "Beheren van door BRPV gepubliceerde gebeurtenissen tbv BRP afnemers die personen willen volgen" {
-            ES = container "Event Store" {
-                Description "opslag voor gebeurtenissen\nAxon Server"
+            ES = container "Axon Server" {
+                Description "opslag voor gebeurtenissen
+                tags "Database"
+            }
+            ESDB = container "Tracking Token / Projecties Db"{
+                Description "opslag voor Axon Tracking Tokens\nGebeurtenissen projecties"
                 tags "Database"
             }
             EvtPubApi = container "Gebeurtenissen Publiceren API" {
-                Description "Spring Boot & Kotlin\nBeheert gebeurtenissen in de Event Store"
+                Description "Spring Boot & Kotlin\nBeheert gebeurtenissen in Axon Server"
             }
             EvtApi = container "Gebeurtenissen Bevragen API" {
-                Description "Spring Boot & Kotlin\nLevert gebeurtenissen opgeslagen in de Event Store"
+                Description "Spring Boot & Kotlin\nLevert gebeurtenissen opgeslagen in Axon Server"
             }
             SubApi = container "Abonnementen API"
 
@@ -26,9 +30,11 @@ workspace "BRP API Gebeurtenissen" "Beheren van door BRPV gepubliceerde gebeurte
         BRPGN.MutApi -> BRPGN.EvtPubApi "publiceert mutaties als gebeurtenissen in LAP/proefomgeving in"
 
         BRPGN.SubApi -> BRPGN.ES "publiceert abonnement gebeurtenissen in"
+        BRPGN.ES -> BRPGN.ESDB "houdt tracking token bij in"
 
         BRPGN.EvtPubApi -> BRPGN.ES "publiceert gebeurtenissen in"
         BRPGN.EvtApi -> BRPGN.ES "abonneert op abonnement gebeurtenissen in"
+        BRPGN.EvtApi -> BRPGN.ESDB "beheert projecties in"
 
         BRPAfn = softwareSystem "BRP Afnemers"
 
@@ -70,6 +76,7 @@ workspace "BRP API Gebeurtenissen" "Beheren van door BRPV gepubliceerde gebeurte
 
         container BRPGN "ContainerDiagram1" {
             include BRPGN.ES
+            include BRPGN.ESDB
             include BRPGN.MutApi
             include BRPGN.EvtPubApi
             include BRPGN.EvtApi

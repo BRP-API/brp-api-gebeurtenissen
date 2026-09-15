@@ -183,7 +183,7 @@ components:
         type:
           type: string
           format: uri
-          example: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
+          example: https://www.rfc-editor.org/rfc/rfc9110.html#name-500-internal-server-error
         name:
           description: Naam van de parameter
           type: string
@@ -217,15 +217,25 @@ components:
         clientCredentials:
           tokenUrl: https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
           scopes: {}
+  headers:
+    ApiVersion:
+      description: Geeft de versie aan van de API die het request beantwoordt conform semantic versioning (major.minor.patch).
+      style: simple
+      schema:
+        type: string
+        example: 1.0.1
   responses:
     '400':
       description: Bad Request
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/BadRequestFoutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request
             title: Ten minste één parameter moet worden opgegeven.
             status: 400
             detail: The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modification.
@@ -238,12 +248,15 @@ components:
                 reason: Waarde is geen geldig getal.
     '401':
       description: Unauthorized
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-401-unauthorized
             title: Niet correct geauthenticeerd.
             status: 401
             detail: The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.
@@ -251,12 +264,15 @@ components:
             code: authentication
     '500':
       description: Internal Server Error
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
       content:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.5.1
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-500-internal-server-error
             title: Interne server fout.
             status: 500
             detail: The server encountered an unexpected condition which prevented it from fulfilling the request.

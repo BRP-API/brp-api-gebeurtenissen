@@ -9,7 +9,7 @@ sequenceDiagram
     participant BRPV
     box Grey BRP Gebeurtenissen
         participant EvtApi as Gebeurtenissen Publiceren API
-        participant ES as EventStore
+        participant ES as Axon Server
     end
 
     Afnemer->>MA: muteert persoon of adres<br/>in LAP/proefomgeving
@@ -21,20 +21,20 @@ sequenceDiagram
     EvtApi->>ES: persisteert gebeurtenis
 ```
 
-## Sequence diagram: ongelezen gebeurtenissen bevragen door afnemer
+## Sequence diagram: gebeurtenissen bevragen door afnemer
 ```mermaid
 sequenceDiagram
     participant Afnemer
     box Grey BRP Gebeurtenissen
         participant SubApi as Abonnementen API
         participant EvtApi as Gebeurtenissen Bevragen API
-        participant ES as EventStore
+        participant ES as Axon Server
     end
 
     Afnemer->>SubApi: abonneert op gebeurtenis types
 
-    Afnemer->>EvtApi: vraagt ongelezen gebeurtenissen
-    EvtApi->>ES: bevraagt ongelezen gebeurtenissen<br/> voor afnemer adhv zijn abonnement
+    Afnemer->>EvtApi: vraagt gebeurtenissen
+    EvtApi->>ES: bevraagt gebeurtenissen<br/> voor afnemer adhv zijn abonnement
     EvtApi->>EvtApi: vertaalt gebeurtenis<br/> naar externe gebeurtenis
     EvtApi->>EvtApi: protocolleer te leveren gebeurtenissen
     EvtApi->>Afnemer: levert gevraagde gebeurtenissen

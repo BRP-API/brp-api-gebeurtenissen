@@ -11,12 +11,13 @@ components:
           type: string
           format: uuid
           description: Unieke identifier van het abonnement
-        type:
-          type: string
+        groep:
+          $ref: 'naam-v1.yaml#/components/schemas/GroepNaam'
+          description: De groep met gebeurtenistypes waarop de abonnee een abonnement heeft voor de persoon
+        burgerservicenummer:
+          $ref: '../../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+          description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen ontvangt
       required:
         - id
-        - type
-      discriminator: 
-        propertyName: type
-        mapping:
-          AbonnementOpGebeurtenisTypeVanPersoon: './abonnement-op-gebeurtenis-type-van-persoon-v1.yaml#/components/schemas/AbonnementOpGebeurtenisTypeVanPersoon'
+        - groep
+        - burgerservicenummer
