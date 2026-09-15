@@ -96,6 +96,10 @@ spec:
               mountPath: /axonserver/data
             - name: events
               mountPath: /axonserver/events
+            - name: log
+              mountPath: /axonserver/log
+            - name: config
+              mountPath: /axonserver/config
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -135,3 +139,29 @@ spec:
         resources:
           requests:
             storage: {{ .Values.persistence.events.size }}
+    - metadata:
+        name: log
+        labels:
+          {{- include "axon-prod.selectorLabels" . | nindent 10 }}
+      spec:
+        accessModes:
+          {{- toYaml .Values.persistence.log.accessModes | nindent 10 }}
+        {{- if .Values.persistence.log.storageClassName }}
+        storageClassName: {{ .Values.persistence.log.storageClassName }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.log.size }}
+    - metadata:
+        name: config
+        labels:
+          {{- include "axon-prod.selectorLabels" . | nindent 10 }}
+      spec:
+        accessModes:
+          {{- toYaml .Values.persistence.config.accessModes | nindent 10 }}
+        {{- if .Values.persistence.config.storageClassName }}
+        storageClassName: {{ .Values.persistence.config.storageClassName }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.config.size }}
