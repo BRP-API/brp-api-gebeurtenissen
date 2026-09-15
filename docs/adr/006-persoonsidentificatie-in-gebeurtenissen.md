@@ -12,7 +12,11 @@ Ook kan de pl_id (de technische sleutel van de persoon in de BRP) niet worden ge
 
 ## Voorstel
 
-BRP API Gebeurtenissen genereert voor personen een unieke identificatie (GUID) en gebruikt deze om personen te koppelen aan gebeurtenissen.
+Omdat BRP API Gebeurtenissen gebruik maakt van een native Event Store waar het niet mogelijk is om opgeslagen gebeurtenissen te wijzigen, moet er in BRP API Gebeurtenissen ervoor worden gezorgd dat het niet mogelijk is om gebeurtenissen te publiceren voor personen die in de BRP hetzelfde a-nummer en/of burgerservicenummer hebben.
+
+Ook moeten het a-nummer en burgerservicenummer niet als persoonsidentificatie worden gebruikt in de opgeslagen gebeurtenissen.
+
+BRP API Gebeurtenissen genereert voor personen een eigen unieke identificatie (GUID) en gebruikt deze om personen te koppelen aan gebeurtenissen.
 Deze identificatie wordt gegenereerd op het moment dat de eerste gebeurtenis voor een persoon wordt gepubliceerd. Deze identificatie wordt samen met het a-nummer en burgerservicenummer van de persoon vastgelegd in een PersoonGeregistreerd gebeurtenis.
 De te publiceren gebeurtenis wordt vervolgens vertaald naar een interne gebeurtenis waarin de persoon wordt geïdentificeerd met de gegenereerde GUID (persoonId) in plaats van met het a-nummer, burgerservicenummer, of pl_id.
 
