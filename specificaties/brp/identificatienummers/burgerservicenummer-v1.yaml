@@ -1,0 +1,14 @@
+openapi: 3.1.2
+info:
+  title: burgerservicenummer specificatie
+  description: |
+    Definitie voor burgerservicenummer, een identificatienummer van een persoon geregistreerd in de BRP
+  version: 1.0.0
+components:
+  schemas:
+    Burgerservicenummer:
+      type: string
+      title: Burgerservicenummer
+      description: |
+        Het burgerservicenummer, bedoeld in artikel 1.1 van de Wet algemene bepalingen burgerservicenummer.
+      pattern: ^[0-9]{9}$

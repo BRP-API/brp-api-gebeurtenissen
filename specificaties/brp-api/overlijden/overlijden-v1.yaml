@@ -1,0 +1,11 @@
+openapi: 3.1.2
+info:
+  title: overlijden tbv gebeurtenissen specificatie
+  version: 1.0.0
+components:
+  schemas:
+    Overlijden:
+      type: object
+      properties:
+        datum:
+          $ref: '../datum/datum-polymorf-v1.yaml#/components/schemas/AbstractDatum'

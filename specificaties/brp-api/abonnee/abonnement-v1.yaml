@@ -1,0 +1,23 @@
+openapi: 3.1.2
+info:
+  title: Abonnement specificatie
+  version: 1.0.0
+components:
+  schemas:
+    Abonnement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unieke identifier van het abonnement
+        groep:
+          $ref: 'naam-v1.yaml#/components/schemas/GroepNaam'
+          description: De groep met gebeurtenistypes waarop de abonnee een abonnement heeft voor de persoon
+        burgerservicenummer:
+          $ref: '../../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+          description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen ontvangt
+      required:
+        - id
+        - groep
+        - burgerservicenummer
