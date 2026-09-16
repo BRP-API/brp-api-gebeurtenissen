@@ -5,3 +5,4 @@ password = "riot-antihero-moustache"
 
 [flyway]
 environment = "development"
+validateMigrationNaming = true
