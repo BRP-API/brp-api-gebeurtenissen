@@ -39,11 +39,11 @@ Functionaliteit: Protocolleren van verstrekte gebeurtenissen
       Dan is geprotocolleerd dat een gebeurtenis van 'Jan' is verstrekt aan afnemer 'Gemeente Amsterdam'
       En is geprotocolleerd dat een gebeurtenis van 'Piet' is verstrekt aan afnemer 'Gemeente Amsterdam'
 
-  Regel: Als een abonnee in één request meerdere gebeurtenissen voor dezelfde persoon verstrekt krijgt, dan wordt dat één keer geprotocolleerd
+  Regel: Als een abonnee in één request meerdere gebeurtenissen voor dezelfde persoon verstrekt krijgt, dan wordt elke geleverde gebeurtenis apart geprotocolleerd
 
     Scenario: Er zijn meerdere gebeurtenissen verstrekt van dezelfde persoon
       Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft twee gebeurtenissen verstrekt gekregen van 'Jan'
-      Dan is 1 keer geprotocolleerd dat een gebeurtenis van 'Jan' is verstrekt aan afnemer 'Gemeente Amsterdam'
+      Dan is 2 keer geprotocolleerd dat een gebeurtenis van 'Jan' is verstrekt aan afnemer 'Gemeente Amsterdam'
 
   Regel: Als meerdere afnemers dezelfde gebeurtenis verstrekt krijgen, dan wordt elke verstrekking geprotocolleerd
 
