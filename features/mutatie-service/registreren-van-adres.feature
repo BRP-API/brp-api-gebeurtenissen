@@ -41,3 +41,7 @@ Functionaliteit: Registreren van een adres in de BRP
       Als het adres 'Burgemeester van der Dusselplein 1' in gemeente 'Hengelo' wordt geregistreerd in de BRP
       Dan is de response een AdresGeregistreerd response
       En is het adres geregisteerd in de BRP met een unieke adresseerbaar object identificatie en de gemeentecode van 'Hengelo'
+
+    Scenario: Een adres is geregistreerd voor de opgegeven gemeente
+      Gegeven het adres 'Burgemeester van der Dusselplein 1' in gemeente 'Hengelo' is geregistreerd in de BRP
+      Dan is het adres geregisteerd in de BRP met een unieke adresseerbaar object identificatie en de gemeentecode van 'Hengelo'
