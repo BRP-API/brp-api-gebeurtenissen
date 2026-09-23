@@ -4,6 +4,7 @@ export class ProblemDetails {
   status: number;
   detail?: string;
   instance?: string;
+  code?: string;
 
   constructor(
     type: string,
@@ -11,6 +12,7 @@ export class ProblemDetails {
     title?: string,
     detail?: string,
     instance?: string,
+    code?: string,
   ) {
     this.type = type;
     this.status = status;
@@ -22,6 +24,9 @@ export class ProblemDetails {
     }
     if (instance) {
       this.instance = instance;
+    }
+    if (code) {
+      this.code = code;
     }
   }
 
@@ -38,7 +43,7 @@ export class ProblemDetails {
 
     switch (statuscode) {
       case 400:
-        return new BadRequestProblemDetails('', '', '', []);
+        return new BadRequestProblemDetails('', '', '', '', []);
       case 401:
         return new UnauthorizedProblemDetails();
       case 403:
@@ -56,9 +61,16 @@ export class ProblemDetails {
     title: string,
     detail: string,
     instance: string,
+    code: string,
     invalidParams: InvalidParam[],
   ): BadRequestProblemDetails {
-    return new BadRequestProblemDetails(title, detail, instance, invalidParams);
+    return new BadRequestProblemDetails(
+      title,
+      detail,
+      instance,
+      code,
+      invalidParams,
+    );
   }
 }
 
@@ -80,6 +92,7 @@ class BadRequestProblemDetails extends ProblemDetails {
     title: string,
     detail: string,
     instance: string,
+    code: string,
     invalidParams: InvalidParam[],
   ) {
     super(
@@ -88,6 +101,7 @@ class BadRequestProblemDetails extends ProblemDetails {
       title,
       detail,
       instance,
+      code,
     );
     this.invalidParams = invalidParams;
   }
