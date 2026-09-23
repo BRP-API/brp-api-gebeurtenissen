@@ -4,8 +4,7 @@
 Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API Problem Details specificatie
 
   Scenario: Een verplicht veld is niet opgegeven
-    Gegeven de gemeentecode is een verplicht veld en is niet opgegeven
-    Als de response een problemdetails is met de melding dat de gemeentecode verplicht is
+    Gegeven de response is een problemdetails met de melding dat de gemeentecode verplicht is
     Dan is de response in json formaat
     """
     {
@@ -26,8 +25,7 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
     """
 
   Scenario: Een ongeldig waarde is opgegeven voor een veld
-    Gegeven de naam van een gemeente is opgegeven voor een veld dat een gemeentecode verwacht
-    Als de response een problemdetails is met de melding dat de opgegeven gemeentecode ongeldig is
+    Gegeven de response is een problemdetails met de melding dat de opgegeven gemeentecode ongeldig is
     Dan is de response in json formaat
     """
     {
@@ -48,8 +46,7 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
       """
 
   Scenario: Een niet-bestaande identificatie code is opgegeven
-    Gegeven er bestaat geen gemeente voor de opgegeven gemeentecode
-    Als de response een problemdetails is met de melding dat een gemeente met de opgegeven gemeentecode niet bestaat
+    Gegeven de response is een problemdetails met de melding dat een gemeente met de opgegeven gemeentecode niet bestaat
     Dan is de response in json formaat
     """
     {

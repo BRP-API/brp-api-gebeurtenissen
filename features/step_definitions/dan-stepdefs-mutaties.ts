@@ -4,6 +4,7 @@ import {PostgresqlManager} from './support/postgresql-manager.js';
 import {logger} from './support/logger.js';
 import {ProblemDetails, InvalidParam} from './support/problem-details.js';
 import {expect} from 'chai';
+import {gemeenteCodeMap} from './support/gemeente-codes.js';
 
 const adressenEndpoint = '/api/brp/adressen';
 
@@ -53,11 +54,12 @@ Then('is de response een AdresGeregistreerd response', function () {
   expect(this.result.type).to.equal('AdresGeregistreerd');
 });
 
-Then('is het adres geregisteerd in de BRP', async function () {
+Then('is het adres geregisteerd in de BRP met een unieke adresseerbaar object identificatie en de gemeentecode van {string}', async function (gemeente: string) {
+  const gemeentecode = gemeenteCodeMap[gemeente] || gemeente;
   const statement = createSelectStatement(
     'lo3_adres',
-    ['adres_id', 'verblijf_plaats_ident_code'],
-    [this.result.adresId, this.result.adresseerbaarObjectIdentificatie],
+    ['adres_id', 'verblijf_plaats_ident_code', 'gemeente_code'],
+    [this.result.adresId, this.result.adresseerbaarObjectIdentificatie, gemeentecode],
   );
 
   const result = await PostgresqlManager.getInstance().execute(statement);
@@ -72,4 +74,5 @@ Then('is het adres geregisteerd in de BRP', async function () {
   expect(actual.verblijf_plaats_ident_code).to.equal(
     this.result.adresseerbaarObjectIdentificatie,
   );
+  expect(actual.gemeente_code).to.equal(Number(gemeentecode));
 });
