@@ -37,8 +37,8 @@ zodat de taakapplicatie zelfstandig abonnementen kan beheren en gebeurtenissen o
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name | reason                                                                                                                                                                                                   |
-        | invalid | naam | naam voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 10 tekens, begint en eindigt niet met een koppelteken (-). |
+        | code    | name | reason                                                                                                      |
+        | pattern | naam | Waarde bevat minder dan 2 tekens, meer dan 64 tekens of voldoet niet aan patroon ^[a-z0-9]+(?:-[a-z0-9]+)*$ |
 
       Voorbeelden:
         | titel                                           | abonneeNaam                                                       |
