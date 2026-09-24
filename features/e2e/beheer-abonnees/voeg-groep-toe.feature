@@ -70,7 +70,7 @@ zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een mi
 
   Regel: De naam van de groep is uniek binnen de context van een abonnee
 
-    Scenario: De Aan te maken resource bestaat al. bij de abonnee
+    Scenario: De groep bestaat al bij de abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' toevoegt

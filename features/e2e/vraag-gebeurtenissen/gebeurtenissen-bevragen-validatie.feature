@@ -66,7 +66,7 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
         | <code> | limit | <reason> |
 
       Voorbeelden:
-        | omschrijving    | waarde | code    | reason                           |
-        | is 0            | 0      | minimum | Waarde is minder dan minimum 1.  |
-        | is negatief     | -3     | minimum | Waarde is minder dan minimum 1.  |
-        | is hoger dan 10 | 101    | maximum | Waarde is hoger dan maximum 100. |
+        | omschrijving    | waarde | code    | reason                          |
+        | is 0            | 0      | minimum | Waarde is minder dan minimum 1. |
+        | is negatief     | -3     | minimum | Waarde is minder dan minimum 1. |
+        | is meer dan 100 | 101    | maximum | Waarde is meer dan maximum 100. |

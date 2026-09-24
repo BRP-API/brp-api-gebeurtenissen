@@ -93,7 +93,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Resource bestaat niet.'
 
-  Regel: Een of meerdere parameters zijn niet correct. en moet een 9-cijferig nummer zijn
+  Regel: Burgerservicenummer is verplicht en moet een 9-cijferig nummer zijn
 
     Scenario: De abonnee geeft geen burgerservicenummer op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd

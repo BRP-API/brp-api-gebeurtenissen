@@ -79,7 +79,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Resource bestaat niet.'
 
-  Regel: Een of meerdere parameters zijn niet correct. en moet een ondersteund type zijn
+  Regel: Type is verplicht en moet een ondersteund type zijn.
   Voor het toevoegen van een abonnement op een persoon is het type  'AbonneerPersoonOpGroep'
 
     Scenario: Een afnemer voegt een abonnement toe zonder het type groep op te geven
@@ -95,8 +95,8 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name | reason                                           |
-        | invalid | type | Waarde is geen geldige AbonnementenCommand type. |
+        | code | name | reason                              |
+        | type | type | Waarde is geen AbonnementenCommand. |
 
       Voorbeelden:
         | omschrijving               | type                                   |
