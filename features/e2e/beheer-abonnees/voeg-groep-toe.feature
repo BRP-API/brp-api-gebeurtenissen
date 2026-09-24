@@ -102,11 +102,11 @@ zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een mi
     Scenario: Een afnemer voegt een groep toe aan een niet geregistreerde abonnee
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een afnemer voegt een groep toe aan een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'

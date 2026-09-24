@@ -82,10 +82,10 @@ Functionaliteit: Abonneer persoon voor een groep
     Scenario: Een afnemer vraagt abonnementen van een nog niet geregistreerde abonnee
       Als abonnee 'bestaat-niet' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een afnemer vraagt abonnementen van een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'

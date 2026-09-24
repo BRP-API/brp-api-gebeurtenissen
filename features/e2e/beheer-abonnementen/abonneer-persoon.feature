@@ -42,7 +42,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'bestaat-niet' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een gebruiker probeert zich te abonneren op gebeurtenissen van een persoon met een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -50,7 +50,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
   Regel: Een abonnee kan een persoon alleen voor een bij de abonnee geregistreerde groep abonneren
 
@@ -59,7 +59,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'bestaat-niet'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die alleen bij een andere abonnee toegevoegd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -68,7 +68,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'andere' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'andere'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die verwijderd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -77,7 +77,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'andere'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
   Regel: Een of meerdere parameters zijn niet correct. en moet een ondersteund type zijn
   Voor het toevoegen van een abonnement op een persoon is het type  'AbonneerPersoonOpGroep'
@@ -95,8 +95,8 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code                | name | reason                                           |
-        | AbonnementenCommand | type | Waarde is geen geldige AbonnementenCommand type. |
+        | code    | name | reason                                           |
+        | invalid | type | Waarde is geen geldige AbonnementenCommand type. |
 
       Voorbeelden:
         | omschrijving               | type                                   |

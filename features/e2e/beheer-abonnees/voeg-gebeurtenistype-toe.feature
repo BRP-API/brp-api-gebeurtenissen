@@ -33,8 +33,8 @@ zodat ik geen applicatie hoef te maken die controleert dat taakapplicaties allee
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code            | name            | reason                                       |
-        | Gebeurtenistype | gebeurtenistype | Waarde is geen geldige Gebeurtenistype type. |
+        | code    | name            | reason                                       |
+        | invalid | gebeurtenistype | Waarde is geen geldige Gebeurtenistype type. |
 
     Abstract Scenario: Een afnemer voegt geldig gebeurtenistype '<gebeurtenistype>' toe
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -99,7 +99,7 @@ zodat ik geen applicatie hoef te maken die controleert dat taakapplicaties allee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een afnemer voegt een gebeurtenistype toe aan een groep die alleen bestaat bij een andere abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -107,7 +107,7 @@ zodat ik geen applicatie hoef te maken die controleert dat taakapplicaties allee
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een afnemer voegt een gebeurtenistype toe aan een groep die alleen bestaat bij een andere afnemer
       Gegeven de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
@@ -115,7 +115,7 @@ zodat ik geen applicatie hoef te maken die controleert dat taakapplicaties allee
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een afnemer voegt een gebeurtenistype toe aan een verwijderde groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -123,7 +123,7 @@ zodat ik geen applicatie hoef te maken die controleert dat taakapplicaties allee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
   Regel: Een gebeurtenistype kan alleen worden toegevoegd aan een groep van een geregistreerde abonnee
 
@@ -132,7 +132,7 @@ zodat ik geen applicatie hoef te maken die controleert dat taakapplicaties allee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een afnemer voegt een gebeurtenistype toe aan een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -140,4 +140,4 @@ zodat ik geen applicatie hoef te maken die controleert dat taakapplicaties allee
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
