@@ -31,7 +31,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' aan de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.overleden' uit de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Gebeurtenistype bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer verwijdert een reeds verwijderd gebeurtenistype
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -40,7 +40,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijderd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Gebeurtenistype bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
   Regel: Alleen een gebeurtenistype in een toegevoegde groep kan worden verwijderd
 
@@ -48,7 +48,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer verwijdert een gebeurtenistype uit een al verwijderde groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -57,7 +57,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'relatie' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
   Regel: Alleen een gebeurtenistype bij een geregistreerde abonnee kan worden verwijderd
 
@@ -65,7 +65,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' het gebeurtenistype 'nl.brp.overleden' uit de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer verwijdert een gebeurtenistype uit groep van een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -74,7 +74,7 @@ Functionaliteit: Verwijder gebeurtenistype van een groep
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' het gebeurtenistype 'nl.brp.verhuisd.intergemeentelijk' uit de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
   Regel: Een 'GebeurtenistypeVerwijderd' gebeurtenis wordt gepubliceerd voor elk gebeurtenistype van een groep die succesvol is verwijderd
 

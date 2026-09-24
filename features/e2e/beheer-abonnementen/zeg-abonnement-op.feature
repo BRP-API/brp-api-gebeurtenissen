@@ -6,7 +6,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
     En de persoon 'Piet' is geregistreerd in de BRP
 
   Regel: Een abonnee kan een abonnement op een persoon voor een groep opzeggen
-    Voor het opzeggen van een abonnement wordt in type de waarde 'ZegOpAbonnementVanPersoonOpGroep' opgegeven
+  Voor het opzeggen van een abonnement wordt in type de waarde 'ZegOpAbonnementVanPersoonOpGroep' opgegeven
 
     Scenario: Een abonnee abonneert een persoon voor een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -36,7 +36,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'bestaat-niet' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een gebruiker probeert een abonnement op te zeggen met een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -45,7 +45,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
   Regel: Alleen een abonnement dat eerder is toegevoegd kan worden opgezegd
 
@@ -56,7 +56,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'relatie' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnement bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en heeft wel een abonnement voor deze groep voor een andere persoon
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -64,7 +64,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Piet' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnement bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en een andere abonnee heeft wel een abonnement voor deze persoon voor deze groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -74,13 +74,13 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'szw' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnement bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: De abonnee zegt een abonnement op met een groepnaam die niet bestaat
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'bestaat-niet' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnement bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
   Regel: Er wordt geen 'AbonnementOpPersoonOpgezegd' gebeurtenis gepubliceerd wanneer een reeds opgezegd abonnement opnieuw wordt verwijderd
 
@@ -91,51 +91,51 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement op de persoon 'Jan' voor de groep 'client' opgezegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnement bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
-  Regel: Burgerservicenummer is verplicht en moet een 9-cijferig nummer zijn
+  Regel: Een of meerdere parameters zijn niet correct. en moet een 9-cijferig nummer zijn
 
     Scenario: De abonnee geeft geen burgerservicenummer op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' een abonnement voor de groep 'client' opzegt zonder een burgerservicenummer op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'burgerservicenummer is verplicht'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code     | name                | reason                           |
-        | required | burgerservicenummer | burgerservicenummer is verplicht |
+        | code     | name                | reason                  |
+        | required | burgerservicenummer | Parameter is verplicht. |
 
     Scenario: De abonnee geeft een burgerservicenummer op van 8 cijfers (laat de voorloopnul weg)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon met burgerservicenummer '10755561' voor de groep 'client' opzegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'burgerservicenummer is ongeldig'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name                | reason                                                                                          |
-        | invalid | burgerservicenummer | burgerservicenummer moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP. |
+        | code    | name                | reason                                      |
+        | invalid | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
-    - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
-    - bevat geen dubbele koppeltekens achter elkaar (--)
-    - bevat minimaal 2 en maximaal 64 tekens
-    - begint en eindigt niet met een koppelteken (-)
+  - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+  - bevat geen dubbele koppeltekens achter elkaar (--)
+  - bevat minimaal 2 en maximaal 64 tekens
+  - begint en eindigt niet met een koppelteken (-)
 
     Scenario: De abonnee geeft geen groepnaam op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' opzegt zonder een groep op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'groep is verplicht'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code     | name  | reason             |
-        | required | groep | groep is verplicht |
+        | code     | name  | reason                  |
+        | required | groep | Parameter is verplicht. |
 
     Scenario: De abonnee geeft een groepnaam met ongeldige
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep '!@#$%^&*=' opzegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'groep is ongeldig'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name  | reason                                                                                                                                                                                                        |
-        | invalid | groep | groep voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 64 tekens, begint en eindigt niet met een koppelteken (-). |
+        | code    | name  | reason                                                                                                      |
+        | pattern | groep | Waarde bevat minder dan 2 tekens, meer dan 64 tekens of voldoet niet aan patroon ^[a-z0-9]+(?:-[a-z0-9]+)*$ |

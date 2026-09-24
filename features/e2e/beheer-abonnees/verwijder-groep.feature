@@ -28,7 +28,7 @@ Functionaliteit: Verwijder groep van abonnee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'relatie' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer verwijdert een groep die alleen bestaat bij een andere abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -37,7 +37,7 @@ Functionaliteit: Verwijder groep van abonnee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'relatie' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'relatie' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer verwijdert een groep die alleen bestaat bij een abonnee met dezelfde naam bij een andere abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -46,7 +46,7 @@ Functionaliteit: Verwijder groep van abonnee
       En de afnemer 'Gemeente Rotterdam' heeft bij de abonnee 'jz' de groep 'relatie' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'relatie' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer verwijdert een reeds verwijderde groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -54,7 +54,7 @@ Functionaliteit: Verwijder groep van abonnee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
   Regel: Alleen een groep van een geregistreerde abonnee kan worden verwijderd
 
@@ -63,7 +63,7 @@ Functionaliteit: Verwijder groep van abonnee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'szw' de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer verwijdert een groep van een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -71,7 +71,7 @@ Functionaliteit: Verwijder groep van abonnee
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' verwijdert
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
   Regel: Een 'GroepVerwijderd' gebeurtenis wordt gepubliceerd voor elke groep van de abonnee wanneer de abonnee succesvol is gederegistreerd
 
