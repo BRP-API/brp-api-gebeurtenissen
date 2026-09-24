@@ -28,3 +28,11 @@ Functionaliteit: Gebeurtenis wanneer een lopend onderzoek wordt gewijzigd
         | omschrijving                   | betwijfelde gegevens oorspronkelijk | betwijfelde gegevens na wijziging |
         | Het onderzoek wordt uitgebreid | datum aanvang adreshouding          | de hele categorie verblijfplaats  |
         | Het onderzoek wordt beperkt    | de groep adres                      | datum aanvang adreshouding        |
+
+  Regel: Als op een verblijfplaats voor de tweede keer een onderzoek is gestart, heeft geen gebeurtenis 'verblijfplaats-onderzoek-gewijzigd' plaatsgevonden
+
+    Scenario: Een onderzoek was eerst afgerond en wordt nu opnieuw gestart met een ander betwijfeld gegeven
+      Gegeven een onderzoek loopt naar 'de groep adres' van het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
+      En het onderzoek naar het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan' is beëindigd
+      Als een onderzoek is gestart naar 'datum aanvang adreshouding' van het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
+      Dan is geen 'verblijfplaats-onderzoek-gewijzigd' gebeurtenis gepubliceerd

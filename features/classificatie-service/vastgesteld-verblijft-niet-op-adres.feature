@@ -20,5 +20,4 @@ Functionaliteit: Gebeurtenis wanneer een onderzoek loopt naar de verblijfplaats 
 
     Scenario: Bij de start van het onderzoek is al duidelijk dat de persoon niet verblijft op het adres
       Als is vastgesteld dat 'Jan' niet verblijft op het adres 'Beursstraat_44_Hengelo'
-      Dan is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd
-      En is een 'vastgesteld-verblijft-niet-op-adres' gebeurtenis gepubliceerd
+      Dan is een 'vastgesteld-verblijft-niet-op-adres' gebeurtenis gepubliceerd
