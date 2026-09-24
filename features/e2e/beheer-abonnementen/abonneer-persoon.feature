@@ -1,14 +1,14 @@
 # language: nl
 Functionaliteit: Abonneer persoon voor een groep
-  Als abonnee wil ik me kunnen abonneren op meerdere abonnementen voor dezelfde persoon in één request,
-    zodat ik niet voor elke persoon meerdere requests hoef te sturen
+Als abonnee wil ik me kunnen abonneren op meerdere abonnementen voor dezelfde persoon in één request,
+zodat ik niet voor elke persoon meerdere requests hoef te sturen
 
-  Als abonnee wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen,
-    zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder typen gebeurtenissen kan ontvangen op relaties van cliënten
+Als abonnee wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen,
+zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder typen gebeurtenissen kan ontvangen op relaties van cliënten
 
-  De afnemer voert bij het registreren van een abonnee op welke groepen er zijn en welke gebeurtenistypes gevolgd worden bij elke groep.
-  Een abonnee abonneert een persoon voor de groep die deze persoon heeft in het proces dat de abonnee uitvoert.
-  Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistypes bij die groep horen.
+De afnemer voert bij het registreren van een abonnee op welke groepen er zijn en welke gebeurtenistypes gevolgd worden bij elke groep.
+Een abonnee abonneert een persoon voor de groep die deze persoon heeft in het proces dat de abonnee uitvoert.
+Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistypes bij die groep horen.
 
   Achtergrond:
     Gegeven de persoon 'Jan' is geregistreerd in de BRP
@@ -42,7 +42,7 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'bestaat-niet' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een gebruiker probeert zich te abonneren op gebeurtenissen van een persoon met een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -50,7 +50,7 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
 
   Regel: Een abonnee kan een persoon alleen voor een bij de abonnee geregistreerde groep abonneren
 
@@ -59,7 +59,7 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'bestaat-niet'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die alleen bij een andere abonnee toegevoegd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -68,7 +68,7 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'andere' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'andere'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een abonnee probeert zich te abonneren voor een groep die verwijderd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -77,26 +77,26 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'andere'
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
 
-  Regel: Type is verplicht en moet een ondersteund type zijn
-    Voor het toevoegen van een abonnement op een persoon is het type  'AbonneerPersoonOpGroep'
+  Regel: Type is verplicht en moet een ondersteund type zijn.
+  Voor het toevoegen van een abonnement op een persoon is het type  'AbonneerPersoonOpGroep'
 
     Scenario: Een afnemer voegt een abonnement toe zonder het type groep op te geven
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan' en groep 'client' zonder type op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'type is verplicht'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
 
     Abstract Scenario: Een afnemer abonneert zich en <omschrijving>
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan' en groep 'client' met type '<type>'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'type is ongeldig'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code                | name | reason                            |
-        | AbonnementenCommand | type | type is geen AbonnementenCommand. |
+        | code | name | reason                              |
+        | type | type | Waarde is geen AbonnementenCommand. |
 
       Voorbeelden:
         | omschrijving               | type                                   |
@@ -113,56 +113,56 @@ Functionaliteit: Abonneer persoon voor een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor de groep 'client' zonder een burgerservicenummer op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'burgerservicenummer is verplicht'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code     | name                | reason                           |
-        | required | burgerservicenummer | burgerservicenummer is verplicht |
+        | code     | name                | reason                  |
+        | required | burgerservicenummer | Parameter is verplicht. |
 
     Scenario: De abonnee geeft een burgerservicenummer op van 8 cijfers (laat de voorloopnul weg)
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon met burgerservicenummer '10755561' voor de groep 'client'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'burgerservicenummer is ongeldig'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name                | reason                                                                                          |
-        | invalid | burgerservicenummer | burgerservicenummer moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP. |
+        | code    | name                | reason                                      |
+        | pattern | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
 
     Scenario: De abonnee geeft een burgerservicenummer op dat niet in de BRP voorkomt
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon met burgerservicenummer '000009829' voor de groep 'client'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'burgerservicenummer is ongeldig'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name                | reason                                                                                          |
-        | invalid | burgerservicenummer | burgerservicenummer moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP. |
+        | code    | name                | reason                                      |
+        | pattern | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
-    - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
-    - bevat geen dubbele koppeltekens achter elkaar (--)
-    - bevat minimaal 2 en maximaal 64 tekens
-    - begint en eindigt niet met een koppelteken (-)
+  - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+  - bevat geen dubbele koppeltekens achter elkaar (--)
+  - bevat minimaal 2 en maximaal 64 tekens
+  - begint en eindigt niet met een koppelteken (-)
 
     Scenario: De abonnee geeft geen groepnaam op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' zonder een groep op te geven
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'groep is verplicht'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code     | name  | reason             |
-        | required | groep | groep is verplicht |
+        | code     | name  | reason                  |
+        | required | groep | Parameter is verplicht. |
 
     Scenario: De abonnee geeft een groepnaam met ongeldige tekens
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep '!@#$%^&*='
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'groep is ongeldig'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name  | reason                                                                                                                                                                                                        |
-        | invalid | groep | groep voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 64 tekens, begint en eindigt niet met een koppelteken (-). |
+        | code    | name  | reason                                                                                                      |
+        | pattern | groep | Waarde bevat minder dan 2 tekens, meer dan 64 tekens of voldoet niet aan patroon ^[a-z0-9]+(?:-[a-z0-9]+)*$ |
 
   Regel: Een abonnee mag niet twee keer hetzelfde abonnement nemen
 
@@ -173,7 +173,7 @@ Functionaliteit: Abonneer persoon voor een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert op de persoon 'Jan' voor de groep 'client'
       Dan is de response '409 Conflict' met de volgende velden
-      * 'title' met tekst 'Abonnement bestaat al'
+      * 'title' met tekst 'Aan te maken resource bestaat al.'
 
   Regel: Een abonnee mag dezelfde persoon abonneren voor meerdere groepen
 
