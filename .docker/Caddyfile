@@ -1,5 +1,0 @@
-caddy.local {
-    tls internal
-
-    reverse_proxy keycloak:8080
-}
