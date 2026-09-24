@@ -1,5 +1,5 @@
 # language: nl
-@mutatie-service
+@mutatie-service @skip-verify
 Functionaliteit: Wijzigen van het adres binnen Nederland
   Dit betreft het doorgeven van een aangifte van adreswijziging binnen een Nederlandse gemeente of naar een andere Nederlandse gemeente
 

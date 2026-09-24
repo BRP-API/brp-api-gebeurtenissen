@@ -2,21 +2,13 @@ import {Given} from '@cucumber/cucumber';
 import {Aanduiding} from './support/aanduiding.js';
 import {AdresBuitenland} from './brp/adres-buitenland-entity.js';
 import {AdresFactory} from './support/adres-factory.js';
+import {gemeenteCodeMap} from './support/gemeente-codes.js';
 
 Given('het adres {string}', async function (adresAanduiding: string) {
   await AdresFactory.create(this.context, adresAanduiding);
 });
 
 Given('in gemeente {string}', async function (gemeenteOmschrijving: string) {
-  const gemeenteCodeMap: {[key: string]: string} = {
-    Amsterdam: '0363',
-    'Den Haag': '0518',
-    Hengelo: '0164',
-    Roosendaal: '1674',
-    Rotterdam: '0599',
-    Utrecht: '0344',
-  };
-
   await AdresFactory.update(
     this.context,
     'gemeente_code',
