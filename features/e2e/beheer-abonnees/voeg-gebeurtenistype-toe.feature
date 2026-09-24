@@ -33,8 +33,8 @@ zodat ik geen applicatie hoef te maken die controleert dat taakapplicaties allee
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name            | reason                                       |
-        | invalid | gebeurtenistype | Waarde is geen geldige Gebeurtenistype type. |
+        | code | name            | reason                          |
+        | type | gebeurtenistype | Waarde is geen Gebeurtenistype. |
 
     Abstract Scenario: Een afnemer voegt geldig gebeurtenistype '<gebeurtenistype>' toe
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
