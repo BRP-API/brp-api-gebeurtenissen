@@ -113,7 +113,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
         | code    | name                | reason                                      |
-        | invalid | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
+        | pattern | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
   - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
