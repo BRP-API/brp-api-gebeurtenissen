@@ -260,6 +260,9 @@ components:
         - $ref: '#/components/schemas/PersoonGemuteerdResponse'
         - type: object
           properties:
+            persoonId:
+              type: integer
+              format: int64
             anummer:
               $ref: '../brp/identificatienummers/anummer-v1.yaml#/components/schemas/Anummer'
             burgerservicenummer:
