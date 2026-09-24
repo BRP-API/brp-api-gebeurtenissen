@@ -42,7 +42,7 @@ Functionaliteit: Vraag welke groepen er zijn bij een abonnee
       En de afnemer 'Gemeente Rotterdam' heeft de abonnee 'szw' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de groepen van abonnee 'szw' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: De afnemer vraagt groepen van een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -50,4 +50,4 @@ Functionaliteit: Vraag welke groepen er zijn bij een abonnee
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' de groepen van abonnee 'jz' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'

@@ -54,7 +54,7 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de gebeurtenistypes van groep 'client' van abonnee 'jz' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer vraagt gebeurtenistypes van een groep die alleen bestaat bij een andere abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -62,7 +62,7 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'szw' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' de gebeurtenistypes van groep 'client' van abonnee 'jz' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer vraagt gebeurtenistypes van een groep die alleen bestaat bij een andere afnemer
       Gegeven de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
@@ -70,7 +70,7 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de gebeurtenistypes van groep 'client' van abonnee 'jz' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer vraagt gebeurtenistypes van een verwijderde groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -79,7 +79,7 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' verwijderd
       Als de afnemer 'Gemeente Amsterdam' de gebeurtenistypes van groep 'client' van abonnee 'jz' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Groep bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
   Regel: De gebeurtenistypes kunnen alleen worden gevraagd van een groep van een geregistreerde abonnee
 
@@ -88,7 +88,7 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' de gebeurtenistypes van groep 'client' van abonnee 'szw' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
 
     Scenario: Een afnemer vraagt gebeurtenistypes van een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -97,4 +97,4 @@ Functionaliteit: Vraag welke gebeurtenistypes er zitten in een groep
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' de gebeurtenistypes van groep 'client' van abonnee 'jz' opvraagt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
