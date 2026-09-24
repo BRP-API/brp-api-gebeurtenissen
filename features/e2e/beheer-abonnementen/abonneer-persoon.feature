@@ -126,7 +126,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
         | code    | name                | reason                                      |
-        | invalid | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
+        | pattern | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
 
     Scenario: De abonnee geeft een burgerservicenummer op dat niet in de BRP voorkomt
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -136,7 +136,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
         | code    | name                | reason                                      |
-        | invalid | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
+        | pattern | burgerservicenummer | Waarde voldoet niet aan patroon ^[0-9]{9}$. |
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
   - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
