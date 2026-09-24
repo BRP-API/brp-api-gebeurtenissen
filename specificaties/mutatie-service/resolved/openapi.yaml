@@ -65,6 +65,31 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /personen:
+    post:
+      operationId: MuteerPersoon
+      summary: Registreer of wijzig een persoon in de BRP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MuteerPersoonCommand'
+      responses:
+        '201':
+          description: Mutatie succesvol uitgevoerd
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersoonGemuteerdResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
 components:
   schemas:
     AangifteCommand:
@@ -183,6 +208,51 @@ components:
           required:
             - adresId
             - adresseerbaarObjectIdentificatie
+    MuteerPersoonCommand:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type persoon mutatie command.
+      required:
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          RegistreerPersoon: '#/components/schemas/RegistreerPersoonCommand'
+    RegistreerPersoonCommand:
+      allOf:
+        - $ref: '#/components/schemas/MuteerPersoonCommand'
+        - type: object
+          properties:
+            geslachtsnaam:
+              $ref: '#/components/schemas/Geslachtsnaam'
+          required:
+            - geslachtsnaam
+    PersoonGemuteerdResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type persoon gemuteerd response.
+      required:
+        - type
+      discriminator:
+        propertyName: type
+        mapping:
+          PersoonGeregistreerd: '#/components/schemas/PersoonGeregistreerdResponse'
+    PersoonGeregistreerdResponse:
+      allOf:
+        - $ref: '#/components/schemas/PersoonGemuteerdResponse'
+        - type: object
+          properties:
+            anummer:
+              $ref: '#/components/schemas/Anummer'
+            burgerservicenummer:
+              $ref: '#/components/schemas/Burgerservicenummer'
+          required:
+            - anummer
+            - burgerservicenummer
     AdresseerbaarObjectIdentificatie:
       type: string
       title: Identificatiecode verblijfplaats
@@ -282,6 +352,19 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/InvalidParam'
+    Geslachtsnaam:
+      type: string
+      pattern: ^[a-zA-Z0-9À-ž \.\-\']{1,200}$
+      description: |
+        De achternaam van een persoon.
+    Anummer:
+      type: string
+      title: A-nummer
+      description: |
+        Het administratienummer, bedoeld in artikel 4.9 van de Wet BRP.
+        - Groep: Identificatienummers (01)
+        - Element: A-nummer (01.10)
+      pattern: ^(?!.*([0-9])\\1)[1-9][0-9]{9}$
   securitySchemes:
     clientCredentials:
       type: oauth2
