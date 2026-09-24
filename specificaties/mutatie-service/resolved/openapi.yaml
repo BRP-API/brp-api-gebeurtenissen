@@ -246,6 +246,9 @@ components:
         - $ref: '#/components/schemas/PersoonGemuteerdResponse'
         - type: object
           properties:
+            persoonId:
+              type: integer
+              format: int64
             anummer:
               $ref: '#/components/schemas/Anummer'
             burgerservicenummer:
