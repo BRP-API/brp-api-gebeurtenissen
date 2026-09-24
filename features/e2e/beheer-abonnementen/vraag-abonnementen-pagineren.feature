@@ -71,8 +71,8 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
-        | code | name   | reason                            |
-        | UUID | cursor | Waarde is geen geldige UUID type. |
+        | code    | name   | reason                            |
+        | invalid | cursor | Waarde is geen geldige UUID type. |
 
   Regel: Parameter 'cursor' moet een id zijn van een gebeurtenis waar de abonnee een abonnement op heeft
 
@@ -81,8 +81,8 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
-        | code | name   | reason              |
-        | uuid | cursor | Waarde is ongeldig. |
+        | code       | name   | reason                               |
+        | idNotFound | cursor | Er bestaat geen resource met dit id. |
 
   Regel: Parameter 'limit' moet een getal zijn tussen 1 en 100
 
@@ -95,7 +95,7 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
         | <code> | limit | <reason> |
 
       Voorbeelden:
-        | omschrijving    | waarde | code     | reason                           |
-        | is 0            | 0      | minLimit | Waarde is minder dan minimum 1.  |
-        | is negatief     | -3     | minLimit | Waarde is minder dan minimum 1.  |
-        | is hoger dan 10 | 101    | maxLimit | Waarde is hoger dan maximum 100. |
+        | omschrijving    | waarde | code    | reason                           |
+        | is 0            | 0      | minimum | Waarde is minder dan minimum 1.  |
+        | is negatief     | -3     | minimum | Waarde is minder dan minimum 1.  |
+        | is hoger dan 10 | 101    | maximum | Waarde is hoger dan maximum 100. |

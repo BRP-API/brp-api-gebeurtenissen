@@ -36,7 +36,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'bestaat-niet' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een gebruiker probeert een abonnement op te zeggen met een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -45,7 +45,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
   Regel: Alleen een abonnement dat eerder is toegevoegd kan worden opgezegd
 
@@ -56,7 +56,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'relatie' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en heeft wel een abonnement voor deze groep voor een andere persoon
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -64,7 +64,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Piet' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: De abonnee zegt een abonnement op dat niet is toegevoegd en een andere abonnee heeft wel een abonnement voor deze persoon voor deze groep
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -74,13 +74,13 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
       Als de abonnee 'szw' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: De abonnee zegt een abonnement op met een groepnaam die niet bestaat
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'bestaat-niet' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
   Regel: Er wordt geen 'AbonnementOpPersoonOpgezegd' gebeurtenis gepubliceerd wanneer een reeds opgezegd abonnement opnieuw wordt verwijderd
 
@@ -91,7 +91,7 @@ Functionaliteit: Beëindig het abonnement van een persoon op een groep
       En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft het abonnement op de persoon 'Jan' voor de groep 'client' opgezegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zijn abonnement op de persoon 'Jan' voor de groep 'client' opzegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Opgevraagde resource bestaat niet.'
+      * 'title' met tekst 'Resource bestaat niet.'
 
   Regel: Een of meerdere parameters zijn niet correct. en moet een 9-cijferig nummer zijn
 
