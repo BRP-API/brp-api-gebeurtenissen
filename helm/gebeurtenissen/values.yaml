@@ -67,6 +67,9 @@ resources:
     cpu: 500m
     memory: 512Mi
 
+volumeMounts: [ ]
+volumes: [ ]
+
 nodeSelector: { }
 tolerations: [ ]
 affinity: { }
