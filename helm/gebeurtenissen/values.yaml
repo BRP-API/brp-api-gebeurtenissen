@@ -8,21 +8,21 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
-imagePullSecrets: []
+imagePullSecrets: [ ]
 
 serviceAccount:
   create: false
   automount: false
-  annotations: {}
+  annotations: { }
   name: ""
 
-podAnnotations: {}
-podLabels: {}
+podAnnotations: { }
+podLabels: { }
 
-podSecurityContext: {}
-securityContext: {}
+podSecurityContext: { }
+securityContext: { }
 
-hostAliases: []
+hostAliases: [ ]
 
 service:
   type: ClusterIP
@@ -39,7 +39,7 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  tls: []
+  tls: [ ]
 
 livenessProbe:
   httpGet:
@@ -67,9 +67,12 @@ resources:
     cpu: 500m
     memory: 512Mi
 
-nodeSelector: {}
-tolerations: []
-affinity: {}
+volumeMounts: [ ]
+volumes: [ ]
+
+nodeSelector: { }
+tolerations: [ ]
+affinity: { }
 
 # Voor de onderstaande config wordt een ConfigMap gegenereerd
 # die vervolgens aan de environment van de container wordt gekoppeld.
@@ -81,7 +84,7 @@ config:
   PROJECTIONS_DATASOURCE_USERNAME: "brp_gebeurtenissen_eigenaar"
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI: "http://keycloak:8080/realms/brp-api"
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI: "http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs"
-
+  SPRING_SSL_BUNDLE_PEM_OAUTHCLIENT_TRUSTSTORE_CERTIFICATE: "file:/certs/root.crt"
 
 # Het secret kan aan een bestaand secret worden gekoppeld dat
 # vervolgens aan de omgeving van de container wordt gekoppeld.
