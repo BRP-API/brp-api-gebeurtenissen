@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "axon-prod.fullname" . }}-env
+  labels:
+    {{- include "axon-prod.labels" . | nindent 4 }}
+{{- if or .Values.config .Values.global.config }}
+data:
+  {{- $mergedConf := merge .Values.config .Values.global.config }}
+  {{- range $key, $val := $mergedConf }}
+  {{ $key }}: {{ $val | quote }}
+  {{- end }}
+{{- else }}
+data: {}
+{{- end }}

@@ -1,0 +1,12 @@
+openapi: 3.1.2
+info:
+  title: adresseerbaar object identificatie specificatie
+  version: 1.0.0
+components:
+  schemas:
+    AdresseerbaarObjectIdentificatie:
+      type: string
+      title: Identificatiecode verblijfplaats
+      description: |
+        De identificatiecode van een adresseerbaar object.
+      pattern: ^[0-9]{16}$
