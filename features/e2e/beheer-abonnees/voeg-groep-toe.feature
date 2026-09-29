@@ -1,8 +1,8 @@
 # language: nl
 Functionaliteit: Voeg groep toe aan abonnee
-  Als abonnee
-  wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen
-  zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder uitgebreide set gebeurtenissen kan ontvangen op relaties van cliënten
+Als abonnee
+wil ik verschillende soorten relaties volgen op verschillende set gebeurtenistypen
+zodat ik een uitgebreide set gebeurtenissen kan ontvangen op cliënten en een minder uitgebreide set gebeurtenissen kan ontvangen op relaties van cliënten
 
   Regel: Een afnemer kan een groep toevoegen aan een bestaande abonnee
 
@@ -23,19 +23,19 @@ Functionaliteit: Voeg groep toe aan abonnee
       # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
 
   Regel: Een geldige groepnaam voldoet aan de volgende criteria:
-    - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
-    - bevat geen dubbele koppeltekens achter elkaar (--)
-    - bevat minimaal 2 en maximaal 64 tekens
-    - begint en eindigt niet met een koppelteken (-)
+  - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+  - bevat geen dubbele koppeltekens achter elkaar (--)
+  - bevat minimaal 2 en maximaal 64 tekens
+  - begint en eindigt niet met een koppelteken (-)
 
     Abstract Scenario: De groepnaam <titel>
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep '<naam van de groep>' toevoegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'naam is ongeldig'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code    | name | reason                                                                                                                                                                                                        |
-        | invalid | naam | naam voldoet niet aan de criteria: alleen kleine letters (a-z) en een koppelteken (-), geen dubbele koppeltekens (--), minimaal 2 en maximaal 64 tekens, begint en eindigt niet met een koppelteken (-). |
+        | code    | name | reason                                                                                                      |
+        | pattern | naam | Waarde bevat minder dan 2 tekens, meer dan 64 tekens of voldoet niet aan patroon ^[a-z0-9]+(?:-[a-z0-9]+)*$ |
 
 
       Voorbeelden:
@@ -54,19 +54,19 @@ Functionaliteit: Voeg groep toe aan abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'null' toevoegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'naam is verplicht'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code     | name | reason            |
-        | required | naam | naam is verplicht |
+        | code     | name | reason                  |
+        | required | naam | Parameter is verplicht. |
 
     Scenario: De groepnaam is undefined
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'undefined' toevoegt
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'naam is verplicht'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code     | name | reason            |
-        | required | naam | naam is verplicht |
+        | code     | name | reason                  |
+        | required | naam | Parameter is verplicht. |
 
   Regel: De naam van de groep is uniek binnen de context van een abonnee
 
@@ -75,7 +75,7 @@ Functionaliteit: Voeg groep toe aan abonnee
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' toevoegt
       Dan is de response '409 Conflict' met de volgende velden
-      * 'title' met tekst 'Groep bestaat al'
+      * 'title' met tekst 'Aan te maken resource bestaat al.'
 
     Scenario: De opgegeven groep is al geregistreerd bij een andere abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
@@ -102,11 +102,11 @@ Functionaliteit: Voeg groep toe aan abonnee
     Scenario: Een afnemer voegt een groep toe aan een niet geregistreerde abonnee
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een afnemer voegt een groep toe aan een gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' bij de abonnee 'jz' de groep 'client' toevoegt
       Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
