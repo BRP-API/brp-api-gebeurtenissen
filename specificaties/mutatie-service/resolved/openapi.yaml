@@ -220,6 +220,17 @@ components:
         propertyName: type
         mapping:
           RegistreerPersoon: '#/components/schemas/RegistreerPersoonCommand'
+    RegistreerPersoonAdres:
+      type: object
+      properties:
+        adresseerbaarObjectIdentificatie:
+          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
+        verblijfdatum:
+          type: string
+          format: date
+      required:
+        - adresseerbaarObjectIdentificatie
+        - verblijfdatum
     RegistreerPersoonCommand:
       allOf:
         - $ref: '#/components/schemas/MuteerPersoonCommand'
@@ -227,8 +238,11 @@ components:
           properties:
             geslachtsnaam:
               $ref: '#/components/schemas/Geslachtsnaam'
+            adres:
+              $ref: '#/components/schemas/RegistreerPersoonAdres'
           required:
             - geslachtsnaam
+            - adres
     PersoonGemuteerdResponse:
       type: object
       properties:
