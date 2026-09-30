@@ -65,3 +65,30 @@ Then(
     });
   },
 );
+
+Then(
+  'is het adres {string} vanaf {dd-mm-yyyy datum} geregistreerd in de BRP als verblijfplaats van de persoon {string}',
+  async function (
+    adresAanduiding: string,
+    datumVerblijf: string,
+    persoonAanduiding: string,
+  ) {
+    const statement = createSelectStatement(
+      'lo3_verblijfplaats',
+      ['adres_id', 'pl_id', 'adreshouding_start_datum'],
+      [
+        this.context.adressen[adresAanduiding].adres_id,
+        this.context.personen[persoonAanduiding].pl_id,
+        datumVerblijf,
+      ],
+    );
+
+    const result = await PostgresqlManager.getInstance().execute(statement);
+    const actual = Object.fromEntries(result);
+
+    logger.debug('Query database:', {
+      statement: statement,
+      result: actual,
+    });
+  },
+);

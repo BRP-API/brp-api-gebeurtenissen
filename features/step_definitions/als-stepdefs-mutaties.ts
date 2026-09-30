@@ -107,8 +107,14 @@ Given(
 async function registreerPersoon(
   context: any,
   persoonAanduiding: string,
+  datumInschrijving?: string,
+  adresseerbaarObjectIdentificatie?: string,
 ): Promise<any> {
-  const command = new RegistreerPersoonCommand(persoonAanduiding);
+  const command = new RegistreerPersoonCommand(
+    persoonAanduiding,
+    datumInschrijving,
+    adresseerbaarObjectIdentificatie,
+  );
 
   const response = await sendMuteerPersoonCommand(command);
   if (response.statusCode === 201) {
@@ -137,10 +143,107 @@ async function registreerPersoon(
 }
 
 When(
-  'de persoon {string} wordt geregistreerd in de BRP',
-  async function (persoonAanduiding: string) {
-    const response = await registreerPersoon(this.context, persoonAanduiding);
+  'een persoon wordt geregistreerd in de BRP zonder het opgeven van een adresseerbaar object identificatie',
+  async function (persoonAanduiding: string, datumInschrijving: string) {
+    const response = await registreerPersoon(
+      this.context,
+      'een-persoon',
+      '2025-01-01',
+    );
 
     this.result = response.body;
+  },
+);
+
+When(
+  'een persoon wordt geregistreerd in de BRP met adresseerbaar object identificatie {string}',
+  async function (adresseerbaarObjectIdentificatie: string) {
+    const response = await registreerPersoon(
+      this.context,
+      'een-persoon',
+      '2025-01-01',
+      adresseerbaarObjectIdentificatie,
+    );
+
+    this.result = response.body;
+  },
+);
+
+When(
+  'de persoon {string} die verblijft op het adres {string} wordt geregistreerd in de BRP zonder het opgeven van de verblijfdatum',
+  async function (persoonAanduiding: string, adresAanduiding: string) {
+    const response = await registreerPersoon(
+      this.context,
+      persoonAanduiding,
+      undefined,
+      this.context.adressen[adresAanduiding].verblijf_plaats_ident_code,
+    );
+
+    this.result = response.body;
+  },
+);
+
+When(
+  'de persoon {string} die verblijft op het adres {string} wordt geregistreerd in de BRP met een verblijfdatum in ongeldig formaat',
+  async function (persoonAanduiding: string, adresAanduiding: string) {
+    const response = await registreerPersoon(
+      this.context,
+      persoonAanduiding,
+      '01-01-2025',
+      this.context.adressen[adresAanduiding].verblijf_plaats_ident_code,
+    );
+
+    this.result = response.body;
+  },
+);
+
+When(
+  'de persoon {string} die verblijft op het adres {string} wordt geregistreerd in de BRP met een verblijfdatum dat in de toekomst ligt',
+  async function (persoonAanduiding: string, adresAanduiding: string) {
+    const response = await registreerPersoon(
+      this.context,
+      persoonAanduiding,
+      '2099-01-01',
+      this.context.adressen[adresAanduiding].verblijf_plaats_ident_code,
+    );
+
+    this.result = response.body;
+  },
+);
+
+When(
+  'de persoon {string} die vanaf {dd-mm-yyyy datum} verblijft op het adres {string} wordt geregistreerd in de BRP',
+  async function (
+    persoonAanduiding: string,
+    datumInschrijving: string,
+    adresAanduiding: string,
+  ) {
+    const response = await registreerPersoon(
+      this.context,
+      persoonAanduiding,
+      datumInschrijving,
+      this.context.adressen[adresAanduiding].verblijf_plaats_ident_code,
+    );
+
+    this.result = response.body;
+  },
+);
+
+Given(
+  'de persoon {string} die vanaf {dd-mm-yyyy datum} verblijft op het adres {string} is geregistreerd in de BRP',
+  async function (
+    persoonAanduiding: string,
+    datumInschrijving: string,
+    adresAanduiding: string,
+  ) {
+    const response = await registreerPersoon(
+      this.context,
+      persoonAanduiding,
+      datumInschrijving,
+      this.context.adressen[adresAanduiding].verblijf_plaats_ident_code,
+    );
+
+    this.result = response.body;
+    this.expected = null;
   },
 );
