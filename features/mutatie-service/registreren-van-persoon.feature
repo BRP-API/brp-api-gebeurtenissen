@@ -11,11 +11,11 @@ Functionaliteit: Registreren van een persoon in de BRP
 
     Scenario: Er is geen adresseerbaar object identificatie opgegeven bij het registreren van een persoon
       Als een persoon wordt geregistreerd in de BRP zonder het opgeven van een adresseerbaar object identificatie
-      Dan is de response een problemdetails response met de melding dat de adresseerbaar object identificatie verplicht is
+      Dan is de response een problemdetails met de melding dat de adresseerbaar object identificatie verplicht is
 
     Abstract Scenario: De opgegeven adresseerbaar object identificatie bestaat uit <adresseerbaar object identificatie omschrijving>
       Als een persoon wordt geregistreerd in de BRP met adresseerbaar object identificatie '<adresseerbaar object identificatie>'
-      Dan is de response een problemdetails response met de melding dat de opgegeven adresseerbaar object identificatie ongeldig is
+      Dan is de response een problemdetails met de melding dat de opgegeven adresseerbaar object identificatie ongeldig is
 
       Voorbeelden:
         | adresseerbaar object identificatie omschrijving | adresseerbaar object identificatie |
@@ -25,7 +25,7 @@ Functionaliteit: Registreren van een persoon in de BRP
 
     Scenario: Er is geen adres geregistreerd in de BRP voor de opgegeven adresseerbaar object identificatie
       Als een persoon wordt geregistreerd in de BRP met adresseerbaar object identificatie '1234567890123456'
-      Dan is de response een problemdetails response met de melding dat er geen adres bestaat voor de opgegeven adresseerbaar object identificatie
+      Dan is de response een problemdetails met de melding dat er geen adres bestaat voor de opgegeven adresseerbaar object identificatie
 
   Regel: Bij het registreren van een persoon moet de datum worden opgegeven waarop de persoon verblijft op het opgegeven adres.
     Deze datum moet een datum zijn gelijk aan vandaag of een datum in het verleden en in het formaat 'jjjj-mm-dd'
@@ -33,17 +33,17 @@ Functionaliteit: Registreren van een persoon in de BRP
     Scenario: De datum waarop de persoon verblijft op het opgegeven adres is niet opgegeven bij het registreren van de persoon
       Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' in gemeente 'Hengelo' is geregistreerd in de BRP
       Als de persoon 'Jan' die verblijft op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' wordt geregistreerd in de BRP zonder het opgeven van de verblijfdatum
-      Dan is de response een problemdetails response met de melding dat de verblijfdatum verplicht is
+      Dan is de response een problemdetails met de melding dat de verblijfdatum verplicht is
 
-    Scenario: De opgegeven verblijfdatum is opgegeven in een ongeldig formaat
+    Scenario: Een ongeldig datum is opgegeven als verblijfdatum waarde
       Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' in gemeente 'Hengelo' is geregistreerd in de BRP
       Als de persoon 'Jan' die verblijft op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' wordt geregistreerd in de BRP met een verblijfdatum in ongeldig formaat
-      Dan is de response een problemdetails response met de melding dat de opgegeven verblijfdatum ongeldig is
+      Dan is de response een problemdetails met de melding dat de opgegeven verblijfdatum ongeldig is
 
     Scenario: De opgegeven verblijfdatum is in de toekomst
       Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' in gemeente 'Hengelo' is geregistreerd in de BRP
       Als de persoon 'Jan' die verblijft op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' wordt geregistreerd in de BRP met een verblijfdatum dat in de toekomst ligt
-      Dan is de response een problemdetails response met de melding dat de opgegeven verblijfdatum in de toekomst ligt
+      Dan is de response een problemdetails met de melding dat de opgegeven verblijfdatum in de toekomst ligt
 
   Regel: Een uniek anummer en burgerservicenummer worden gegenereerd bij het registreren van een persoon
     Het anummer en het burgerservicenummer is een string bestaande uit 9 cijfers
