@@ -22,28 +22,39 @@ export async function sendCommand(command: Command): Promise<Response> {
   }
 }
 
-export async function sendMuteerAdresCommand(command: Command): Promise<any> {
+async function sendCommand2(command: Command, endpoint: string): Promise<any> {
   try {
-    const response = await fetch(
-      `${process.env.MUTATIE_BASE_URL}/api/brp/adressen`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(command),
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
-    logger.debug('sendMuteerAdresCommand', {
+      body: JSON.stringify(command),
+    });
+    logger.debug('sendCommand2', {
       command: command,
       response: response,
     });
     return parseResponse(response);
   } catch (error) {
-    logger.error('sendMuteerAdresCommand failed', {
+    logger.error('sendCommand2 failed', {
       command: command,
       error: error,
     });
     throw error;
   }
+}
+
+export async function sendMuteerAdresCommand(command: Command): Promise<any> {
+  return await sendCommand2(
+    command,
+    `${process.env.MUTATIE_BASE_URL}/api/brp/adressen`,
+  );
+}
+
+export async function sendMuteerPersoonCommand(command: Command): Promise<any> {
+  return await sendCommand2(
+    command,
+    `${process.env.MUTATIE_BASE_URL}/api/brp/personen`,
+  );
 }
