@@ -24,6 +24,8 @@ Voordelen:
 Nadelen:
 - Gebrekkige multi-engine ondersteuning. Elke dialect krijgt zijn eigen migratie scripts en versionering wanneer meerdere database dialecten ondersteunt moet worden. Hierdoor ontstaat veel duplicate bestanden die soms maar licht afwijken van elkaar. 
 - Sommige features zijn pas beschikbaar in de commerciële versie.
+- Applicatie vereist schrijfrechten om de database schema aan te kunnen passen. Als het toekennen van schrijfrechten onmogelijk is, dan moet het DBA team de database migratie scripts toepassen met behulp van de Flyway CLI. De CLI vult automatisch de tabel `flyway_schema_history` in met bijbehorende checksum per uitgevoerde script.
+- De validatie bij het opstarten valideert de database schema op basis van bestandchecksums. Hierdoor faalt een validatie als ook maar iets wijzigt aan een bestand, zoals een extra spatie. Dit is normaliter geen probleem wanneer de applicatie zowel de migratie als de validatie uitvoert. Als het DBA team verantwoordelijk wordt voor het uitvoeren van de migratie scripts, dan moet de bestandsoverdracht wel secuur gebeuren om productiefalen te voorkomen. 
 
 ## Alternatieven
 
