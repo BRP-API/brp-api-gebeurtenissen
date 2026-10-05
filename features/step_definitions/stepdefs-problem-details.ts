@@ -1,6 +1,6 @@
 import {Given, Then, defineParameterType} from '@cucumber/cucumber';
 import {ProblemDetails, InvalidParam} from './support/problem-details.js';
-import { logger } from './support/logger.js';
+import {logger} from './support/logger.js';
 
 const adressenEndpoint = '/api/brp/adressen';
 
@@ -16,13 +16,18 @@ function createinValidParamsBadRequest(
   );
 }
 
-function parameterVerplichtBadRequest(parameterNaam: string): ProblemDetails {
-  return createinValidParamsBadRequest([
-    new InvalidParam('required', parameterNaam, 'Parameter is verplicht.'),
-  ]);
+function parameterVerplichtBadRequest(parameterNaam: string[]): ProblemDetails {
+  return createinValidParamsBadRequest(
+    parameterNaam.map(
+      name => new InvalidParam('required', name, 'Parameter is verplicht.'),
+    ),
+  );
 }
 
-function resourceBestaatNietBadRequest(resourceNaam: string, parameterNaam: string): ProblemDetails {
+function resourceBestaatNietBadRequest(
+  resourceNaam: string,
+  parameterNaam: string,
+): ProblemDetails {
   return createinValidParamsBadRequest([
     new InvalidParam(
       'notFound',
@@ -33,7 +38,8 @@ function resourceBestaatNietBadRequest(resourceNaam: string, parameterNaam: stri
 }
 
 function parameterOngeldigBadRequest(parameterNaam: string): ProblemDetails {
-  const patroon = parameterNaam === 'gemeentecode' ? '^[0-9]{4}$' : '^[0-9]{16}$';
+  const patroon =
+    parameterNaam === 'gemeentecode' ? '^[0-9]{4}$' : '^[0-9]{16}$';
   return createinValidParamsBadRequest([
     new InvalidParam(
       'pattern',
@@ -43,13 +49,11 @@ function parameterOngeldigBadRequest(parameterNaam: string): ProblemDetails {
   ]);
 }
 
-function datumParameterOngeldigBadRequest(parameterNaam: string): ProblemDetails {
+function datumParameterOngeldigBadRequest(
+  parameterNaam: string,
+): ProblemDetails {
   return createinValidParamsBadRequest([
-    new InvalidParam(
-      'date',
-      parameterNaam,
-      'Waarde is geen geldige datum.',
-    ),
+    new InvalidParam('date', parameterNaam, 'Waarde is geen geldige datum.'),
   ]);
 }
 
@@ -58,7 +62,7 @@ function datumInToekomstBadRequest(parameterNaam: string): ProblemDetails {
     new InvalidParam(
       'date',
       parameterNaam,
-      `Waarde mag niet in de toekomst liggen.`,
+      'Waarde mag niet in de toekomst liggen.',
     ),
   ]);
 }
@@ -74,9 +78,16 @@ defineParameterType({
 });
 
 Given(
+  'de response is een problemdetails met de melding dat de {parameterNaam} en {parameterNaam} verplicht zijn',
+  function (parameterNaam: string, parameterNaam2: string) {
+    this.result = parameterVerplichtBadRequest([parameterNaam, parameterNaam2]);
+  },
+);
+
+Given(
   'de response is een problemdetails met de melding dat de {parameterNaam} verplicht is',
   function (parameterNaam: string) {
-    this.result = parameterVerplichtBadRequest(parameterNaam);
+    this.result = parameterVerplichtBadRequest([parameterNaam]);
   },
 );
 
@@ -90,16 +101,27 @@ Given(
 Given(
   'de response is een problemdetails met de melding dat de opgegeven {parameterNaam} ongeldig is',
   function (parameterNaam: string) {
-    this.result = parameterNaam.search(/datum/) >= 0
-      ? datumParameterOngeldigBadRequest(parameterNaam)
-      : parameterOngeldigBadRequest(parameterNaam);
+    this.result =
+      parameterNaam.search(/datum/) >= 0
+        ? datumParameterOngeldigBadRequest(parameterNaam)
+        : parameterOngeldigBadRequest(parameterNaam);
+  },
+);
+
+Then(
+  'is de response een problemdetails met de melding dat de {parameterNaam} en {parameterNaam} verplicht zijn',
+  function (parameterNaam: string, parameterNaam2: string) {
+    this.expected = parameterVerplichtBadRequest([
+      parameterNaam,
+      parameterNaam2,
+    ]);
   },
 );
 
 Then(
   'is de response een problemdetails met de melding dat de {parameterNaam} verplicht is',
   function (parameterNaam: string) {
-    this.expected = parameterVerplichtBadRequest(parameterNaam);
+    this.expected = parameterVerplichtBadRequest([parameterNaam]);
   },
 );
 
@@ -107,16 +129,19 @@ Then(
   'is de response een problemdetails met de melding dat er geen {resourceNaam} bestaat voor de opgegeven {parameterNaam}',
   function (resourceNaam: string, parameterNaam: string) {
     this.expected = resourceBestaatNietBadRequest(resourceNaam, parameterNaam);
-  }
+  },
 );
 
 Then(
   'is de response een problemdetails met de melding dat de opgegeven {parameterNaam} ongeldig is',
   function (parameterNaam: string) {
-    logger.debug(`Parameter naam: ${parameterNaam}, is datum: ${parameterNaam.search(/datum/) >= 0}`)
-    this.expected = parameterNaam.search(/datum/) >= 0
-      ? datumParameterOngeldigBadRequest(parameterNaam)
-      : parameterOngeldigBadRequest(parameterNaam);
+    logger.debug(
+      `Parameter naam: ${parameterNaam}, is datum: ${parameterNaam.search(/datum/) >= 0}`,
+    );
+    this.expected =
+      parameterNaam.search(/datum/) >= 0
+        ? datumParameterOngeldigBadRequest(parameterNaam)
+        : parameterOngeldigBadRequest(parameterNaam);
   },
 );
 

@@ -2,6 +2,32 @@
 
 Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API Problem Details specificatie
 
+  Abstract Scenario: Meerdere verplichte velden zijn niet opgegeven
+    Gegeven de response is een problemdetails met de melding dat de adresseerbaar object identificatie en verblijfdatum verplicht zijn
+    Dan is de response in json formaat
+    """
+    {
+      "type": "https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request",
+      "title": "Een of meerdere parameters zijn niet correct.",
+      "status": 400,
+      "detail": "De foutieve parameter(s) zijn: adresseerbaar object identificatie, verblijfdatum.",
+      "code": "paramsValidation",
+      "instance": "/api/brp/adressen",
+      "invalidParams": [
+        {
+          "code": "required",
+          "name": "adresseerbaar object identificatie",
+          "reason": "Parameter is verplicht."
+        },
+        {
+          "code": "required",
+          "name": "verblijfdatum",
+          "reason": "Parameter is verplicht."
+        }
+      ]
+    }
+    """
+
   Abstract Scenario: Een verplicht veld is niet opgegeven
     Gegeven de response is een problemdetails met de melding dat de <parameterNaam> verplicht is
     Dan is de response in json formaat

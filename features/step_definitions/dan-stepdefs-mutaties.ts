@@ -50,19 +50,39 @@ Then('is de response een PersoonGeregistreerd response', function () {
 Then(
   'is de persoon {string} geregistreerd in de BRP met geslachtsnaam {string}, een unieke anummer en burgerservicenummer',
   async function (persoonAanduiding: string, geslachtsnaam: string) {
-    const plStatement = createSelectStatement(
-      'lo3_pl',
-      ['pl_id', 'geheim_ind'],
-      [this.result.persoonId, 0],
-    );
+    const plId = this.context.personen[persoonAanduiding].pl_id;
+    let plStatement = createSelectStatement('lo3_pl', ['pl_id'], [plId]);
 
-    const result = await PostgresqlManager.getInstance().execute(plStatement);
-    const actual = Object.fromEntries(result);
+    let result = await PostgresqlManager.getInstance().execute(plStatement);
+    let actual = Object.fromEntries(result);
 
     logger.debug('Query database:', {
       statement: plStatement,
       result: actual,
     });
+
+    expect(actual).is.not.null(
+      `Er is geen persoon geregistreerd voor pl_id: ${plId}.`,
+    );
+    expect(actual.geheim_ind).to.equal(0);
+
+    plStatement = createSelectStatement(
+      'lo3_pl_persoon',
+      ['pl_id', 'persoon_type', 'geslachtsnaam'],
+      [plId, 'P', geslachtsnaam],
+    );
+
+    result = await PostgresqlManager.getInstance().execute(plStatement);
+    actual = Object.fromEntries(result);
+
+    logger.debug('Query database:', {
+      statement: plStatement,
+      result: actual,
+    });
+
+    expect(actual).is.not.null(
+      `Er is geen persoon geregistreerd in lo3_pl_persoon voor pl_id: ${plId} met geslachtsnaam: ${geslachtsnaam} en persoon_type: P.`,
+    );
   },
 );
 
@@ -73,14 +93,12 @@ Then(
     datumVerblijf: string,
     persoonAanduiding: string,
   ) {
+    const adresId = this.context.adressen[adresAanduiding].adres_id;
+    const plId = this.context.personen[persoonAanduiding].pl_id;
     const statement = createSelectStatement(
       'lo3_verblijfplaats',
       ['adres_id', 'pl_id', 'adreshouding_start_datum'],
-      [
-        this.context.adressen[adresAanduiding].adres_id,
-        this.context.personen[persoonAanduiding].pl_id,
-        datumVerblijf,
-      ],
+      [adresId, plId, datumVerblijf],
     );
 
     const result = await PostgresqlManager.getInstance().execute(statement);
@@ -90,5 +108,9 @@ Then(
       statement: statement,
       result: actual,
     });
+
+    expect(actual).is.not.null(
+      `Er is geen verblijfplaats geregistreerd voor adres_id: ${adresId} en persoonId: ${plId}.`,
+    );
   },
 );

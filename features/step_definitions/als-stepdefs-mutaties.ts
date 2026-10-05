@@ -143,8 +143,22 @@ async function registreerPersoon(
 }
 
 When(
+  'een persoon wordt geregistreerd in de BRP zonder het opgeven van een adresseerbaar object identificatie en verblijfdatum',
+  async function () {
+    const response = await registreerPersoon(
+      this.context,
+      'een-persoon',
+      undefined,
+      undefined,
+    );
+
+    this.result = response.body;
+  },
+);
+
+When(
   'een persoon wordt geregistreerd in de BRP zonder het opgeven van een adresseerbaar object identificatie',
-  async function (persoonAanduiding: string, datumInschrijving: string) {
+  async function () {
     const response = await registreerPersoon(
       this.context,
       'een-persoon',
