@@ -50,10 +50,10 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
     """
 
     Voorbeelden:
-    | parameterNaam                      |
-    | gemeentecode                       |
-    | adresseerbaar object identificatie |
-    | verblijfdatum                      |
+      | parameterNaam                      |
+      | gemeentecode                       |
+      | adresseerbaar object identificatie |
+      | verblijfdatum                      |
 
   Abstract Scenario: Een ongeldig waarde is opgegeven voor een veld
     Gegeven de response is een problemdetails met de melding dat de opgegeven <parameterNaam> ongeldig is
@@ -77,9 +77,9 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
     """
 
     Voorbeelden:
-    | parameterNaam                      | patroon     |
-    | gemeentecode                       | ^[0-9]{4}$  |
-    | adresseerbaar object identificatie | ^[0-9]{16}$ |
+      | parameterNaam                      | patroon     |
+      | gemeentecode                       | ^[0-9]{4}$  |
+      | adresseerbaar object identificatie | ^[0-9]{16}$ |
 
   Scenario: Een ongeldig waarde is opgegeven voor een datum veld
     Gegeven de response is een problemdetails met de melding dat de opgegeven verblijfdatum ongeldig is
@@ -124,6 +124,6 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
     """
 
     Voorbeelden:
-    | resourceNaam | resourceNaam2 | parameterNaam                      |
-    | gemeente     | Gemeente      | gemeentecode                       |
-    | adres        | Adres         | adresseerbaar object identificatie |
+      | resourceNaam | resourceNaam2 | parameterNaam                      |
+      | gemeente     | Gemeente      | gemeentecode                       |
+      | adres        | Adres         | adresseerbaar object identificatie |
