@@ -1,0 +1,25 @@
+openapi: 3.1.2
+info:
+  title: 403 Forbidden Response type definitie
+  description: |
+    Definitie voor Forbidden Response, voor het leveren van 'niet geautoriseerd' foutmelding 
+  version: 1.0.0
+  contact: {}
+components:
+  responses:
+    '403':
+      description: Forbidden
+      headers:
+        API-Version:
+          $ref: '../headers/api-version-v1.yaml#/components/headers/ApiVersion'
+      content:
+        application/problem+json:
+          schema:
+            $ref: 'fout-bericht-v1.yaml#/components/schemas/Foutbericht'
+          example:
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-403-forbidden
+            title: U bent niet geautoriseerd voor deze operatie.
+            status: 403
+            detail: The server understood the request, but is refusing to fulfill it.
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: autorisation

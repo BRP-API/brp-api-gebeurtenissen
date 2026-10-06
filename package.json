@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "gts lint",
+    "gherkin-lint": "gplint features",
+    "clean": "gts clean",
+    "fix": "gts fix"
   },
   "repository": {
     "type": "git",
@@ -13,20 +17,32 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/BRP-API/brp-api-gebeurtenissen/issues"
   },
   "homepage": "https://github.com/BRP-API/brp-api-gebeurtenissen#readme",
   "devDependencies": {
-    "@cucumber/cucumber": "^11.3.0",
-    "@redocly/cli": "^2.12.3",
+    "@cucumber/cucumber": "^12.9.0",
+    "@redocly/cli": "^2.35.0",
     "@types/chai": "^5.2.3",
     "@types/deep-equal-in-any-order": "^1.0.4",
-    "axios": "^1.13.2",
-    "chai": "^6.2.1",
-    "deep-equal-in-any-order": "^2.1.0",
+    "@types/node": "^26.0.1",
+    "@types/pg": "^8.20.0",
+    "axios": "^1.18.1",
+    "chai": "^6.2.2",
+    "deep-equal-in-any-order": "^2.2.0",
+    "dotenv": "^17.4.2",
+    "gplint": "^2.5.2",
+    "gts": "^7.0.0",
+    "pg": "^8.22.0",
     "ts-node": "^10.9.2",
+    "typescript": "^6.0.3",
     "winston": "^3.19.0"
+  },
+  "dependencies": {
+    "chai-exclude": "^3.0.1",
+    "eventsource": "^4.1.0",
+    "gts": "^7.0.0"
   }
 }

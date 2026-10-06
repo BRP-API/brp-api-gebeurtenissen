@@ -1,0 +1,32 @@
+openapi: 3.1.2
+info:
+  title: AbonneeNaam type definitie
+  version: 1.0.0
+components:
+  schemas:
+    AbonneeNaam:
+      type: string
+      minLength: 2
+      maxLength: 64
+      pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+      description: |
+        De naam van de abonnee. 
+        Moet voldoen aan de volgende criteria:
+          - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+          - bevat geen dubbele koppeltekens achter elkaar (--)
+          - bevat minimaal 2 en maximaal 64 tekens
+          - begint en eindigt niet met een koppelteken (-)
+      example: abonnee-voorbeeld-001
+    GroepNaam:
+      type: string
+      minLength: 2
+      maxLength: 64
+      pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+      description: |
+        De naam van de groep. 
+        Moet voldoen aan de volgende criteria:
+          - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
+          - bevat geen dubbele koppeltekens achter elkaar (--)
+          - bevat minimaal 2 en maximaal 64 tekens
+          - begint en eindigt niet met een koppelteken (-)
+      example: groep-voorbeeld-001

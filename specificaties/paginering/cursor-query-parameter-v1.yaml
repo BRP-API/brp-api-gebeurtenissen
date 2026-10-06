@@ -1,0 +1,14 @@
+openapi: 3.1.2
+info: 
+  title: Cursor query parameter definitie
+  version: 1.0.0
+components: 
+  parameters:
+    CursorQueryParameter:
+      name: cursor
+      in: query
+      required: false
+      schema: 
+        $ref: './cursor-v1.yaml#/components/schemas/Cursor'
+      description: Cursor query parameter die gebruikt kan worden voor paginering.
+  

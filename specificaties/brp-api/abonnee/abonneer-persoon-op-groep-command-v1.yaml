@@ -1,0 +1,20 @@
+openapi: 3.1.2
+info: 
+  title: Abonneer op gebeurtenis type van persoon command definitie
+  version: 1.0.0
+components: 
+  schemas:
+    AbonneerPersoonOpGroepCommand:
+      allOf: 
+        - $ref: './abonnementen-command-v1.yaml#/components/schemas/AbonnementenCommand'
+        - type: object
+          properties:
+            groep:
+              $ref: 'naam-v1.yaml#/components/schemas/GroepNaam'
+              description: De groep waarop de abonnee de persoon wil abonneren
+            burgerservicenummer:
+              $ref: '../../brp/identificatienummers/burgerservicenummer-v1.yaml#/components/schemas/Burgerservicenummer'
+              description: Het burgerservicenummer (BSN) van de persoon waarvoor de abonnee gebeurtenissen wil ontvangen
+          required:
+            - groep
+            - burgerservicenummer
