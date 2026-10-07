@@ -1,5 +1,14 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer de verblijfplaats is gecorrigeerd
+  In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
+  Daarnaast wordt ook de datum aanvang (van adreshouding of verblijf buitenland) van de verblijfplaats opgenomen.
+  De datum wordt opgenomen, zodat de abonnee de gebeurtenis kan relateren aan een verblijf.
+
+  Er wordt geen data meegestuurd waaruit af te leiden is wat exact gecorrigeerd is, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
+
+  De abonnee kan meer informatie over de correctie desgewenst ophalen in de BRP-API personen bevragen of met de BRP-API verblijfplaatshistorie met bijvoorbeeld peildatum gelijk aan de geleverde datum aanvang, met enkele kanttekeningen:
+  - Als de correctie alleen gaat over een gegeven waar de abonnee niet voor geautoriseerd is, kan de abonnee in de BRP-API niet zien wat er gewijzigd is
+  - Mogelijk moet de abonnee meer verblijfplaatshistorie vragen dan alleen op peildatum van de datum aanvang om een compleet beeld te krijgen van de verblijfplaats(en) na correctie.
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
@@ -53,6 +62,17 @@ Functionaliteit: Gebeurtenis wanneer de verblijfplaats is gecorrigeerd
       Als de verblijfplaats vanaf '14-06-2026' op het adres 'Stadserf_1_Roosendaal' onjuist is
       En de juiste aangifte voor het verblijf vanaf '14-06-2026' is door de echtgenoot/partner
       Dan is er geen 'verblijfplaats-gecorrigeerd' gebeurtenis gepubliceerd
+
+  Regel: Bij gebeurtenistype 'verblijfplaats-gecorrigeerd' wordt het A-nummer van de persoon meegeleverd plus de oorspronkelijke datum aanvang van het betreffende verblijf
+    De datum aanvang waar hier op gedoeld wordt is de datum aanvang adreshouding, dan wel datum aanvang verblijf buitenland.
+    De datum aanvang die bij de gebeurtenis wordt opgenomen is de datum die de verblijfplaats had vóór de correctie.
+
+    Scenario: Correctie van de datum aanvang van het verblijf
+      Als de verblijfplaats vanaf '14-06-2026' op het adres 'Stadserf_1_Roosendaal' onjuist is
+      En de juiste datum aanvang is '17-06-2026'
+      Dan is een 'verblijfplaats-gecorrigeerd' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+      * datum aanvang '14-06-2026'
 
   Regel: Als de verblijfplaats is gewijzigd en daarbij de vorige verblijfplaats vervalt, heeft geen 'verblijfplaats-gecorrigeerd' gebeurtenis plaatsgevonden
     Dit betreft een situatie dat ten onrechte de verblijfplaats niet als onjuist is bestempeld, maar deze wel uit de verblijfplaatshistorie verdwijnt.

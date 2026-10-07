@@ -1,5 +1,15 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblijfplaats
+  In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
+  Daarnaast wordt ook de datum aanvang (van adreshouding of verblijf buitenland) van de verblijfplaats opgenomen.
+  De datum wordt opgenomen, zodat de abonnee de gebeurtenis kan relateren aan een verblijf. De abonnee kan de gebeurtenis namelijk pas verwerken nadat het verblijf al historisch is geworden.
+
+  Er wordt geen data meegestuurd waaruit af te leiden is wat exact onderzocht wordt, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
+
+  De abonnee kan meer informatie over het onderzoek desgewenst ophalen in de BRP-API personen bevragen of met de BRP-API verblijfplaatshistorie met bijvoorbeeld peildatum gelijk aan de geleverde datum aanvang, met enkele kanttekeningen:
+  - Als het onderzoek alleen gaat over een gegeven waar de abonnee niet voor geautoriseerd is, kan de abonnee het onderzoek niet zien in de BRP-API
+  - Als aanvullende gegevens over het onderzoek worden gevraagd nadat het onderzoek al is afgerond, kan de abonnee het onderzoek niet meer zien in de BRP-API
+  - Als aanvullende gegevens over het onderzoek worden gevraagd nadat het onderzoek al is afgerond en het verblijf is gecorrigeerd, kan de abonnee mogelijk niet meer goed bepalen over welke verblijfplaats het gaat
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
@@ -54,6 +64,15 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
       En het lopende onderzoek is overgenomen naar de nieuwe verblijfplaats
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
       En is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd
+
+  Regel: Bij gebeurtenistype verblijfplaats-onderzoek-gestart' wordt het A-nummer van de persoon meegeleverd plus de datum aanvang van het betreffende verblijf
+    De datum aanvang waar hier op gedoeld wordt is de datum aanvang adreshouding, dan wel datum aanvang verblijf buitenland.
+
+    Scenario: Onderzoek naar de hele categorie verblijfplaats is gestart
+      Als een onderzoek is gestart naar 'de hele categorie verblijfplaats' van het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
+      Dan is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer 'Jan'
+      * datum aanvang '14-06-2026'
 
   Regel: Als een onderzoek gestart is naar een historische verblijfplaats, heeft geen 'verblijfplaats-onderzoek-gestart' gebeurtenis plaatsgevonden
 

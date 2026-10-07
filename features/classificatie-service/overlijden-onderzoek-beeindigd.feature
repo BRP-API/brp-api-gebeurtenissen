@@ -29,6 +29,16 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar het overlijden is be�
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       En een onderzoek loopt naar 'de hele categorie overlijden' op het overlijden op '12-08-2026' van 'Jan'
       Als het onderzoek naar het overlijden van 'Jan' op '12-08-2026' is beëindigd
-      En het overlijden op '12-08-2026' onjuist is
-      * de persoon is niet overleden
+      En het overlijden van 'Jan' onjuist is en 'Jan' is niet overleden
       Dan is een 'overlijden-onderzoek-beeindigd' gebeurtenis gepubliceerd
+
+  Regel: Bij gebeurtenistype 'overlijden-onderzoek-beeindigd' wordt het A-nummer van de persoon meegeleverd
+      Meer gegevens zijn niet nodig, omdat overlijden geen historie heeft.
+      
+    Scenario: Onderzoek naar datum van overlijden is beëindigd
+      Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
+      En een onderzoek loopt naar 'datum van overlijden' op het overlijden op '12-08-2026' van 'Jan'
+      Als het onderzoek naar het overlijden van 'Jan' op '12-08-2026' is beëindigd
+      Dan is een 'overlijden-onderzoek-beeindigd' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer van 'Jan'
+

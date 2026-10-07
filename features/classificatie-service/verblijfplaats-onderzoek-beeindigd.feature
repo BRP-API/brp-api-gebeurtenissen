@@ -6,6 +6,12 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar de verblijfplaats is 
   Er zijn dus geen regels nodig voor onderscheid tussen beëindigen onderzoek met of juist zonder correctie/wijziging.
   De abonnee ontvangt bij een correctie na onderzoek dus twee gebeurtenissen: een voor beëindigen van het onderzoek en een voor de correctie.
 
+  In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
+  Daarnaast wordt ook de datum aanvang (van adreshouding of verblijf buitenland) van de verblijfplaats opgenomen. De datum wordt opgenomen, zodat de abonnee de gebeurtenis kan relateren aan een verblijf.
+  
+  Er wordt geen data meegestuurd waaruit af te leiden is waar het onderzoek over ging of wat de uitkomst daarvan is, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
+  De abonnee kan de actuele informatie over het onderzoek desgewenst ophalen in de BRP-API.
+
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     * in gemeente 'Hengelo'
@@ -50,3 +56,13 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar de verblijfplaats is 
       Als de aangifte van adreswijziging van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2026' op het adres 'Kadeplein_2_Roosendaal'
       Dan is er geen 'verblijfplaats-onderzoek-beeindigd' gebeurtenis gepubliceerd
+
+  Regel: Bij gebeurtenistype verblijfplaats-onderzoek-beeindigd' wordt het A-nummer van de persoon meegeleverd plus de datum aanvang van het betreffende verblijf
+    De datum aanvang waar hier op gedoeld wordt is de datum aanvang adreshouding, dan wel datum aanvang verblijf buitenland.
+
+    Scenario: Onderzoek naar de verblijfplaats is beëindigd
+      Gegeven een onderzoek loopt naar 'de hele categorie verblijfplaats' van het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
+      Als het onderzoek naar het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan' is beëindigd
+      Dan is een 'verblijfplaats-onderzoek-beeindigd' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer 'Jan'
+      * datum aanvang '14-06-2026'
