@@ -7,7 +7,9 @@ Voorstel
 
 Een nieuwe PostgreSQL database is aangemaakt voor BRP API Gebeurtenissen. Deze database dient twee doelen. Ten eerste fungeert het als _projectie database_: opslag bieden voor BRP API Gebeurtenissen om projecties in op te slaan. Ten tweede ondersteunt het interne mechanismes van Axon Framework, bijvoorbeeld opslag bieden voor streaming tokens.
 
-Een volwassen proces zou aanpassingen aan een database schema, oftewel migraties, moeten vastleggen. Zo'n proces geeft je de mogelijkheid om toekomstige migraties gecontroleerd te laten verlopen. In de Java wereld zijn er twee gestandaardiseerde tools hiervoor: Flyway en Liquibase. 
+Het DBA team heeft aan ons gevraagd om een tabel aan te maken voor het opslaan van database schema veranderingen. Aan de hand van de tabel kunnen schemas worden geversioneerd.
+
+Een manier om aanpassingen aan database schema vast te leggen is met behulp van gestandaardiseerde tools. Zo'n tool geeft je de mogelijkheid om toekomstige migraties gecontroleerd te laten verlopen. In de Java wereld zijn er twee beschikbaar: Flyway en Liquibase. 
 
 ## Beslissing
 
