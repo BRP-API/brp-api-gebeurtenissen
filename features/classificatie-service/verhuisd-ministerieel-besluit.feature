@@ -9,4 +9,14 @@ Functionaliteit: Gebeurtenis wanneer een melding van de Minister van Buitenlands
     Scenario: Het ministerie van Buitenlandse Zaken heeft aangegeven dat de persoon niet langer als ingezetene ingeschreven mag zijn
       Als een Ministerieel Besluit voor 'Jan' is verwerkt
       * verblijft vanaf '1-9-2026' in een onbekend land
-      Dan is geen 'verhuisd.ministerieel-besluit' gebeurtenis gepubliceerd
+      Dan is een 'verhuisd.ministerieel-besluit' gebeurtenis gepubliceerd
+
+  Regel: Bij gebeurtenistype 'ministerieel-besluit' wordt het A-nummer van de persoon meegeleverd plus de datum aanvang van het betreffende verblijf
+    De datum aanvang waar hier op gedoeld wordt is de datum aanvang verblijf buitenland.
+
+    Scenario: Het ministerie van Buitenlandse Zaken heeft aangegeven dat de persoon niet langer als ingezetene ingeschreven mag zijn
+      Als een Ministerieel Besluit voor 'Jan' is verwerkt
+      * verblijft vanaf '1-9-2026' in een onbekend land
+      Dan is een 'verhuisd.ministerieel-besluit' gebeurtenis gepubliceerd met de volgende data
+      * het A-nummer 'Jan'
+      * datum aanvang verblijf buitenland '1-9-2026'

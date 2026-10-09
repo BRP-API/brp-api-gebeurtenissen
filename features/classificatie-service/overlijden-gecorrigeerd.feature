@@ -23,7 +23,7 @@ Functionaliteit: Gebeurtenis wanneer het overlijden is gecorrigeerd
       Als het overlijden van 'Jan' onjuist is en 'Jan' is overleden op '13-08-2026' in 'Gemeente Roosendaal'
       Dan is een 'overlijden-gecorrigeerd' gebeurtenis gepubliceerd
 
-    Scenario: De plaats van het overlijden was onjuist en is gecorrigeerd
+    Scenario: De plaats en land van het overlijden waren onjuist en is gecorrigeerd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als het overlijden van 'Jan' onjuist is en 'Jan' is overleden op '12-08-2026' in 'Berlijn' in 'Duitsland'
       Dan is een 'overlijden-gecorrigeerd' gebeurtenis gepubliceerd
