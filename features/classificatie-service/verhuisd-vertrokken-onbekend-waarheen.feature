@@ -14,6 +14,7 @@ Functionaliteit: Gebeurtenis wanneer een persoon vertrekt met onbekende verblijf
     Scenario: De persoon is vertrokken naar een onbekende verblijfplaats
       Als de aangifte van vertrek naar het buitenland van 'Jan' is verwerkt
       * verblijft vanaf '1-9-2026' in een onbekend land
+      * opschorting bijhouding reden is 'Emigratie'
       Dan is een 'verhuisd.vertrokken-onbekend-waarheen' gebeurtenis gepubliceerd
 
   Regel: Bij gebeurtenistype 'verhuisd.vertrokken-onbekend-waarheen' wordt het A-nummer van de persoon meegeleverd plus de datum aanvang van het betreffende verblijf
@@ -22,6 +23,7 @@ Functionaliteit: Gebeurtenis wanneer een persoon vertrekt met onbekende verblijf
     Scenario: De persoon is vertrokken naar een onbekende verblijfplaats
       Als 'Jan' ambtshalve is uitgeschreven
       * verblijft vanaf '1-9-2026' in een onbekend land
+      * opschorting bijhouding reden is 'Emigratie'
       Dan is een 'verhuisd.vertrokken-onbekend-waarheen' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer 'Jan'
       * datum aanvang verblijf buitenland '1-9-2026'
@@ -35,4 +37,5 @@ Functionaliteit: Gebeurtenis wanneer een persoon vertrekt met onbekende verblijf
     Scenario: Het ministerie van Buitenlandse Zaken heeft aangegeven dat de persoon niet langer als ingezetene ingeschreven mag zijn
       Als een Ministerieel Besluit voor 'Jan' is verwerkt
       * verblijft vanaf '1-9-2026' in een onbekend land
+      * opschorting bijhouding reden is 'Ministerieel besluit'
       Dan is geen 'verhuisd.vertrokken-onbekend-waarheen' gebeurtenis gepubliceerd
