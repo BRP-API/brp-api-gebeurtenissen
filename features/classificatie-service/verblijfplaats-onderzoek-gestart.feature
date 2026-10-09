@@ -89,7 +89,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
   Regel: Als op een verblijfplaats voor de tweede keer een onderzoek is gestart, heeft de gebeurtenis 'verblijfplaats-onderzoek-gestart' plaatsgevonden
 
     Abstract Scenario: Een onderzoek was eerst afgerond en wordt nu opnieuw gestart <omschrijving>
-      Gegeven een onderzoek loopt naar '<betwijfelde gegevens eerste onderzoek >' van het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
+      Gegeven een onderzoek loopt naar '<betwijfelde gegevens eerste onderzoek>' van het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
       En het onderzoek naar het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan' is beëindigd
       Als een onderzoek is gestart naar '<betwijfelde gegevens nieuwe onderzoek>' van het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
       Dan is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd

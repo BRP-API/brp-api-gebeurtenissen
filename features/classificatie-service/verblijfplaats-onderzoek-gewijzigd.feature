@@ -24,16 +24,16 @@ Functionaliteit: Gebeurtenis wanneer een lopend onderzoek wordt gewijzigd
 
   Regel: Als een lopend onderzoek wordt gewijzigd, heeft de gebeurtenis 'verblijfplaats-onderzoek-gewijzigd' plaatsgevonden
 
-    Abstract Scenario: <omschrijving>
+    Abstract Scenario: Het onderzoek wordt <omschrijving>
       Gegeven een onderzoek loopt naar '<betwijfelde gegevens oorspronkelijk>' van het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
       Als het onderzoek naar het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan' is gewijzigd naar '<betwijfelde gegevens na wijziging>'
       Dan is een 'verblijfplaats-onderzoek-gewijzigd' gebeurtenis gepubliceerd
 
       Voorbeelden:
-        | omschrijving                   | betwijfelde gegevens oorspronkelijk | betwijfelde gegevens na wijziging |
-        | Het onderzoek wordt uitgebreid | datum aanvang adreshouding          | de hele categorie verblijfplaats  |
-        | Het onderzoek wordt beperkt    | de groep adreshouding               | datum aanvang adreshouding        |
-        | Het onderzoek wordt gewijzigd  | datum aanvang adreshouding          | functie adres                     |
+        | omschrijving | betwijfelde gegevens oorspronkelijk | betwijfelde gegevens na wijziging |
+        | uitgebreid   | datum aanvang adreshouding          | de hele categorie verblijfplaats  |
+        | beperkt      | de groep adreshouding               | datum aanvang adreshouding        |
+        | gewijzigd    | datum aanvang adreshouding          | functie adres                     |
 
   Regel: Bij gebeurtenistype 'verblijfplaats-onderzoek-gewijzigd' wordt het A-nummer van de persoon meegeleverd plus de datum aanvang van het betreffende verblijf
     De datum aanvang waar hier op gedoeld wordt is de datum aanvang adreshouding, dan wel datum aanvang verblijf buitenland.
@@ -59,4 +59,3 @@ Functionaliteit: Gebeurtenis wanneer een lopend onderzoek wordt gewijzigd
       Gegeven een onderzoek loopt naar het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan'
       Als het onderzoek naar het verblijf op het adres 'Beursstraat_44_Hengelo' van 'Jan' is gewijzigd naar 'vastgesteld verblijft niet op adres'
       Dan is geen 'verblijfplaats-onderzoek-gewijzigd' gebeurtenis gepubliceerd
- 
