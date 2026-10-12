@@ -135,8 +135,8 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
       * heeft de response invalidParams met de volgende gegevens
-        | code     | name                | reason                                              |
-        | notfound | burgerservicenummer | De opgegeven persoonidentificatie is niet gevonden. |
+        | code        | name                | reason                                              |
+        | notfoundgit | burgerservicenummer | De opgegeven persoonidentificatie is niet gevonden. |
 
   Regel: Groep is verplicht en een geldige groepnaam voldoet aan de volgende criteria:
   - bevat alleen kleine letters (a-z), cijfers (0-9) en koppeltekens (-)
