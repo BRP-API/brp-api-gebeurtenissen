@@ -1,6 +1,6 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer een lopend onderzoek wordt gewijzigd
-  Als abonnee op verhuisd gebeurtenissen wil ik weten dat een onderzoek naar de verblijfplaats is gewijzigd,
+  Als abonnee wil ik weten dat een onderzoek naar de verblijfplaats is gewijzigd,
   zodat ik een onderzoek kan starten naar de consequenties van dit onderzoek op mijn dienstverlening.
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.

@@ -1,5 +1,8 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer er een onderzoek naar het overlijden is gewijzigd
+  Als abonnee wil ik weten dat een onderzoek naar het overlijden is gestart,
+  zodat ik een onderzoek kan starten naar de consequenties van dit onderzoek op mijn dienstverlening.
+  
   In de gebeurtenis wordt alleen de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
   Er wordt geen data meegestuurd waaruit af te leiden is wat gewijzigd is aan het onderzoek, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
   De abonnee kan de actuele informatie over het onderzoek desgewenst ophalen in de BRP-API.

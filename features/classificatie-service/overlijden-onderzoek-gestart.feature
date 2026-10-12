@@ -1,5 +1,8 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar het overlijden
+  Als abonnee wil ik weten dat een onderzoek naar het overlijden is gestart,
+  zodat ik een onderzoek kan starten naar de consequenties van dit onderzoek op mijn dienstverlening.
+
   In de gebeurtenis wordt alleen de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
   Meer gegevens zijn niet nodig, omdat overlijden geen historie heeft.
 

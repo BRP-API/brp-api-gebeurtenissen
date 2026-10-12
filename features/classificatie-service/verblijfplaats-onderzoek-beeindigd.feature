@@ -1,7 +1,10 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer er een onderzoek naar de verblijfplaats is beëindigd
-  Als abonnee op verhuisd gebeurtenissen wil ik weten dat een onderzoek naar de verblijfplaats is eëindigd,
-  zodat ik een onderzoek kan starten naar de consequenties van dit onderzoek op mijn dienstverlening.
+  Als abonnee wil ik weten dat een onderzoek naar de verblijfplaats is eëindigd,
+  zodat ik een onderzoek kan starten naar de consequenties van de uitkomst van dit onderzoek op mijn dienstverlening.
+
+  Als abonnee wil ik weten als een onderzoek naar het adres van een debiteur os beëindigd, 
+  want dan moeten we de invordering weer opstarten. 
 
   Zie https://www.rvig.nl/hup/het-beeindigen-van-een-onderzoek
 

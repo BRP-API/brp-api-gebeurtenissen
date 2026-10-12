@@ -1,6 +1,6 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer de verblijfplaats is gecorrigeerd
-  Als abonnee op verhuisd gebeurtenissen wil ik weten dat een verhuizing is gecorrigeerd,
+  Als abonnee wil ik weten dat een verhuizing is gecorrigeerd,
   zodat ik onderzoek kan doen naar de consequenties voor mijn dienstverlening aan betrokkene(n).
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.

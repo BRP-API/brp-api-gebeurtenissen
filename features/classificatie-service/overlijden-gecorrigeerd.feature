@@ -1,5 +1,8 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer het overlijden is gecorrigeerd
+  Als abonneeop wil ik weten dat het overlijden is gecorrigeerd,
+  zodat ik onderzoek kan doen naar de consequenties voor mijn dienstverlening aan betrokkene(n).
+
   In de gebeurtenis wordt alleen de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
   Meer gegevens zijn niet nodig om de correctie aan te duiden, omdat overlijden geen historie heeft.
   

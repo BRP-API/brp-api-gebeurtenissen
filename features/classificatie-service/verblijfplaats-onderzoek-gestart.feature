@@ -1,7 +1,11 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblijfplaats
-  Als abonnee op verhuisd gebeurtenissen wil ik weten dat een onderzoek naar de verblijfplaats is gestart,
+  Als abonnee wil ik weten dat een onderzoek naar de verblijfplaats is gestart,
   zodat ik een onderzoek kan starten naar de consequenties van dit onderzoek op mijn dienstverlening.
+
+  Als abonnee wil ik weten als het adres van een debiteur in onderzoek wordt genomen, 
+  want dan moeten we de invordering (tijdelijk) stoppen. 
+  Waarom is dat? Antwoord: liever geen deurwaarder sturen als iemand er waarschijnlijk niet woont, en ook geen brieven meer sturen.
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
   Daarnaast wordt ook de datum aanvang (van adreshouding of verblijf buitenland) van de verblijfplaats opgenomen.
