@@ -12,9 +12,11 @@ import {Persoon} from './brp/persoon-entity.js';
 When(
   'een adres in een gemeente wordt geregistreerd in de BRP zonder het opgeven van de code van de gemeente',
   async function () {
-    const command = new RegistreerAdresCommand();
-
-    const response = await sendMuteerAdresCommand(command);
+    const response = await registreerAdres(
+      this.context,
+      'een-adres',
+      undefined,
+    );
 
     this.result = response.body;
   },
@@ -23,10 +25,11 @@ When(
 When(
   'een adres in een gemeente wordt geregistreerd in de BRP met een gemeentecode {string}',
   async function (gemeentecode: string) {
-    const command = new RegistreerAdresCommand();
-    command.gemeentecode = gemeentecode;
-
-    const response = await sendMuteerAdresCommand(command);
+    const response = await registreerAdres(
+      this.context,
+      'een-adres',
+      gemeentecode,
+    );
 
     this.result = response.body;
   },
@@ -35,10 +38,7 @@ When(
 When(
   'een adres in een gemeente wordt geregistreerd in de BRP met een gemeentecode die niet bestaat',
   async function () {
-    const command = new RegistreerAdresCommand();
-    command.gemeentecode = '9999';
-
-    const response = await sendMuteerAdresCommand(command);
+    const response = await registreerAdres(this.context, 'een-adres', '9999');
 
     this.result = response.body;
   },
@@ -47,12 +47,14 @@ When(
 async function registreerAdres(
   context: any,
   adresAanduiding: string,
-  gemeentenaam: string,
+  gemeentenaam?: string,
 ): Promise<any> {
   const command = new RegistreerAdresCommand();
-  command.gemeentecode = gemeenteCodeMap[gemeentenaam] || gemeentenaam;
+  command.gemeentecode = gemeentenaam
+    ? gemeenteCodeMap[gemeentenaam] || gemeentenaam
+    : undefined;
 
-  const response = await sendMuteerAdresCommand(command);
+  const response = await sendMuteerAdresCommand(context, command);
   if (response.statusCode === 201) {
     if (!context.adressen) {
       context.adressen = {};
@@ -116,7 +118,7 @@ async function registreerPersoon(
     adresseerbaarObjectIdentificatie,
   );
 
-  const response = await sendMuteerPersoonCommand(command);
+  const response = await sendMuteerPersoonCommand(context, command);
   if (response.statusCode === 201) {
     if (!context.personen) {
       context.personen = {};

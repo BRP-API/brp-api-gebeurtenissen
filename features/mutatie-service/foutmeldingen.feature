@@ -3,7 +3,8 @@
 Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API Problem Details specificatie
 
   Abstract Scenario: Meerdere verplichte velden zijn niet opgegeven
-    Gegeven de response is een problemdetails met de melding dat de adresseerbaar object identificatie en verblijfdatum verplicht zijn
+    Gegeven de aangeroepen API endpoint is '/api/brp/personen'
+    En de response is een problemdetails met de melding dat de adresseerbaar object identificatie en verblijfdatum verplicht zijn
     Dan is de response in json formaat
     """
     {
@@ -12,7 +13,7 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
       "status": 400,
       "detail": "De foutieve parameter(s) zijn: adresseerbaar object identificatie, verblijfdatum.",
       "code": "paramsValidation",
-      "instance": "/api/brp/adressen",
+      "instance": "/api/brp/personen",
       "invalidParams": [
         {
           "code": "required",
@@ -29,7 +30,8 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
     """
 
   Abstract Scenario: Een verplicht veld is niet opgegeven
-    Gegeven de response is een problemdetails met de melding dat de <parameterNaam> verplicht is
+    Gegeven de aangeroepen API endpoint is '/api/brp/adressen'
+    En de response is een problemdetails met de melding dat de <parameterNaam> verplicht is
     Dan is de response in json formaat
     """
     {
@@ -56,7 +58,8 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
       | verblijfdatum                      |
 
   Abstract Scenario: Een ongeldig waarde is opgegeven voor een veld
-    Gegeven de response is een problemdetails met de melding dat de opgegeven <parameterNaam> ongeldig is
+    Gegeven de aangeroepen API endpoint is '/api/brp/adressen'
+    En de response is een problemdetails met de melding dat de opgegeven <parameterNaam> ongeldig is
     Dan is de response in json formaat
     """
     {
@@ -82,7 +85,8 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
       | adresseerbaar object identificatie | ^[0-9]{16}$ |
 
   Scenario: Een ongeldig waarde is opgegeven voor een datum veld
-    Gegeven de response is een problemdetails met de melding dat de opgegeven verblijfdatum ongeldig is
+    Gegeven de aangeroepen API endpoint is '/api/brp/personen'
+    En de response is een problemdetails met de melding dat de opgegeven verblijfdatum ongeldig is
     Dan is de response in json formaat
     """
     {
@@ -91,7 +95,7 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
       "status": 400,
       "detail": "De foutieve parameter(s) zijn: verblijfdatum.",
       "code": "paramsValidation",
-      "instance": "/api/brp/adressen",
+      "instance": "/api/brp/personen",
       "invalidParams": [
         {
           "code": "date",
@@ -103,7 +107,8 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
     """
 
   Abstract Scenario: Een niet-bestaande identificatie code is opgegeven
-    Gegeven de response is een problemdetails met de melding dat een <resourceNaam> met de opgegeven <parameterNaam> niet bestaat
+    Gegeven de aangeroepen API endpoint is '/api/brp/personen'
+    En de response is een problemdetails met de melding dat een <resourceNaam> met de opgegeven <parameterNaam> niet bestaat
     Dan is de response in json formaat
     """
     {
@@ -112,7 +117,7 @@ Functionaliteit: Foutmelding voorbeelden voor request validatie conform BRP API 
       "status": 400,
       "detail": "De foutieve parameter(s) zijn: <parameterNaam>.",
       "code": "paramsValidation",
-      "instance": "/api/brp/adressen",
+      "instance": "/api/brp/personen",
       "invalidParams": [
         {
           "code": "notFound",

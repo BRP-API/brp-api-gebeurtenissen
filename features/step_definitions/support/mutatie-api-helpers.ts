@@ -45,16 +45,38 @@ async function sendCommand2(command: Command, endpoint: string): Promise<any> {
   }
 }
 
-export async function sendMuteerAdresCommand(command: Command): Promise<any> {
+/**
+ * Stuur een muteer adres command naar de mutatie API.
+ * @param context De context van de huidige test. De instanceUri property van de context wordt gezet naar '/api/brp/adressen', zodat deze kan worden gebruikt voor de instance URI bij het opbouwen van de verwachte ProblemDetails.
+ * @param command Het command object dat naar de API wordt gestuurd.
+ * @returns De response van de API.
+ */
+export async function sendMuteerAdresCommand(
+  context: any,
+  command: Command,
+): Promise<any> {
+  context.instanceUri = '/api/brp/adressen';
+
   return await sendCommand2(
     command,
-    `${process.env.MUTATIE_BASE_URL}/api/brp/adressen`,
+    `${process.env.MUTATIE_BASE_URL}${context.instanceUri}`,
   );
 }
 
-export async function sendMuteerPersoonCommand(command: Command): Promise<any> {
+/**
+ * Stuur een muteer persoon command naar de mutatie API.
+ * @param context De context van de huidige test. De instanceUri property van de context wordt gezet naar '/api/brp/personen', zodat deze kan worden gebruikt voor de instance URI bij het opbouwen van de verwachte ProblemDetails.
+ * @param command Het command object dat naar de API wordt gestuurd.
+ * @returns De response van de API.
+ */
+export async function sendMuteerPersoonCommand(
+  context: any,
+  command: Command,
+): Promise<any> {
+  context.instanceUri = '/api/brp/personen';
+
   return await sendCommand2(
     command,
-    `${process.env.MUTATIE_BASE_URL}/api/brp/personen`,
+    `${process.env.MUTATIE_BASE_URL}${context.instanceUri}`,
   );
 }
