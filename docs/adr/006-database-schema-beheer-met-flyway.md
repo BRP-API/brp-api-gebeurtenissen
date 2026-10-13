@@ -1,7 +1,7 @@
 # ADR006: database schema beheer met behulp van Flyway
 
 ## Status
-Voorstel
+Besloten. Open om na de livegang opnieuw naar de toepassing in zowel de ontwikkelingomgeving als de DICTU omgeving te kijken.
 
 ## Context
 
@@ -13,7 +13,9 @@ Een manier om aanpassingen aan database schema vast te leggen is met behulp van 
 
 ## Beslissing
 
-Er is gekozen voor Flyway om het beheer van de database schema te regelen.
+Er is gekozen voor Flyway om het beheer van de database schema te regelen.  
+Er is gekozen om (Flyway) migraties zoveel mogelijk buiten de applicatie uit te voeren, zodat het proces zoveel mogelijk lijkt op dat van team DBA.  
+Er is gekozen om Flyway migraties binnen de applicatie uit te voeren in de probeeromgeving (Standaard Platform), zodat het uitrol/beheer sneller afgerond kan worden.
 
 ## Consequenties
 
@@ -50,3 +52,4 @@ Voordelen:
 
 Nadelen:
 - Database schema kan na verloop van tijd afwijken ("drift"), wat mogelijk niet gelijk wordt opgemerkt.
+
