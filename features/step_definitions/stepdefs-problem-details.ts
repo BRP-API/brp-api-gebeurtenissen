@@ -2,15 +2,18 @@ import {Given, Then, defineParameterType} from '@cucumber/cucumber';
 import {ProblemDetails, InvalidParam} from './support/problem-details.js';
 import {logger} from './support/logger.js';
 
+//const adressenEndpoint = '/api/brp/adressen';
 const adressenEndpoint = '/api/brp/adressen';
+const personenEndpoint = '/api/brp/personen';
 
 function createinValidParamsBadRequest(
   invalidParams: InvalidParam[],
+  endpoint: string = adressenEndpoint,
 ): ProblemDetails {
   return ProblemDetails.createBadRequestProblemDetails(
     'Een of meerdere parameters zijn niet correct.',
     `De foutieve parameter(s) zijn: ${invalidParams.map(p => p.name).join(', ')}.`,
-    adressenEndpoint,
+    endpoint,
     'paramsValidation',
     invalidParams,
   );
@@ -57,14 +60,19 @@ function datumParameterOngeldigBadRequest(
   ]);
 }
 
-function datumInToekomstBadRequest(parameterNaam: string): ProblemDetails {
+function datumInToekomstBadRequest(
+  parameterNaam: string,
+  endpoint?: string,
+): ProblemDetails {
   return createinValidParamsBadRequest([
     new InvalidParam(
       'date',
       parameterNaam,
       'Waarde mag niet in de toekomst liggen.',
     ),
-  ]);
+  ],
+endpoint,
+);
 }
 
 defineParameterType({
@@ -148,7 +156,7 @@ Then(
 Then(
   'is de response een problemdetails met de melding dat de opgegeven {parameterNaam} in de toekomst ligt',
   function (parameterNaam: string) {
-    this.expected = datumInToekomstBadRequest(parameterNaam);
+    this.expected = datumInToekomstBadRequest(parameterNaam, personenEndpoint);
   },
 );
 
