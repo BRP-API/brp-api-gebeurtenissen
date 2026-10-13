@@ -153,7 +153,7 @@ When(
       undefined,
     );
 
-    logger.info('response', response)
+    logger.info('response', response);
     this.result = response.body;
   },
 );
