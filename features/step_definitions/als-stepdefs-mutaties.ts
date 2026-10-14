@@ -8,6 +8,7 @@ import {
 import {gemeenteCodeMap} from './support/gemeente-codes.js';
 import {Adres} from './brp/adres-entity.js';
 import {Persoon} from './brp/persoon-entity.js';
+import {logger} from './support/logger.js';
 
 When(
   'een adres in een gemeente wordt geregistreerd in de BRP zonder het opgeven van de code van de gemeente',
@@ -154,6 +155,7 @@ When(
       undefined,
     );
 
+    logger.info('response', response);
     this.result = response.body;
   },
 );

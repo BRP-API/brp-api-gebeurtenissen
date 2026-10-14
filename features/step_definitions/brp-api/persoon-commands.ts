@@ -2,17 +2,17 @@ import {Command} from '../brp-api/commands.js';
 
 class RegistreerPersoonAdres {
   adresseerbaarObjectIdentificatie?: string;
-  datumInschrijving?: string;
+  verblijfdatum?: string;
 
   constructor(
     adresseerbaarObjectIdentificatie?: string,
-    datumInschrijving?: string,
+    verblijfdatum?: string,
   ) {
     if (adresseerbaarObjectIdentificatie) {
       this.adresseerbaarObjectIdentificatie = adresseerbaarObjectIdentificatie;
     }
-    if (datumInschrijving) {
-      this.datumInschrijving = datumInschrijving;
+    if (verblijfdatum) {
+      this.verblijfdatum = verblijfdatum;
     }
   }
 }
@@ -22,7 +22,7 @@ export class RegistreerPersoonCommand extends Command {
 
   constructor(
     geslachtsnaam?: string,
-    datumInschrijving?: string,
+    verblijfdatum?: string,
     adresseerbaarObjectIdentificatie?: string,
   ) {
     super('RegistreerPersoon');
@@ -31,10 +31,10 @@ export class RegistreerPersoonCommand extends Command {
       this.geslachtsnaam = geslachtsnaam;
     }
 
-    if (datumInschrijving || adresseerbaarObjectIdentificatie) {
+    if (verblijfdatum || adresseerbaarObjectIdentificatie) {
       this.adres = new RegistreerPersoonAdres(
         adresseerbaarObjectIdentificatie,
-        datumInschrijving,
+        verblijfdatum,
       );
     }
   }
