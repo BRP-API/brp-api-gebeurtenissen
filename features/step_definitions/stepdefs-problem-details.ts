@@ -64,16 +64,15 @@ function datumInToekomstBadRequest(
   parameterNaam: string,
   endpoint?: string,
 ): ProblemDetails {
-  return createinValidParamsBadRequest(
-    [
-      new InvalidParam(
-        'date',
-        parameterNaam,
-        'Waarde mag niet in de toekomst liggen.',
-      ),
-    ],
-    endpoint,
-  );
+  return createinValidParamsBadRequest([
+    new InvalidParam(
+      'date',
+      parameterNaam,
+      'Waarde mag niet in de toekomst liggen.',
+    ),
+  ],
+endpoint,
+);
 }
 
 defineParameterType({
