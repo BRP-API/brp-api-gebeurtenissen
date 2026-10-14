@@ -1,0 +1,149 @@
+@idp = http://localhost:8080/realms/brp-api/protocol/openid-connect/token
+@client_id = client%20met%20gemeentecode%20(eigen%20gemeente)
+@client_secret = secret
+@scope = 000000099000000080000
+@abonnees_endpoint = http://localhost:8002/api/brp/abonnees
+@abonnee_naam = dbz
+@groep_naam = client
+@gebeurtenistype = nl.brp.verhuisd.intergemeentelijk
+@burgerservicenummer = 999997348
+### Fetch access token
+# @name auth
+
+POST {{idp}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id={{client_id}}&client_secret={{client_secret}}&scope={{scope}}
+
+### Registreer abonnee
+
+POST {{abonnees_endpoint}}
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "naam": "{{abonnee_naam}}"
+}
+
+### Raadpleeg abonnees
+
+GET {{abonnees_endpoint}}
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Raadpleeg groepen
+GET {{abonnees_endpoint}}/{{abonnee_naam}}/groepen
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Groep toewijzen aan abonnee
+
+POST {{abonnees_endpoint}}/{{abonnee_naam}}/groepen
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "naam": "{{groep_naam}}"
+}
+
+### Raadpleeg gebeurtenistypes in groep
+
+GET {{abonnees_endpoint}}/{{abonnee_naam}}/groepen/{{groep_naam}}/gebeurtenistypes
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Voeg gebeurtenistype toe aan groep
+
+POST {{abonnees_endpoint}}/{{abonnee_naam}}/groepen/{{groep_naam}}/gebeurtenistypes
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "gebeurtenistype": "{{gebeurtenistype}}"
+}
+
+### Verwijder gebeurtenistype uit groep
+
+DELETE {{abonnees_endpoint}}/{{abonnee_naam}}/groepen/{{groep_naam}}/gebeurtenistypes/{{gebeurtenistype}}
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Abonneer persoon op groep
+POST {{abonnees_endpoint}}/{{abonnee_naam}}/abonnementen
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "type": "AbonneerPersoonOpGroep",
+  "groep": "{{groep_naam}}",
+  "burgerservicenummer": "{{burgerservicenummer}}"
+}
+
+### Abonneer op verhuisd.intergemeentelijk gebeurtenis van 999997348
+
+POST http://localhost:8888/api/brp/abonnees/dbz/abonnementen
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "type": "AbonneerOpGebeurtenisTypeVanPersoon",
+  "gebeurtenisType": "nl.brp.verhuisd.intergemeentelijk",
+  "burgerservicenummer": "999997348"
+}
+
+### Raadpleeg abonnementen van abonnee dbz
+
+GET http://localhost:8888/api/brp/abonnees/dbz/abonnementen
+Authorization: Bearer {{auth.response.body.access_token}}
+
+### Aangifte van adreswijziging
+
+POST http://localhost:8000/api/brp/personen/aangiftes
+Authorization: Bearer {{auth.response.body.access_token}}
+Content-Type: application/json
+
+{
+  "type": "AangifteVanAdreswijziging",
+  "burgerservicenummer": "999997348",
+  "verhuisdatum": "2026-01-01",
+  "adresseerbaarObjectIdentificatie": "034401000012651"
+}
+
+### Gebeurtenissen bevragen
+
+GET http://localhost:8888/api/brp/abonnees/dbz/gebeurtenissen
+Authorization: Bearer {{auth.response.body.access_token}}
+
+###
+
+POST http://localhost:8002/personen/gebeurtenissen
+Content-Type: application/json
+
+{
+  "type": "nl.brp.verhuisd.intergemeentelijk"
+}
+
+###
+POST http://localhost:8002/actuator/gebeurtenissen/reset
+Content-Type: application/json
+
+{
+}
+###
+# @name probeer-auth
+
+POST https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=client%20met%20volledige%20autorisatie&client_secret=secret&scope=000000099000000080000
+
+###
+
+POST https://probeerbrpapi.rvig.nl/api/brp/personen
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUQjBTT1oxQUIyQ0RwS1JSZ3V4dVlFbHc0YjNNLXpKWWNFbnQtOHA4OW5BIn0.eyJleHAiOjE3OTExODcwNTcsImlhdCI6MTc5MTE4NjQ1OCwianRpIjoidHJydGNjOmZmODFjMjY3LTU5YTgtYTgwNS1kOGQ5LTJkNWJlYzU4N2ZmOCIsImlzcyI6Imh0dHBzOi8vcHJvYmVlcmJycGFwaS5ydmlnLm5sL3JlYWxtcy9icnAtYXBpIiwic3ViIjoiZGZmY2ZhNjItYjlmNi00NTY4LWFiNDItNjk1NzYxZjExOGU3IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50IG1ldCB2b2xsZWRpZ2UgYXV0b3Jpc2F0aWUiLCJzY29wZSI6IjAwMDAwMDA5OTAwMDAwMDA4MDAwMCIsImNsYWltcyI6WyJPSU49MDAwMDAwMDk5MDAwMDAwMDgwMDAwIiwiYWZuZW1lcklEPTAwMDAwOCJdfQ.ADy8hUs36Y21nalcqzlaHYRT5agmYYO6skDFClFoidu0uNOjR7yIPDSUFK43LURZ0DHribsG8SFErnMAZSiFuHHH1NemTGgiLFw38Lz-IQooEXA6lM6cm5VvaVG1bIkTgrqEWSvJSW6ZDMSyMF1VYea0RCB4phKW7w7geHI4ik5ekThN52oKCiK99iGrrfN6xvtSqHzEenQuOD34VUXlvXE7rIAd-i0mBpXy6hYYLXgRLuMz8um7kOyaK2xnP2oCh0jgc_1fq6MwG4rf95Ix41WdraTW-1EXeNStLWCrpfyd3i2BfrR-rlphhK9XKQsViVVkSpHl3NN2ExHFfKMLKg
+Content-Type: application/json
+
+{
+  "type": "RaadpleegMetBurgerservicenummer",
+  "burgerservicenummer": ["999997348"],
+  "fields": [
+    "burgerservicenummer",
+    "gezag"
+  ]
+}
