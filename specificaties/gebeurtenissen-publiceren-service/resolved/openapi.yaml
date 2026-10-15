@@ -54,6 +54,10 @@ components:
           nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
           nl.brp.verhuisd.naar-buitenland: '#/components/schemas/VerhuisdNaarBuitenland'
           nl.brp.overleden: '#/components/schemas/Overleden'
+          nl.brp.overlijden-gecorrigeerd: '#/components/schemas/OverlijdenGecorrigeerd'
+          nl.brp.overlijden-onderzoek-gestart: '#/components/schemas/OverlijdenOnderzoek'
+          nl.brp.overlijden-onderzoek-gewijzigd: '#/components/schemas/OverlijdenOnderzoek'
+          nl.brp.overlijden-onderzoek-beeindigd: '#/components/schemas/OverlijdenBeeindigdOnderzoek'
     Anummer:
       type: string
       title: A-nummer
@@ -164,6 +168,90 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/OverledenData'
+    OverlijdenGecorrigeerdData:
+      type: object
+      properties:
+        c01:
+          $ref: '#/components/schemas/AnummerIdentificatieNummers'
+        c06:
+          $ref: '#/components/schemas/OverlijdenData'
+        c56:
+          $ref: '#/components/schemas/OverlijdenData'
+      required:
+        - c01
+        - c06
+        - c56
+    OverlijdenGecorrigeerd:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverlijdenGecorrigeerdData'
+    RubriekNummer:
+      type: string
+      pattern: ^[0-9]{6}$
+    Onderzoek:
+      type: object
+      properties:
+        e8310:
+          $ref: '#/components/schemas/RubriekNummer'
+          description: Aanduiding gegevens in onderzoek
+        e0820:
+          $ref: '#/components/schemas/Datum'
+          description: Datum ingang onderzoek
+      required:
+        - e8310
+        - e0820
+    OverlijdenOnderzoekData:
+      type: object
+      properties:
+        c01:
+          $ref: '#/components/schemas/AnummerIdentificatieNummers'
+        c06:
+          $ref: '#/components/schemas/Onderzoek'
+      required:
+        - c01
+        - c06
+    OverlijdenOnderzoek:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverlijdenOnderzoekData'
+    BeeindigdOnderzoek:
+      allOf:
+        - $ref: '#/components/schemas/Onderzoek'
+        - properties:
+            e0830:
+              $ref: '#/components/schemas/Datum'
+              description: Datum einde onderzoek
+          required:
+            - e0830
+    OverlijdenBeeindigdOnderzoekData:
+      type: object
+      properties:
+        c01:
+          $ref: '#/components/schemas/AnummerIdentificatieNummers'
+        c06:
+          $ref: '#/components/schemas/BeeindigdOnderzoek'
+      required:
+        - c01
+        - c06
+    OverlijdenBeeindigdOnderzoek:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverlijdenBeeindigdOnderzoekData'
     typedef:
       description: |
         Describes the type of event related to the originating occurrence.

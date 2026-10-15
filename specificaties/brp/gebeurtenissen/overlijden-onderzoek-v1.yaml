@@ -1,0 +1,47 @@
+openapi: 3.1.2
+info: 
+  title: overlijden onderzoek gebeurtenissen specificatie
+  version: 1.0.0
+components:
+  schemas:
+    OverlijdenOnderzoek:
+      allOf: 
+        - $ref: 'gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+        - type: object
+          required: 
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverlijdenOnderzoekData'
+
+    OverlijdenBeeindigdOnderzoek:
+      allOf: 
+        - $ref: 'gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+        - type: object
+          required: 
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverlijdenBeeindigdOnderzoekData'
+
+    OverlijdenOnderzoekData:
+      type: object
+      properties:
+        c01:
+          $ref: '../identificatienummers/anummer-v1.yaml#/components/schemas/AnummerIdentificatieNummers'
+        c06:
+          $ref: '../onderzoek-v1.yaml#/components/schemas/Onderzoek'
+      required: 
+        - c01
+        - c06
+
+    OverlijdenBeeindigdOnderzoekData:
+      type: object
+      properties:
+        c01:
+          $ref: '../identificatienummers/anummer-v1.yaml#/components/schemas/AnummerIdentificatieNummers'
+        c06:
+          $ref: '../onderzoek-v1.yaml#/components/schemas/BeeindigdOnderzoek'
+      required: 
+        - c01
+        - c06

@@ -21,3 +21,7 @@ components:
           nl.brp.verhuisd.intergemeentelijk: 'verhuisd-intergemeentelijk-v1.yaml#/components/schemas/VerhuisdIntergemeentelijk'
           nl.brp.verhuisd.naar-buitenland: 'verhuisd-naar-buitenland-v1.yaml#/components/schemas/VerhuisdNaarBuitenland'
           nl.brp.overleden: 'overleden-v1.yaml#/components/schemas/Overleden'
+          nl.brp.overlijden-gecorrigeerd: 'overlijden-gecorrigeerd-v1.yaml#/components/schemas/OverlijdenGecorrigeerd'
+          nl.brp.overlijden-onderzoek-gestart: 'overlijden-onderzoek-v1.yaml#/components/schemas/OverlijdenOnderzoek'
+          nl.brp.overlijden-onderzoek-gewijzigd: 'overlijden-onderzoek-v1.yaml#/components/schemas/OverlijdenOnderzoek'
+          nl.brp.overlijden-onderzoek-beeindigd: 'overlijden-onderzoek-v1.yaml#/components/schemas/OverlijdenBeeindigdOnderzoek'
