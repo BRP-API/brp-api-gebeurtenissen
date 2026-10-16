@@ -11,8 +11,6 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar het overlijden is beÃ
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon en het onderzoek in de data opgenomen.
 
-  Aan de abonnee wordt geen data meegestuurd waaruit af te leiden is wat exact onderzocht wordt, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
-
   Achtergrond:
     Gegeven de persoon 'Jan'
 

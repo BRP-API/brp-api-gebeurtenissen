@@ -13,11 +13,6 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar de verblijfplaats is 
   - datum aanvang adreshouding
   - adresseerbaar object identificatie van het adres
 
-  Aan de abonnee wordt van de verblijfplaats alleen de datum aanvang van adreshouding of verblijf buitenland opgenomen.
-  De datum aanvang wordt geleverd, zodat de abonnee de gebeurtenis kan relateren aan een verblijf.
-  
-  Aan de abonnee wordt geen data meegestuurd waaruit af te leiden is waar het onderzoek over ging, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
-
   Als er naar aanleiding van het onderzoek gegevens worden gecorrigeerd of gewijzigd, wordt eerst het onderzoek beëindigd vóór de wijzigingen worden aangebracht.
   Er zijn dus geen regels nodig voor onderscheid tussen beëindigen onderzoek met of juist zonder correctie/wijziging.
   Bij een correctie na onderzoek worden er dus twee gebeurtenissen gepubliceerd: een voor beëindigen van het onderzoek en een voor de correctie.

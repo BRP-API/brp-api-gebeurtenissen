@@ -8,11 +8,6 @@ Functionaliteit: Gebeurtenis wanneer een lopend onderzoek wordt gewijzigd
   - datum aanvang adreshouding
   - adresseerbaar object identificatie van het adres
 
-  Aan de abonnee wordt van de verblijfplaats alleen de datum aanvang van adreshouding of verblijf buitenland opgenomen.
-  De datum aanvang wordt geleverd, zodat de abonnee de gebeurtenis kan relateren aan een verblijf.
-  Aan de abonnee wordt geen data geleverd waaruit af te leiden is waar het onderzoek over gaat, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
-  De abonnee kan de actuele informatie over het onderzoek desgewenst ophalen in de BRP-API.
-
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     * in gemeente 'Hengelo'

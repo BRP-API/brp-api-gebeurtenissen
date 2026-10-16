@@ -1,7 +1,7 @@
 # language: nl
 Functionaliteit: Test 'verhuisd.intergemeentelijk' gebeurtenis
 
-Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd.intergemeentelijk' gebeurtenis plaatsgevonden.
+  Bij een aangifte van een verhuizing naar een andere gemeente heeft een 'verhuisd.intergemeentelijk' gebeurtenis plaatsgevonden.
   De gebeurtenis 'verhuisd.intergemeentelijk' betekent dat de persoon is verhuisd van een Nederlandse gemeente naar een andere Nederlandse gemeente.
 
   Achtergrond:

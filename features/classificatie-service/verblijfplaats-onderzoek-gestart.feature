@@ -11,14 +11,6 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
   Daarnaast worden enkele gegevens van de verblijfplaats opgenomen:
   - datum aanvang adreshouding
   - adresseerbaar object identificatie van het adres (identificatiecode verblijfplaats)
-
-  Aan de abonnee wordt van de verblijfplaats alleen de datum aanvang van adreshouding of verblijf buitenland opgenomen.
-  De datum aanvang wordt geleverd, zodat de abonnee de gebeurtenis kan relateren aan een verblijf.
-  Aan de abonnee wordt geen data geleverd waaruit af te leiden is waar het onderzoek over gaat, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
-
-  De abonnee kan meer informatie over het onderzoek desgewenst ophalen in de BRP-API personen bevragen of met de BRP-API verblijfplaatshistorie met bijvoorbeeld peildatum gelijk aan de geleverde datum aanvang, met enkele kanttekeningen:
-  - Als het onderzoek alleen gaat over een gegeven waar de abonnee niet voor geautoriseerd is, kan de abonnee het onderzoek niet zien in de BRP-API
-  - Als informatie over het onderzoek wordt gevraagd nadat het onderzoek al is afgerond, kan de abonnee het onderzoek niet meer zien in de BRP-API
   
   In onderstaande scenarios wordt de aanduiding gegevens in onderzoek omschreven. Deze omschrijvingen vertalen naar codes elementnummers die in de BRP zijn opgeslagen:
   | omschrijving gegevens in onderzoek | aanduiding in onderzoek in BRP |

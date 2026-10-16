@@ -6,9 +6,6 @@ Functionaliteit: Gebeurtenis wanneer het overlijden is gecorrigeerd
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
   Ook wordt de datum overlijden opgenomen met zowel de gecorrigeerde (onjuiste) waarde als de juiste (actuele) waarde (als die er nog is).
   
-  Aan de abonnee wordt alleen het A-nummer geleverd. Meer gegevens zijn niet nodig om de correctie aan te duiden, omdat overlijden geen historie heeft.
-  De abonnee kan meer informatie desgewenst ophalen in de BRP-API door het overlijden op te vragen. De abonnee ontvangt dan de nieuwe actuele situatie.
-
   Achtergrond:
     Gegeven de persoon 'Jan'
 

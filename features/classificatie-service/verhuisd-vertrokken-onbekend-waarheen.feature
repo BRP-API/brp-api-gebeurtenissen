@@ -7,6 +7,9 @@ Functionaliteit: Gebeurtenis wanneer een persoon vertrekt met onbekende verblijf
 
   In dit geval krijgt bij de nieuwe verblijfplaats het land adres buitenland de standaardwaarde 0000 (Onbekend).
 
+  In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon
+  en de datum aanvang verblijf buitenland (08.13.20) opgenomen.
+
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     En de persoon 'Jan'
