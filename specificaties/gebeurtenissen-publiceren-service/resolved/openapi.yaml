@@ -54,10 +54,14 @@ components:
           nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
           nl.brp.verhuisd.naar-buitenland: '#/components/schemas/VerhuisdNaarBuitenland'
           nl.brp.overleden: '#/components/schemas/Overleden'
-          nl.brp.overlijden-gecorrigeerd: '#/components/schemas/OverlijdenGecorrigeerd'
-          nl.brp.overlijden-onderzoek-gestart: '#/components/schemas/OverlijdenOnderzoek'
-          nl.brp.overlijden-onderzoek-gewijzigd: '#/components/schemas/OverlijdenOnderzoek'
-          nl.brp.overlijden-onderzoek-beeindigd: '#/components/schemas/OverlijdenBeeindigdOnderzoek'
+          nl.brp.verblijfplaats.onderzoek-gestart: '#/components/schemas/VerblijfplaatsOnderzoek'
+          nl.brp.verblijfplaats.onderzoek-gewijzigd: '#/components/schemas/VerblijfplaatsOnderzoek'
+          nl.brp.verblijfplaats.onderzoek-beeindigd: '#/components/schemas/VerblijfplaatsBeeindigdOnderzoek'
+          nl.brp.verblijfplaats.gecorrigeerd: '#/components/schemas/VerblijfplaatsGecorrigeerd'
+          nl.brp.overlijden.onderzoek-gestart: '#/components/schemas/OverlijdenOnderzoek'
+          nl.brp.overlijden.onderzoek-gewijzigd: '#/components/schemas/OverlijdenOnderzoek'
+          nl.brp.overlijden.onderzoek-beeindigd: '#/components/schemas/OverlijdenBeeindigdOnderzoek'
+          nl.brp.overlijden.gecorrigeerd: '#/components/schemas/OverlijdenGecorrigeerd'
     Anummer:
       type: string
       title: A-nummer
@@ -168,20 +172,38 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/OverledenData'
-    OverlijdenGecorrigeerdData:
+    RubriekNummer:
+      type: string
+      pattern: ^[0-9]{6}$
+    AanduidingGegevensInOnderzoek:
+      $ref: '#/components/schemas/RubriekNummer'
+      title: Aanduiding gegevens in onderzoek
+    DatumIngangOnderzoek:
+      $ref: '#/components/schemas/Datum'
+      title: Datum ingang onderzoek
+    DataVerblijfplaatsMetOnderzoek:
+      allOf:
+        - $ref: '#/components/schemas/AdresData'
+        - type: object
+          properties:
+            e8310:
+              $ref: '#/components/schemas/AanduidingGegevensInOnderzoek'
+            e8320:
+              $ref: '#/components/schemas/DatumIngangOnderzoek'
+          required:
+            - e8310
+            - e8320
+    VerblijfplaatsOnderzoekData:
       type: object
       properties:
         c01:
           $ref: '#/components/schemas/AnummerIdentificatieNummers'
-        c06:
-          $ref: '#/components/schemas/OverlijdenData'
-        c56:
-          $ref: '#/components/schemas/OverlijdenData'
+        c08:
+          $ref: '#/components/schemas/DataVerblijfplaatsMetOnderzoek'
       required:
         - c01
-        - c06
-        - c56
-    OverlijdenGecorrigeerd:
+        - c08
+    VerblijfplaatsOnderzoek:
       allOf:
         - $ref: '#/components/schemas/Gebeurtenis'
         - type: object
@@ -189,22 +211,70 @@ components:
             - data
           properties:
             data:
-              $ref: '#/components/schemas/OverlijdenGecorrigeerdData'
-    RubriekNummer:
-      type: string
-      pattern: ^[0-9]{6}$
+              $ref: '#/components/schemas/VerblijfplaatsOnderzoekData'
+    DatumEindeOnderzoek:
+      $ref: '#/components/schemas/Datum'
+      title: Datum einde onderzoek
+    DataVerblijfplaatsMetBeeindigdOnderzoek:
+      allOf:
+        - $ref: '#/components/schemas/DataVerblijfplaatsMetOnderzoek'
+        - type: object
+          properties:
+            e8330:
+              $ref: '#/components/schemas/DatumEindeOnderzoek'
+          required:
+            - e8330
+    VerblijfplaatsBeeindigdOnderzoekData:
+      type: object
+      properties:
+        c01:
+          $ref: '#/components/schemas/AnummerIdentificatieNummers'
+        c08:
+          $ref: '#/components/schemas/DataVerblijfplaatsMetBeeindigdOnderzoek'
+      required:
+        - c01
+        - c08
+    VerblijfplaatsBeeindigdOnderzoek:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/VerblijfplaatsBeeindigdOnderzoekData'
+    VerblijfplaatsGecorrigeerdData:
+      type: object
+      properties:
+        c01:
+          $ref: '#/components/schemas/AnummerIdentificatieNummers'
+        c08:
+          $ref: '#/components/schemas/AdresData'
+        c58:
+          $ref: '#/components/schemas/AdresData'
+      required:
+        - c01
+        - c08
+        - c58
+    VerblijfplaatsGecorrigeerd:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/VerblijfplaatsGecorrigeerdData'
     Onderzoek:
       type: object
       properties:
         e8310:
-          $ref: '#/components/schemas/RubriekNummer'
-          description: Aanduiding gegevens in onderzoek
-        e0820:
-          $ref: '#/components/schemas/Datum'
-          description: Datum ingang onderzoek
+          $ref: '#/components/schemas/AanduidingGegevensInOnderzoek'
+        e8320:
+          $ref: '#/components/schemas/DatumIngangOnderzoek'
       required:
         - e8310
-        - e0820
+        - e8320
     OverlijdenOnderzoekData:
       type: object
       properties:
@@ -229,8 +299,7 @@ components:
         - $ref: '#/components/schemas/Onderzoek'
         - properties:
             e0830:
-              $ref: '#/components/schemas/Datum'
-              description: Datum einde onderzoek
+              $ref: '#/components/schemas/DatumEindeOnderzoek'
           required:
             - e0830
     OverlijdenBeeindigdOnderzoekData:
@@ -252,6 +321,28 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/OverlijdenBeeindigdOnderzoekData'
+    OverlijdenGecorrigeerdData:
+      type: object
+      properties:
+        c01:
+          $ref: '#/components/schemas/AnummerIdentificatieNummers'
+        c06:
+          $ref: '#/components/schemas/OverlijdenData'
+        c56:
+          $ref: '#/components/schemas/OverlijdenData'
+      required:
+        - c01
+        - c06
+        - c56
+    OverlijdenGecorrigeerd:
+      allOf:
+        - $ref: '#/components/schemas/Gebeurtenis'
+        - type: object
+          required:
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverlijdenGecorrigeerdData'
     typedef:
       description: |
         Describes the type of event related to the originating occurrence.

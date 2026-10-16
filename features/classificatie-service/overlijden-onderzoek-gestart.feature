@@ -20,17 +20,17 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar het overli
   Achtergrond:
     Gegeven de persoon 'Jan'
 
-  Regel: Als een onderzoek gestart is naar het overlijden, heeft de gebeurtenis 'overlijden-onderzoek-gestart' plaatsgevonden
+  Regel: Als een onderzoek gestart is naar het overlijden, heeft de gebeurtenis 'overlijden.onderzoek-gestart' plaatsgevonden
 
     Scenario: Er start een onderzoek of de persoon nog in leven is
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als een onderzoek is gestart naar 'de hele categorie overlijden' van 'Jan'
-      Dan is een 'overlijden-onderzoek-gestart' gebeurtenis gepubliceerd
+      Dan is een 'overlijden.onderzoek-gestart' gebeurtenis gepubliceerd
 
     Abstract Scenario: Er start een onderzoek of <betwijfelde gegeven> van overlijden juist is
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als een onderzoek is gestart naar '<betwijfelde gegeven>' van 'Jan'
-      Dan is een 'overlijden-onderzoek-gestart' gebeurtenis gepubliceerd
+      Dan is een 'overlijden.onderzoek-gestart' gebeurtenis gepubliceerd
 
       Voorbeelden:
         | betwijfelde gegeven  |
@@ -38,12 +38,12 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar het overli
         | plaats van overijden |
         | land van overlijden  |
 
-  Regel: Bij gebeurtenistype 'overlijden-onderzoek-gestart' wordt het A-nummer van de persoon en gegevens over het onderzoek meegeleverd
+  Regel: Bij gebeurtenistype 'overlijden.onderzoek-gestart' wordt het A-nummer van de persoon en gegevens over het onderzoek meegeleverd
 
     Scenario: Er start een onderzoek of de persoon nog in leven is
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als op '03-09-2026' een onderzoek is gestart naar 'de hele categorie overlijden' van 'Jan'
-      Dan is een 'overlijden-onderzoek-gestart' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'overlijden.onderzoek-gestart' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * aanduiding gegevens in onderzoek 'de hele categorie overlijden'
       * datum ingang onderzoek '03-09-2026'

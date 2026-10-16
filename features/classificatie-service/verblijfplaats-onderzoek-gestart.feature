@@ -9,9 +9,8 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon en het onderzoek in de data opgenomen.
   Daarnaast worden enkele gegevens van de verblijfplaats opgenomen:
-  - datum aanvang adreshouding dan wel datum aanvang verblijf buitenland
+  - datum aanvang adreshouding
   - adresseerbaar object identificatie van het adres
-  - functie adres
 
   Aan de abonnee wordt van de verblijfplaats alleen de datum aanvang van adreshouding of verblijf buitenland opgenomen.
   De datum aanvang wordt geleverd, zodat de abonnee de gebeurtenis kan relateren aan een verblijf.
@@ -45,7 +44,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
     * verblijft vanaf '14-04-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
     * verblijft vanaf '19-06-2026' op het adres 'Beursstraat_44_Hengelo'
 
-  Regel: Als een onderzoek gestart is naar de actuele verblijfplaats, heeft de gebeurtenis 'verblijfplaats-onderzoek-gestart' plaatsgevonden
+  Regel: Als een onderzoek gestart is naar de actuele verblijfplaats, heeft de gebeurtenis 'verblijfplaats.onderzoek-gestart' plaatsgevonden
     Dit is alleen het geval wanneer onderzoek start en de aanduiding van het onderzoek betreft gegevens over het verblijf:
     - gemeente
     - adreshouding (o.a. datum aanvang adreshouding en functie adres)
@@ -53,7 +52,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
 
     Abstract Scenario: Onderzoek naar <betwijfelde gegevens> is gestart
       Als een onderzoek is gestart naar '<betwijfelde gegevens>' van het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
-      Dan is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd
+      Dan is een 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
 
       Voorbeelden:
         | betwijfelde gegevens             |
@@ -66,7 +65,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
 
     Abstract Scenario: Onderzoek naar <betwijfelde gegevens> is gestart
       Als een onderzoek is gestart naar '<betwijfelde gegevens>' van het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
-      Dan is er geen 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd
+      Dan is er geen 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
 
       Voorbeelden:
         | betwijfelde gegevens                      |
@@ -78,7 +77,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
 
     Scenario: Bij de start van het onderzoek is al duidelijk dat de persoon niet verblijft op het adres
       Als is vastgesteld dat 'Jan' niet verblijft op het adres 'Beursstraat_44_Hengelo'
-      Dan is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd
+      Dan is een 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
 
     Scenario: Intergemeentelijke verhuizing is doorgevoerd zonder eerst het onderzoek te beëindigen
       Gegeven een onderzoek loopt naar het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
@@ -86,29 +85,27 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
       * verblijft vanaf '1-9-2025' op het adres 'Stadserf_1_Roosendaal'
       En het lopende onderzoek is overgenomen naar de nieuwe verblijfplaats
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
-      En is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd
+      En is een 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
 
-  Regel: Bij gebeurtenistype verblijfplaats-onderzoek-gestart' wordt het A-nummer van de persoon meegeleverd en gegevens over het onderzoek en het betreffende verblijf
+  Regel: Bij gebeurtenistype verblijfplaats.onderzoek-gestart' wordt het A-nummer van de persoon meegeleverd en gegevens over het onderzoek en het betreffende verblijf
     Van de verblijfplaats worden alleen de volgende gegevens geleverd:
-    - functie adres
-    - datum aanvang adreshouding dan wel datum aanvang verblijf buitenland
+    - datum aanvang adreshouding
     - adresseerbaar object identificatie van het adres
 
     Scenario: Onderzoek naar de hele categorie verblijfplaats is gestart
       Als op '03-09-2026' een onderzoek is gestart naar 'de hele categorie verblijfplaats' van het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
-      Dan is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer 'Jan'
       * datum aanvang adreshouding '19-06-2026'
-      * functie adres 'W'
       * adresseerbaar object identificatie van het actuele adres 'Beursstraat_44_Hengelo'
       * aanduiding gegevens in onderzoek 'de hele categorie verblijfplaats'
       * datum ingang onderzoek '03-09-2026'
 
-  Regel: Als een onderzoek gestart is naar een historische verblijfplaats, heeft geen 'verblijfplaats-onderzoek-gestart' gebeurtenis plaatsgevonden
+  Regel: Als een onderzoek gestart is naar een historische verblijfplaats, heeft geen 'verblijfplaats.onderzoek-gestart' gebeurtenis plaatsgevonden
 
     Abstract Scenario: Onderzoek naar <betwijfelde gegevens> van een historische verblijfplaats is gestart
       Als een onderzoek is gestart naar het verblijf vanaf '14-04-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' van 'Jan'
-      Dan is er geen 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd
+      Dan is er geen 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
 
       Voorbeelden:
         | betwijfelde gegevens             |
@@ -116,13 +113,13 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
         | de groep adres                   |
         | datum aanvang adreshouding       |
 
-  Regel: Als op een verblijfplaats voor de tweede keer een onderzoek is gestart, heeft de gebeurtenis 'verblijfplaats-onderzoek-gestart' plaatsgevonden
+  Regel: Als op een verblijfplaats voor de tweede keer een onderzoek is gestart, heeft de gebeurtenis 'verblijfplaats.onderzoek-gestart' plaatsgevonden
 
     Abstract Scenario: Een onderzoek was eerst afgerond en wordt nu opnieuw gestart <omschrijving>
       Gegeven een onderzoek loopt naar '<betwijfelde gegevens eerste onderzoek>' van het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
       En het onderzoek naar het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan' is beëindigd
       Als een onderzoek is gestart naar '<betwijfelde gegevens nieuwe onderzoek>' van het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
-      Dan is een 'verblijfplaats-onderzoek-gestart' gebeurtenis gepubliceerd
+      Dan is een 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
 
       Voorbeelden:
         | omschrijving                      | betwijfelde gegevens eerste onderzoek | betwijfelde gegevens nieuwe onderzoek |

@@ -12,36 +12,36 @@ Functionaliteit: Gebeurtenis wanneer het overlijden is gecorrigeerd
   Achtergrond:
     Gegeven de persoon 'Jan'
 
-  Regel: Als overlijden is gecorrigeerd, heeft de gebeurtenis 'overlijden-gecorrigeerd' plaatsgevonden
+  Regel: Als overlijden is gecorrigeerd, heeft de gebeurtenis 'overlijden.gecorrigeerd' plaatsgevonden
 
     Scenario: De persoon is niet overleden dus overlijden was ten onrechte geregistreerd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als het overlijden van 'Jan' onjuist is en 'Jan' is niet overleden
-      Dan is een 'overlijden-gecorrigeerd' gebeurtenis gepubliceerd
+      Dan is een 'overlijden.gecorrigeerd' gebeurtenis gepubliceerd
 
     Scenario: De datum van het overlijden was onjuist en is gecorrigeerd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als het overlijden van 'Jan' onjuist is en 'Jan' is overleden op '13-08-2026' in 'Gemeente Roosendaal'
-      Dan is een 'overlijden-gecorrigeerd' gebeurtenis gepubliceerd
+      Dan is een 'overlijden.gecorrigeerd' gebeurtenis gepubliceerd
 
     Scenario: De plaats en land van het overlijden waren onjuist en is gecorrigeerd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als het overlijden van 'Jan' onjuist is en 'Jan' is overleden op '12-08-2026' in 'Berlijn' in 'Duitsland'
-      Dan is een 'overlijden-gecorrigeerd' gebeurtenis gepubliceerd
+      Dan is een 'overlijden.gecorrigeerd' gebeurtenis gepubliceerd
 
-  Regel: Bij gebeurtenistype 'overlijden-gecorrigeerd' wordt het A-nummer van de persoon meegeleverd plus de onjuiste en actuele datum overlijden
+  Regel: Bij gebeurtenistype 'overlijden.gecorrigeerd' wordt het A-nummer van de persoon meegeleverd plus de onjuiste en actuele datum overlijden
 
     Scenario: De persoon is niet overleden dus overlijden was ten onrechte geregistreerd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als het overlijden van 'Jan' onjuist is en 'Jan' is niet overleden
-      Dan is een 'overlijden-gecorrigeerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'overlijden.gecorrigeerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de onjuiste datum overlijden '12-08-2026'
 
     Scenario: De datum van het overlijden was onjuist en is gecorrigeerd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als het overlijden van 'Jan' onjuist is en 'Jan' is overleden op '13-08-2026' in 'Gemeente Roosendaal'
-      Dan is een 'overlijden-gecorrigeerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'overlijden.gecorrigeerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de onjuiste datum overlijden '12-08-2026'
       * de juiste datum overlijden '13-08-2026'
@@ -49,7 +49,7 @@ Functionaliteit: Gebeurtenis wanneer het overlijden is gecorrigeerd
     Scenario: De plaats en land van het overlijden waren onjuist en is gecorrigeerd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als het overlijden van 'Jan' onjuist is en 'Jan' is overleden op '12-08-2026' in 'Berlijn' in 'Duitsland'
-      Dan is een 'overlijden-gecorrigeerd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'overlijden.gecorrigeerd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * de onjuiste datum overlijden '12-08-2026'
       * de juiste datum overlijden '12-08-2026'

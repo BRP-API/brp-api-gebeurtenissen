@@ -16,13 +16,13 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar het overlijden is be�
   Achtergrond:
     Gegeven de persoon 'Jan'
 
-  Regel: Als een onderzoek naar het overlijden is beëindigd, heeft de gebeurtenis 'overlijden-onderzoek-beeindigd' plaatsgevonden
+  Regel: Als een onderzoek naar het overlijden is beëindigd, heeft de gebeurtenis 'overlijden.onderzoek-beeindigd' plaatsgevonden
 
     Abstract Scenario: Onderzoek naar <betwijfeld gegeven> is beëindigd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       En een onderzoek loopt naar '<betwijfeld gegeven>' op het overlijden van 'Jan'
       Als het onderzoek naar het overlijden van 'Jan' is beëindigd
-      Dan is een 'overlijden-onderzoek-beeindigd' gebeurtenis gepubliceerd
+      Dan is een 'overlijden.onderzoek-beeindigd' gebeurtenis gepubliceerd
 
       Voorbeelden:
         | betwijfeld gegeven           |
@@ -37,16 +37,16 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar het overlijden is be�
       En een onderzoek loopt naar 'de hele categorie overlijden' op het overlijden van 'Jan'
       Als het onderzoek naar het overlijden van 'Jan' is beëindigd
       En het overlijden van 'Jan' onjuist is en 'Jan' is niet overleden
-      Dan is een 'overlijden-onderzoek-beeindigd' gebeurtenis gepubliceerd
+      Dan is een 'overlijden.onderzoek-beeindigd' gebeurtenis gepubliceerd
 
-  Regel: Bij gebeurtenistype 'overlijden-onderzoek-beeindigd' wordt het A-nummer van de persoon en gegevens over het onderzoek meegeleverd
+  Regel: Bij gebeurtenistype 'overlijden.onderzoek-beeindigd' wordt het A-nummer van de persoon en gegevens over het onderzoek meegeleverd
     De gebeurtenis bevat gegevens over het onderzoek zoals ze geldig zijn na de wijziging.
       
     Scenario: Onderzoek naar datum van overlijden is beëindigd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       En op '03-09-2026' een onderzoek is gestart naar 'datum van overlijden' op het overlijden van 'Jan'
       Als het onderzoek naar het overlijden van 'Jan' is beëindigd op '08-10-2026'
-      Dan is een 'overlijden-onderzoek-beeindigd' gebeurtenis gepubliceerd met de volgende data
+      Dan is een 'overlijden.onderzoek-beeindigd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * aanduiding gegevens in onderzoek 'datum van overlijden'
       * datum ingang onderzoek '03-09-2026'

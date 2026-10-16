@@ -18,9 +18,8 @@ Functionaliteit: Gebeurtenis wanneer een onderzoek loopt naar de verblijfplaats 
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon en het onderzoek in de data opgenomen.
   Daarnaast worden enkele gegevens van de verblijfplaats opgenomen:
-  - datum aanvang adreshouding dan wel datum aanvang verblijf buitenland
+  - datum aanvang adreshouding
   - adresseerbaar object identificatie van het adres
-  - functie adres
 
   Aan de abonnee wordt van de verblijfplaats alleen de datum aanvang van adreshouding opgenomen.
   Aan de abonnee wordt geen data geleverd waaruit af te leiden is waar het onderzoek over gaat, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
@@ -48,7 +47,6 @@ Functionaliteit: Gebeurtenis wanneer een onderzoek loopt naar de verblijfplaats 
 
   Regel: Bij gebeurtenistype 'vastgesteld-verblijft-niet-op-adres' wordt het A-nummer van de persoon meegeleverd en gegevens over het onderzoek en het betreffende verblijf
     Van de verblijfplaats worden alleen de volgende gegevens geleverd:
-    - functie adres
     - datum aanvang adreshouding dan wel datum aanvang verblijf buitenland
     - adresseerbaar object identificatie van het adres
 
@@ -60,7 +58,6 @@ Functionaliteit: Gebeurtenis wanneer een onderzoek loopt naar de verblijfplaats 
       Dan is een 'vastgesteld-verblijft-niet-op-adres' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer 'Jan'
       * datum aanvang adreshouding '19-06-2026'
-      * functie adres 'W'
       * adresseerbaar object identificatie van het actuele adres 'Beursstraat_44_Hengelo'
       * aanduiding gegevens in onderzoek 'vastgesteld verblijft niet op adres'
       * datum ingang onderzoek '03-09-2026'
