@@ -20,8 +20,7 @@ services:
       - PROJECTIONS_DATASOURCE_USERNAME=brp_gebeurtenissen_eigenaar
       - PROJECTIONS_DATASOURCE_PASSWORD=riot-antihero-moustache
       - SPRING_PROFILES_ACTIVE=compose
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/realms/brp-api
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWKSETURI=http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak:8080/realms/brp-api/protocol/openid-connect/certs
       - MANAGEMENT_GEBEURTENISSEN_ENABLED=true
     networks:
       - brp-api-network
