@@ -1,0 +1,13 @@
+openapi: 3.1.2
+info:
+  title: Voeg gebeurtenistype toe command definitie
+  version: 1.0.0
+components:
+  schemas:
+    VoegGebeurtenistypeToeCommand:
+      type: object
+      properties:
+        gebeurtenistype:
+          $ref: './gebeurtenis-type-van-persoon-enum-v1.yaml#/components/schemas/GebeurtenisTypeVanPersoonEnum'
+      required:
+        - gebeurtenistype

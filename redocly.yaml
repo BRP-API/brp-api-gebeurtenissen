@@ -1,0 +1,12 @@
+extends:
+  - recommended
+
+rules:
+  info-license:
+    severity: off
+
+  no-empty-servers:
+    severity: off
+
+  no-unused-components:
+    severity: off

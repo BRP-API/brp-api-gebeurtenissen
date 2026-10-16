@@ -1,0 +1,31 @@
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+
+# Docker
+.docker/
+
+# CI/CD
+.github/
+
+# Environment files
+.env*
+
+# Temporary files
+*.tmp
+*.temp

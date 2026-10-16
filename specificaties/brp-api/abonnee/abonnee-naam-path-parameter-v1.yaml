@@ -1,0 +1,13 @@
+openapi: 3.1.2
+info: 
+  title: Abonnee naam path parameter definitie
+  version: 1.0.0
+components:
+  parameters:
+    AbonneeNaamPathParameter:
+      name: abonneeNaam
+      in: path
+      required: true
+      schema:
+        $ref: './naam-v1.yaml#/components/schemas/AbonneeNaam'
+        description: De naam van de abonnee

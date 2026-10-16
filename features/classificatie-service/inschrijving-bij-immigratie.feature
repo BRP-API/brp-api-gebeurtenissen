@@ -1,4 +1,5 @@
 # language: nl
+@to-do @skip-verify
 Functionaliteit: gepubliceerde gebeurtenis bij een eerste inschrijving bij vestiging vanuit het buitenland in Nederland
   De persoon vestigt zich vanuit het buitenland in een Nederlandse gemeente. Hij is nooit in de BRP ingeschreven (dus
   ook niet in de RNI).

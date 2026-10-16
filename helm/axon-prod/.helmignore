@@ -1,0 +1,30 @@
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Build artifacts
+target/
+*.jar
+*.war
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+README*
+
+# Test files
+src/test/

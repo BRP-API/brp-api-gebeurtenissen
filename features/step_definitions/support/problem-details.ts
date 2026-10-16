@@ -1,0 +1,156 @@
+export class ProblemDetails {
+  type: string;
+  title?: string;
+  status: number;
+  detail?: string;
+  instance?: string;
+  code?: string;
+
+  constructor(
+    type: string,
+    status: number,
+    title?: string,
+    detail?: string,
+    instance?: string,
+    code?: string,
+  ) {
+    this.type = type;
+    this.status = status;
+    if (title) {
+      this.title = title;
+    }
+    if (detail) {
+      this.detail = detail;
+    }
+    if (instance) {
+      this.instance = instance;
+    }
+    if (code) {
+      this.code = code;
+    }
+  }
+
+  static getStatusCode(status: string): number {
+    return +status.split(' ')[0];
+  }
+
+  static isSuccessFull(statusCode: number): boolean {
+    return statusCode >= 200 && statusCode < 300;
+  }
+
+  static create(status: string): ProblemDetails | null {
+    const statuscode = this.getStatusCode(status);
+
+    switch (statuscode) {
+      case 400:
+        return new BadRequestProblemDetails('', '', '', '', []);
+      case 401:
+        return new UnauthorizedProblemDetails();
+      case 403:
+        return new ForbiddenProblemDetails();
+      case 404:
+        return new NotFoundProblemDetails();
+      case 409:
+        return new ConflictProblemDetails();
+      default:
+        return null;
+    }
+  }
+
+  static createBadRequestProblemDetails(
+    title: string,
+    detail: string,
+    instance: string,
+    code: string,
+    invalidParams: InvalidParam[],
+  ): BadRequestProblemDetails {
+    return new BadRequestProblemDetails(
+      title,
+      detail,
+      instance,
+      code,
+      invalidParams,
+    );
+  }
+}
+
+export class InvalidParam {
+  code: string;
+  name: string;
+  reason: string;
+
+  constructor(code: string, name: string, reason: string) {
+    this.code = code;
+    this.name = name;
+    this.reason = reason;
+  }
+}
+
+class BadRequestProblemDetails extends ProblemDetails {
+  invalidParams: InvalidParam[];
+  constructor(
+    title: string,
+    detail: string,
+    instance: string,
+    code: string,
+    invalidParams: InvalidParam[],
+  ) {
+    super(
+      'https://www.rfc-editor.org/rfc/rfc9110.html#name-400-bad-request',
+      400,
+      title,
+      detail,
+      instance,
+      code,
+    );
+    this.invalidParams = invalidParams;
+  }
+}
+
+class UnauthorizedProblemDetails extends ProblemDetails {
+  constructor(title?: string, detail?: string, instance?: string) {
+    super(
+      'https://www.rfc-editor.org/rfc/rfc9110.html#name-401-unauthorized',
+      401,
+      title,
+      detail,
+      instance,
+    );
+  }
+}
+
+class ForbiddenProblemDetails extends ProblemDetails {
+  constructor(title?: string, detail?: string, instance?: string) {
+    super(
+      'https://www.rfc-editor.org/rfc/rfc9110.html#name-403-forbidden',
+      403,
+      title,
+      detail,
+      instance,
+    );
+  }
+}
+
+class NotFoundProblemDetails extends ProblemDetails {
+  constructor(title?: string, detail?: string, instance?: string) {
+    super(
+      'https://www.rfc-editor.org/rfc/rfc9110.html#name-404-not-found',
+      404,
+      title,
+      detail,
+      instance,
+    );
+  }
+}
+
+class ConflictProblemDetails extends ProblemDetails {
+  constructor(title?: string, detail?: string, instance?: string) {
+    super(
+      'https://www.rfc-editor.org/rfc/rfc9110.html#name-409-conflict',
+      409,
+      title,
+      detail,
+      instance,
+    );
+  }
+}

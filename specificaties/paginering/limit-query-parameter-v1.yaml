@@ -1,0 +1,13 @@
+openapi: 3.1.2
+info:
+  title: Limit query parameter definitie
+  version: 1.0.0
+components:
+  parameters:
+    LimitQueryParameter:
+      name: limit
+      in: query
+      required: false
+      schema:
+        $ref: './limit-v1.yaml#/components/schemas/Limit'
+      description: Limit query parameter die gebruikt kan worden voor paginering.
