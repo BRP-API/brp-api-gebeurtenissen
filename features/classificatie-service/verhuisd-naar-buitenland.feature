@@ -1,10 +1,10 @@
 # language: nl
-Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
+Functionaliteit: Gebeurtenis 'verhuisd.naar-buitenland'
   Bij een aangifte van een verhuizing naar het buitenland, of naar het Caribisch deel van het Koninkrijk heeft een gebeurtenis verhuisd.naar-buitenland plaatsgevonden.
   De gebeurtenis 'verhuisd.naar-buitenland' betekent dat de persoon verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
-  
-  Wanneer geen aangifte van vertrek is gedaan, maar het vertrek uit Nederland ambthalve is geregistreerd of als gevolg van een Ministerieel Besluit 
-  is het niet bekend waar persoon verblijft en is geen sprake van verhuizing naar het buitenland.  
+
+  Wanneer geen aangifte van vertrek is gedaan, maar het vertrek uit Nederland ambthalve is geregistreerd of als gevolg van een Ministerieel Besluit
+  is het niet bekend waar persoon verblijft en is geen sprake van verhuizing naar het buitenland.
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
   Daarnaast wordt ook de datum aanvang  verblijf buitenland van de verblijfplaats opgenomen.
@@ -50,7 +50,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
 
   Regel: Wanneer een persoon naar een Caribisch deel van het Koninkrijk is verhuisd, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
 
-   Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk
+    Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk
       Gegeven het adres buitenland 'KayaGrandi_12_Kralendijk'
       * met adresregel 1 'Kaya Grandi 12'
       * met adresregel 2 'Kralendijk'
@@ -60,7 +60,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       Dan is een 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd
 
   Regel: Bij gebeurtenistype 'verhuisd.naar-buitenland' wordt het A-nummer van de persoon meegeleverd plus de datum aanvang van het betreffende verblijf
-    De datum aanvang waar hier op gedoeld wordt is de datum aanvang verblijf buitenland.
+  De datum aanvang waar hier op gedoeld wordt is de datum aanvang verblijf buitenland.
 
     Scenario: Aangifte van vertrek naar het buitenland
       Gegeven het adres buitenland 'Chemin_du_Calvaire_19_Lausanne'
@@ -84,10 +84,10 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       * opschorting bijhouding reden is 'Emigratie'
       Dan is geen 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd
 
- Regel: Als een onbekend land wordt geregistreerd na een Ministerieel Besluit, heeft de gebeurtenis 'verhuisd.naar-buitenland' NIET plaatsgevonden
-    Een Ministerieel Besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn.
-    
-    In dit geval is de persoonslijst opgeschort met reden Ministerieel besluit (M).
+  Regel: Als een onbekend land wordt geregistreerd na een Ministerieel Besluit, heeft de gebeurtenis 'verhuisd.naar-buitenland' NIET plaatsgevonden
+  Een Ministerieel Besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn.
+
+  In dit geval is de persoonslijst opgeschort met reden Ministerieel besluit (M).
 
     Scenario: Emigratie Ministerieel Besluit
       Als een Ministerieel Besluit voor 'Jan' is verwerkt
