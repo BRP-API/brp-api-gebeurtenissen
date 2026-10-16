@@ -1,0 +1,29 @@
+openapi: 3.1.2
+info: 
+  title: overleden gecorrigeerd gebeurtenis specificatie
+  version: 1.0.0
+components:
+  schemas:
+    OverlijdenGecorrigeerd:
+      allOf: 
+        - $ref: 'gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+        - type: object
+          required: 
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/OverlijdenGecorrigeerdData'
+
+    OverlijdenGecorrigeerdData:
+      type: object
+      properties:
+        c01:
+          $ref: '../identificatienummers/anummer-v1.yaml#/components/schemas/AnummerIdentificatieNummers'
+        c06:
+          $ref: './overleden-v1.yaml#/components/schemas/OverlijdenData'
+        c56:
+          $ref: './overleden-v1.yaml#/components/schemas/OverlijdenData'
+      required: 
+        - c01
+        - c06
+        - c56

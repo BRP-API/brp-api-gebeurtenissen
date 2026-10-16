@@ -1,0 +1,9 @@
+openapi: 3.1.2
+info: 
+  title: rubriek
+  version: 1.0.0
+components:
+  schemas:
+    RubriekNummer:
+      type: string
+      pattern: ^[0-9]{6}$

@@ -1,0 +1,29 @@
+openapi: 3.1.2
+info: 
+  title: verblijfplaats gecorrigeerd gebeurtenis specificatie
+  version: 1.0.0
+components:
+  schemas:
+    VerblijfplaatsGecorrigeerd:
+      allOf: 
+        - $ref: 'gebeurtenis-v1.yaml#/components/schemas/Gebeurtenis'
+        - type: object
+          required: 
+            - data
+          properties:
+            data:
+              $ref: '#/components/schemas/VerblijfplaatsGecorrigeerdData'
+
+    VerblijfplaatsGecorrigeerdData:
+      type: object
+      properties:
+        c01:
+          $ref: '../identificatienummers/anummer-v1.yaml#/components/schemas/AnummerIdentificatieNummers'
+        c08:
+          $ref: './verhuisd-intergemeentelijk-v1.yaml#/components/schemas/AdresData'
+        c58:
+          $ref: './verhuisd-intergemeentelijk-v1.yaml#/components/schemas/AdresData'
+      required: 
+        - c01
+        - c08
+        - c58
