@@ -10,7 +10,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon en het onderzoek in de data opgenomen.
   Daarnaast worden enkele gegevens van de verblijfplaats opgenomen:
   - datum aanvang adreshouding
-  - adresseerbaar object identificatie van het adres
+  - adresseerbaar object identificatie van het adres (identificatiecode verblijfplaats)
 
   Aan de abonnee wordt van de verblijfplaats alleen de datum aanvang van adreshouding of verblijf buitenland opgenomen.
   De datum aanvang wordt geleverd, zodat de abonnee de gebeurtenis kan relateren aan een verblijf.

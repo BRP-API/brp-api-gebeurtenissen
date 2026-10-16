@@ -6,7 +6,7 @@ Functionaliteit: Gebeurtenis wanneer de verblijfplaats is gecorrigeerd
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
   Daarnaast worden enkele gegevens van de verblijfplaats opgenomen met zowel de gecorrigeerde (onjuiste) waarde als de actuele waarde
   - datum aanvang adreshouding
-  - adresseerbaar object identificatie van het adres
+  - adresseerbaar object identificatie van het adres (identificatiecode verblijfplaats)
   
   Aan de abonnee wordt in de gebeurtenis alleen de onjuiste datum aanvang geleverd, zodat de abonnee de gebeurtenis kan relateren aan een verblijf.
   Aan de abonnee wordt geen data meegestuurd waaruit af te leiden is wat exact gecorrigeerd is, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.

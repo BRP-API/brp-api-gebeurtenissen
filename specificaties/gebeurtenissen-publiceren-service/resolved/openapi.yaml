@@ -53,7 +53,8 @@ components:
         mapping:
           nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
           nl.brp.verhuisd.naar-buitenland: '#/components/schemas/VerhuisdNaarBuitenland'
-          nl.brp.verhuisd.vertrokken-onbekend-waarheen: ''
+          nl.brp.verhuisd.vertrokken-onbekend-waarheen: '#/components/schemas/VerhuisdNaarBuitenland'
+          nl.brp.verhuisd.ministerieel-besluit: '#/components/schemas/VerhuisdNaarBuitenland'
           nl.brp.overleden: '#/components/schemas/Overleden'
           nl.brp.verblijfplaats.onderzoek-gestart: '#/components/schemas/VerblijfplaatsOnderzoek'
           nl.brp.verblijfplaats.onderzoek-gewijzigd: '#/components/schemas/VerblijfplaatsOnderzoek'

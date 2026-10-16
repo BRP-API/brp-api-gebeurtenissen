@@ -20,7 +20,8 @@ components:
         mapping:
           nl.brp.verhuisd.intergemeentelijk: 'verhuisd-intergemeentelijk-v1.yaml#/components/schemas/VerhuisdIntergemeentelijk'
           nl.brp.verhuisd.naar-buitenland: 'verhuisd-naar-buitenland-v1.yaml#/components/schemas/VerhuisdNaarBuitenland'
-          nl.brp.verhuisd.vertrokken-onbekend-waarheen: ''
+          nl.brp.verhuisd.vertrokken-onbekend-waarheen: 'verhuisd-naar-buitenland-v1.yaml#/components/schemas/VerhuisdNaarBuitenland'
+          nl.brp.verhuisd.ministerieel-besluit: 'verhuisd-naar-buitenland-v1.yaml#/components/schemas/VerhuisdNaarBuitenland'
           nl.brp.overleden: 'overleden-v1.yaml#/components/schemas/Overleden'
           nl.brp.verblijfplaats.onderzoek-gestart: 'verblijfplaats-onderzoek-v1.yaml#/components/schemas/VerblijfplaatsOnderzoek'
           nl.brp.verblijfplaats.onderzoek-gewijzigd: 'verblijfplaats-onderzoek-v1.yaml#/components/schemas/VerblijfplaatsOnderzoek'

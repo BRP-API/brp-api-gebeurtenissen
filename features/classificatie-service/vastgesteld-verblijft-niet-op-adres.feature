@@ -10,7 +10,7 @@ Functionaliteit: Gebeurtenis wanneer een onderzoek loopt naar de verblijfplaats 
   Wanneer tijdens de uitvoer van het onderzoek vastgesteld wordt dat een persoon niet meer woont op het adres waarop hij is ingeschreven in de BRP, 
   kan dit deel van het onderzoeksresultaat al worden opgenomen op de persoonslijst van de persoon. 
   
-  Dit wordt gedaan door het zetten van aanduiding onderzoek 089999.
+  Dit wordt gedaan door het zetten van aanduiding gegevens in onderzoek 089999.
 
   Hiermee wordt geregistreerd dat is vastgesteld dat een persoon niet (langer) op het adres verblijft waarop hij ingeschreven staat, 
   maar dat het onderzoek naar het (nieuwe) woonadres nog loopt.
@@ -19,7 +19,7 @@ Functionaliteit: Gebeurtenis wanneer een onderzoek loopt naar de verblijfplaats 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon en het onderzoek in de data opgenomen.
   Daarnaast worden enkele gegevens van de verblijfplaats opgenomen:
   - datum aanvang adreshouding
-  - adresseerbaar object identificatie van het adres
+  - adresseerbaar object identificatie van het adres (identificatiecode verblijfplaats)
 
   Aan de abonnee wordt van de verblijfplaats alleen de datum aanvang van adreshouding opgenomen.
   Aan de abonnee wordt geen data geleverd waaruit af te leiden is waar het onderzoek over gaat, omdat we niet weten voor welke gegevens de abonnee geautoriseerd is.
