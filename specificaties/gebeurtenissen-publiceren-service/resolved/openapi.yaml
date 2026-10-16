@@ -53,10 +53,12 @@ components:
         mapping:
           nl.brp.verhuisd.intergemeentelijk: '#/components/schemas/VerhuisdIntergemeentelijk'
           nl.brp.verhuisd.naar-buitenland: '#/components/schemas/VerhuisdNaarBuitenland'
+          nl.brp.verhuisd.vertrokken-onbekend-waarheen: ''
           nl.brp.overleden: '#/components/schemas/Overleden'
           nl.brp.verblijfplaats.onderzoek-gestart: '#/components/schemas/VerblijfplaatsOnderzoek'
           nl.brp.verblijfplaats.onderzoek-gewijzigd: '#/components/schemas/VerblijfplaatsOnderzoek'
           nl.brp.verblijfplaats.onderzoek-beeindigd: '#/components/schemas/VerblijfplaatsBeeindigdOnderzoek'
+          nl.brp.vastgesteld-verblijft-niet-op-adres: '#/components/schemas/VerblijfplaatsOnderzoek'
           nl.brp.verblijfplaats.gecorrigeerd: '#/components/schemas/VerblijfplaatsGecorrigeerd'
           nl.brp.overlijden.onderzoek-gestart: '#/components/schemas/OverlijdenOnderzoek'
           nl.brp.overlijden.onderzoek-gewijzigd: '#/components/schemas/OverlijdenOnderzoek'
