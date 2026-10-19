@@ -1,5 +1,5 @@
 # language: nl
-Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
+Functionaliteit: Gebeurtenis wanneer een persoon naar het buitenland vertrekt
   Bij een aangifte van een verhuizing naar het buitenland, of naar het Caribisch deel van het Koninkrijk heeft een gebeurtenis verhuisd.naar-buitenland plaatsgevonden.
   De gebeurtenis 'verhuisd.naar-buitenland' betekent dat de persoon verhuisd is van een Nederlandse gemeente naar het buitenland of het Caribisch deel van het Koninkrijk.
   
@@ -50,7 +50,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
 
   Regel: Wanneer een persoon naar een Caribisch deel van het Koninkrijk is verhuisd, dan heeft een gebeurtenis 'verhuisd.naar-buitenland' plaatsgevonden.
 
-   Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk
+    Scenario: Aangifte van vertrek naar een eiland dat onderdeel is van het Caribisch deel van het Koninkrijk
       Gegeven het adres buitenland 'KayaGrandi_12_Kralendijk'
       * met adresregel 1 'Kaya Grandi 12'
       * met adresregel 2 'Kralendijk'
@@ -84,7 +84,7 @@ Functionaliteit: 'verhuisd.naar-buitenland' gebeurtenis
       * opschorting bijhouding reden is 'Emigratie'
       Dan is geen 'verhuisd.naar-buitenland' gebeurtenis gepubliceerd
 
- Regel: Als een onbekend land wordt geregistreerd na een Ministerieel Besluit, heeft de gebeurtenis 'verhuisd.naar-buitenland' NIET plaatsgevonden
+  Regel: Als een onbekend land wordt geregistreerd na een Ministerieel Besluit, heeft de gebeurtenis 'verhuisd.naar-buitenland' NIET plaatsgevonden
     Een Ministerieel Besluit is een melding van de Minister van Buitenlandse Zaken dat een persoon niet langer als ingezetene ingeschreven mag zijn.
     
     In dit geval is de persoonslijst opgeschort met reden Ministerieel besluit (M).

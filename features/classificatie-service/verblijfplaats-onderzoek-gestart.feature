@@ -14,10 +14,6 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
   
   In onderstaande scenarios wordt de aanduiding gegevens in onderzoek omschreven. Deze omschrijvingen vertalen naar codes elementnummers die in de BRP zijn opgeslagen:
   | omschrijving gegevens in onderzoek | aanduiding in onderzoek in BRP |
-  | de hele categorie overlijden       |                         060000 |
-  | datum van overlijden               |                         060810 |
-  | plaats van overijden               |                         060820 |
-  | land van overlijden                |                         060830 |
   | de hele categorie verblijfplaats   |                         080000 |
   | de groep adres                     |                         081100 |
   | functie adres                      |                         081010 |

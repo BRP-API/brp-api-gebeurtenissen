@@ -1,6 +1,6 @@
 # language: nl
 Functionaliteit: Gebeurtenis wanneer de verblijfplaats is gecorrigeerd
-  Als abonnee wil ik weten dat een verhuizing is gecorrigeerd,
+  Als abonnee wil ik weten dat een verblijfplaats is gecorrigeerd,
   zodat ik onderzoek kan doen naar de consequenties voor mijn dienstverlening aan betrokkene(n).
 
   In de gebeurtenis worden de volgende zaken opgenomen:
