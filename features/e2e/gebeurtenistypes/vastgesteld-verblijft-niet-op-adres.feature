@@ -18,3 +18,22 @@ Functionaliteit: Gebeurtenis wanneer een onderzoek loopt naar de verblijfplaats 
   - het burgerservicenummer van de persoon
   - datum vanaf wanneer de persoon op het betreffende adres verbleef
   - datum vanaf wanneer is vastgesteld dat de persoon niet op het adres verblijft
+
+  Achtergrond:
+    Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+    * in gemeente 'Hengelo'
+    En de persoon 'Jan' is geregistreerd in de BRP
+    * verblijft vanaf '14-04-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+    En groep 'client' bij abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft gebeurtenistype 'nl.brp.vastgesteld-verblijft-niet-op-adres'
+    En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Jan' voor de groep 'client'
+
+  Regel: Bij gebeurtenis 'vastgesteld-verblijft-niet-op-adres' wordt het burgerservicenummer van de persoon geleverd
+
+    Scenario: Er is vastgesteld dat de persoon niet meer op het geregistreerde adres verblijft
+      Gegeven op '03-09-2026' een onderzoek is gestart naar het verblijf op adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' van 'Jan'
+      En op '17-09-2026' is een 'vastgesteld-verblijft-niet-op-adres' gebeurtenis gepubliceerd voor persoon 'Jan'
+      Als gebeurtenissen worden gevraagd door abonnee 'jz' van afnemer 'Gemeente Amsterdam'
+      Dan wordt een 'nl.brp.overlijden.onderzoek-gestart' gebeurtenis geleverd met de volgende data
+      * het burgerservicenummer van 'Jan'
+      * verblijfplaats.datumVan '14-04-2020'
+      * verblijfplaats.verblijftNietOpAdresVanaf '03-09-2026'
