@@ -14,10 +14,7 @@ Functionaliteit: Gebeurtenis wanneer het overlijden is gecorrigeerd
     Gegeven de persoon 'Jan'
 
   Regel: Als overlijden is gecorrigeerd, heeft de gebeurtenis 'overlijden.gecorrigeerd' plaatsgevonden
-    Dit is alleen het geval wanneer met de correctie gegevens over het overlijden zijn gewijzigd:
-    - datum, plaats en/of land (groep 08)
-
-    Een correctie van administratieve gegevens leidt niet tot een gebeurtenis.
+    Een correctie van administratieve gegevens leidt niet tot deze gebeurtenis.
 
     Scenario: De persoon is niet overleden dus overlijden was ten onrechte geregistreerd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt

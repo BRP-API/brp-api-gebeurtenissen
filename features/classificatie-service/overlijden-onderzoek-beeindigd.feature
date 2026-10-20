@@ -36,6 +36,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar het overlijden is beÃ
       Als het onderzoek naar het overlijden van 'Jan' is beÃ«indigd
       En het overlijden van 'Jan' onjuist is en 'Jan' is niet overleden
       Dan is een 'overlijden.onderzoek-beeindigd' gebeurtenis gepubliceerd
+      En is een 'overlijden.gecorrigeerd' gebeurtenis gepubliceerd
 
   Regel: Bij gebeurtenistype 'overlijden.onderzoek-beeindigd' wordt het A-nummer van de persoon en gegevens over het onderzoek meegeleverd
     De gebeurtenis bevat gegevens over het onderzoek zoals ze geldig zijn na de wijziging.

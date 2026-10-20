@@ -7,8 +7,7 @@ Functionaliteit: Gebeurtenis wanneer een persoon naar het buitenland vertrekt
   is het niet bekend waar persoon verblijft en is geen sprake van verhuizing naar het buitenland.  
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
-  Daarnaast wordt ook de datum aanvang  verblijf buitenland van de verblijfplaats opgenomen.
-  De datum wordt opgenomen, zodat de abonnee de gebeurtenis kan relateren aan een verblijf. De abonnee kan de gebeurtenis namelijk pas verwerken nadat het verblijf al historisch is geworden.
+  Daarnaast wordt ook de datum aanvang verblijf buitenland van de verblijfplaats opgenomen.
 
   Achtergrond:
     Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'

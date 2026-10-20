@@ -33,10 +33,6 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
     * verblijft vanaf '19-06-2026' op het adres 'Beursstraat_44_Hengelo'
 
   Regel: Als een onderzoek gestart is naar de actuele verblijfplaats, heeft de gebeurtenis 'verblijfplaats.onderzoek-gestart' plaatsgevonden
-    Dit is alleen het geval wanneer onderzoek start en de aanduiding van het onderzoek betreft gegevens over het verblijf:
-    - gemeente
-    - adreshouding (o.a. datum aanvang adreshouding en functie adres)
-    - adres, locatie of adres buitenland
 
     Abstract Scenario: Onderzoek naar <betwijfelde gegevens> is gestart
       Als een onderzoek is gestart naar '<betwijfelde gegevens>' van het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
@@ -62,10 +58,6 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
         | datum vestiging in Nederland              |
         | de groep adresaangifte                    |
         | omschrijving van de aangifte adreshouding |
-
-    Scenario: Bij de start van het onderzoek is al duidelijk dat de persoon niet verblijft op het adres
-      Als is vastgesteld dat 'Jan' niet verblijft op het adres 'Beursstraat_44_Hengelo'
-      Dan is een 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
 
     Scenario: Intergemeentelijke verhuizing is doorgevoerd zonder eerst het onderzoek te beëindigen
       Gegeven een onderzoek loopt naar het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'

@@ -38,8 +38,9 @@ Functionaliteit: Gebeurtenis wanneer een onderzoek loopt naar de verblijfplaats 
       Dan is een 'vastgesteld-verblijft-niet-op-adres' gebeurtenis gepubliceerd
 
     Scenario: Bij de start van het onderzoek is al duidelijk dat de persoon niet verblijft op het adres
-      Als is vastgesteld dat 'Jan' niet verblijft op het adres 'Beursstraat_44_Hengelo'
-      Dan is een 'vastgesteld-verblijft-niet-op-adres' gebeurtenis gepubliceerd
+      Als een onderzoek is gestart met aanduiding 'vastgesteld verblijft niet op adres' over het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
+      Dan is een 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
+      En is een 'vastgesteld-verblijft-niet-op-adres' gebeurtenis gepubliceerd
 
   Regel: Bij gebeurtenistype 'vastgesteld-verblijft-niet-op-adres' wordt het A-nummer van de persoon meegeleverd en gegevens over het onderzoek en het betreffende verblijf
     Van de verblijfplaats worden alleen de volgende gegevens geleverd:

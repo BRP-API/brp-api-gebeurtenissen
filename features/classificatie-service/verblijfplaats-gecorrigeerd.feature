@@ -22,16 +22,7 @@ Functionaliteit: Gebeurtenis wanneer de verblijfplaats is gecorrigeerd
     * verblijft vanaf '19-06-2026' op het adres 'Stadserf_1_Roosendaal'
 
   Regel: Als de verblijfplaats is gecorrigeerd, heeft de gebeurtenis 'verblijfplaats.gecorrigeerd' plaatsgevonden
-    Dit is alleen het geval wanneer met de correctie gegevens over het verblijf zijn gewijzigd:
-    - gemeente (groep 09)
-    - adreshouding (groep 10, datum aanvang adreshouding en functie adres)
-    - adres, locatie of adres buitenland (groep 11, 12 en 13)
-
-    Bij de verblijfplaats wordt ook informatie over de immigratie opgeslagen.
-    Een verblijfplaats kan dus ook 'onjuist' zijn wanneer de immigratiegegevens daarin worden gecorrigeerd.
-    In dat geval is geen sprake van gebeurtenis 'verblijfplaats.gecorrigeerd'.
-
-    Een correctie van administratieve gegevens leidt niet tot een gebeurtenis.
+    Een correctie van administratieve gegevens leidt niet tot deze gebeurtenis.
 
     Scenario: Correctie van het adres
       Als de verblijfplaats vanaf '19-06-2026' op het adres 'Stadserf_1_Roosendaal' onjuist is
@@ -54,14 +45,6 @@ Functionaliteit: Gebeurtenis wanneer de verblijfplaats is gecorrigeerd
       En de juiste verblijfplaats is het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' vanaf '14-04-2020'
       Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
       En is een 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
-
-    Scenario: Correctie van immigratie
-      Gegeven de persoon 'Piet'
-      * is op 19-06-2026 geïmmigreerd vanuit 'Frankrijk'
-      * verblijft vanaf '19-06-2026' op het adres 'Stadserf_1_Roosendaal'
-      Als de immigratie op '19-06-2026' onjuist is
-      En het juiste immigratieland is 'Spanje'
-      Dan is er geen 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
 
     Scenario: Correctie van administratieve gegevens
       Gegeven het verblijf vanaf '19-06-2026' op het adres 'Stadserf_1_Roosendaal' is aangegeven door een meerderjarige gemachtigde
