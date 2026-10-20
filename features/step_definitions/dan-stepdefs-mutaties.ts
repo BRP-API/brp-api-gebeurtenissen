@@ -51,7 +51,7 @@ Then(
   'is de persoon {string} geregistreerd in de BRP met geslachtsnaam {string}, een unieke anummer en burgerservicenummer',
   async function (persoonAanduiding: string, geslachtsnaam: string) {
     const plId = this.context.personen[persoonAanduiding].pl_id;
-    let plStatement = createSelectStatement('lo3_pl', ['pl_id'], [plId]);
+    let plStatement = createSelectStatement('lo3_pl', ['pl_id', 'geheim_ind'], [plId, 0]);
 
     let result = await PostgresqlManager.getInstance().execute(plStatement);
     let actual = Object.fromEntries(result);
@@ -61,14 +61,16 @@ Then(
       result: actual,
     });
 
-    expect(actual).is.not.null(
-      `Er is geen persoon geregistreerd voor pl_id: ${plId}.`,
-    );
+    // expect(actual).is.not.null(
+    //   `Er is geen persoon geregistreerd voor pl_id: ${plId}.`,
+    // );
+    // added Hicham
+    expect(actual, `Er is geen persoon geregistreerd voor pl_id: ${plId}.`).to.not.be.null;
     expect(actual.geheim_ind).to.equal(0);
 
     plStatement = createSelectStatement(
       'lo3_pl_persoon',
-      ['pl_id', 'persoon_type', 'geslachtsnaam'],
+      ['pl_id', 'persoon_type', 'geslachts_naam'],
       [plId, 'P', geslachtsnaam],
     );
 
@@ -80,9 +82,14 @@ Then(
       result: actual,
     });
 
-    expect(actual).is.not.null(
-      `Er is geen persoon geregistreerd in lo3_pl_persoon voor pl_id: ${plId} met geslachtsnaam: ${geslachtsnaam} en persoon_type: P.`,
-    );
+    // expect(actual).is.not.null(
+    //   `Er is geen persoon geregistreerd in lo3_pl_persoon voor pl_id: ${plId} met geslachtsnaam: ${geslachtsnaam} en persoon_type: P.`,
+    // );
+    //added Hicham
+    expect(
+          result,
+          `Er is geen persoon geregistreerd in lo3_pl_persoon voor pl_id: ${plId} met geslachtsnaam: ${geslachtsnaam} en persoon_type: P.`,
+          ).to.not.be.empty;
   },
 );
 
@@ -95,10 +102,14 @@ Then(
   ) {
     const adresId = this.context.adressen[adresAanduiding].adres_id;
     const plId = this.context.personen[persoonAanduiding].pl_id;
+
+    // added Hihcam  
+    const verblijfDatum = Number(datumVerblijf.replaceAll('-', ''));   
+
     const statement = createSelectStatement(
-      'lo3_verblijfplaats',
+      'lo3_pl_verblijfplaats',
       ['adres_id', 'pl_id', 'adreshouding_start_datum'],
-      [adresId, plId, datumVerblijf],
+      [adresId, plId, verblijfDatum],
     );
 
     const result = await PostgresqlManager.getInstance().execute(statement);
@@ -108,9 +119,14 @@ Then(
       statement: statement,
       result: actual,
     });
-
-    expect(actual).is.not.null(
+     // added Hicham
+    expect(
+      result,
       `Er is geen verblijfplaats geregistreerd voor adres_id: ${adresId} en persoonId: ${plId}.`,
-    );
+      ).to.not.be.empty;
+    
+    // expect(actual).is.not.null(
+    //   `Er is geen verblijfplaats geregistreerd voor adres_id: ${adresId} en persoonId: ${plId}.`,
+    // );
   },
 );
