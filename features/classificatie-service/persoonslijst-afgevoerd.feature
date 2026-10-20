@@ -11,6 +11,10 @@ Functionaliteit: Gebeurtenis wanneer de persoonslijst van een persoon is afgevoe
 
   De gebeurtenis 'persoonslijst-afgevoerd' is te herkennen aan het vullen van omschrijving reden opschorting bijhouding (07.67.20) wordt gevuld met de waarde 'F' (= fout).
 
+  Opmerking: het is mogelijk dat bij oplossen van een dubbelinschrijving eerst de persoonslijst wordt afgevoerd, 
+  en daarna - in een volgend Lg01 bericht - de A-nummerverwijzing wordt opgevoerd.
+  Er komt dan eerst een gebeurtenis 'persoonslijst-afgevoerd' en daarna een gebeurtenis 'dubbelinschrijving-opgelost.a-nummer-gewijzigd'.
+
   Regel: Als opschorting bijhouding is gevuld met reden Fout, dan heeft gebeurtenis 'persoonslijst-afgevoerd' plaatsgevonden
 
     Scenario: Persoonslijst wordt afgevoerd bij dubbelinschrijving

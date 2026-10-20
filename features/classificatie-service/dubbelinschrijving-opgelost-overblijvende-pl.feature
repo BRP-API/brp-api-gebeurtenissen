@@ -10,6 +10,10 @@ Functionaliteit: Gebeurtenis wanneer een dubbelinschrijving is opgelost voor de 
   
   De gebeurtenis 'dubbelinschrijving-opgelost.overblijvende-pl' is te herkennen aan het vullen van Vorig A-nummer (01.20.10) waarbij het A-nummer op de persoonslijst zelf niet wijzigt.
 
+  Opmerking: Deze gebeurtenis hoeft niet aan abonnees te worden gemeld.
+  Verschillen tussen de overbodig geworden PL en de overblijvende PL zijn door actualiseringen en correcties opgelost op de overblijvende PL.
+  Hiervan zijn al gebeurtenissen verzonden aan abonnees.
+
   Regel: Als een verwijzing naar een vorig A-nummer is opgenomen, dan heeft gebeurtenis 'dubbelinschrijving-opgelost.overblijvende-pl' plaatsgevonden
 
     Scenario: Dubbelinschrijving met verschillende A-nummers op de persoonslijsten wordt opgelost
