@@ -47,6 +47,10 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar de verblij
         | de groep verblijf buitenland     |
         | datum aanvang adres buitenland   |
 
+    Scenario: Bij de start van het onderzoek is al duidelijk dat de persoon niet verblijft op het adres
+      Als een onderzoek is gestart met aanduiding 'vastgesteld verblijft niet op adres' over het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
+      Dan is een 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd
+
     Abstract Scenario: Onderzoek naar <betwijfelde gegevens> is gestart
       Als een onderzoek is gestart naar '<betwijfelde gegevens>' van het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
       Dan is er geen 'verblijfplaats.onderzoek-gestart' gebeurtenis gepubliceerd

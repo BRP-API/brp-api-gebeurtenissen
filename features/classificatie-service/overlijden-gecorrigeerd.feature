@@ -5,7 +5,7 @@ Functionaliteit: Gebeurtenis wanneer het overlijden is gecorrigeerd
 
   Zie https://www.rvig.nl/hup/correcties-categorie-06.
 
-  Als het overlijden is gecorrigeerd, heeft in de historisch geworden categorie Indicatie Onjuist (84.10) de waarde 'O' (Onjuist).
+  Als het overlijden is gecorrigeerd, heeft de historisch geworden categorie Indicatie Onjuist (84.10) de waarde 'O' (Onjuist).
 
   In de gebeurtenis wordt de identificatie - het A-nummer - van de betreffende persoon in de data opgenomen.
   Ook wordt de datum overlijden opgenomen met zowel de gecorrigeerde (onjuiste) waarde als de juiste (actuele) waarde (als die er nog is).

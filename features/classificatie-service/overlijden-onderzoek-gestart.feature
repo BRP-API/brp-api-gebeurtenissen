@@ -35,7 +35,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek gestart is naar het overli
 
   Regel: Bij gebeurtenistype 'overlijden.onderzoek-gestart' wordt het A-nummer van de persoon en gegevens over het onderzoek meegeleverd
 
-    Scenario: Er start een onderzoek of de persoon nog in leven is
+    Scenario: Er is een onderzoek gestart naar het overlijden van de persoon
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       Als op '03-09-2026' een onderzoek is gestart naar 'de hele categorie overlijden' van 'Jan'
       Dan is een 'overlijden.onderzoek-gestart' gebeurtenis gepubliceerd met de volgende data

@@ -37,6 +37,11 @@ Functionaliteit: Gebeurtenis wanneer een lopend onderzoek wordt gewijzigd
         | beperkt      | de groep adreshouding               | datum aanvang adreshouding        |
         | gewijzigd    | datum aanvang adreshouding          | functie adres                     |
 
+    Scenario: Tijdens het onderzoek is vastgesteld dat de persoon niet verblijft op het adres
+      Gegeven een onderzoek loopt naar het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan'
+      Als het onderzoek naar het verblijf op adres 'Beursstraat_44_Hengelo' van 'Jan' is gewijzigd naar 'vastgesteld verblijft niet op adres'
+      Dan is een 'verblijfplaats.onderzoek-gewijzigd' gebeurtenis gepubliceerd
+
   Regel: Bij gebeurtenistype 'verblijfplaats.onderzoek-gewijzigd' wordt het A-nummer van de persoon meegeleverd en gegevens over het onderzoek en het betreffende verblijf
     Van de verblijfplaats worden alleen de volgende gegevens geleverd:
     - datum aanvang adreshouding

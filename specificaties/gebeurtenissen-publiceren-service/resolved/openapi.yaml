@@ -154,8 +154,6 @@ components:
         e0810:
           $ref: '#/components/schemas/Datum'
           description: Datum overlijden
-      required:
-        - e0810
     OverledenData:
       type: object
       properties:
@@ -246,15 +244,26 @@ components:
           properties:
             data:
               $ref: '#/components/schemas/VerblijfplaatsBeeindigdOnderzoekData'
+    GecorrigeerdeVerblijfplaatsData:
+      type: object
+      properties:
+        e1030:
+          $ref: '#/components/schemas/Datum'
+          description: Datum aanvang adreshouding
+        e1180:
+          $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
+        e1320:
+          $ref: '#/components/schemas/Datum'
+          description: Datum aanvang adres buitenland
     VerblijfplaatsGecorrigeerdData:
       type: object
       properties:
         c01:
           $ref: '#/components/schemas/AnummerIdentificatieNummers'
         c08:
-          $ref: '#/components/schemas/AdresData'
+          $ref: '#/components/schemas/GecorrigeerdeVerblijfplaatsData'
         c58:
-          $ref: '#/components/schemas/AdresData'
+          $ref: '#/components/schemas/GecorrigeerdeVerblijfplaatsData'
       required:
         - c01
         - c08

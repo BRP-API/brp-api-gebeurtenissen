@@ -92,6 +92,13 @@ Functionaliteit: Test 'verhuisd.intergemeentelijk' gebeurtenis
       * verblijft vanaf '1-9-2025' op het adres 'Laan_van_Westenenk_701_Apeldoorn'
       Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
 
+  Regel: Als de wijziging van de verblijfplaats is gedaan via een correctie, dan heeft niet de gebeurtenis 'verhuisd.intergemeentelijk' plaatsgevonden
+
+    Scenario: Correctie van de verblijfplaats met inschrijving in andere gemeente
+      Als de verblijfplaats van 'Jan' vanaf '14-4-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' onjuist is
+      En de juiste verblijfplaats van 'Jan' is het adres 'Stadserf_1_Roosendaal' vanaf '14-4-2020'
+      Dan is er geen 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd voor 'Jan'
+
   Regel: Bij gebeurtenis 'verhuisd.intergemeentelijk' wordt de datum aanvang adreshouding en de adresseerbaar object identificatie en functie adres gepubliceerd
     zodat de gebeurtenis uniek kan worden geïdentificeerd
     en zo nodig overige gegevens van de nieuwe verblijfplaats kunnen worden opgezocht

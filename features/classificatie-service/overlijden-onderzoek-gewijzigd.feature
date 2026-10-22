@@ -28,7 +28,7 @@ Functionaliteit: Gebeurtenis wanneer er een onderzoek naar het overlijden is gew
     Scenario: Het onderzoek wordt gewijzigd
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is verwerkt
       En op '03-09-2026' een onderzoek is gestart naar 'de hele categorie overlijden' op het overlijden van 'Jan'
-      Als op '23-09-2026' het onderzoek naar het overlijden van 'Jan' is gewijzigd naar 'datum van overlijden'
+      Als het onderzoek naar het overlijden van 'Jan' is gewijzigd naar 'datum van overlijden'
       Dan is een 'overlijden.onderzoek-gewijzigd' gebeurtenis gepubliceerd met de volgende data
       * het A-nummer van 'Jan'
       * aanduiding gegevens in onderzoek 'datum van overlijden'
