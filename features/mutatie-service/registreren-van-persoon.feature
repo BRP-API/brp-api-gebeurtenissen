@@ -44,7 +44,7 @@ Functionaliteit: Registreren van een persoon in de BRP
     
     # # Overgeslagen: bij een ongeldige verblijfdatum blijft de validatie een foutmelding geven, ook met useBeanValidation=false in de generator-config.
     # Een upgrade naar Jackson 4 en Spring 4 is geprobeerd, maar loste dit niet op.
-     @skip
+    @skip
     Scenario: Een ongeldig datum is opgegeven als verblijfdatum waarde
       Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' in gemeente 'Hengelo' is geregistreerd in de BRP
       Als de persoon 'Jan' die verblijft op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' wordt geregistreerd in de BRP met een verblijfdatum in ongeldig formaat
