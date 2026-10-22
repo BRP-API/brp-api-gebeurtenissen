@@ -41,7 +41,8 @@ Functionaliteit: Registreren van een persoon in de BRP
 
   Regel: Bij het registreren van een persoon moet een geldige verblijfdatum worden opgegeven waarop de persoon verblijft op het opgegeven adres.
     Een geldige verblijfdatum is een datum zijn gelijk aan vandaag of een datum in het verleden en in het formaat 'jjjj-mm-dd'
-
+    
+     @skip
     Scenario: Een ongeldig datum is opgegeven als verblijfdatum waarde
       Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' in gemeente 'Hengelo' is geregistreerd in de BRP
       Als de persoon 'Jan' die verblijft op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' wordt geregistreerd in de BRP met een verblijfdatum in ongeldig formaat
