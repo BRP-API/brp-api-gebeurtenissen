@@ -42,6 +42,8 @@ Functionaliteit: Registreren van een persoon in de BRP
   Regel: Bij het registreren van een persoon moet een geldige verblijfdatum worden opgegeven waarop de persoon verblijft op het opgegeven adres.
     Een geldige verblijfdatum is een datum zijn gelijk aan vandaag of een datum in het verleden en in het formaat 'jjjj-mm-dd'
     
+    # # Overgeslagen: bij een ongeldige verblijfdatum blijft de validatie een foutmelding geven, ook met useBeanValidation=false in de generator-config.
+    # Een upgrade naar Jackson 4 en Spring 4 is geprobeerd, maar loste dit niet op.
      @skip
     Scenario: Een ongeldig datum is opgegeven als verblijfdatum waarde
       Gegeven het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' in gemeente 'Hengelo' is geregistreerd in de BRP
