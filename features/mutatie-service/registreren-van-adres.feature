@@ -17,7 +17,7 @@ Functionaliteit: Registreren van een adres in de BRP
 
     Abstract Scenario: De opgegeven gemeentecode bestaat uit <gemeentecode omschrijving>
       Als een adres in een gemeente wordt geregistreerd in de BRP met een gemeentecode '<gemeentecode>'
-      Dan is de response een problemdetails response met de melding dat de gemeentecode ongeldig is
+      Dan is de response een problemdetails met de melding dat de opgegeven gemeentecode ongeldig is
 
       Voorbeelden:
         | gemeentecode omschrijving | gemeentecode |
@@ -29,7 +29,7 @@ Functionaliteit: Registreren van een adres in de BRP
 
     Scenario: De opgegeven gemeentecode bestaat niet in de BRP
       Als een adres in een gemeente wordt geregistreerd in de BRP met een gemeentecode die niet bestaat
-      Dan is de response een problemdetails response met een invalidParams object met de melding dat de gemeentecode niet bestaat
+      Dan is de response een problemdetails met de melding dat er geen gemeente bestaat voor de opgegeven gemeentecode
 
   Regel: Een uniek adresseerbaar object identificatie wordt gegenereerd bij het registreren van een adres
     De gegenereerde adresseerbaar object identificatie is een string bestaande uit 16 cijfers waarbij
