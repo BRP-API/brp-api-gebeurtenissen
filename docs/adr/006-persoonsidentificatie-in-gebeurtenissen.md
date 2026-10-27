@@ -6,18 +6,18 @@ Op dit moment worden gebeurtenissen van een persoon gepubliceerd met de a-nummer
 
 De wens is om de Gebeurtenissen Publiceren API aan te passen (en hiermee ook de Classificatie Module) zodat gebeurtenissen van een persoon worden gepubliceerd met het burgerservicenummer van de persoon in plaats van het a-nummer. Hierdoor hoeft er geen translatie plaats te vinden van a-nummer naar burgerservicenummer bij het publiceren van en abonneren op gebeurtenissen, wat ten goede komt van de performance omdat deze translatie niet elke keer gedaan hoeft te worden wanneer de gebeurtenis wordt geraadpleegd. (Is dit nog het geval, worden de gebeurtenissen niet weggeschreven in de projectie met het burgerservicenummer?)
 
-Hoewel zowel het a-nummer als het burgerservicenummer kunnen worden gebruikt om een persoon te identificeren, zijn zij niet betrouwbaar omdat het kan voorkomen dat het a-nummer en/of het burgerservicenummer moet worden gewijzigd. Hierdoor is het niet mogelijk om op basis van het a-nummer of burgerservicenummer te bepalen bij welke persoon een gebeurtenis hoort.
+Hoewel zowel het a-nummer als het burgerservicenummer kunnen worden gebruikt om een persoon te identificeren, zijn zij niet betrouwbaar omdat het kan voorkomen dat het a-nummer en/of het burgerservicenummer moet worden gewijzigd. Het kan namelijk voorkomen dat meerdere personen hetzelfde burgerservicenummer hebben. Wat niet kan voorkomen is dat er meerdere personen zijn met hetzelfde a-nummer, maar het kan wel voorkomen dat twee personen in de BRP dezelfde persoon zijn. Hierdoor is het niet mogelijk om op basis van het a-nummer of burgerservicenummer te bepalen bij welke persoon een gebeurtenis hoort.
 
 Ook kan de pl_id (de technische sleutel van de persoon in de BRP) niet worden gebruikt om een persoon uniek te identificeren, omdat deze ook kan wijzigen. Hierdoor kan er ook met de pl_id geen betrouwbare koppeling worden gemaakt tussen een gebeurtenis en een persoon.
 
 ## Voorstel
 
-Omdat BRP API Gebeurtenissen gebruik maakt van een native Event Store waar het niet mogelijk is om opgeslagen gebeurtenissen te wijzigen, moet er in BRP API Gebeurtenissen ervoor worden gezorgd dat het niet mogelijk is om gebeurtenissen te publiceren voor personen die in de BRP hetzelfde a-nummer en/of burgerservicenummer hebben.
+Omdat BRP API Gebeurtenissen gebruik maakt van een native Event Store waar het niet mogelijk is om opgeslagen gebeurtenissen te wijzigen, moet er in BRP API Gebeurtenissen ervoor worden gezorgd dat het niet mogelijk is om gebeurtenissen te publiceren voor personen die in de BRP hetzelfde burgerservicenummer hebben.
 
 Ook moeten het a-nummer en burgerservicenummer niet als persoonsidentificatie worden gebruikt in de opgeslagen gebeurtenissen.
 
 BRP API Gebeurtenissen genereert voor personen een eigen unieke identificatie (GUID) en gebruikt deze om personen te koppelen aan gebeurtenissen.
-Deze identificatie wordt gegenereerd op het moment dat de eerste gebeurtenis voor een persoon wordt gepubliceerd. Deze identificatie wordt samen met het a-nummer en burgerservicenummer van de persoon vastgelegd in een PersoonGeregistreerd gebeurtenis.
+Deze identificatie wordt gegenereerd op het moment dat de eerste gebeurtenis voor een persoon wordt gepubliceerd. Deze identificatie wordt samen met het a-nummer, burgerservicenummer en pl_id van de persoon vastgelegd in een PersoonGeregistreerd gebeurtenis.
 De te publiceren gebeurtenis wordt vervolgens vertaald naar een interne gebeurtenis waarin de persoon wordt geïdentificeerd met de gegenereerde GUID (persoonId) in plaats van met het a-nummer, burgerservicenummer, of pl_id.
 
 ```mermaid
@@ -42,6 +42,7 @@ data RegistreerPersoonData
 
 data PersoonGeregistreerdData {
     persoonId: guid
+    pl_id: number
     aNummer: string
     burgerservicenummer: string
 }
@@ -150,27 +151,31 @@ Scenario: Een abonnee abonneert zich op een groep gebeurtenissen voor een geregi
     Dan is een AbonnementGeregistreerd gebeurtenis voor de groep 'client' en persoon 'Jan' gepubliceerd
 ```
 
-Om de integriteit van de persoonId te waarborgen, moet bij elke te publiceren gebeurtenis worden gevalideerd of er meerdere personen voorkomen in de BRP database met het a-nummer of burgerservicenummer in de te publiceren gebeurtenis. Indien dit het geval is, mag de gebeurtenis niet worden gepubliceerd.
+Om de integriteit van de persoonId te waarborgen, moet bij elke te publiceren gebeurtenis worden gevalideerd of de bij het a-nummer gekoppelde burgerservicenummer niet bij meerdere personen voorkomt in de BRP database. Indien dit het geval is, mag de gebeurtenis niet worden gepubliceerd.
 
 ```gherkin
-Scenario: Meerdere personen (persoonslijsten) in de BRP database hebben hetzelfde a-nummer dat is opgegeven in de te publiceren gebeurtenis
-    Gegeven de persoon 'Jan' is geregistreerd in de BRP database met a-nummer '123456789'
-    En de persoon 'Piet' is geregistreerd in de BRP database met hetzelfde a-nummer '123456789'
-    Wanneer een gebeurtenis met a-nummer '123456789' wordt gepubliceerd
-    Dan wordt de gebeurtenis niet gepubliceerd
-
 Scenario: Meerdere personen (persoonslijsten) in de BRP database met verschillende a-nummers hebben dezelfde burgerservicenummer
     Gegeven de persoon 'Jan' is geregistreerd in de BRP database met a-nummer '123456789' en burgerservicenummer '987654321'
     En de persoon 'Piet' is geregistreerd in de BRP database met a-nummer '234567890' en hetzelfde burgerservicenummer '987654321'
     Wanneer een gebeurtenis met a-nummer '123456789' wordt gepubliceerd
     Dan wordt de gebeurtenis niet gepubliceerd
 
-Scenario: Voor een geregistreerde persoon is in de BRP database een persoon (persoonslijst) toegevoegd met hetzelfde a-nummer of burgerservicenummer
-    Gegeven de persoon 'Jan' is geregistreerd in de BRP database met a-nummer '123456789'
+Scenario: Voor een geregistreerde persoon is in de BRP database een persoon (persoonslijst) toegevoegd met hetzelfde burgerservicenummer
+    Gegeven de persoon 'Jan' is geregistreerd in de BRP database met a-nummer '123456789' en burgerservicenummer '987654321'
     En een PersoonGeregistreerd gebeurtenis is voor 'Jan' gepubliceerd
-    En de persoon 'Piet' is vervolgens geregistreerd in de BRP database met hetzelfde a-nummer '123456789'
+    En de persoon 'Piet' is vervolgens geregistreerd in de BRP database met a-nummer '234567890' en hetzelfde burgerservicenummer '987654321'
     Wanneer een gebeurtenis met a-nummer '123456789' wordt gepubliceerd
     Dan wordt de gebeurtenis niet gepubliceerd
+```
+
+Deze validatie moet ook worden gedaan wanneer een abonnee zich abonneert op gebeurtenissen voor een persoon. Indien er meerdere personen in de BRP database zijn met hetzelfde burgerservicenummer, mag de abonnee zich niet abonneren op gebeurtenissen voor deze persoon.
+
+```gherkin
+Scenario: Meerdere personen (persoonslijsten) in de BRP database met verschillende a-nummers hebben dezelfde burgerservicenummer
+    Gegeven de persoon 'Jan' is geregistreerd in de BRP database met a-nummer '123456789' en burgerservicenummer '987654321'
+    En de persoon 'Piet' is geregistreerd in de BRP database met a-nummer '234567890' en hetzelfde burgerservicenummer '987654321'
+    Wanneer een abonnee zich abonneert op de persoon 'Jan' of 'Piet'
+    Dan wordt er geen AbonnementOpPersoonGeregistreerd gepubliceerd
 ```
 
 Deze oplossing heeft een aantal voordelen:
@@ -178,4 +183,6 @@ Deze oplossing heeft een aantal voordelen:
 2. Gevoelige informatie wordt alleen opgenomen in de gebeurtenissen waar het relevant is. Het a-nummer van een persoon is bijvoorbeeld niet relevant voor een Verhuisd gebeurtenis.
 3. De koppeling met de implementatie van de ClassificatieModule wordt geminimaliseerd, zodat de ClassificatieModule en BRP API Gebeurtenissen onafhankelijk van elkaar kunnen evolueren.
 4. Het correleren van gebeurtenissen voor een persoon is eenvoudiger omdat dit kan gebeuren op basis van een sleutel die niet wijzigt.
-5. De mapping tussen de interne persoonId en de externe identificatienummers (a-nummer, burgerservicenummer) staan vastgelegd in de PersoonGeregistreerd, AnummerGewijzigd en BurgerservicenummerGewijzigd gebeurtenissen. Deze kunnen tijdens het vertalen van externe naar interne gebeurtenissen worden ge-queried om de persoonId te achterhalen.
+5. De mapping tussen de interne persoonId en de externe identificatienummers (a-nummer, burgerservicenummer en/of pl_id) staan alleen vastgelegd in de PersoonGeregistreerd, AnummerGewijzigd en BurgerservicenummerGewijzigd gebeurtenissen. Deze kunnen tijdens het vertalen van externe naar interne gebeurtenissen worden ge-queried om de persoonId te achterhalen.
+
+Wat buiten de scope van deze oplossing valt is het oplossen van een [dubbelinschrijving](https://www.rvig.nl/hup/dubbelinschrijving) (twee persoonslijsten in de BRP database behoren tot dezelfde persoon). Het oplossen van een dubbelinschrijving is voor een groot deel een handmatige procedure en het resultaat hiervan kan alleen via de ClassificatieModule als gebeurtenissen worden gepubliceerd. 
