@@ -5,16 +5,37 @@
 eventmodeling
 tf 01 pcr MutatieService
 tf 02 cmd CorrigeerOverlijden
-tf 03 evt ClassificatieModule.OverlijdenGecorrigeerd [[OverlijdenGecorrigeerdIntern]]
-tf 04 rmo lo3_pl_overlijden
-tf 05 pcr PublicerenAPI ->> 03
-tf 06 cmd CorrigeerOverlijden
-tf 07 evt PersoonGeregistreerd [[PersoonGeregistreerdIntern]]
-tf 08 evt OverlijdenGecorrigeerd [[OverlijdenGecorrigeerdIntern]]
-tf 09 rmo MijnGeabonneerdeGebeurtenissen ->> 07 ->> 08[[OverlijdenGecorrigeerdExtern]]
-tf 10 pcr BevragenAPI
+tf 03 evt MutatieService.OverlijdenGecorrigeerd [[OverlijdenGecorrigeerdMutatie]]
+tf 04 pcr MutatieEventhandler
+tf 05 rmo lo3_pl_overlijden
+tf 06 rmo lo3_pl [[plData]]
+tf 07 evt ClassificatieModule.OverlijdenGecorrigeerd ->> 04 [[OverlijdenGecorrigeerdBRP]]
+tf 08 pcr PublicerenAPI ->> 07
+tf 09 cmd CorrigeerOverlijden
+tf 10 evt PersoonGeregistreerd [[PersoonGeregistreerdIntern]]
+tf 11 evt OverlijdenGecorrigeerd [[OverlijdenGecorrigeerdIntern]]
+tf 12 rmo MijnGeabonneerdeGebeurtenissen ->> 10 ->> 11 [[OverlijdenGecorrigeerdExtern]]
+tf 13 pcr BevragenAPI
+
+data plData {
+    bijhouding_opschort_datum: string (datum overlijden gecorrigeerd of leeg)
+    bijhouding_opschort_reden: string ('O' of leeg)
+}
+
+data OverlijdenGecorrigeerdBRP {
+    c01: {
+        e0110: string (anummer)
+    }
+    c06: {
+        e0810: string (datum overlijden gecorrigeerd)
+    }
+    c56: {
+        e0811: string (datum overlijden onjuist)
+    }
+}
 
 data PersoonGeregistreerdIntern {
+    persoonId: GUID
     pl_id: number
     c01: {
         e0110: string (anummer)
@@ -22,9 +43,7 @@ data PersoonGeregistreerdIntern {
     }
 }
 data OverlijdenGecorrigeerdIntern {
-    c01: {
-        e0110: string (anummer)
-    }
+    persoonId: GUID
     c06: {
         e0810: string (datum overlijden gecorrigeerd)
     }
