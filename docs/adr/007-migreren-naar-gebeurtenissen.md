@@ -39,7 +39,7 @@ De AbonneerPersonenOpGroep command kan asynchroon worden uitgevoerd. De abonnee 
 
 Voordelen:
 - Het aantal aanroepen dat nodig is kan worden teruggebracht tot één aanroep of tot het aantal groepen dat de abonnee heeft gedefinieerd.
-- Een abonnee hoeft in principe geen rekening te houden met de rate limit en concurrency limit van de abonnementen endpoint. Deze moet wel worden bepaald om er voor te zorgen dat er onbedoeld veel bulk aanroepen wordt gestuurd.
+- Een abonnee hoeft in principe geen rekening te houden met de rate limit en concurrency limit van de abonnementen endpoint. Deze moet wel worden bepaald om te voorkomen dat er onbedoeld veel bulk aanroepen wordt gestuurd.
 
 Nadelen:
 - Er moet nieuwe abonneer functionaliteit worden ontwikkeld. De body van een AbonneerPersonenOpGroep command moet tijdelijk worden opgeslagen (in een database) zodat het door een achtergrondproces kan worden afgehandeld. Er moet een endpoint worden ontwikkeld waarmee de status en resultaten van een bulk aanroep kan worden opgevraagd.
