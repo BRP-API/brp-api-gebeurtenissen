@@ -125,25 +125,3 @@ Content-Type: application/json
 
 {
 }
-###
-# @name probeer-auth
-
-POST https://probeerbrpapi.rvig.nl/realms/brp-api/protocol/openid-connect/token
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=client_credentials&client_id=client%20met%20volledige%20autorisatie&client_secret=secret&scope=000000099000000080000
-
-###
-
-POST https://probeerbrpapi.rvig.nl/api/brp/personen
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJUQjBTT1oxQUIyQ0RwS1JSZ3V4dVlFbHc0YjNNLXpKWWNFbnQtOHA4OW5BIn0.eyJleHAiOjE3OTExODcwNTcsImlhdCI6MTc5MTE4NjQ1OCwianRpIjoidHJydGNjOmZmODFjMjY3LTU5YTgtYTgwNS1kOGQ5LTJkNWJlYzU4N2ZmOCIsImlzcyI6Imh0dHBzOi8vcHJvYmVlcmJycGFwaS5ydmlnLm5sL3JlYWxtcy9icnAtYXBpIiwic3ViIjoiZGZmY2ZhNjItYjlmNi00NTY4LWFiNDItNjk1NzYxZjExOGU3IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY2xpZW50IG1ldCB2b2xsZWRpZ2UgYXV0b3Jpc2F0aWUiLCJzY29wZSI6IjAwMDAwMDA5OTAwMDAwMDA4MDAwMCIsImNsYWltcyI6WyJPSU49MDAwMDAwMDk5MDAwMDAwMDgwMDAwIiwiYWZuZW1lcklEPTAwMDAwOCJdfQ.ADy8hUs36Y21nalcqzlaHYRT5agmYYO6skDFClFoidu0uNOjR7yIPDSUFK43LURZ0DHribsG8SFErnMAZSiFuHHH1NemTGgiLFw38Lz-IQooEXA6lM6cm5VvaVG1bIkTgrqEWSvJSW6ZDMSyMF1VYea0RCB4phKW7w7geHI4ik5ekThN52oKCiK99iGrrfN6xvtSqHzEenQuOD34VUXlvXE7rIAd-i0mBpXy6hYYLXgRLuMz8um7kOyaK2xnP2oCh0jgc_1fq6MwG4rf95Ix41WdraTW-1EXeNStLWCrpfyd3i2BfrR-rlphhK9XKQsViVVkSpHl3NN2ExHFfKMLKg
-Content-Type: application/json
-
-{
-  "type": "RaadpleegMetBurgerservicenummer",
-  "burgerservicenummer": ["999997348"],
-  "fields": [
-    "burgerservicenummer",
-    "gezag"
-  ]
-}
