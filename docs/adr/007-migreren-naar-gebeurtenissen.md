@@ -12,7 +12,7 @@ Wanneer een abonnee van een afnemer van de BRP API zijn systemen wil migreren na
 
 ### 1. Bestaande AbonneerPersoonOpGroep command gebruiken
 
-De AbonneerPersoonOpGroep command en de abonnementen endpoint worden ongewijzigd gebruikt. De rate limit en concurrency limit moet voor de AbonneerPersoonOpGroep command worden bepaald zodat een abonnee hiermee rekening kan houden bij het implementeren van zijn migratieproces.
+De AbonneerPersoonOpGroep command en de abonnementen endpoint worden ongewijzigd gebruikt. De rate limit en concurrency limit moet voor de AbonneerPersoonOpGroep command worden bepaald, zodat het garandeert dat een abonnee niet over de limiet gaat.
 
 Voordelen:
 - Er hoeft geen nieuwe abonneer functionaliteit te worden ontwikkeld.
