@@ -10,6 +10,12 @@ Het team gebruikt CucumberJS om specificaties en end-to-end (e2e) tests te schri
 De Cucumber test suite wordt beheerd in dezelfde repository als de documentatie, de "documentatie repository". 
 Dit betekent dat de test suite gescheiden is van de broncode.
 
+Deze opzet is voor de andere projecten binnen BRP API gedaan voor de volgende redenen:
+- De test suite bevat naast testen ook specificities van het systeem. Deze kunnen in een gescheiden, publieke documentatie repository met stakeholders gedeeld worden.
+- Stap definities in de Cucumber test suite kunnen makkelijk hergebruikt worden.
+
+Ten slotte geldt voor BRP API Gebeurtenissen dat de broncode voorlopig privé moet blijven.
+
 De CI-pipeline moet ervoor zorgen dat de Cucumber test suite wordt uitgevoerd bij elke build.
 
 ## Mogelijke oplossingen
