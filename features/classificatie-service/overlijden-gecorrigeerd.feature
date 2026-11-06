@@ -34,7 +34,7 @@ Functionaliteit: Gebeurtenis wanneer het overlijden is gecorrigeerd
     Scenario: Correctie van administratieve gegevens
       Gegeven het overlijden van 'Jan' op '12-08-2026' in 'Gemeente Roosendaal' is ontleend aan document 'verklaring overlijden'
       Als het overlijden van 'Jan' onjuist is en het overlijden is opgenomen met aktenummer '2XA0123'
-      Dan is er geen 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
+      Dan is er geen 'overlijden.gecorrigeerd' gebeurtenis gepubliceerd
   
   Regel: Bij gebeurtenistype 'overlijden.gecorrigeerd' wordt het A-nummer van de persoon meegeleverd plus de onjuiste en actuele datum overlijden
 

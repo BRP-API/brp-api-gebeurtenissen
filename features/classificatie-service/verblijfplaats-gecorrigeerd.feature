@@ -42,8 +42,51 @@ Functionaliteit: Gebeurtenis wanneer de verblijfplaats is gecorrigeerd
     Scenario: Herstel naar vorige verblijfplaats die in een andere gemeente ligt
       Als de verblijfplaats van 'Jan' vanaf '19-06-2026' op het adres 'Stadserf_1_Roosendaal' onjuist is
       En de juiste verblijfplaats van 'Jan' is het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' vanaf '14-04-2020'
-      Dan is een 'verhuisd.intergemeentelijk' gebeurtenis gepubliceerd
-      En is een 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
+      Dan is een 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
+
+    Scenario: Correctie van functie adreshouding
+      Als de verblijfplaats van 'Jan' vanaf '19-06-2026' op het adres 'Stadserf_1_Roosendaal' onjuist is
+      En het juiste functie adres is 'Briefadres'
+      Dan is een 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
+
+    Scenario: Correctie van de adresseerbaar object identificatie
+      Als de verblijfplaats van 'Jan' vanaf '19-06-2026' op het adres 'Stadserf_1_Roosendaal' onjuist is
+      En de juiste identificatiecode verblijfplaats is '1674010000008508'
+      Dan is een 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
+
+    Scenario: Correctie met verwijderen van aanduiding bij huisnummer
+      Gegeven het adres 'Kadeplein_2_tegenover_Roosendaal'
+      * in gemeente 'Roosendaal'
+      * aanduiding bij huisnummer 'tegenover'
+      En het adres 'Kadeplein_2_bij_Roosendaal'
+      * in gemeente 'Roosendaal'
+      * aanduiding bij huisnummer 'bij'
+      En de persoon 'Jan'
+      * verblijft vanaf '5-8-2026' op het adres 'Kadeplein_2_tegenover_Roosendaal'
+      Als de verblijfplaats van 'Jan' vanaf '5-8-2026' op het adres 'Kadeplein_2_tegenover_Roosendaal' onjuist is
+      En de juiste verblijfplaats van 'Jan' is het adres 'Kadeplein_2_bij_Roosendaal' vanaf '19-06-2026'
+      Dan is een 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
+
+    Scenario: Correctie van een locatiebeschrijving
+      Gegeven het adres 'Locatie_De_Brug_Apeldoorn'
+      * in gemeente 'Apeldoorn'
+      * met locatiebeschrijving 'De Brug'
+      En de persoon 'Jan'
+      * verblijft vanaf '5-8-2026' op het adres 'Locatie_De_Brug_Apeldoorn'
+      En het adres 'Locatie_Het_Bruggetje_Apeldoorn'
+      * in gemeente 'Apeldoorn'
+      * met locatiebeschrijving 'Het bruggetje'
+      Als de verblijfplaats van 'Jan' vanaf '5-8-2026' op het adres 'Locatie_De_Brug_Apeldoorn' onjuist is
+      En de juiste verblijfplaats van 'Jan' is het adres 'Locatie_Het_Bruggetje_Apeldoorn' vanaf '5-8-2026
+      Dan is een 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
+
+    Scenario: Correctie van immigratie
+      Gegeven de persoon 'Piet'
+      * verblijft vanaf '14-04-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo'
+      * is geïmmigreerd op '12-04-2020' vanuit 'Duitsland'
+      Als de verblijfplaats van 'Jan' vanaf '14-04-2020' op het adres 'Burgemeester_Van_Der_Dussenplein_1_Hengelo' onjuist is
+      En de juiste immigratie is '11-04-2020' vanuit 'Frankrijk'
+      Dan is een 'verblijfplaats.gecorrigeerd' gebeurtenis gepubliceerd
 
     Scenario: Correctie van administratieve gegevens
       Gegeven het verblijf van 'Jan' vanaf '19-06-2026' op het adres 'Stadserf_1_Roosendaal' is aangegeven door een meerderjarige gemachtigde
