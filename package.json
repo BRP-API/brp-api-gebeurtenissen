@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/BRP-API/brp-api-gebeurtenissen#readme",
   "devDependencies": {
-    "@cucumber/cucumber": "^12.9.0",
+    "@cucumber/cucumber": "^13.3.0",
     "@redocly/cli": "^2.35.0",
     "@types/chai": "^5.2.3",
     "@types/deep-equal-in-any-order": "^1.0.4",
