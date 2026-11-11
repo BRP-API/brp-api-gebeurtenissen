@@ -25,6 +25,10 @@ Functionaliteit: Publiceren van persoon geregistreerd gebeurtenis bij het public
 
   Regel: Een 'persoon geregistreerd' gebeurtenis wordt ook gepubliceerd als meerdere personen hetzelfde burgerservicenummer hebben als de betreffende persoon
     # er kan niet meer op het betreffende burgerservicenummer worden geabonneerd
+    # Vraag: Is het voorkomen van identiteitsfraude ook een functionaliteit/taak van het gebeurtenissen systeem?
+    # Dit kan nl. aan de hand zijn als plotseling twee personen voorkomen met hetzelfde burgerservicenummer
+    # Passen we 'Defense in depth (beveiliging in elke laag)' toe of wordt dit gezien als de verantwoordelijkheid van de bron
+    # Maakt het gebeurtenissen systeem straks de kans op identiteitsfraude dan groter als het mogelijk wordt om op a-nummer te abonneren?
 
     Abstract Scenario: Een 'verhuisd intergemeentelijk' gebeurtenis wordt gepubliceerd voor een persoon, maar meerdere personen hebben hetzelfde burgerservicenummer als de betreffende persoon
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
@@ -50,6 +54,7 @@ Functionaliteit: Publiceren van persoon geregistreerd gebeurtenis bij het public
 
     Abstract Scenario: Een 'overleden' gebeurtenis wordt gepubliceerd voor een persoon, maar de persoon is opgeschort met reden '<reden>'
       Gegeven de persoon 'Jan' is geregistreerd in de BRP met opschortreden '<reden>'
+      En er is nog geen 'persoon geregistreerd' gebeurtenis gepubliceerd voor 'Jan'
       Als een 'overleden' gebeurtenis wordt gepubliceerd voor 'Jan'
       Dan wordt de gebeurtenis publicatie voor 'Jan' afgewezen
 
