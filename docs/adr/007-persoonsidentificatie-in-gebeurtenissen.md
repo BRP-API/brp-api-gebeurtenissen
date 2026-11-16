@@ -1,4 +1,4 @@
-# ADR 006: Gebruik (interne) persoonsidentificatie voor personen in gebeurtenissen in BRP API Gebeurtenissen
+# ADR 007: Gebruik (interne) persoonsidentificatie voor personen in gebeurtenissen in BRP API Gebeurtenissen
 
 ## Status
 Geaccepteerd
