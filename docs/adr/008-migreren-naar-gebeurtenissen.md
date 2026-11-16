@@ -1,8 +1,8 @@
-# ADR 007: Migreren naar BRP API Gebeurtenissen
+# ADR 008: Migreren naar BRP API Gebeurtenissen
 
 ## Status
 
-Concept
+Besloten. De huidige AbonneerPersoonOpGroep command (oplossing 1) moet worden gebruikt om te migreren. Oplossingen 2 en 3 zijn erg complex en zullen het migreren van de huidige volgindicaties van afnemers niet beter of makkelijker maken.
 
 ## Context
 
