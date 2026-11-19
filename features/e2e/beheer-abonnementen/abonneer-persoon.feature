@@ -106,8 +106,20 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
         | type is gebeurtenistype    | nl.brp.verhuisd.intergemeentelijk      |
         | type bevat script          | <script>alert("hello world");</script> |
 
-  Regel: Burgerservicenummer is verplicht en moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP
+  Regel: Een 'AbonnementOpPersoonGeregistreerd' gebeurtenis wordt niet gepubliceerd als de abonnee aboneert voor een persoon die opgeschort met reden 'F' (fout) of 'W' (wissen)
+    Abstract Scenario: Een abonnee abonneert zich op een gebeurtenissen groep voor een persoon, maar de persoon is opgeschort met reden '<reden>'
+      Gegeven de persoon 'Jan' is geregistreerd in de BRP met opschortreden '<reden>'
+      En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan'
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'De persoon is opgeschort'
 
+      Voorbeelden:
+        | reden |
+        | F     |
+        | W     |
+
+  Regel: Burgerservicenummer is verplicht en moet een 9-cijferig nummer zijn dat gekoppeld is aan een persoon in de BRP
     Scenario: De abonnee geeft geen burgerservicenummer op
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
