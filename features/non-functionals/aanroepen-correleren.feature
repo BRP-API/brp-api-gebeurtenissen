@@ -18,4 +18,26 @@ Functionaliteit: Traceren van een aanroep naar events in Axon Server
       En de aanroep bevat een 'Request-ID' header met waarde 'f100bca1-4c42-488a-a0c1-6da4c33729f8'
       Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met in de metadata een veld 'correlationId' met waarde 'f100bca1-4c42-488a-a0c1-6da4c33729f8'
 
-  Regel: Een Request-Id wordt bij het afhandelen van een aanroep gegenereerd als een aanroep geen of een ongeldige Request-Id bevat
+  # Regel: Een Request-Id wordt bij het afhandelen van een aanroep gegenereerd als een aanroep geen of een ongeldige Request-Id bevat
+
+  #   Scenario: Een aanroep zonder Request-Id
+  #     Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
+  #     En de aanroep bevat geen 'Request-Id' header
+  #     Dan wordt een nieuwe UUID gegenereerd als tracekenmerk
+  #     En is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met in de metadata een veld 'correlationId' met de aangemaakte tracekenmerk
+    
+  Regel: Een Request-Id wordt gegenereerd als een aanroep geen of een ongeldige Request-Id bevat
+
+    Abstract Scenario: Een aanroep met een ongeldige Request-Id
+    Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
+    En de aanroep bevat een 'Request-Id' header met waarde '<waarde>'
+    Dan wordt een nieuwe UUID gegenereerd als tracekenmerk
+    En is dit tracekenmerk niet gelijk aan '<waarde>'
+    En is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met in de metadata een veld 'correlationId' met dit tracekenmerk
+    En bevat de response een 'Request-Id' header met dit tracekenmerk
+
+    Voorbeelden:
+      | waarde                               | reden          |
+      | 12345                                | geen UUID      |
+      | f100bca1-4c42-488a-a0c1              | te kort        |
+      | f100bca1-4c42-488a-a0c1-6da4c33729fz | ongeldig teken |
