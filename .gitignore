@@ -3,6 +3,7 @@ node_modules/
 test-reports/
 
 .env
+.env.example
 
 .idea
 .vscode
