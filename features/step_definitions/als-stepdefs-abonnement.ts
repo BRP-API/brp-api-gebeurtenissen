@@ -1,5 +1,6 @@
 import {When} from '@cucumber/cucumber';
 import {
+  abonneerPersoon,
   abonneerPersoonOpGroep,
   deregistreerAbonneeVoorAfnemer,
   raadpleegAbonneesVoorAfnemer,
@@ -237,6 +238,33 @@ When(
       groepNaam,
       persoon,
       'AbonneerPersoonOpGroep',
+    );
+    this.result = response.body;
+    this.responseStatusCode = response.statusCode;
+  },
+);
+
+When(
+  'de abonnee {string} van afnemer {string} zich abonneert voor persoon {string}',
+  async function (
+    abonneeNaam: string,
+    afnemerAanduiding: string,
+    persoonAanduiding: string,
+  ) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    const afnemer = await AfnemerFactory.create(
+      this.context,
+      afnemerAanduiding,
+    );
+
+    const response = await abonneerPersoon(
+      afnemer,
+      abonneeNaam,
+      persoon,
     );
     this.result = response.body;
     this.responseStatusCode = response.statusCode;

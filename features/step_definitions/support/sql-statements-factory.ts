@@ -66,6 +66,36 @@ export function createLo3AdresUpdateStatement(
   return new SqlStatement(statementText, values);
 }
 
+export function createLo3PersoonUpdateStatement(
+  persoon: Persoon,
+  changedColummn: string,
+  newValue: string,
+): SqlStatement {
+  const values: any[] = [];
+
+  values.push(newValue);
+  values.push(persoon.pl_id);
+
+  const statementText = `UPDATE public.lo3_pl_persoon SET ${changedColummn}=$1 WHERE pl_id=$2`;
+
+  return new SqlStatement(statementText, values);
+}
+
+export function createLo3PersoonLijstUpdateStatement(
+  persoon: Persoon,
+  changedColummn: string,
+  newValue: string,
+): SqlStatement {
+  const values: any[] = [];
+
+  values.push(newValue);
+  values.push(persoon.pl_id);
+
+  const statementText = `UPDATE public.lo3_pl SET ${changedColummn}=$1 WHERE pl_id=$2`;
+
+  return new SqlStatement(statementText, values);
+}
+
 export function createLo3AutorisatieInsertStatement(
   afnemer: Afnemer,
 ): SqlStatement {
