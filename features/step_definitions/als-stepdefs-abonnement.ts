@@ -287,7 +287,7 @@ When(
     const updatedPersoon = await PersoonFactory.update(this.context,
       persoon,
       undefined,
-      ['bijhouding_opschort_reden', reden]);
+      [`bijhouding_opschort_reden`, reden]);
 
     const afnemer = await AfnemerFactory.create(
       this.context,
