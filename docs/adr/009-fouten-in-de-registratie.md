@@ -2,7 +2,7 @@
 
 ## Status
 
-Voorstel. Beslissing moet worden genomen door het team in samenspraak met het team van de classificatieservice en Informatiebeheer.
+Geaccepteerd
 
 ## Context
 
@@ -111,7 +111,8 @@ Uitgangspunten:
 
 ## Beslissing
 
-Wordt bepaald na het bespreken van de opties.
+De gebeurtenis validaties worden geïmplementeerd, zodat de werking kan worden beproefd tijdens development en testen.
+Wanneer een foute gebeurtenis wordt gedetecteerd, dan wordt dit gelogd. Het wel of niet afwijzen van foute gebeurtenissen wordt gestuurd door middel van een feature flag, zodat het afwijzen kan worden uitgezet in productie. Beslissing met betrekking tot fouten 1 en 2 moet worden genomen door het team in samenspraak met het team van de classificatieservice, Informatiebeheer en Kwaliteit.
 
 ## Gerelateerde ADRs
 
