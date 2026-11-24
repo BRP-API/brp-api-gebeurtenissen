@@ -111,9 +111,9 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       En de opschortreden van de persoon 'Jan' is gewijzigd met '<reden>'
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
-      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan'
-      Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'De persoon bestaat niet'
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan' terwijl opschortreden is '<reden>'
+      Dan is de response '400 Not Found' met de volgende velden
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
 
       Voorbeelden:
         | reden |
