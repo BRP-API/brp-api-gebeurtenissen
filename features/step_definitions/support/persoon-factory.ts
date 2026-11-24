@@ -2,7 +2,9 @@ import {Persoon} from '../brp/persoon-entity.js';
 import {Adres} from '../brp/adres-entity.js';
 import {
   createPersoon,
-  createVerblijfPlaatsVoorPersoonOpAdres, updatePersoon, updatePersoonLijst,
+  createVerblijfPlaatsVoorPersoonOpAdres,
+  updatePersoon,
+  updatePersoonLijst,
 } from './repository.js';
 
 //import {logger} from './logger';

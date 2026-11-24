@@ -272,7 +272,7 @@ When(
 );
 
 When(
-  'de abonnee {string} van afnemer {string} zich abonneert voor persoon {string} terwijl opschortreden is {string}',
+  `de abonnee {string} van afnemer {string} zich abonneert voor persoon {string} terwijl opschortreden is {string}`,
   async function (
     abonneeNaam: string,
     afnemerAanduiding: string,

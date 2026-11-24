@@ -39,7 +39,7 @@ Given(
   },
 );
 
-Given('de opschortreden van de persoon {string} is gewijzigd met {string}',
+Given(`de opschortreden van de persoon {string} is gewijzigd met {string}`,
   async function (persoonAanduiding: string, reden: string) {
     const persoon = await PersoonFactory.create(this.context, persoonAanduiding);
 
