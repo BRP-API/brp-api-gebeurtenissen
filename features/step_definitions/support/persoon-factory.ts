@@ -28,11 +28,7 @@ export class PersoonFactory {
     return persoon;
   }
 
-  static async update(context: any,
-                      persoon: Persoon,
-                      persoonTableArgs: string[] | undefined,
-                      persoonlijstTableArgs: string[] | undefined,
-  ): Promise<Persoon> {
+  static async update(context: any, persoon: Persoon, persoonTableArgs: string[] | undefined, persoonlijstTableArgs: string[] | undefined): Promise<Persoon> {
     if (!context.personen) {
       context.personen = {};
     }
