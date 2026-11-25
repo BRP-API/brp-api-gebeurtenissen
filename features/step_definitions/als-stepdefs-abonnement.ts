@@ -281,7 +281,10 @@ When(
     );
 
     const updatedPersoon = await PersoonFactory.update(
-      this.context, persoon, undefined, ['bijhouding_opschort_reden', reden]);
+      this.context,
+      persoon,
+      undefined,
+      ['bijhouding_opschort_reden', reden]);
 
     const afnemer = await AfnemerFactory.create(
       this.context,
@@ -289,7 +292,10 @@ When(
     );
 
     const response = await abonneerPersoon(
-      afnemer, abonneeNaam, updatedPersoon);
+      afnemer,
+      abonneeNaam,
+      updatedPersoon);
+
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },

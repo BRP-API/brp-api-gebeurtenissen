@@ -44,7 +44,10 @@ export async function updatePersoon(
   property: string,
   value: string,
 ): Promise<void> {
-  const statement = createLo3PersoonLijstUpdateStatement(persoon, property, value);
+  const statement = createLo3PersoonLijstUpdateStatement(
+    persoon,
+    property,
+    value);
   await PostgresqlManager.getInstance().execute(statement);
 }
 
