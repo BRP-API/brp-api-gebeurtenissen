@@ -45,9 +45,11 @@ Given('de opschortreden van de persoon {string} is gewijzigd met {string}',
       this.context,
       persoonAanduiding);
 
+
     await PersoonFactory.update(this.context, persoon,
       undefined,
-      ['bijhouding_opschort_reden', reden]);
+      ['bijhouding_opschort_reden',
+        reden]);
 
   },
 );
