@@ -40,7 +40,9 @@ export class PersoonFactory {
 
     if (persoon) {
       if (persoonTableArgs !== undefined) {
-        await updatePersoon(persoon, persoonTableArgs[0], persoonTableArgs[1]);
+        await updatePersoon(persoon,
+          persoonTableArgs[0],
+          persoonTableArgs[1]);
       }
 
       if (persoonlijstTableArgs !== undefined) {

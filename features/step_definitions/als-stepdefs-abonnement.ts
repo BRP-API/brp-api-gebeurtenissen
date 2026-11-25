@@ -261,11 +261,7 @@ When(
       afnemerAanduiding,
     );
 
-    const response = await abonneerPersoon(
-      afnemer,
-      abonneeNaam,
-      persoon,
-    );
+    const response = await abonneerPersoon(afnemer, abonneeNaam, persoon,);
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
