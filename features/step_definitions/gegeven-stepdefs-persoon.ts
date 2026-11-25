@@ -39,8 +39,8 @@ Given(
   },
 );
 
-Given('de opschortreden van de persoon {string} is gewijzigd met {string}',
-
+Given(
+  'de opschortreden van de persoon {string} is gewijzigd met {string}',
 
   async function (persoonAanduiding: string, reden: string) {
     const persoon = await PersoonFactory.create(
@@ -51,8 +51,8 @@ Given('de opschortreden van de persoon {string} is gewijzigd met {string}',
 
     await PersoonFactory.update(this.context, persoon,
       undefined,
-      ['bijhouding_opschort_reden', reden],
-    );
+      ['bijhouding_opschort_reden',
+      ]);
 
   },
 );
