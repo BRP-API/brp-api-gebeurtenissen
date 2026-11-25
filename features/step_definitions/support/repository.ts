@@ -15,7 +15,6 @@ import {
   createLo3AdresDeleteStatement,
   createLo3PersoonDeleteStatements,
   createLo3PersoonLijstUpdateStatement,
-
 } from './sql-statements-factory.js';
 
 export async function createAdres(adres: Adres): Promise<Adres> {
