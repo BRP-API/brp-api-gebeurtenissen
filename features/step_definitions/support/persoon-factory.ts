@@ -32,14 +32,13 @@ export class PersoonFactory {
     context: any,
     persoon: Persoon,
     persoonTableArgs: string[] | undefined,
-    persoonlijstTableArgs: string[] | undefined
+    persoonlijstTableArgs: string[] | undefined,
   ): Promise<Persoon> {
     if (!context.personen) {
       context.personen = {};
     }
 
     if (persoon) {
-
       if (persoonTableArgs !== undefined) {
         await updatePersoon(persoon, persoonTableArgs[0], persoonTableArgs[1]);
       }
