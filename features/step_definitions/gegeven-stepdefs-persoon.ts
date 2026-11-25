@@ -49,7 +49,8 @@ Given(
     );
 
     await PersoonFactory.update(this.context, persoon, undefined, [
-      'bijhouding_opschort_reden',      reden,
+      'bijhouding_opschort_reden',
+      reden,
 
     ]);
   },
