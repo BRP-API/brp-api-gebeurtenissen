@@ -50,7 +50,6 @@ export class PersoonFactory {
           persoonlijstTableArgs[1],
         );
       }
-
     }
 
     return persoon;

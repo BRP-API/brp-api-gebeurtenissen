@@ -395,6 +395,7 @@ async function abonneerPersonen(
   const aantalPersonen = Object.keys(context.personen).length;
 
   const persoonAanduiding = Object.keys(context.personen)[
+
     (abonnementNummer - 1) % aantalPersonen];
 
   const persoon = await PersoonFactory.create(context, persoonAanduiding);
