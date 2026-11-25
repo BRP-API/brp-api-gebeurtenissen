@@ -47,8 +47,8 @@ export async function updatePersoon(
   const statement = createLo3PersoonLijstUpdateStatement(
     persoon,
     property,
-    value);
-
+    value,
+    );
 
   await PostgresqlManager.getInstance().execute(statement);
 }

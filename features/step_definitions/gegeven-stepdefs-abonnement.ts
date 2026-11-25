@@ -237,7 +237,7 @@ Given(
       resultProducer,
       result =>
         expect(result.body.abonnementen).satisfies(
-          (abonnementen: {groep: string; burgerservicenummer: string}[]) =>
+          (abonnementen: { groep: string; burgerservicenummer: string }[]) =>
             abonnementen.some(
               abonnement =>
                 abonnement.groep === groepNaam &&
@@ -280,9 +280,11 @@ Given(
   },
 );
 
-Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
+Given('is niet geregistreerd als abonnee van BRP API Gebeurtenissen', () => {
+});
 
-Given('is geregistreerd als abonnee van BRP API Gebeurtenissen', () => {});
+Given('is geregistreerd als abonnee van BRP API Gebeurtenissen', () => {
+});
 
 Given(
   'de abonnee {string} van afnemer {string} heeft een abonnement op {string} gebeurtenissen van {string}',
@@ -395,8 +397,8 @@ async function abonneerPersonen(
   const aantalPersonen = Object.keys(context.personen).length;
 
   const persoonAanduiding = Object.keys(context.personen)[
-    (abonnementNummer - 1) % aantalPersonen
-  ];
+  (abonnementNummer - 1) % aantalPersonen
+    ];
   const persoon = await PersoonFactory.create(context, persoonAanduiding);
 
   const groepNaam =
