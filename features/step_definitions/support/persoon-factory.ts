@@ -40,13 +40,13 @@ export class PersoonFactory {
 
     if (persoon) {
       if (persoonTableArgs !== undefined) {
-        await updatePersoon(persoon, persoonTableArgs[0],
-          persoonTableArgs[1]);
+        await updatePersoon(
+          persoon, persoonTableArgs[0], persoonTableArgs[1]);
       }
 
       if (persoonlijstTableArgs !== undefined) {
-        await updatePersoonLijst(persoon, persoonlijstTableArgs[0],
-          persoonlijstTableArgs[1]);
+        await updatePersoonLijst(
+          persoon, persoonlijstTableArgs[0], persoonlijstTableArgs[1]);
       }
     }
 
