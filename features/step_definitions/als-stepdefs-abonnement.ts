@@ -261,14 +261,14 @@ When(
       afnemerAanduiding,
     );
 
-    const response = await abonneerPersoon(afnemer, abonneeNaam, persoon,);
+    const response = await abonneerPersoon(afnemer, abonneeNaam, persoon);
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
   },
 );
 
 When(
-  `de abonnee {string} van afnemer {string} zich abonneert voor persoon {string} terwijl opschortreden is {string}`,
+  'de abonnee {string} van afnemer {string} zich abonneert voor persoon {string} terwijl opschortreden is {string}',
   async function (
     abonneeNaam: string,
     afnemerAanduiding: string,
