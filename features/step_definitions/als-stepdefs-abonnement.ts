@@ -286,6 +286,7 @@ When(
       undefined,
       ['bijhouding_opschort_reden', reden],);
 
+
     const afnemer = await AfnemerFactory.create(
       this.context,
       afnemerAanduiding,
@@ -295,6 +296,7 @@ When(
       afnemer,
       abonneeNaam,
       updatedPersoon,);
+
 
     this.result = response.body;
     this.responseStatusCode = response.statusCode;
