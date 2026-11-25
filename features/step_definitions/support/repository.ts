@@ -48,7 +48,7 @@ export async function updatePersoon(
     persoon,
     property,
     value,
-    );
+  );
 
   await PostgresqlManager.getInstance().execute(statement);
 }

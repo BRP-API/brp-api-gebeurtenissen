@@ -284,7 +284,8 @@ When(
       this.context,
       persoon,
       undefined,
-      ['bijhouding_opschort_reden', reden],);
+      ['bijhouding_opschort_reden', reden],
+    );
 
 
     const afnemer = await AfnemerFactory.create(
@@ -295,7 +296,8 @@ When(
     const response = await abonneerPersoon(
       afnemer,
       abonneeNaam,
-      updatedPersoon,);
+      updatedPersoon,
+    );
 
 
     this.result = response.body;
