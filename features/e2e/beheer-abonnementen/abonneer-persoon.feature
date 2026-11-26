@@ -112,8 +112,8 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       En de opschortreden van de persoon 'Jan' is gewijzigd met '<reden>'
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan' terwijl opschortreden is '<reden>'
-      Dan is de response '404 Not Found' met de volgende velden
-      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
+      Dan is de response '400 Bad Request' met de volgende velden
+      * 'title' met tekst 'De opgegeven persoonidentificatie is niet gevonden.'
 
       Voorbeelden:
         | reden |
