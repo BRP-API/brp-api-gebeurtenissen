@@ -21,22 +21,6 @@ import {Afnemer} from './brp/afnemer-entity.js';
 import {expectEventuallyWithRetry} from './support/custom-assertions/expectEventually.js';
 
 Given(
-  'de afnemer {string} heeft de abonnee {string} geregistreerd',
-  async function (afnemerAanduiding: string, abonneeNaam: string) {
-    const afnemer = await AfnemerFactory.create(
-      this.context,
-      afnemerAanduiding,
-    );
-
-    this.result = await registreerAbonneeVoorAfnemer(afnemer, abonneeNaam);
-    expect(this.result.statusCode).to.equal(
-      HttpStatusCode.Created,
-      'http statuscode is niet correct',
-    );
-  },
-);
-
-Given(
   'de afnemer {string} heeft de abonnee {string} gederegistreerd',
   async function (afnemerAanduiding: string, abonneeNaam: string) {
     const afnemer = await AfnemerFactory.create(

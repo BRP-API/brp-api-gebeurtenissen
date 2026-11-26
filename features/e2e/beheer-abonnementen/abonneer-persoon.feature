@@ -110,9 +110,9 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
     Abstract Scenario: Een abonnee abonneert zich op een gebeurtenissen groep voor een persoon, maar de persoon is opgeschort met reden '<reden>'
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       En de opschortreden van de persoon 'Jan' is gewijzigd met '<reden>'
-      En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
+      En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan' terwijl opschortreden is '<reden>'
-      Dan is de response '400 Not Found' met de volgende velden
+      Dan is de response '404 Not Found' met de volgende velden
       * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
 
       Voorbeelden:
