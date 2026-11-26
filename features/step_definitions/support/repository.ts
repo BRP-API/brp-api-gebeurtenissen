@@ -14,6 +14,7 @@ import {
   createLo3PlVerblijfplaatsVolgnummerUpdateStatement,
   createLo3AdresDeleteStatement,
   createLo3PersoonDeleteStatements,
+  createLo3PersoonLijstUpdateStatement,
 } from './sql-statements-factory.js';
 
 export async function createAdres(adres: Adres): Promise<Adres> {
@@ -35,6 +36,33 @@ export async function updateAdres(
   value: string,
 ): Promise<void> {
   const statement = createLo3AdresUpdateStatement(adres, property, value);
+  await PostgresqlManager.getInstance().execute(statement);
+}
+
+export async function updatePersoon(
+  persoon: Persoon,
+  property: string,
+  value: string,
+): Promise<void> {
+  const statement = createLo3PersoonLijstUpdateStatement(
+    persoon,
+    property,
+    value,
+  );
+
+  await PostgresqlManager.getInstance().execute(statement);
+}
+
+export async function updatePersoonLijst(
+  persoon: Persoon,
+  property: string,
+  value: string,
+): Promise<void> {
+  const statement = createLo3PersoonLijstUpdateStatement(
+    persoon,
+    property,
+    value,
+  );
   await PostgresqlManager.getInstance().execute(statement);
 }
 

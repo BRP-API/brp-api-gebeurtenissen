@@ -294,6 +294,44 @@ export async function raadpleegGebeurtenistypesInGroep(
   };
 }
 
+export async function abonneerPersoon(
+  afnemer: Afnemer,
+  abonneeNaam: string,
+  persoon: Persoon,
+): Promise<any> {
+  const accessToken = afnemer ? await getClientAccessToken(afnemer) : '';
+
+  const requestBody: any = {};
+
+  if (persoon.burger_service_nr) {
+    requestBody.burgerservicenummer = persoon.burger_service_nr;
+  }
+
+  const response = await fetch(
+    `${process.env.GEBEURTENISSEN_BASE_URL}/api/brp/abonnees/${abonneeNaam}/abonnementen`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody),
+    },
+  );
+
+  logger.debug(
+    `abonneerPersoonOpGroep afnemer: '${afnemer?.aanduiding}', abonnee: '${abonneeNaam}', persoon: '${persoon.burger_service_nr}'`,
+    {response: response},
+  );
+  logger.info(
+    `/api/brp/abonnees/${abonneeNaam}/abonnementen ${JSON.stringify(requestBody)} >>> status: ${response.status}`,
+  );
+
+  return {
+    statusCode: response.status,
+    body: await parseResponseBody(response),
+  };
+}
 export async function abonneerPersoonOpGroep(
   afnemer: Afnemer,
   abonneeNaam: string,

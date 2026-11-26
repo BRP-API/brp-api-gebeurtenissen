@@ -38,3 +38,19 @@ Given(
     await PersoonFactory.create(this.context, persoonAanduiding);
   },
 );
+
+Given(
+  'de persoonslijst van {string} is opgeschort met reden {string}',
+
+  async function (persoonAanduiding: string, reden: string) {
+    const persoon = await PersoonFactory.create(
+      this.context,
+      persoonAanduiding,
+    );
+
+    await PersoonFactory.update(this.context, persoon, undefined, [
+      'bijhouding_opschort_reden',
+      reden,
+    ]);
+  },
+);
