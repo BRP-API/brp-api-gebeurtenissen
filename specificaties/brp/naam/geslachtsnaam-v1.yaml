@@ -1,0 +1,11 @@
+openapi: 3.1.2
+info:
+  title: geslachtsnaam type definitie
+  version: 1.0.0
+components:
+  schemas:
+    Geslachtsnaam:
+      type: string
+      pattern: ^[a-zA-Z0-9À-ž \.\-\']{1,200}$
+      description: |
+        De achternaam van een persoon.
