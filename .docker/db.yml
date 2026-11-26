@@ -1,3 +1,16 @@
+# BRP-testdatabase (rvig_haalcentraal_testdata) en projecties-database
+# (rvig_brpapi_projecties), met optioneel pgAdmin.
+#
+# Voor het pullen van private container images is read:packages scope vereist.
+# Voeg deze eerst toe met:
+#   gh auth refresh -s read:packages
+# En log vervolgens in bij GHCR met:
+#   gh auth token | docker login ghcr.io -u <github-gebruikersnaam> --password-stdin
+# Met pgAdmin (http://localhost:5433):
+#   docker compose -f .docker/db.yml --profile tools up -d
+#
+# Security: alleen bedoeld voor lokaal gebruik en CI. De standaardwachtwoorden en
+# poortinstellingen zijn niet geschikt voor gedeelde of productieomgevingen.
 services:
   flyway:
     image: flyway/flyway
@@ -5,49 +18,89 @@ services:
     volumes:
       - ./scripts/projecties-db/flyway/conf:/flyway/conf
       - ./scripts/projecties-db/flyway/sql:/flyway/sql
+    security_opt:
+      - no-new-privileges:true
     depends_on:
-      - postgres
+      # Wachten tot de init-scripts klaar zijn: pas dan bestaat rvig_brpapi_projecties.
+      postgres:
+        condition: service_healthy
     networks:
       - brp-api-network
 
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4:latest
-    restart: always
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@haalcentraal.nl
-      - PGADMIN_DEFAULT_PASSWORD=root
-    ports:
-      - "5433:80"
-    security_opt:
-      - no-new-privileges:true
-    networks:
-      - brp-api-network
-      
   postgres:
     container_name: db
-    image: postgres:17.7-alpine
-    restart: always
+    # Privacy: het schema is niet van het BRP-API-team en mag niet openbaar
+    # worden. Daarom staat het niet in deze (publieke) repo, maar in het private
+    # image uit brp-shared-test-containers. Pin voor reproduceerbaarheid een
+    # onveranderlijke tag (versie met tijdstempel of commit-SHA) via
+    # TESTDATA_DB_VERSION.
+    image: ghcr.io/brp-api/brp-testdata-db:${TESTDATA_DB_VERSION:-latest}
+    restart: unless-stopped
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
+      # Security: root/root is een bewust zwakke standaard voor lokaal gebruik.
+      # Overschrijf via .env of omgevingsvariabelen; zet echte wachtwoorden
+      # nooit in git. Gebruik geen POSTGRES_HOST_AUTH_METHOD=trust: dan negeert
+      # Postgres het wachtwoord helemaal.
+      - POSTGRES_USER=${POSTGRES_USER:-root}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-root}
     volumes:
-      - ./scripts/db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      # Het schema zit in het image; alleen het eigen init-script voor de
+      # projecties-db wordt erbij gemount.
       - ./scripts/projecties-db/init-user-db.sql:/docker-entrypoint-initdb.d/init-user-db.sql
     healthcheck:
+      # Via TCP (-h 127.0.0.1): tijdens de eerste start draait postgres de init-scripts
+      # met een tijdelijke server die alleen via de unix socket bereikbaar is. Zonder -h
+      # meldt de healthcheck dan al 'healthy' en starten afhankelijke services te vroeg.
       test:
         [
           "CMD-SHELL",
-          "pg_isready -U root"
+          "pg_isready -h 127.0.0.1 -U $${POSTGRES_USER} -d rvig_haalcentraal_testdata"
         ]
       interval: 10s
       timeout: 5s
       retries: 12
     ports:
-      - "5432:5432"
+      # Security: alleen binden aan localhost. Zonder 127.0.0.1 is de database
+      # bereikbaar vanaf het hele netwerk (Docker omzeilt ook de host-firewall).
+      # Containers op brp-api-network gebruiken `db:5432`.
+      - "127.0.0.1:5432:5432"
+    security_opt:
+      # Security: geen extra rechten via setuid-binaries of file capabilities
+      # (defense in depth). De entrypoint zakt zelf af van root naar postgres.
+      - no-new-privileges:true
     networks:
       - brp-api-network
-  
+
+  pgadmin:
+    container_name: pgadmin
+    # Security: major-versie vastgezet; updates binnen 9.x komen mee bij een pull.
+    image: dpage/pgadmin4:9
+    # Alleen met `--profile tools`: geen beheerinterface als je hem niet nodig hebt.
+    profiles: [tools]
+    restart: unless-stopped
+    environment:
+      # Security: zwakke standaard voor lokaal gebruik; overschrijf via .env.
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@haalcentraal.nl}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-root}
+      # Postfix start via sudo, wat met no-new-privileges faalt. Lokaal niet
+      # nodig, en een service minder is een kleiner aanvalsoppervlak.
+      - PGADMIN_DISABLE_POSTFIX=true
+      # Met no-new-privileges kan pgAdmin geen poort < 1024 binden en kiest de
+      # entrypoint zelf 8080. Expliciet vastzetten zodat de poortmapping klopt.
+      - PGADMIN_LISTEN_PORT=8080
+    ports:
+      # Security: alleen binden aan localhost.
+      - "127.0.0.1:5433:8080"
+    security_opt:
+      - no-new-privileges:true
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - brp-api-network
+
 networks:
+  # Gedeeld met de andere BRP-services. Security: elke container op dit
+  # netwerk kan de database bereiken via `db:5432`.
   brp-api-network:
     name: brp-api-network
