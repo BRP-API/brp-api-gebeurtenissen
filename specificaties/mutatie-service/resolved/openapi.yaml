@@ -65,6 +65,25 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /adressen/{adresId}:
+    parameters:
+      - $ref: '#/components/parameters/AdresIdPathParameter'
+    delete:
+      operationId: VerwijderAdres
+      summary: Verwijderen van een adres in de test BRP database
+      responses:
+        '204':
+          description: Adres succesvol verwijderd
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
   /personen:
     post:
       operationId: MuteerPersoon
@@ -90,7 +109,39 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - clientCredentials: []
+  /personen/{persoonId}:
+    parameters:
+      - $ref: '#/components/parameters/PersoonIdPathParameter'
+    delete:
+      operationId: VerwijderPersoo
+      summary: Verwijderen van een persoon in de test BRP database
+      responses:
+        '204':
+          description: Persoon succesvol verwijderd
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+      security:
+        - clientCredentials: []
 components:
+  parameters:
+    AdresIdPathParameter:
+      name: adresId
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/AdresId'
+    PersoonIdPathParameter:
+      name: persoonId
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/PersoonId'
   schemas:
     AangifteCommand:
       type: object
@@ -195,14 +246,16 @@ components:
         propertyName: type
         mapping:
           AdresGeregistreerd: '#/components/schemas/AdresGeregistreerdResponse'
+    AdresId:
+      type: integer
+      format: int64
     AdresGeregistreerdResponse:
       allOf:
         - $ref: '#/components/schemas/AdresGemuteerdResponse'
         - type: object
           properties:
             adresId:
-              type: integer
-              format: int64
+              $ref: '#/components/schemas/AdresId'
             adresseerbaarObjectIdentificatie:
               $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
           required:
@@ -255,14 +308,16 @@ components:
         propertyName: type
         mapping:
           PersoonGeregistreerd: '#/components/schemas/PersoonGeregistreerdResponse'
+    PersoonId:
+      type: integer
+      format: int64
     PersoonGeregistreerdResponse:
       allOf:
         - $ref: '#/components/schemas/PersoonGemuteerdResponse'
         - type: object
           properties:
             persoonId:
-              type: integer
-              format: int64
+              $ref: '#/components/schemas/PersoonId'
             anummer:
               $ref: '#/components/schemas/Anummer'
             burgerservicenummer:
@@ -434,6 +489,38 @@ components:
             detail: The request requires user authentication. The response MUST include a WWW-Authenticate header field (section 14.47) containing a challenge applicable to the requested resource.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
             code: authentication
+    '403':
+      description: Forbidden
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Foutbericht'
+          example:
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-403-forbidden
+            title: U bent niet geautoriseerd voor deze operatie.
+            status: 403
+            detail: The server understood the request, but is refusing to fulfill it.
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: autorisation
+    '404':
+      description: Not Found
+      headers:
+        API-Version:
+          $ref: '#/components/headers/ApiVersion'
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Foutbericht'
+          example:
+            type: https://www.rfc-editor.org/rfc/rfc9110.html#name-404-not-found
+            title: Resource bestaat niet.
+            status: 404
+            detail: The server has not found anything matching the Request-URI.
+            instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
+            code: notFound
     '500':
       description: Internal Server Error
       headers:

@@ -67,6 +67,28 @@ paths:
           $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
       security:
         - clientCredentials: []
+
+  /adressen/{adresId}:
+    parameters:
+      - $ref: '#/components/parameters/AdresIdPathParameter'
+
+    delete:
+      operationId: VerwijderAdres
+      summary: Verwijderen van een adres in de test BRP database
+      responses:
+        '204':
+          description: Adres succesvol verwijderd
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []          
+
   /personen:
     post:
       operationId: MuteerPersoon
@@ -93,7 +115,43 @@ paths:
       security:
         - clientCredentials: []
 
+  /personen/{persoonId}:
+    parameters:
+      - $ref: '#/components/parameters/PersoonIdPathParameter'
+
+    delete:
+      operationId: VerwijderPersoo
+      summary: Verwijderen van een persoon in de test BRP database
+      responses:
+        '204':
+          description: Persoon succesvol verwijderd
+        '401':
+          $ref: '../problem-details/401-unauthorized-response-v1.yaml#/components/responses/401'
+        '403':
+          $ref: '../problem-details/403-forbidden-response-v1.yaml#/components/responses/403'
+        '404':
+          $ref: '../problem-details/404-not-found-response-v1.yaml#/components/responses/404'
+        '500':
+          $ref: '../problem-details/500-internal-server-error-response-v1.yaml#/components/responses/500'
+      security:
+        - clientCredentials: []          
+
 components:
+  parameters:
+    AdresIdPathParameter:
+      name: adresId
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/AdresId'
+
+    PersoonIdPathParameter:
+      name: persoonId
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/PersoonId'
+  
   schemas:
     AangifteCommand:
       type: object
@@ -205,14 +263,17 @@ components:
         mapping:
           AdresGeregistreerd: '#/components/schemas/AdresGeregistreerdResponse'
 
+    AdresId:
+      type: integer
+      format: int64
+
     AdresGeregistreerdResponse:
       allOf:
         - $ref: '#/components/schemas/AdresGemuteerdResponse'
         - type: object
           properties:
             adresId:
-              type: integer
-              format: int64
+              $ref: '#/components/schemas/AdresId'
             adresseerbaarObjectIdentificatie:
               $ref: '../brp/adres/adresseerbaar-object-identificatie-v1.yaml#/components/schemas/AdresseerbaarObjectIdentificatie'
           required:
@@ -270,14 +331,17 @@ components:
         mapping:
           PersoonGeregistreerd: '#/components/schemas/PersoonGeregistreerdResponse'
 
+    PersoonId:
+      type: integer
+      format: int64
+
     PersoonGeregistreerdResponse:
       allOf:
         - $ref: '#/components/schemas/PersoonGemuteerdResponse'
         - type: object
           properties:
             persoonId:
-              type: integer
-              format: int64
+              $ref: '#/components/schemas/PersoonId'
             anummer:
               $ref: '../brp/identificatienummers/anummer-v1.yaml#/components/schemas/Anummer'
             burgerservicenummer:
