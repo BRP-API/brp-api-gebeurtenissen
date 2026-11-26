@@ -1,27 +1,24 @@
 # language: nl
 Functionaliteit: Protocolleren van verstrekte gebeurtenissen
-  Het verstrekken van gegevens van burgers worden "geprotocolleerd" (formeel gelogd met als doel de burger te informeren 
-  over welke instantie voor welke taak welke gegevens heeft geraadpleegd).
+  Het verstrekken van gegevens van burgers worden "geprotocolleerd". 
+  Met protocolleren wordt vastgelegd dat gegevens van een persoon verstrekt zijn aan een afnemer.
+  De burger kan hiervan een rapport vragen.
+
+  De gebeurtenissen API hoeft alleen de verstrekkingen vast te leggen. 
+  Overige functies bij RvIG, zoals BRP-V en Protocollering Overzicht Module (POM) verwerken dit.
+
+  Protocolleren gaat alleen over het verstrekken van gegevens, niet over het abonneren hierop.
 
   Er wordt geprotocolleerd dat een gebeurtenis van persoon is verstrekt aan een afnemer.
-  Dit wordt aangegeven door rubrieknummer 'PA.GB.01' op te nemen in 'request_zoek_rubrieken' en in 'request_gevraagde_rubrieken'.
-  Dit betekent dat
-  - er geen onderscheid gemaakt wordt in gebeurtenistype
-  - er niet vastgelegd wordt welke gegevens meegeleverd zijn (burgerservicenummer en bijv. datum aanvang adreshouding of overlijdensdatum)
+  Dit is het geval wanneer bij het vragen van gebeurtenissen door een abonnee daadwerkelijk gebeurtenissen zijn geleverd.
 
-  Er wordt geprotocolleerd per verstrekking wat betekent dat:
-  - als dezelfde gebeurtenis in twee responses wordt geleverd aan dezelfde afnemer (en zelfs dezelfde abonnee), dit twee keer wordt geprotocolleerd
-  - als verschillende gebeurtenissen van dezelfde persoon in één response worden geleverd, dit als één verstrekking wordt geprotocolleerd
+  We schrijven de protocollering in de tabel "haalcentraal_gebeurtenissen" in de haalcentraal database.
 
-  Achtergrond:
-    Gegeven de persoon 'Jan' is geregistreerd in de BRP
-    En de persoon 'Piet' is geregistreerd in de BRP
+  In de protocollering wordt het elementnummer voor het gebeurtenistype opgenomen plus het elementnummer voor elk meeverstrekt gegeven.
+  De elementnummers worden opgenomen zowel in kolommen "request_zoek_rubrieken" en  "request_gevraagde_rubrieken".
 
   Regel: Als een afnemer een gebeurtenis verstrekt krijgt, dan wordt dit geprotocolleerd
-    Dus NIET geprotocollerd wordt:
-    - dat een (abonnee van een) afnemer een abonnement heeft op een persoon
-    - dat er een gebeurtenis heeft plaatsgevonden waar een (abonnee van een) afnemer op geabonneerd is
-
+    
     Scenario: Een gebeurtenis is verstrekt
       Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
       Dan is geprotocolleerd dat een gebeurtenis van 'Jan' is verstrekt aan afnemer 'Gemeente Amsterdam'
@@ -48,27 +45,96 @@ Functionaliteit: Protocolleren van verstrekte gebeurtenissen
   Regel: Als meerdere afnemers dezelfde gebeurtenis verstrekt krijgen, dan wordt elke verstrekking geprotocolleerd
 
     Scenario: Er zijn meerdere gebeurtenissen verstrekt aan abonnees van verschillende afnemers
-      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op gebeurtenissen van 'Jan'
-      En abonnee 'szw' van afnemer 'Gemeente Hengelo' heeft een abonnement op gebeurtenissen van 'Jan'
-      En er is een gebeurtenis gepubliceerd van 'Jan'
-      En abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft de gebeurtenis verstrekt gekregen
-      En abonnee 'szw' van afnemer 'Gemeente Hengelo' heeft de gebeurtenis verstrekt gekregen
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
+      En abonnee 'szw' van afnemer 'Gemeente Hengelo' heeft een gebeurtenis verstrekt gekregen van 'Jan'
       Dan is geprotocolleerd dat een gebeurtenis van 'Jan' is verstrekt aan afnemer 'Gemeente Amsterdam'
       En is geprotocolleerd dat een gebeurtenis van 'Jan' is verstrekt aan afnemer 'Gemeente Hengelo'
 
   Regel: Als meerdere abonnees van dezelfde afnemer dezelfde gebeurtenis verstrekt krijgen, dan wordt elke verstrekking geprotocolleerd
 
     Scenario: Er zijn meerdere gebeurtenissen verstrekt aan verschillende abonnees van dezelfde afnemer
-      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op gebeurtenissen van 'Jan'
-      En abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een abonnement op gebeurtenissen van 'Jan'
-      En er is een gebeurtenis gepubliceerd van 'Jan'
-      En abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft de gebeurtenis verstrekt gekregen
-      En abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft de gebeurtenis verstrekt gekregen
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
+      En abonnee 'szw' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
       Dan is 2 keer geprotocolleerd dat een gebeurtenis van 'Jan' is verstrekt aan afnemer 'Gemeente Amsterdam'
 
   Regel: Als een abonnee een gebeurtenis opnieuw verstrekt krijgt, wordt dit opnieuw geprotocolleerd
 
     Scenario: Een abonnee vraagt gebeurtenissen opnieuw en krijgt de gebeurtenis daardoor twee keer
       Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
-      En abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft de gebeurtenis opnieuw verstrekt gekregen
+      En abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft de gebeurtenis van 'Jan' opnieuw verstrekt gekregen
       Dan is 2 keer geprotocolleerd dat een gebeurtenis van 'Jan' is verstrekt aan afnemer 'Gemeente Amsterdam'
+
+  Regel: In de protocollering van een gebeurtenis wordt het Request-ID van het vraagrequest opgenomen
+    De request header 'Request-ID' in het GET request om de gebeurtenissen te vragen 
+    wordt gevuld in kolom request_id van de protocollering.
+
+    Scenario: Een gebeurtenis is verstrekt en de Request-ID wordt opgenomen in de protocollering
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
+      Dan is 'request_id' in de protocollering van 'Jan' gelijk aan de waarde in request header Request-ID van de vraag om gebeurtenissen
+
+  Regel: In de protocollering van een gebeurtenis wordt de afnemerID uit de claims van de afnemer opgenomen
+    De afnemerID uit de claims in het token dat gestuurd is bij het GET request om de gebeurtenissen te vragen
+    wordt gevuld in kolom afnemer_code van de protocollering.
+
+    Scenario: Een gebeurtenis is verstrekt en de afnemerID wordt opgenomen in de protocollering
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
+      Dan is 'afnemer_code' in de protocollering van 'Jan' gelijk aan de waarde in afnemerID in de claims in de token bij de vraag om gebeurtenissen
+
+  Regel: In de protocollering van een gebeurtenis wordt de pl_id uit de claims van de afnemer opgenomen
+    De technische sleutel van de persoonslijst in de database 'pl_id' van de persoon waarvan de gebeurtenis is verstrekt
+    wordt gevuld in kolom pl_id van de protocollering.
+
+    Scenario: Een gebeurtenis is verstrekt en de pl_id wordt opgenomen in de protocollering
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
+      Dan is 'pl_id' in de protocollering van 'Jan' gelijk aan de waarde van de pl_id van 'Jan'
+
+  Regel: In de protocollering van een gebeurtenis wordt verwerkt met waarde false opgenomen
+    De vaste booleanwaarde false
+    wordt gevuld in kolom verwerkt van de protocollering.
+
+    Hiermee is zichtbaar dat de protocollering nog niet verwerkt is door de BRP-V. 
+    Na overzetten van de protocollering naar BRP-V, wordt de waarde true. 
+    Het overzetten naar de BRP-V, en daarmee het wijzigen naar waarde true, valt buiten de scope van de gebeurtenissen API (en dus van deze feature).
+
+    Scenario: Een gebeurtenis is verstrekt en de protocollering krijgt initieel de aanduiding dat deze niet verwerkt is
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
+      Dan is 'verwerkt' in de protocollering van 'Jan' gelijk aan true
+
+  Regel: In de protocollering van gebeurtenistype "nl.brp.verhuisd.naar-buitenland" wordt rubrieken "GX.VH.01, 010120, PAVP01" opgenomen
+    Dit wordt opgenomen in kolommen "request_zoek_rubrieken" en  "request_gevraagde_rubrieken" van de protocollering.
+
+    Uitleg van de opgenomen rubrieken:
+    - GX.VH.01: gebeurtenistype verhuisd.naar-buitenland
+    - 010120: burgerservicenummer
+    - PAVP01: verblijfplaats datumVan
+
+    Scenario: Een verhuisd naar buitenland gebeurtenis is verstrekt en de verstrekte rubrieken worden opgenomen in de protocollering
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een 'verhuisd.naar-buitenland' gebeurtenis verstrekt gekregen van 'Jan'
+      Dan is 'request_zoek_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.VH.01, 010120, PAVP01'
+      En is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.VH.01, 010120, PAVP01'
+
+  Regel: In de protocollering van gebeurtenistype "nl.brp.verhuisd.intergemeentelijk" wordt rubrieken "GX.VH.02, 010120, PAVP01" opgenomen
+    Dit wordt opgenomen in kolommen "request_zoek_rubrieken" en "request_gevraagde_rubrieken" van de protocollering.
+
+    Uitleg van de opgenomen rubrieken:
+    - GX.VH.02: gebeurtenistype verhuisd.intergemeentelijk
+    - 010120: burgerservicenummer
+    - PAVP01: verblijfplaats datumVan
+
+    Scenario: Een verhuisd intergemeentelijk gebeurtenis is verstrekt en de verstrekte rubrieken worden opgenomen in de protocollering
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een 'verhuisd.intergemeentelijk' gebeurtenis verstrekt gekregen van 'Jan'
+      Dan is 'request_zoek_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.VH.02, 010120, PAVP01'
+      En is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.VH.02, 010120, PAVP01'
+
+  Regel: In de protocollering van gebeurtenistype "nl.brp.overleden" wordt rubrieken "GX.OV.01, 010120, 060810" opgenomen
+    Dit wordt opgenomen in kolommen "request_zoek_rubrieken" en "request_gevraagde_rubrieken" van de protocollering.
+
+    Uitleg van de opgenomen rubrieken:
+    - GX.OV.01: gebeurtenistype overleden
+    - 010120: burgerservicenummer
+    - 060810: datum overlijden
+
+    Scenario: Een overleden gebeurtenis is verstrekt en de verstrekte rubrieken worden opgenomen in de protocollering
+      Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een 'overleden' gebeurtenis verstrekt gekregen van 'Jan'
+      Dan is 'request_zoek_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.OV.01, 010120, PAVP01'
+      En is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.OV.01, 010120, PAVP01'
