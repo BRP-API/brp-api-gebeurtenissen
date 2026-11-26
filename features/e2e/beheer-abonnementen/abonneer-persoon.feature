@@ -106,7 +106,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
         | type is gebeurtenistype    | nl.brp.verhuisd.intergemeentelijk      |
         | type bevat script          | <script>alert("hello world");</script> |
 
-  Regel: Een 'AbonnementOpPersoonGeregistreerd' gebeurtenis wordt niet gepubliceerd als de abonnee aboneert voor een persoon die opgeschort met reden 'F' (fout) of 'W' (wissen)
+  Regel: Een 'AbonnementOpPersoonGeregistreerd' gebeurtenis wordt niet gepubliceerd als de abonnee aboneert op een persoon die met reden 'F' (fout) of 'W' (wissen) is opgeschort
     Abstract Scenario: Een abonnee abonneert zich op een gebeurtenissen groep voor een persoon, maar de persoon is opgeschort met reden '<reden>'
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
       En de persoonslijst van 'Jan' is opgeschort met reden '<reden>'
