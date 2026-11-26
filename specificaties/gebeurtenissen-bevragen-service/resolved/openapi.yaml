@@ -439,7 +439,7 @@ components:
             $ref: '#/components/schemas/Foutbericht'
           example:
             type: https://www.rfc-editor.org/rfc/rfc9110.html#name-404-not-found
-            title: Opgevraagde resource bestaat niet.
+            title: Resource bestaat niet.
             status: 404
             detail: The server has not found anything matching the Request-URI.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde

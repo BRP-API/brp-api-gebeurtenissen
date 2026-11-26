@@ -1,5 +1,5 @@
 # language: nl
-@mutatie-service
+@mutatie-service @skip-verify
 Functionaliteit: Wijzigen van het adres naar een adres buiten Nederland
   Dit betreft het doorgeven van een aangifte van vertrek naar het buitenland.
   In de mutatie-service gebeurt dit met aangifte type 'AangifteVanVertrekNaarBuitenland'

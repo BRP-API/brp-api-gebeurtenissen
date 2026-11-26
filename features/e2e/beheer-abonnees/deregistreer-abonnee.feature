@@ -1,7 +1,7 @@
 # language: nl
 Functionaliteit: Deregistreer een abonnee
-  Als afnemer van BRP API Gebeurtenissen
-  wil ik een abonnee kunnen deregistreren
+Als afnemer van BRP API Gebeurtenissen
+wil ik een abonnee kunnen deregistreren
 
   Regel: Alleen een bestaande abonnee kan worden gederegistreerd
 
@@ -32,7 +32,7 @@ Functionaliteit: Deregistreer een abonnee
         | Gemeente Amsterdam | jz          |
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' deregistreert
       Dan is de response '404 Not Found'
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
 
   Regel: Een niet-bestaande abonnee kan niet worden gederegistreerd
 
@@ -40,11 +40,11 @@ Functionaliteit: Deregistreer een abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'dbz' deregistreert
       Dan is de response '404 Not Found'
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'
 
     Scenario: Een afnemer deregistreert een reeds gederegistreerde abonnee
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' geregistreerd
       En de afnemer 'Gemeente Amsterdam' heeft de abonnee 'jz' gederegistreerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' deregistreert
       Dan is de response '404 Not Found'
-      * 'title' met tekst 'Abonnee bestaat niet'
+      * 'title' met tekst 'Resource bestaat niet.'

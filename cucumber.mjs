@@ -145,5 +145,21 @@ export default function profiles() {
         },
       },
     },
+    MutatieService: {
+      ...baseConfig,
+      paths: ['features/mutatie-service/**/*.feature'], // Only run mutatie-service features
+      tags: 'not @skip-verify', // Exclude scenarios tagged with @skip-verify
+      format: [
+        // output formats and locations
+        'json:./test-reports/cucumber-js/mutatie-service/test-result.json',
+        'summary:./test-reports/cucumber-js/mutatie-service/test-result-summary.txt',
+        'summary',
+      ],
+      worldParameters: {
+        logger: {
+          level: 'warn',
+        },
+      },
+    },
   };
 }

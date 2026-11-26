@@ -19,8 +19,8 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
     En de abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een abonnement op de persoon 'Karin' voor de groep 'client'
 
   Regel: Een abonnee kan abonnementen vragen na de id van een eerder ontvangen abonnement
-    Hiervoor gebruikt de abonnee optionele parameter 'cursor'.
-    De abonnee vraagt de volgende 'pagina' aan abonnementen door het id uit het laatste abonnement van de laatst ontvangen pagina in parameter cursor te zetten.
+  Hiervoor gebruikt de abonnee optionele parameter 'cursor'.
+  De abonnee vraagt de volgende 'pagina' aan abonnementen door het id uit het laatste abonnement van de laatst ontvangen pagina in parameter cursor te zetten.
 
     Scenario: De abonnee vraagt abonnementen na de opgegeven gebeurtenis id
       Als abonnee 'jz' van afnemer 'Gemeente Amsterdam' de abonnementen opvraagt na het abonnement op 'Jan' voor de groep 'client'
@@ -72,7 +72,7 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
         | code | name   | reason               |
-        | UUID | cursor | cursor is geen UUID. |
+        | type | cursor | Waarde is geen UUID. |
 
   Regel: Parameter 'cursor' moet een id zijn van een gebeurtenis waar de abonnee een abonnement op heeft
 
@@ -81,8 +81,8 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
-        | code    | name   | reason                                 |
-        | unknown | cursor | cursor is geen correcte abonnement id. |
+        | code       | name   | reason                               |
+        | idNotFound | cursor | Er bestaat geen resource met dit id. |
 
   Regel: Parameter 'limit' moet een getal zijn tussen 1 en 100
 
@@ -95,7 +95,7 @@ Ook kan de abonnee het maximum aantal te ontvangen abonnementen opgeven.
         | <code> | limit | <reason> |
 
       Voorbeelden:
-        | omschrijving     | waarde | code    | reason                           |
-        | is 0             | 0      | minimum | limit is lager dan minimum 1.   |
-        | is negatief      | -3     | minimum | limit is lager dan minimum 1.   |
-        | is hoger dan 100 | 101    | maximum | limit is hoger dan maximum 100. |
+        | omschrijving    | waarde | code    | reason                          |
+        | is 0            | 0      | minimum | Waarde is minder dan minimum 1. |
+        | is negatief     | -3     | minimum | Waarde is minder dan minimum 1. |
+        | is hoger dan 10 | 101    | maximum | Waarde is meer dan maximum 100. |

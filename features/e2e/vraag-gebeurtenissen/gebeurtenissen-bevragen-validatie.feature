@@ -27,8 +27,8 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
-        | code | name   | reason               |
-        | UUID | cursor | cursor is geen UUID. |
+        | code | name   | reason                      |
+        | uuid | cursor | Waarde is geen geldig UUID. |
 
   Regel: Parameter 'cursor' moet een id zijn van een gebeurtenis waar de abonnee een abonnement op heeft
 
@@ -37,8 +37,8 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
-        | code    | name   | reason                                  |
-        | unknown | cursor | cursor is geen correcte gebeurtenis id. |
+        | code       | name   | reason                               |
+        | idNotFound | cursor | Er bestaat geen resource met dit id. |
 
     Scenario: De opgegeven cursor is de id van een gebeurtenis waar de abonnee niet op geabonneerd is
       Gegeven de afnemer 'Gemeente Amsterdam' heeft de abonnee 'szw' geregistreerd
@@ -52,8 +52,8 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
       Dan is de response '400 Bad Request' met de volgende velden
       * 'detail' met tekst 'De foutieve parameter(s) zijn: cursor'
       En heeft de response invalidParams met de volgende gegevens
-        | code    | name   | reason                                  |
-        | unknown | cursor | cursor is geen correcte gebeurtenis id. |
+        | code       | name   | reason                               |
+        | idNotFound | cursor | Er bestaat geen resource met dit id. |
 
   Regel: Parameter 'limit' moet een getal zijn tussen 1 en 100
 
@@ -66,7 +66,7 @@ zodat ik asynchroon de gebeurtenissen waarop ik ben geabonneerd kan verwerken
         | <code> | limit | <reason> |
 
       Voorbeelden:
-        | omschrijving    | waarde | code    | reason                           |
-        | is 0            | 0      | minimum | limit is lager dan minimum 1.   |
-        | is negatief     | -3     | minimum | limit is lager dan minimum 1.   |
-        | is hoger dan 10 | 101    | maximum | limit is hoger dan maximum 100. |
+        | omschrijving    | waarde | code    | reason                          |
+        | is 0            | 0      | minimum | Waarde is minder dan minimum 1. |
+        | is negatief     | -3     | minimum | Waarde is minder dan minimum 1. |
+        | is meer dan 100 | 101    | maximum | Waarde is meer dan maximum 100. |
