@@ -22,3 +22,10 @@ Given('de response met {string}', function (status: string, docString: string) {
   this.responseStatusCode = ProblemDetails.getStatusCode(status);
   this.result = JSON.parse(docString);
 });
+
+/**
+ * Step definition voor het zetten van de instanceUri voor het genereren van de verwachte ProblemDetails.
+ */
+Given('de aangeroepen API endpoint is {string}', function (endpoint: string) {
+  this.context.instanceUri = endpoint;
+});

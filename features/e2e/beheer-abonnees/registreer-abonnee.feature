@@ -12,13 +12,9 @@ zodat de taakapplicatie zelfstandig abonnementen kan beheren en gebeurtenissen o
 
   Regel: Een 'AbonneeGeregistreerd' gebeurtenis wordt gepubliceerd wanneer een abonnee succesvol is geregistreerd
 
-    @skip-verify
     Scenario: Een afnemer registreert een abonnee met een geldige abonneenaam
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
-      Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam |
-        | Gemeente Amsterdam | jz          |
-      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
+      Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met abonneeNaam 'jz' voor afnemer 'Gemeente Amsterdam'
 
   Regel: Opgeven van een abonneeNaam is verplicht
 
@@ -77,11 +73,7 @@ zodat de taakapplicatie zelfstandig abonnementen kan beheren en gebeurtenissen o
       Dan is de response '409 Conflict' met de volgende velden
       * 'title' met tekst 'Aan te maken resource bestaat al.'
 
-    @skip-verify
     Scenario: De opgegeven abonneenaam is al geregistreerd als abonnee door een andere afnemer
       Gegeven de afnemer 'Gemeente Rotterdam' heeft de abonnee 'jz' geregistreerd
       Als de afnemer 'Gemeente Amsterdam' de abonnee 'jz' registreert
-      Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met de volgende velden
-        | afnemerId          | abonneeNaam |
-        | Gemeente Amsterdam | jz          |
-      # Deze Dan stap kan niet worden ge-automate. Met de API van Axon Server kan geen gebeurtenissen worden bevraagd die zijn gepubliceerd conform Dynamic Boundary Context
+      Dan is een 'AbonneeGeregistreerd' gebeurtenis gepubliceerd met abonneeNaam 'jz' voor afnemer 'Gemeente Amsterdam'
