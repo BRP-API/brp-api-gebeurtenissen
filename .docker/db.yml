@@ -1,7 +1,10 @@
 # BRP-testdatabase (rvig_haalcentraal_testdata) en projecties-database
 # (rvig_brpapi_projecties), met optioneel pgAdmin.
 #
-# Eenmalig inloggen bij GHCR (token met scope read:packages):
+# Voor het pullen van private container images is read:packages scope vereist.
+# Voeg deze eerst toe met:
+#   gh auth refresh -s read:packages
+# En log vervolgens in bij GHCR met:
 #   gh auth token | docker login ghcr.io -u <github-gebruikersnaam> --password-stdin
 # Met pgAdmin (http://localhost:5433):
 #   docker compose -f .docker/db.yml --profile tools up -d
