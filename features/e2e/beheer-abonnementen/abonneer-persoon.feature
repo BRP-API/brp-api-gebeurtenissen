@@ -109,9 +109,9 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
   Regel: Een 'AbonnementOpPersoonGeregistreerd' gebeurtenis wordt niet gepubliceerd als de abonnee aboneert voor een persoon die opgeschort met reden 'F' (fout) of 'W' (wissen)
     Abstract Scenario: Een abonnee abonneert zich op een gebeurtenissen groep voor een persoon, maar de persoon is opgeschort met reden '<reden>'
       Gegeven de persoon 'Jan' is geregistreerd in de BRP
-      En de opschortreden van de persoon 'Jan' is gewijzigd met '<reden>'
+      En de persoonslijst van 'Jan' is opgeschort met reden '<reden>'
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
-      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan' terwijl opschortreden is '<reden>'
+      Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan'
       Dan is de response '400 Bad Request' met de volgende velden
       * 'title' met tekst 'De opgegeven persoonidentificatie is niet gevonden.'
 

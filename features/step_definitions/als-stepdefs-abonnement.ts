@@ -268,42 +268,6 @@ When(
 );
 
 When(
-  'de abonnee {string} van afnemer {string} zich abonneert voor persoon {string} terwijl opschortreden is {string}',
-  async function (
-    abonneeNaam: string,
-    afnemerAanduiding: string,
-    persoonAanduiding: string,
-    reden: string,
-  ) {
-    const persoon = await PersoonFactory.create(
-      this.context,
-      persoonAanduiding,
-    );
-
-    const updatedPersoon = await PersoonFactory.update(
-      this.context,
-      persoon,
-      undefined,
-      ['bijhouding_opschort_reden', reden],
-    );
-
-    const afnemer = await AfnemerFactory.create(
-      this.context,
-      afnemerAanduiding,
-    );
-
-    const response = await abonneerPersoon(
-      afnemer,
-      abonneeNaam,
-      updatedPersoon,
-    );
-
-    this.result = response.body;
-    this.responseStatusCode = response.statusCode;
-  },
-);
-
-When(
   'de abonnee {string} van afnemer {string} zich abonneert voor persoon {string} en groep {string} zonder type op te geven',
   async function (
     abonneeNaam: string,

@@ -40,7 +40,7 @@ Given(
 );
 
 Given(
-  'de opschortreden van de persoon {string} is gewijzigd met {string}',
+  'de persoonslijst van {string} is opgeschort met reden {string}',
 
   async function (persoonAanduiding: string, reden: string) {
     const persoon = await PersoonFactory.create(
