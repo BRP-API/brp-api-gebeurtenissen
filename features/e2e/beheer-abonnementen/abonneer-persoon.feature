@@ -113,7 +113,7 @@ Daarmee krijgt de abonnee gebeurtenissen op de persoon voor alle gebeurtenistype
       En de afnemer 'Gemeente Amsterdam' heeft bij de abonnee 'jz' de groep 'client' toegevoegd
       Als de abonnee 'jz' van afnemer 'Gemeente Amsterdam' zich abonneert voor persoon 'Jan'
       Dan is de response '400 Bad Request' met de volgende velden
-      * 'title' met tekst 'De opgegeven persoonidentificatie is niet gevonden.'
+      * 'title' met tekst 'Een of meerdere parameters zijn niet correct.'
 
       Voorbeelden:
         | reden |
