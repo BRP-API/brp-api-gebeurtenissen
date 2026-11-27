@@ -15,7 +15,7 @@ Functionaliteit: Protocolleren van verstrekte gebeurtenissen
   We schrijven de protocollering in de tabel "haalcentraal_gebeurtenissen" in de haalcentraal database.
 
   In de protocollering wordt het elementnummer voor het gebeurtenistype opgenomen plus het elementnummer voor elk meeverstrekt gegeven.
-  De elementnummers worden opgenomen zowel in kolommen "request_zoek_rubrieken" en  "request_gevraagde_rubrieken".
+  De elementnummers worden opgenomen in kolom "request_gevraagde_rubrieken".
 
   Regel: Als een afnemer een gebeurtenis verstrekt krijgt, dan wordt dit geprotocolleerd
     
@@ -100,41 +100,38 @@ Functionaliteit: Protocolleren van verstrekte gebeurtenissen
       Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een gebeurtenis verstrekt gekregen van 'Jan'
       Dan is 'verwerkt' in de protocollering van 'Jan' gelijk aan true
 
-  Regel: In de protocollering van gebeurtenistype "nl.brp.verhuisd.naar-buitenland" wordt rubrieken "GX.VH.01, 010120, PAVP01" opgenomen
-    Dit wordt opgenomen in kolommen "request_zoek_rubrieken" en  "request_gevraagde_rubrieken" van de protocollering.
+  Regel: In de protocollering van gebeurtenistype "nl.brp.verhuisd.naar-buitenland" wordt rubrieken "GXVH01, 010120, PAVP01" opgenomen
+    Dit wordt opgenomen in kolom "request_gevraagde_rubrieken" van de protocollering.
 
     Uitleg van de opgenomen rubrieken:
-    - GX.VH.01: gebeurtenistype verhuisd.naar-buitenland
+    - GXVH01: gebeurtenistype verhuisd.naar-buitenland
     - 010120: burgerservicenummer
     - PAVP01: verblijfplaats datumVan
 
     Scenario: Een verhuisd naar buitenland gebeurtenis is verstrekt en de verstrekte rubrieken worden opgenomen in de protocollering
       Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een 'verhuisd.naar-buitenland' gebeurtenis verstrekt gekregen van 'Jan'
-      Dan is 'request_zoek_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.VH.01, 010120, PAVP01'
-      En is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.VH.01, 010120, PAVP01'
+      Dan is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GXVH01, 010120, PAVP01'
 
-  Regel: In de protocollering van gebeurtenistype "nl.brp.verhuisd.intergemeentelijk" wordt rubrieken "GX.VH.02, 010120, PAVP01" opgenomen
+  Regel: In de protocollering van gebeurtenistype "nl.brp.verhuisd.intergemeentelijk" wordt rubrieken "GXVH02, 010120, PAVP01" opgenomen
     Dit wordt opgenomen in kolommen "request_zoek_rubrieken" en "request_gevraagde_rubrieken" van de protocollering.
 
     Uitleg van de opgenomen rubrieken:
-    - GX.VH.02: gebeurtenistype verhuisd.intergemeentelijk
+    - GXVH02: gebeurtenistype verhuisd.intergemeentelijk
     - 010120: burgerservicenummer
     - PAVP01: verblijfplaats datumVan
 
     Scenario: Een verhuisd intergemeentelijk gebeurtenis is verstrekt en de verstrekte rubrieken worden opgenomen in de protocollering
       Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een 'verhuisd.intergemeentelijk' gebeurtenis verstrekt gekregen van 'Jan'
-      Dan is 'request_zoek_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.VH.02, 010120, PAVP01'
-      En is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.VH.02, 010120, PAVP01'
+      Dan is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GXVH02, 010120, PAVP01'
 
-  Regel: In de protocollering van gebeurtenistype "nl.brp.overleden" wordt rubrieken "GX.OV.01, 010120, 060810" opgenomen
+  Regel: In de protocollering van gebeurtenistype "nl.brp.overleden" wordt rubrieken "GXOV01, 010120, 060810" opgenomen
     Dit wordt opgenomen in kolommen "request_zoek_rubrieken" en "request_gevraagde_rubrieken" van de protocollering.
 
     Uitleg van de opgenomen rubrieken:
-    - GX.OV.01: gebeurtenistype overleden
+    - GXOV01: gebeurtenistype overleden
     - 010120: burgerservicenummer
     - 060810: datum overlijden
 
     Scenario: Een overleden gebeurtenis is verstrekt en de verstrekte rubrieken worden opgenomen in de protocollering
       Gegeven abonnee 'jz' van afnemer 'Gemeente Amsterdam' heeft een 'overleden' gebeurtenis verstrekt gekregen van 'Jan'
-      Dan is 'request_zoek_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.OV.01, 010120, PAVP01'
-      En is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GX.OV.01, 010120, PAVP01'
+      Dan is 'request_gevraagde_rubrieken' in de protocollering van 'Jan' gelijk aan 'GXOV01, 010120, PAVP01'
